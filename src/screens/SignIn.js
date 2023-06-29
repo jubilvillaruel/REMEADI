@@ -44,9 +44,13 @@ export default function SignIn({ navigation }) {
     const togglePasswordVisibility = () => {
       setPasswordVisible(!passwordVisible);
     };
+
+    const goToHome = () => {
+      navigation.navigate('HomeScreen');
+    };
   
     return (
-      <SafeAreaView style={styles.screen}>
+      <SafeAreaView style={styles.screenCenter}>
         <View style={inStyles.signInContainer}>
           <Image style={styles.app_logo} source={appLogo}/>
           <Text style={[styles.colorPrimary, { fontSize: 40, fontWeight: 'bold' }]}>REMEADI</Text>
@@ -67,7 +71,7 @@ export default function SignIn({ navigation }) {
             </View>
   
             <TouchableOpacity style={[styles.bgColorPrimary, inStyles.btnSignIn, styles.dropShadow]} onPress={() => handleSignIn()}>
-              <Text style={[styles.colorWhite, { fontWeight: 'bold' }]}>SIGN IN</Text>
+            <Text style={[styles.colorWhite, { fontWeight: 'bold' }]}>Sign In</Text>
             </TouchableOpacity>
   
             <Text style={inStyles.forgotPassword}><TouchableOpacity><Text>Forgot Password?</Text></TouchableOpacity></Text>
@@ -81,7 +85,7 @@ export default function SignIn({ navigation }) {
   
           <TouchableOpacity style={[styles.bgColorPrimary, inStyles.btnOthers, inStyles.btnGoogle, styles.dropShadow]}>
             <Image source={googleLogo} style={inStyles.icon} />
-            <Text style={[inStyles.btnText]}>CONTINUE WITH GOOGLE</Text>
+            <Text style={[inStyles.btnText]}>Continue with Google</Text>
           </TouchableOpacity>
           <TouchableOpacity style={[styles.bgColorPrimary, inStyles.btnOthers, inStyles.btnFacebook, styles.dropShadow]}>
             <Image source={facebookLogo} style={inStyles.icon} />

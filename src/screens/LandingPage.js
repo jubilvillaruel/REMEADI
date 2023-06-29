@@ -54,7 +54,7 @@ export default function LandingPage({ navigation }) {
   };
 
   return (
-    <SafeAreaView style={styles.screen}>
+    <SafeAreaView style={styles.screenCenter}>
       <View style={[inStyles.container, { paddingBottom: 300 }]}>
         <Image style={styles.app_logo} source={appLogo} />
         <Text style={[styles.colorPrimary, { fontSize: 40, fontWeight: 'bold' }]}>REMEADI</Text>
@@ -68,12 +68,12 @@ export default function LandingPage({ navigation }) {
 
         <View style={[inStyles.container, { padding: 30 }]}>
           <TouchableOpacity style={[inStyles.btnSignUp, styles.bgColorSecondary, styles.dropShadow]} onPress={() => goToSignIn()}>
-            <Text style={[styles.colorWhite, { fontWeight: "bold" }]}>SIGN IN</Text>
+            <Text style={[styles.colorWhite, { fontWeight: "bold" }]}>Sign In</Text>
           </TouchableOpacity>
 
-          <Text style={[styles.colorWhite, { fontWeight: "bold", paddingTop: 10 }]}>{"DON'T HAVE AN ACCOUNT? "}
+          <Text style={[styles.colorWhite, { fontWeight: "bold", paddingTop: 10 }]}>{"Don't have an account? "}
             <TouchableOpacity onPress={() => goToSignUp()}>
-              <Text style={styles.colorSecondary}>SIGN UP</Text>
+              <Text style={styles.colorSecondary}>Sign Up</Text>
             </TouchableOpacity>
           </Text>
         </View>

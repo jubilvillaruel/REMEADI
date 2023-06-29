@@ -25,6 +25,7 @@ import Account from './src/screens/Account';
 // Other Screens
 import MedLibrary from './src/screens/MedLibrary';
 import Guide from './src/screens/Guide';
+import EditAccount from './src/screens/EditAccount';
 
 
 const Stack = createNativeStackNavigator();
@@ -129,6 +130,8 @@ export default function App() {
         {/* Other Screens */}
         <Stack.Screen name='MedLibrary' component={MedLibrary} options={{title: 'Meditation Library'}}/>
         <Stack.Screen name='Guide' component={Guide} options={{title: 'Guide'}}/>
+        <Stack.Screen name='Account' component={Account} options={{headerShown: false}}/>
+        <Stack.Screen name='EditAccount' component={EditAccount} options={{title: 'Edit Account Details'}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

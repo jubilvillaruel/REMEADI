@@ -4,12 +4,20 @@ import Slider from '@react-native-community/slider';
 
 import { styles } from './../../assets/css/Style';
 
-export default function Account() {
+export default function Account({ navigation }) {
     const [vol, setVol] = useState(0);
     const [notif, notifToggle] = useState(true);
     const [vib, vibToggle] = useState(true);
     const toggleNotif = () => notifToggle(previousState => !previousState);
     const toggleVib = () => vibToggle(previousState => !previousState);
+
+    const goToEditAccount = () => {
+        navigation.navigate('EditAccount');
+    };
+
+    const goToSignIn = () => {
+        navigation.navigate('SignIn');
+    };
 
     return (
         <SafeAreaView style={{ top: 0, backgroundColor: '#FFFFFF' }}>
@@ -51,16 +59,13 @@ export default function Account() {
 
             <View style={[ styles.dropShadow, { padding: 20, width: '100%' }]}>
                 <Text style={[ inStyles.title, styles.colorPrimary]}>Profile</Text>
-                <TouchableOpacity style={inStyles.optionContainer}>
-                    <Text style={{ fontWeight: '500' }}>Edit Account Information</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={inStyles.optionContainer}>
-                    <Text style={{ fontWeight: '500' }}>Manage Password</Text>
+                <TouchableOpacity style={inStyles.optionContainer} onPress={goToEditAccount}>
+                    <Text style={{ fontWeight: '500' }}>Edit Account Details</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={inStyles.optionContainer}>
                     <Text style={{ fontWeight: '500' }}>Switch Account</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={inStyles.optionContainer}>
+                <TouchableOpacity style={inStyles.optionContainer} onPress={goToSignIn}>
                     <Text style={{ color: 'red', fontWeight: '500' }}>Sign Out</Text>
                 </TouchableOpacity>
             </View>
@@ -75,7 +80,7 @@ const inStyles = StyleSheet.create({
         padding: 15,
         alignItems: 'center',
         justifyContent: 'space-between',
-        width: 330,
+        width: '100%',
     },
 
     title: {

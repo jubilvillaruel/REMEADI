@@ -121,32 +121,58 @@ export default function Home({ navigation, route }) {
                     <View style={inStyles.sec2SubContainer}>
                         <TouchableOpacity style={[inStyles.btnSubFeature, styles.dropShadow]} onPress={() => (emailVerified === true ? goToLibrary() : remindVerification())}>
                             <Image style={[{ width: 40, height: 40 }]} source={meditation_library}/>
-                            <Text style={[styles.colorPrimary, { fontSize: 12, fontWeight: 'bold', marginTop: 5}]}>{'Meditation\nLibrary'}</Text>
-                            <Text style={[styles.colorPrimary, { fontSize: 12, marginTop: 5}]}>{'Explore practice from different religions'}</Text>
+                            <Text style={[styles.colorPrimary, { fontSize: 12, fontWeight: 'bold', marginTop: 5 }]}>{'Meditation\nLibrary'}</Text>
+                            <Text style={[styles.colorPrimary, { fontSize: 12, marginTop: 5 }]}>{'Explore practice from different religions'}</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={[inStyles.btnSubFeature, styles.dropShadow]}>
+                        <TouchableOpacity style={[inStyles.btnSubFeature, styles.dropShadow]} onPress={showQuoteModal}>
                             <Image style={[{ width: 40, height: 40 }]} source={daily_motivation}/>
-                            <Text style={[styles.colorPrimary, { fontSize: 12, fontWeight: 'bold', marginTop: 5}]}>{'Daily\nMotivation'}</Text>
-                            <Text style={[styles.colorPrimary, { fontSize: 12, marginTop: 5}]}>{'Start your day with a motivational quote'}</Text>
+                            <Text style={[styles.colorPrimary, { fontSize: 12, fontWeight: 'bold', marginTop: 5 }]}>{'Daily\nMotivation'}</Text>
+                            <Text style={[styles.colorPrimary, { fontSize: 12, marginTop: 5 }]}>{'Start your day with a motivational quote'}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
+
+                <Modal visible={quoteVisible} animationType='slide' transparent={true}>
+                    <View style={inStyles.modalContainer}>
+                        <View style={[inStyles.modalContent, styles.dropShadow]}>
+                            <Text>Quote</Text>
+                            <TouchableOpacity style={inStyles.btnCloseModal} onPress={hideQuoteModal}>
+                                <Text>Close</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </Modal>
+
+                <Modal visible={avatarVisible} animationType='slide' transparent={true}>
+                    <View style={inStyles.modalContainer}>
+                        <View style={[inStyles.modalContent, styles.dropShadow]}>
+                            <Text>Avatar</Text>
+                            <TouchableOpacity style={inStyles.btnCloseModal} onPress={hideAvatarModal}>
+                                <Text>Close</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </Modal>
+
             </View>
         </SafeAreaView>
     );
 }
 
+
+
 const inStyles = StyleSheet.create({
     titleContainer: {
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
-        padding: 15,
+        paddingVertical: 15,
+        paddingRight: 15,
         width: 330,
     },
 
     sec1Container: {
         flexDirection: 'row',
-        borderWidth: 2,
+        borderWidth: 1,
         borderRadius: 10,
         borderColor: '#2EC4B6',
         padding: 15,
@@ -170,6 +196,21 @@ const inStyles = StyleSheet.create({
         width: 330,
     },
 
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    modalContent: {
+        width: 300,
+        height: 250,
+        backgroundColor: '#FFFFFF',
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
     progressContainer: {
         flex: 1,
         marginRight: 10,
@@ -183,7 +224,7 @@ const inStyles = StyleSheet.create({
     title: {
         fontSize: 24,
         fontWeight: 'bold',
-        marginBottom: 10,
+        marginBottom: 5,
     },
     subtitle: {
         fontSize: 16,
@@ -192,7 +233,7 @@ const inStyles = StyleSheet.create({
 
     sec1Title: {
         fontSize: 14,
-        paddingBottom: 5,
+        marginBottom: 5,
     },
 
     subtitle: {
@@ -207,8 +248,6 @@ const inStyles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 50,
-        fontSize: 14,
-        fontWeight: 'bold',
     },
 
     btnFeature: {
@@ -218,21 +257,23 @@ const inStyles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 10,
-        fontSize: 14,
-        fontWeight: 'bold',
     },
 
     btnSubFeature: {
         marginLeft: 5,
         width: 160,
-        height: 140,
+        height: 190,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 10,
-        borderWidth: 2,
+        borderWidth: 1,
         borderColor: '#2EC4B6',
-        fontSize: 14,
-        fontWeight: 'bold',
         textAlign: 'center',
+    },
+    
+    btnCloseModal: {
+        position: 'absolute',
+        right: 15,
+        top: 15,
     },
 });
