@@ -26,10 +26,10 @@ export default function Home({ navigation, route }) {
     const [ lastName, setLastName ] = useState('');
 
     const uid = auth.currentUser.uid
+    const emailVerified = auth.currentUser.emailVerified
 
     // const { user } = route.params;
     // const uid = user.uid;
-    // const emailVerified = user.emailVerified
     // console.log("email verified: " + emailVerified)
     // console.log(user)
 

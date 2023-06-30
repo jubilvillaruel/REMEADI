@@ -177,9 +177,9 @@ export default function App() {
             <Stack.Screen name='HomeScreen' component={HomeScreen} initialParams={ {setUserToken} } options={{headerShown: false}}/>
             
             {/* Other Screens */}
-            {/* <Stack.Screen name='MedLibrary' component={MedLibrary} options={{title: 'Meditation Library'}}/>
+            <Stack.Screen name='MedLibrary' component={MedLibrary} options={{title: 'Meditation Library'}}/>
             <Stack.Screen name='Guide' component={Guide} options={{title: 'Guide'}}/>
-            <Stack.Screen name='Account' component={Account} initialParams={ {setUserToken} } options={{headerShown: false}}/> */}
+            {/* <Stack.Screen name='Account' component={Account} initialParams={ {setUserToken} } options={{headerShown: false}}/> */}
             <Stack.Screen name='EditAccount' component={EditAccount} options={{title: 'Edit Account Details'}}/>
         </Stack.Navigator>
         )}
