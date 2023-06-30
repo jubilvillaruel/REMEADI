@@ -9,7 +9,8 @@ import googleLogo from './../../assets/images/google_logo.png';
 import facebookLogo from './../../assets/images/facebook_logo.png';
 import { auth } from '../../firebase';
 
-export default function SignIn({ navigation }) {
+export default function SignIn({ navigation, route }) {
+    const { setUserToken } = route.params;
     const [getUsername, setUsername] = useState("")
     const [getPassword, setPassword] = useState("")
     const [passwordVisible, setPasswordVisible] = useState(false);
@@ -17,13 +18,19 @@ export default function SignIn({ navigation }) {
     useEffect(() => {
       const unsubscribe = auth.onAuthStateChanged(user => {
           if (user) {
-              navigation.navigate("Home", {user, screen:"Home"})
+            console.log('uid: '+ user.uid)
+            setUserToken(user.uid)
+            // navigation.navigate('HomeScreen', {
+            //   screen: 'Home',
+            //   params: { user: user }
+            // });          
           }
       })
       return unsubscribe
     }, [])
     
     const handleSignIn = () => {
+      console.log("sign in pressed")
       auth
         .signInWithEmailAndPassword(getUsername, getPassword)
         .then((userCredential) => {

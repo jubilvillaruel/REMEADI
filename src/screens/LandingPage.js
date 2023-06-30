@@ -1,11 +1,12 @@
 import React from 'react';
 
 import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity } from 'react-native';
-import { useEffect } from 'react'
+// import { useEffect } from 'react'
 
 import { styles } from './../../assets/css/Style';
 import appLogo from '../../assets/images/app_logo.png';
-import { auth, db } from '../../firebase';
+import { auth } from '../../firebase';
+// import { auth, db } from '../../firebase';
 // import { doc, getDoc } from "../../firebase/compat/firestore";
 
 
@@ -26,20 +27,20 @@ export default function LandingPage({ navigation }) {
   //   return unsubscribe;
   // }, []);
   
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
-      if (user) {
-          console.log((user.email) + " user is currently signed in")
-          navigation.navigate('HomeScreen', {
-            screen: 'Home',
-            params: { user: user }
-          });
-      } else {
-        console.log("User not logged into app");
-      }
-    })
-    return unsubscribe
-  }, [])
+  // useEffect(() => {
+  //   const unsubscribe = auth.onAuthStateChanged(user => {
+  //     if (user) {
+  //         console.log((user.email) + " user is currently signed in")
+  //         navigation.navigate('HomeScreen', {
+  //           screen: 'Home',
+  //           params: { user: user }
+  //         });
+  //     } else {
+  //       console.log("User not logged into app");
+  //     }
+  //   })
+  //   return unsubscribe
+  // }, [])
 
   const goToSignIn = () => {
     navigation.navigate('SignIn');

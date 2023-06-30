@@ -20,14 +20,17 @@ const goToMeditationLibrary =() => {
 }
 
 export default function Home({ navigation, route }) {
-    console.log(route.params);
+    const { setUserToken } = route.params;
+    // console.log(route.params);
     const [ firstName, setFirstName ] = useState('');
     const [ lastName, setLastName ] = useState('');
 
-    const { user } = route.params;
-    const uid = user.uid;
-    const emailVerified = user.emailVerified
-    console.log("email verified: " + emailVerified)
+    const uid = auth.currentUser.uid
+
+    // const { user } = route.params;
+    // const uid = user.uid;
+    // const emailVerified = user.emailVerified
+    // console.log("email verified: " + emailVerified)
     // console.log(user)
 
     // fetch user data from firestore
@@ -46,11 +49,10 @@ export default function Home({ navigation, route }) {
                 console.log(error);
             }
         };
-
         fetchUserData();
     }, [db, uid]);
 
-        const [quoteVisible, setQuoteVisible] = useState(false);
+    const [quoteVisible, setQuoteVisible] = useState(false);
     const [avatarVisible, setAvatarVisible] = useState(false);
 
     const showQuoteModal = () => {
@@ -77,9 +79,8 @@ export default function Home({ navigation, route }) {
         <SafeAreaView style={styles.screen}>
             <View>
                 <View style={inStyles.titleContainer}>
-                    <Text style={[styles.colorSecondary, inStyles.title]}>Welcome, { firstName + ' ' + lastName }</Text>
+                    <Text style={[styles.colorSecondary, inStyles.title]}>Welcome, { firstName + " " + lastName }</Text>
                     <Text style={inStyles.subtitle}>May you have a pleasant day</Text>
-                    {/* <Text>{ route.params.user }</Text> */}
                 </View>
 
                 <View style={[inStyles.sec1Container, styles.dropShadow]}>
@@ -94,7 +95,6 @@ export default function Home({ navigation, route }) {
                         <Text style={styles.colorWhite}>Avatar</Text>
                     </TouchableOpacity>
 
-                    {/* <Text>{ route.params.user }</Text> */}
                 </View>
 
                 <View style={inStyles.sec2Container}>

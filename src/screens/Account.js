@@ -5,7 +5,9 @@ import Slider from '@react-native-community/slider';
 import { styles } from './../../assets/css/Style';
 import { auth } from '../../firebase';
 
-export default function Account({ navigation }) {
+export default function Account({ navigation, route }) {
+    const { setUserToken } = route.params;
+
     const [vol, setVol] = useState(0);
     const [notif, notifToggle] = useState(true);
     const [vib, vibToggle] = useState(true);
@@ -13,19 +15,9 @@ export default function Account({ navigation }) {
     const toggleVib = () => vibToggle(previousState => !previousState);
 
     const handleLogout = () => {
-        auth
-        .signOut()
-        .then(
-            () => {
-                navigation.navigate("SignIn")
-                console.log("User has been logged out")
-            }
-        )
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorCode, errorMessage);
-        });
+        console.log('logout pressed')
+        auth.signOut()
+        setUserToken(null)
     }
 
     const goToEditAccount = () => {
