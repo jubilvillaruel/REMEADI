@@ -25,15 +25,16 @@ export default function SignUp({ navigation }) {
   const [firstName, setFirstName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('')
 
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedDate, setSelectedDate] = useState('YYYY/MM/DD');
+  const [selectedDate, setSelectedDate] = useState('');
   const [age, setAge] = useState('');
 
   useEffect(() => {
-    if (modalVisible && selectedDate !== 'YYYY/MM/DD') {
+    if (modalVisible && selectedDate !== '') {
       handleModalClose();
     }
   }, [selectedDate, age]);
@@ -66,9 +67,44 @@ export default function SignUp({ navigation }) {
     setConfirmPasswordVisible(!confirmPasswordVisible);
   };
 
-  const handleSignUp = async () => {
+  const handleForm = () => {
+    // store var a, b, c, and d in a hashmap
+    const userDetails = {};
+    userDetails['First Name'] = firstName;
+    userDetails['Last Name'] = lastName;
+    userDetails['Email'] = email;
+    userDetails['Birthdate'] = selectedDate;
+    userDetails['Password'] = password;
+    userDetails['Confirm Password'] = confirmPassword;
+    userDetails['Age'] = age;
+
+    // loop through each item of the hashmap and check if empty or not
+    Object.keys(userDetails).forEach((key)=>{
+      if ((userDetails[key] == null)||(userDetails[key]=='')){
+        alert(`Please provide ${key}`);
+        throw new Error(`${key} cannot be blank`);
+      }
+    });
+
+    handleConfirmPassword();
+  }
+
+  const handleConfirmPassword = () => {
     console.log('Sign up button pressed!');
-  
+    if (!password ||!confirmPassword){
+      alert('Please enter both passwords');
+      // return false;
+      } else {
+        if (password!== confirmPassword) {
+          alert('The two entered passwords do not match.');
+          // return false;
+        } else {
+          handleSignUp();
+        }
+      }
+    }
+
+  const handleSignUp = async () => {
     // Perform sign up logic here
     try {
       // Create the user with email and password
@@ -166,7 +202,7 @@ export default function SignUp({ navigation }) {
 
           <View style={inStyles.inputGroup}>
             <View style={inStyles.passwordInputContainer}>
-              <TextInput style={inStyles.passwordInput} placeholder="Confirm Password" secureTextEntry={!confirmPasswordVisible} selectionColor="transparent" />
+              <TextInput style={inStyles.passwordInput} placeholder="Confirm Password" secureTextEntry={!confirmPasswordVisible} selectionColor="transparent" onChangeText={setConfirmPassword}/>
 
               <TouchableOpacity style={inStyles.passwordVisibilityButton} onPress={toggleConfirmPasswordVisibility}>
                 {confirmPasswordVisible ? (
@@ -178,7 +214,7 @@ export default function SignUp({ navigation }) {
             </View>
           </View>
 
-          <TouchableOpacity style={[styles.bgColorPrimary, inStyles.btnSignUp, styles.dropShadow]} onPress={handleSignUp}>
+          <TouchableOpacity style={[styles.bgColorPrimary, inStyles.btnSignUp, styles.dropShadow]} onPress={handleForm}>
             <Text style={[styles.colorWhite, { fontWeight: 'bold' }]}>Sign Up</Text>
           </TouchableOpacity>
         </View>
