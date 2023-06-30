@@ -179,7 +179,7 @@ export default function SignUp({ navigation }) {
           </View>
 
           <TouchableOpacity style={[styles.bgColorPrimary, inStyles.btnSignUp, styles.dropShadow]} onPress={handleSignUp}>
-            <Text style={[styles.colorWhite, { fontWeight: 'bold' }]}>SIGN UP</Text>
+            <Text style={[styles.colorWhite, { fontWeight: 'bold' }]}>Sign Up</Text>
           </TouchableOpacity>
         </View>
       </View>

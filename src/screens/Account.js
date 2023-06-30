@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, SafeAreaView, Switch, TouchableOpacity } from '
 import Slider from '@react-native-community/slider';
 
 import { styles } from './../../assets/css/Style';
+import { auth } from '../../firebase';
 
 export default function Account({ navigation }) {
     const [vol, setVol] = useState(0);
@@ -10,6 +11,22 @@ export default function Account({ navigation }) {
     const [vib, vibToggle] = useState(true);
     const toggleNotif = () => notifToggle(previousState => !previousState);
     const toggleVib = () => vibToggle(previousState => !previousState);
+
+    const handleLogout = () => {
+        auth
+        .signOut()
+        .then(
+            () => {
+                navigation.navigate("SignIn")
+                console.log("User has been logged out")
+            }
+        )
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorCode, errorMessage);
+        });
+    }
 
     const goToEditAccount = () => {
         navigation.navigate('EditAccount');
@@ -65,7 +82,7 @@ export default function Account({ navigation }) {
                 <TouchableOpacity style={inStyles.optionContainer}>
                     <Text style={{ fontWeight: '500' }}>Switch Account</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={inStyles.optionContainer} onPress={goToSignIn}>
+                <TouchableOpacity style={inStyles.optionContainer} onPress={handleLogout}>
                     <Text style={{ color: 'red', fontWeight: '500' }}>Sign Out</Text>
                 </TouchableOpacity>
             </View>

@@ -51,7 +51,7 @@ export default function Verification({ navigation }) {
     // };
 
     return (
-        <SafeAreaView style={styles.screen}>
+        <SafeAreaView style={styles.screenCenter}>
             <Text style={inStyles.text}>Please verify your email with the link sent to your email.</Text>
             <Text style={[inStyles.text, { marginTop: 20 }]}>{"Didn't receive the code? "}
                 <TouchableOpacity onPress={handleResendVerification}>

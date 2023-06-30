@@ -29,17 +29,13 @@ export default function LandingPage({ navigation }) {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
       if (user) {
-          // console.log(user.displayName) // null
-          console.log(user.email)
-          console.log(user.emailVerified)
-          console.log(user.uid)
-          // console.log(user.firstname) // undefined
-
           console.log((user.email) + " user is currently signed in")
           navigation.navigate('HomeScreen', {
             screen: 'Home',
             params: { user: user }
           });
+      } else {
+        console.log("User not logged into app");
       }
     })
     return unsubscribe

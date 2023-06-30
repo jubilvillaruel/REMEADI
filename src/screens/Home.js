@@ -7,21 +7,6 @@ import meditation_library from '../../assets/images/home/meditation_library.png'
 import daily_motivation from '../../assets/images/home/daily_motivation.png';
 import { auth, db } from '../../firebase';
 
-// const handleLogout = () => {
-//     auth
-//     .signOut()
-//     .then(
-//         () => {
-//             navigation.navigate("SignIn")
-//         }
-//     )
-//     .catch((error) => {
-//         const errorCode = error.code;
-//         const errorMessage = error.message;
-//         console.log(errorCode, errorMessage);
-//     });
-// }
-
 const remindVerification = () => {
     alert('Please verify your account')
 }

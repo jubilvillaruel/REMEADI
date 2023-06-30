@@ -17,10 +17,6 @@ export default function SignIn({ navigation }) {
     useEffect(() => {
       const unsubscribe = auth.onAuthStateChanged(user => {
           if (user) {
-              // console.log(user.displayName)
-              // console.log(user.email)
-              // console.log(user.emailVerified)
-              // console.log(user.uid)
               navigation.navigate("Home", {user, screen:"Home"})
           }
       })
