@@ -28,6 +28,7 @@ import Guide from './src/screens/Guide';
 import EditAccount from './src/screens/EditAccount';
 import Splash from './src/screens/Splash';
 import { auth } from './firebase';
+import ManageQuote from './src/screens/ManageQuote';
 
 // Google Sign in
 // import {
@@ -161,6 +162,7 @@ export default function App() {
             <Stack.Screen name="SignIn" component={SignIn} initialParams={ {setUserToken} } options={{title: 'Sign In'}}/>
             <Stack.Screen name="SignUp" component={SignUp} initialParams={ {setUserToken} } options={{title: 'Sign Up'}}/>
             <Stack.Screen name="Verification" component={Verification} options={{title: 'Verification'}}/>
+            <Stack.Screen name="ManageQuote" component={ManageQuote} options={{title: 'ADMIN - Manage Quote'}}/>
         </Stack.Navigator>
         ) : (
           <Stack.Navigator initialRouteName="HomeScreen" screenOptions={{
