@@ -25,6 +25,9 @@ export default function Home({ navigation, route }) {
     const [ firstName, setFirstName ] = useState('');
     const [ lastName, setLastName ] = useState('');
 
+    const [ quote, setQuote ] = useState('')
+    const [ source, setSource ] = useState('')
+
     const uid = auth.currentUser.uid
     const emailVerified = auth.currentUser.emailVerified
 
@@ -50,6 +53,25 @@ export default function Home({ navigation, route }) {
             }
         };
         fetchUserData();
+    }, [db, uid]);
+
+    // fetch daily motivation - on going
+    useEffect(() => {
+        const fetchMotivationData = async () => {
+            try {
+                const motivationDoc = await db.collection("motivation").doc("NXHKiHiYxL7NZDvrpnk9").get();
+                console.log(((await db.collection("motivation").get()).docs))
+                const motivationData = motivationDoc.data(); 
+                if (motivationData) {
+                    // fetch quote
+                    setQuote(motivationData.quote);
+                    setSource(motivationData.source);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchMotivationData();
     }, [db, uid]);
 
     const [quoteVisible, setQuoteVisible] = useState(false);
@@ -120,7 +142,8 @@ export default function Home({ navigation, route }) {
                 <Modal visible={quoteVisible} animationType='slide' transparent={true}>
                     <View style={inStyles.modalContainer}>
                         <View style={[inStyles.modalContent, styles.dropShadow]}>
-                            <Text>Quote</Text>
+                            <Text>"{quote}"</Text>
+                            <Text>{source}</Text>
                             <TouchableOpacity style={inStyles.btnCloseModal} onPress={hideQuoteModal}>
                                 <Text>Close</Text>
                             </TouchableOpacity>

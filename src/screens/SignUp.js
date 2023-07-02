@@ -8,18 +8,18 @@ import hidePass from '../../assets/images/open_eye.png';
 import calendar from '../../assets/images/calendar.png';
 import { auth, db } from '../../firebase';
 
-export default function SignUp({ navigation }) {
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user && user.emailVerified) {
-        // User is signed in and email is verified, redirect to Home Screen
-        navigation.navigate('Home');
-      }
-    });
+export default function SignUp({ navigation, route }) {
+  const { setUserToken } = route.params;
 
-    // Clean up the subscription
-    return unsubscribe;
-  }, []);
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(user => {
+      if (user) {
+        console.log('uid: '+ user.uid)
+        setUserToken(user.uid)      
+      }
+    })
+    return unsubscribe
+  }, [])
 
   const [lastName, setLastName] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -123,7 +123,7 @@ export default function SignUp({ navigation }) {
       // Send email verification
       await user.sendEmailVerification({
         handleCodeInApp: true,
-        url: 'https://spiritwalk-89b9f.firebaseapp.com/'
+        url: 'https://remeadi.firebaseapp.com/'
       });
 
       // Show success message

@@ -113,11 +113,9 @@ export default function App() {
     try {
       // custom logic
       await sleep(2000);
-      const token = null;
-      setUserToken(token);
+      await auth.currentUser !== null ? setUserToken(auth.currentUser.uid)  : setUserToken(null)
     } finally {
       setIsLoading(false);
-      // console.log(userToken)
     }
   };
 
@@ -153,7 +151,7 @@ export default function App() {
         }}>
             <Stack.Screen name="Landing" component={Landing} options={{headerShown: false}}/>
             <Stack.Screen name="SignIn" component={SignIn} initialParams={ {setUserToken} } options={{title: 'Sign In'}}/>
-            <Stack.Screen name="SignUp" component={SignUp} options={{title: 'Sign Up'}}/>
+            <Stack.Screen name="SignUp" component={SignUp} initialParams={ {setUserToken} } options={{title: 'Sign Up'}}/>
             <Stack.Screen name="Verification" component={Verification} options={{title: 'Verification'}}/>
         </Stack.Navigator>
         ) : (

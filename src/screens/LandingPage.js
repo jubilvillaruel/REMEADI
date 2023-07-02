@@ -1,47 +1,16 @@
 import React from 'react';
 
 import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity } from 'react-native';
-// import { useEffect } from 'react'
 
 import { styles } from './../../assets/css/Style';
 import appLogo from '../../assets/images/app_logo.png';
 import { auth } from '../../firebase';
-// import { auth, db } from '../../firebase';
-// import { doc, getDoc } from "../../firebase/compat/firestore";
-
 
 LandingPage.navigationOptions = {
   headerShown: false,
 };
 
 export default function LandingPage({ navigation }) {
-  // useEffect(() => {
-  //   const unsubscribe = auth.onAuthStateChanged((user) => {
-  //     if (user && user.emailVerified) {
-  //       // User is signed in and email is verified, redirect to Home Screen
-  //       navigation.navigate('HomeScreen');
-  //     }
-  //   });
-
-  //   // Clean up the subscription
-  //   return unsubscribe;
-  // }, []);
-  
-  // useEffect(() => {
-  //   const unsubscribe = auth.onAuthStateChanged(user => {
-  //     if (user) {
-  //         console.log((user.email) + " user is currently signed in")
-  //         navigation.navigate('HomeScreen', {
-  //           screen: 'Home',
-  //           params: { user: user }
-  //         });
-  //     } else {
-  //       console.log("User not logged into app");
-  //     }
-  //   })
-  //   return unsubscribe
-  // }, [])
-
   const goToSignIn = () => {
     navigation.navigate('SignIn');
   };
