@@ -29,6 +29,14 @@ import EditAccount from './src/screens/EditAccount';
 import Splash from './src/screens/Splash';
 import { auth } from './firebase';
 
+// Google Sign in
+// import {
+  // GoogleSignin,
+// } from '@react-native-google-signin/google-signin';
+
+// GoogleSignin.configure({
+//   webClientId: '282078135356-unkclsh6fudgjo3cci3acfb3g2d4hska.apps.googleusercontent.com',
+// });
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();

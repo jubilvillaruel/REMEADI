@@ -90,6 +90,7 @@ export default function SignIn({ navigation, route }) {
             <Image source={googleLogo} style={inStyles.icon} />
             <Text style={[inStyles.btnText]}>Continue with Google</Text>
           </TouchableOpacity>
+
           <TouchableOpacity style={[styles.bgColorPrimary, inStyles.btnOthers, inStyles.btnFacebook, styles.dropShadow]}>
             <Image source={facebookLogo} style={inStyles.icon} />
             <Text style={[styles.colorWhite, inStyles.btnText]}>CONTINUE WITH FACEBOOK</Text>
