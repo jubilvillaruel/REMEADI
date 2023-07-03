@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, Image, TextInput, TouchableOpacity, Modal } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Image, TextInput, TouchableOpacity, Modal, Picker } from 'react-native';
+import { PrimaryButton } from '../components/buttons';
 import DatePicker from 'react-native-modern-datepicker';
 
 import { styles } from '../../assets/css/Style';
@@ -12,13 +13,13 @@ export default function SignUp({ navigation, route }) {
   const { setUserToken } = route.params;
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
-      if (user) {
-        console.log('uid: '+ user.uid)
-        setUserToken(user.uid)      
-      }
-    })
-    return unsubscribe
+    // const unsubscribe = auth.onAuthStateChanged(user => {
+    //   if (user) {
+    //     console.log('uid: '+ user.uid)
+    //     setUserToken(user.uid)      
+    //   }
+    // })
+    // return unsubscribe
   }, [])
 
   const [lastName, setLastName] = useState('');
@@ -29,18 +30,20 @@ export default function SignUp({ navigation, route }) {
 
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
-  const [modalVisible, setModalVisible] = useState(false);
+  const [calendarVisible, setCalendarVisible] = useState(false);
+  const [msgVisible, setMsgVisible] = useState(false);
   const [selectedDate, setSelectedDate] = useState('');
   const [age, setAge] = useState('');
+  const [religion, setReligion] = useState('Christianity')
 
   useEffect(() => {
-    if (modalVisible && selectedDate !== '') {
-      handleModalClose();
+     if (calendarVisible && selectedDate !== '') {
+      hideCalendarModal();
     }
   }, [selectedDate, age]);
 
-  const toggleModalVisibility = () => {
-    setModalVisible(!modalVisible);
+  const showCalendarModal = () => {
+    setCalendarVisible(true);
   };
 
   const handleDateSelect = (date) => {
@@ -55,8 +58,24 @@ export default function SignUp({ navigation, route }) {
     }
   };
 
-  const handleModalClose = () => {
-    setModalVisible(false);
+  const hideCalendarModal = () => {
+    setCalendarVisible(false);
+  };
+
+  const showMsgModal = () => {
+    setMsgVisible(true);
+  };
+
+  const hideMsgModal = () => {
+    setMsgVisible(false);
+    // redirect user to the home screen
+    const unsubscribe = auth.onAuthStateChanged(user => {
+      if (user) {
+        console.log('uid: '+ user.uid)
+        setUserToken(user.uid)      
+      }
+    })
+    return unsubscribe
   };
 
   const togglePasswordVisibility = () => {
@@ -118,6 +137,7 @@ export default function SignUp({ navigation, route }) {
         lastName,
         selectedDate,
         email,
+        religion
       });
       
       // Send email verification
@@ -127,11 +147,7 @@ export default function SignUp({ navigation, route }) {
       });
 
       // Show success message
-      alert("Verification Sent!");
-      
-      // redirect the user to the verification page while waiting for the email verification
-      console.log(user.email + " waiting for verification");
-      // navigation.navigate('Verification', );
+      showMsgModal()
 
     } catch (error) {
       const errorCode = error.code;
@@ -146,28 +162,39 @@ export default function SignUp({ navigation, route }) {
       <View style={inStyles.signUpContainer}>
         <View>
           <View style={inStyles.inputGroup}>
-            <TextInput style={inStyles.input} placeholder="Last Name" selectionColor="transparent" value={lastName} onChangeText={setLastName}/>
+            <TextInput style={inStyles.input} placeholder="Last Name" selectionColor='transparent' value={lastName} onChangeText={setLastName}/>
           </View>
 
           <View style={inStyles.inputGroup}>
-            <TextInput style={inStyles.input} placeholder="First Name" selectionColor="transparent" value={firstName} onChangeText={setFirstName}/>
+            <TextInput style={inStyles.input} placeholder="First Name" selectionColor='transparent' value={firstName} onChangeText={setFirstName}/>
           </View>
 
           <View style={inStyles.inputGroup}>
-            <TextInput style={inStyles.input} placeholder="Email" selectionColor="transparent" value={email} onChangeText={setEmail} keyboardType="email-address"/>
+            <TextInput style={inStyles.input} placeholder="Email" selectionColor='transparent' value={email} onChangeText={setEmail} keyboardType="email-address"/>
           </View>
+
+          <View style={inStyles.inputGroup}>
+            <Picker style={inStyles.input} selectedValue={religion} onValueChange={(itemValue, itemIndex) => setReligion(itemValue)}>
+              <Picker.Item label='Christianity' value='Christianity'/>
+              <Picker.Item label='Islam' value='Islam'/>
+              <Picker.Item label='Hinduism' value='Hinduism'/>
+              <Picker.Item label='Buddhism' value='Buddhism'/>
+              <Picker.Item label='Judaism' value='Judaism'/>
+            </Picker>
+          </View>
+          
 
           <View style={{ flexDirection: 'row' }}>
             <View style={[inStyles.inputGroup, { width: 180 }]}>
               <View style={[inStyles.input, inStyles.datePickerContainer]}>
                 <TextInput
                   style={inStyles.datePickerInput}
-                  selectionColor="transparent"
+                  selectionColor='transparent'
                   placeholder="Birthdate"
                   value={selectedDate}
                   editable={false}
                 />
-                <TouchableOpacity style={[{ position: 'absolute', right: 15 }]} onPress={toggleModalVisibility}>
+                <TouchableOpacity style={[{ position: 'absolute', right: 15 }]} onPress={showCalendarModal}>
                   <Image style={[{ width: 18, height: 18 }]} source={calendar} />
                 </TouchableOpacity>
               </View>
@@ -178,7 +205,7 @@ export default function SignUp({ navigation, route }) {
               <TextInput
                 style={inStyles.input}
                 placeholder="Age"
-                selectionColor="transparent"
+                selectionColor='transparent'
                 keyboardType="numeric"
                 value={age}
                 editable={false}
@@ -189,7 +216,7 @@ export default function SignUp({ navigation, route }) {
 
           <View style={inStyles.inputGroup}>
             <View style={inStyles.passwordInputContainer}>
-              <TextInput style={inStyles.passwordInput} placeholder="Password" secureTextEntry={!passwordVisible} selectionColor="transparent" onChangeText={setPassword}/>
+              <TextInput style={inStyles.passwordInput} placeholder="Password" secureTextEntry={!passwordVisible} selectionColor='transparent' onChangeText={setPassword}/>
               <TouchableOpacity style={inStyles.passwordVisibilityButton} onPress={togglePasswordVisibility}>
                 {passwordVisible ? (
                   <Image style={[{ width: 19, height: 14 }]} source={hidePass} />
@@ -202,7 +229,7 @@ export default function SignUp({ navigation, route }) {
 
           <View style={inStyles.inputGroup}>
             <View style={inStyles.passwordInputContainer}>
-              <TextInput style={inStyles.passwordInput} placeholder="Confirm Password" secureTextEntry={!confirmPasswordVisible} selectionColor="transparent" onChangeText={setConfirmPassword}/>
+              <TextInput style={inStyles.passwordInput} placeholder="Confirm Password" secureTextEntry={!confirmPasswordVisible} selectionColor='transparent' onChangeText={setConfirmPassword}/>
 
               <TouchableOpacity style={inStyles.passwordVisibilityButton} onPress={toggleConfirmPasswordVisibility}>
                 {confirmPasswordVisible ? (
@@ -214,14 +241,22 @@ export default function SignUp({ navigation, route }) {
             </View>
           </View>
 
-          <TouchableOpacity style={[styles.bgColorPrimary, inStyles.btnSignUp, styles.dropShadow]} onPress={handleForm}>
+          {/* <TouchableOpacity style={[styles.bgColorPrimary, inStyles.btnSignUp, styles.dropShadow]} onPress={handleForm}>
             <Text style={[styles.colorWhite, { fontWeight: 'bold' }]}>Sign Up</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
+          <PrimaryButton
+            text='Sign Up'
+            textColor='#FFFFFF'
+            width={280}
+            height={40}
+            borderRad={20} 
+            onPress={handleForm}>
+          </PrimaryButton>
         </View>
       </View>
 
-      <TouchableOpacity onPress={handleModalClose}>
-        <Modal visible={modalVisible} animationType="slide" transparent={true} onRequestClose={handleModalClose}>
+      <TouchableOpacity onPress={hideCalendarModal}>
+        <Modal visible={calendarVisible} animationType="slide" transparent={true} onRequestClose={hideCalendarModal}>
           <View style={inStyles.modalContainer}>
             <View style={{ width: 300, height: 300 }}>
               <DatePicker mode="calendar" onSelectedChange={handleDateSelect} />
@@ -229,6 +264,22 @@ export default function SignUp({ navigation, route }) {
           </View>
         </Modal>
       </TouchableOpacity>
+
+      <Modal visible={msgVisible} animationType='slide' transparent={true}>
+          <View style={inStyles.modalContainer}>
+              <View style={[inStyles.modalContent, styles.dropShadow]}>
+                  <Text style={{ textAlign: 'center' }}>A link has been sent to your email! Open to verify your account.</Text>
+                  <PrimaryButton
+                    text='Close'
+                    textColor='#FFFFFF'
+                    width={280}
+                    height={40}
+                    borderRad={20} 
+                    onPress={hideMsgModal}>
+                  </PrimaryButton>
+              </View>
+          </View>
+      </Modal>
     </SafeAreaView>
   );
 }
@@ -331,6 +382,15 @@ const inStyles = StyleSheet.create({
     fontSize: 14,
   },
   signUpContainer: {
+    alignItems: 'center',
+  },
+  modalContent: {
+    width: 300,
+    height: 130,
+    padding: 15,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 10,
+    justifyContent: 'center',
     alignItems: 'center',
   },
 });

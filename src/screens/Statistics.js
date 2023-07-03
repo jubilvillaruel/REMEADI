@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Image } from 'react-native';
 import PieChart from 'react-native-pie-chart';
 
 import { styles } from './../../assets/css/Style';
@@ -31,13 +31,15 @@ export default function Statistics() {
             <View style={{ width: '100%' }}>
                 <View style={[styles.sectionContainer, styles.dropShadow, { gap: 5 }]}>
                     <Text style={[styles.colorPrimary, styles.bold]}>Sessions per Religion</Text>
-                    <PieChart
-                        widthAndHeight={widthAndHeight}
-                        series={series}
-                        sliceColor={sliceColor}
-                        coverRadius={0.60}
-                        style={{ marginBottom: 10 }}
-                    />
+                    <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                        <Image style={[{ width: 40, height: 30, position: 'absolute' }]} source={appLogo}/>
+                        <PieChart
+                            widthAndHeight={widthAndHeight}
+                            series={series}
+                            sliceColor={sliceColor}
+                            coverRadius={0.60}
+                        />
+                    </View>
                     <View style={inStyles.legendContainer}>
                         <Text style={[styles.bold, { color: '#04BFDA' }]}>○ Christianity    </Text>
                         <Text style={[styles.bold, { color: '#8FD3D2' }]}>○ Islam   </Text>

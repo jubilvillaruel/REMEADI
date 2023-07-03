@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, ScrollView, Image } from 'react-native';
 
 import { styles } from './../../assets/css/Style';
+import { MilestoneCard, MilestoneLockedCard } from '../components/cards';
 
 import locked from '../../assets/images/locked.png';
 
@@ -72,60 +73,22 @@ export default function Milestones() {
 
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={inStyles.milestoneContainer}>
-                    <TouchableOpacity style={[inStyles.milestoneItem, styles.bgColorPrimary]}>
-                        <View style={inStyles.milestoneContent}>
-                            <Text style={[styles.colorWhite, { fontSize: 16, fontWeight: 'bold' }]}>Milestone Title</Text>
-                            <Text style={styles.colorWhite}>Description</Text>
-                        </View>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={[inStyles.milestoneLockedItem]}>
-                        <View style={inStyles.milestoneContent}>
-                            <Text style={[styles.colorWhite, { fontSize: 16, fontWeight: 'bold' }]}>Milestone Title</Text>
-                            <Text style={styles.colorWhite}>Description</Text>
-                        </View>
-                        <Image style={[{ width: 12, height: 16 }]} source={locked}/>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={[inStyles.milestoneLockedItem]}>
-                        <View style={inStyles.milestoneContent}>
-                            <Text style={[styles.colorWhite, { fontSize: 16, fontWeight: 'bold' }]}>Milestone Title</Text>
-                            <Text style={styles.colorWhite}>Description</Text>
-                        </View>
-                        <Image style={[{ width: 12, height: 16 }]} source={locked}/>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={[inStyles.milestoneLockedItem]}>
-                        <View style={inStyles.milestoneContent}>
-                            <Text style={[styles.colorWhite, { fontSize: 16, fontWeight: 'bold' }]}>Milestone Title</Text>
-                            <Text style={styles.colorWhite}>Description</Text>
-                        </View>
-                        <Image style={[{ width: 12, height: 16 }]} source={locked}/>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={[inStyles.milestoneLockedItem]}>
-                        <View style={inStyles.milestoneContent}>
-                            <Text style={[styles.colorWhite, { fontSize: 16, fontWeight: 'bold' }]}>Milestone Title</Text>
-                            <Text style={styles.colorWhite}>Description</Text>
-                        </View>
-                        <Image style={[{ width: 12, height: 16 }]} source={locked}/>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={[inStyles.milestoneLockedItem]}>
-                        <View style={inStyles.milestoneContent}>
-                            <Text style={[styles.colorWhite, { fontSize: 16, fontWeight: 'bold' }]}>Milestone Title</Text>
-                            <Text style={styles.colorWhite}>Description</Text>
-                        </View>
-                        <Image style={[{ width: 12, height: 16 }]} source={locked}/>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={[inStyles.milestoneLockedItem]}>
-                        <View style={inStyles.milestoneContent}>
-                            <Text style={[styles.colorWhite, { fontSize: 16, fontWeight: 'bold' }]}>Milestone Title</Text>
-                            <Text style={styles.colorWhite}>Description</Text>
-                        </View>
-                        <Image style={[{ width: 12, height: 16 }]} source={locked}/>
-                    </TouchableOpacity>
+                    <MilestoneCard title='Milestone Title' desc='Description'></MilestoneCard>
+                    <MilestoneCard title='Milestone Title' desc='Description'></MilestoneCard>
+                    <MilestoneCard title='Milestone Title' desc='Description'></MilestoneCard>
+                    <MilestoneCard title='Milestone Title' desc='Description'></MilestoneCard>
+                    <MilestoneCard title='Milestone Title' desc='Description'></MilestoneCard>
+                    <MilestoneCard title='Milestone Title' desc='Description'></MilestoneCard>
+                    <MilestoneCard title='Milestone Title' desc='Description'></MilestoneCard>
+                    <MilestoneCard title='Milestone Title' desc='Description'></MilestoneCard>
+                    <MilestoneLockedCard title='Milestone Title' desc='Description' icon={locked}></MilestoneLockedCard>
+                    <MilestoneLockedCard title='Milestone Title' desc='Description' icon={locked}></MilestoneLockedCard>
+                    <MilestoneLockedCard title='Milestone Title' desc='Description' icon={locked}></MilestoneLockedCard>
+                    <MilestoneLockedCard title='Milestone Title' desc='Description' icon={locked}></MilestoneLockedCard>
+                    <MilestoneLockedCard title='Milestone Title' desc='Description' icon={locked}></MilestoneLockedCard>
+                    <MilestoneLockedCard title='Milestone Title' desc='Description' icon={locked}></MilestoneLockedCard>
+                    <MilestoneLockedCard title='Milestone Title' desc='Description' icon={locked}></MilestoneLockedCard>
+                    <MilestoneLockedCard title='Milestone Title' desc='Description' icon={locked}></MilestoneLockedCard>
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -183,28 +146,5 @@ const inStyles = StyleSheet.create({
 
     milestoneContainer: {
         padding: 15,
-    },
-
-    milestoneItem: {
-        flexDirection: 'row',
-        borderRadius: 10,
-        padding: 15,
-        margin: 5,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-
-    milestoneLockedItem: {
-        flexDirection: 'row',
-        borderRadius: 10,
-        padding: 15,
-        margin: 5,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#8FD3D2',
-    },
-
-    milestoneContent: {
-        flex: 1,
     },
 });

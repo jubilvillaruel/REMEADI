@@ -1,5 +1,6 @@
 import { StyleSheet, Text, SafeAreaView, View, Image, TextInput, TouchableOpacity } from 'react-native';
 import React, { useState, useEffect }  from 'react'
+import { IconButton, PrimaryButton } from '../components/buttons';
 
 import { styles } from '../../assets/css/Style';
 import appLogo from '../../assets/images/app_logo.png';
@@ -86,43 +87,32 @@ export default function SignIn({ navigation, route }) {
             </View>
           </View>
   
-          <TouchableOpacity style={[styles.bgColorPrimary, inStyles.btnOthers, inStyles.btnGoogle, styles.dropShadow]}>
-            <Image source={googleLogo} style={inStyles.icon} />
-            <Text style={[inStyles.btnText]}>Continue with Google</Text>
-          </TouchableOpacity>
+          <IconButton
+            text='Continue with Google'
+            textColor='#000000'
+            width={280}
+            height={40}
+            borderRad={20}
+            icon={googleLogo}
+            borderC='#000000'
+            borderW={2}>
+          </IconButton>
 
-          <TouchableOpacity style={[styles.bgColorPrimary, inStyles.btnOthers, inStyles.btnFacebook, styles.dropShadow]}>
-            <Image source={facebookLogo} style={inStyles.icon} />
-            <Text style={[styles.colorWhite, inStyles.btnText]}>CONTINUE WITH FACEBOOK</Text>
-          </TouchableOpacity>
+          <IconButton
+            text='Continue with Facebook'
+            textColor='#FFFFFF'
+            bgColor='#1877F2'
+            width={280}
+            height={40}
+            borderRad={20}
+            icon={facebookLogo}>
+          </IconButton>
         </View>
       </SafeAreaView>
     );
   }
 
   const inStyles = StyleSheet.create({
-    container: {
-      width: '100%',
-      height: 65,
-      backgroundColor: '#fff',
-      padding: 10,
-      alignItems: 'center',
-      justifyContent: 'center',
-      alignSelf: 'center',
-      flexDirection: 'row',
-      position: 'absolute',
-      top: 0,
-    },
-    backButton: {
-      position: 'absolute',
-      left: 20,
-      top: '50%',
-      transform: [{ translateY: -10 }],
-    },
-    backButtonText: {
-      fontSize: 16,
-      color: '#000',
-    },
     input: {
       marginTop: 15,
       width: 280,

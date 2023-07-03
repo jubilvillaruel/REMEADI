@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Image, ScrollView, ImageBackground } from 'react-native';
 
 import { styles } from '../../assets/css/Style';
+import { LibraryCard } from '../components/cards';
 
 // Religion logos
 import christianity_logo from '../../assets/images/religion/christianity_logo.png';
@@ -38,10 +39,14 @@ import judaism_1 from '../../assets/images/judaism/judaism_1.png';
 import judaism_2 from '../../assets/images/judaism/judaism_2.png';
 import judaism_3 from '../../assets/images/judaism/judaism_3.png';
 
-export default function MedLibrary() {
+export default function MedLibrary( {navigation}) {
+
+  const goToGuide = () => {
+    navigation.navigate('Guide');
+  };
 
   return (
-    <SafeAreaView style={styles.screen}>
+    <SafeAreaView style={styles.screenCenter}>
       <ScrollView showsVerticalScrollIndicator={false} style={[{ marginBottom: 15 }]}>
         <View style={[{ marginTop: 10 }]}>
           <View style={inStyles.religionContainer}>
@@ -52,49 +57,13 @@ export default function MedLibrary() {
           </View>
 
           <View style={inStyles.medContainer}>
-            <TouchableOpacity>
-              <View>
-                <ImageBackground style={[inStyles.medItem]} source={christianity_1}>
-                  <View style={inStyles.medContent}>
-                    <Text style={[ styles.colorWhite, { fontSize: 13, fontWeight: 'bold' }]}>Lectio Divina</Text>
-                    <Text style={[ styles.colorWhite, { fontSize: 10 }]}>Spiritual</Text>
-                  </View>
-                </ImageBackground>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <View>
-                <ImageBackground style={[inStyles.medItem]} source={christianity_2}>
-                  <View style={inStyles.medContent}>
-                    <Text style={[ styles.colorWhite, { fontSize: 13, fontWeight: 'bold' }]}>Bible Meditation</Text>
-                    <Text style={[ styles.colorWhite, { fontSize: 10 }]}>Mantra</Text>
-                  </View>
-                </ImageBackground>
-              </View>
-            </TouchableOpacity>
+            <LibraryCard title='Lectio Divina' type='Spiritual' typeSize={10} image={christianity_1} onPress={goToGuide}></LibraryCard>
+            <LibraryCard title='Bible Meditation' type='Mantra' typeSize={10} image={christianity_2} onPress={goToGuide}></LibraryCard>
           </View>
 
           <View style={inStyles.medContainer}>
-            <TouchableOpacity>
-              <View>
-                <ImageBackground style={[inStyles.medItem]} source={christianity_3}>
-                  <View style={inStyles.medContent}>
-                    <Text style={[ styles.colorWhite, { fontSize: 13, fontWeight: 'bold' }]}>Examen</Text>
-                    <Text style={[ styles.colorWhite, { fontSize: 10 }]}>Mindfulness, Visualization</Text>
-                  </View>
-                </ImageBackground>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <View>
-                <ImageBackground style={[inStyles.medItem]} source={christianity_4}>
-                  <View style={inStyles.medContent}>
-                    <Text style={[ styles.colorWhite, { fontSize: 13, fontWeight: 'bold' }]}>Rosary</Text>
-                    <Text style={[ styles.colorWhite, { fontSize: 10 }]}>Focused, Loving-kindness</Text>
-                  </View>
-                </ImageBackground>
-              </View>
-            </TouchableOpacity>
+            <LibraryCard title='Examen' type='Mindfulness, Visualization' typeSize={10} image={christianity_3} onPress={goToGuide}></LibraryCard>
+            <LibraryCard title='Rosary' type='Focused, Loving-kindness' typeSize={10} image={christianity_4} onPress={goToGuide}></LibraryCard>
           </View>
         </View>
 
@@ -107,49 +76,13 @@ export default function MedLibrary() {
           </View>
 
           <View style={inStyles.medContainer}>
-            <TouchableOpacity>
-              <View>
-                <ImageBackground style={[inStyles.medItem]} source={islam_1}>
-                  <View style={inStyles.medContent}>
-                    <Text style={[ styles.colorWhite, { fontSize: 13, fontWeight: 'bold' }]}>Taffakur</Text>
-                    <Text style={[ styles.colorWhite, { fontSize: 10 }]}>Mindfulness, Spiritual</Text>
-                  </View>
-                </ImageBackground>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <View>
-                <ImageBackground style={[inStyles.medItem]} source={islam_2}>
-                  <View style={inStyles.medContent}>
-                    <Text style={[ styles.colorWhite, { fontSize: 13, fontWeight: 'bold' }]}>Dhikr</Text>
-                    <Text style={[ styles.colorWhite, { fontSize: 10 }]}>Mantra</Text>
-                  </View>
-                </ImageBackground>
-              </View>
-            </TouchableOpacity>
+            <LibraryCard title='Taffakur' type='Mindfulness, Spiritual' typeSize={10} image={islam_1} onPress={goToGuide}></LibraryCard>
+            <LibraryCard title='Dhikr' type='Mantra' typeSize={10} image={islam_2} onPress={goToGuide}></LibraryCard>
           </View>
 
           <View style={inStyles.medContainer}>
-            <TouchableOpacity>
-              <View>
-                <ImageBackground style={[inStyles.medItem]} source={islam_3}>
-                  <View style={inStyles.medContent}>
-                    <Text style={[ styles.colorWhite, { fontSize: 13, fontWeight: 'bold' }]}>Muraqaba</Text>
-                    <Text style={[ styles.colorWhite, { fontSize: 10 }]}>Focused</Text>
-                  </View>
-                </ImageBackground>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <View>
-                <ImageBackground style={[inStyles.medItem]} source={islam_4}>
-                  <View style={inStyles.medContent}>
-                    <Text style={[ styles.colorWhite, { fontSize: 13, fontWeight: 'bold' }]}>Sufi Breathing</Text>
-                    <Text style={[ styles.colorWhite, { fontSize: 10 }]}>Visualization</Text>
-                  </View>
-                </ImageBackground>
-              </View>
-            </TouchableOpacity>
+            <LibraryCard title='Muraqaba' type='Focused' typeSize={10} image={islam_3} onPress={goToGuide}></LibraryCard>
+            <LibraryCard title='Sufi Breathing' type='Visualization' typeSize={10} image={islam_4} onPress={goToGuide}></LibraryCard>
           </View>
         </View>
 
@@ -162,38 +95,13 @@ export default function MedLibrary() {
           </View>
 
           <View style={inStyles.medContainer}>
-            <TouchableOpacity>
-              <View>
-                <ImageBackground style={[inStyles.medItem]} source={hinduism_1}>
-                  <View style={inStyles.medContent}>
-                    <Text style={[ styles.colorWhite, { fontSize: 13, fontWeight: 'bold' }]}>Hatha Yoga</Text>
-                    <Text style={[ styles.colorWhite, { fontSize: 8 }]}>Movement, Mindfulness, Spiritual</Text>
-                  </View>
-                </ImageBackground>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <View>
-                <ImageBackground style={[inStyles.medItem]} source={hinduism_2}>
-                  <View style={inStyles.medContent}>
-                    <Text style={[ styles.colorWhite, { fontSize: 13, fontWeight: 'bold' }]}>Kriya Yoga</Text>
-                    <Text style={[ styles.colorWhite, { fontSize: 10 }]}>Focused</Text>
-                  </View>
-                </ImageBackground>
-              </View>
-            </TouchableOpacity>
+            <LibraryCard title='Hatha Yoga' type='Movement, Mindfulness, Spiritual' typeSize={8} image={hinduism_1} onPress={goToGuide}></LibraryCard>
+            <LibraryCard title='Kriya Yoga' type='Focused' typeSize={10} image={hinduism_2} onPress={goToGuide}></LibraryCard>
           </View>
 
-          <TouchableOpacity style={[{ marginTop: 5 }]}>
-            <View>
-              <ImageBackground style={[inStyles.medItem]} source={hinduism_3}>
-                <View style={inStyles.medContent}>
-                  <Text style={[ styles.colorWhite, { fontSize: 13, fontWeight: 'bold' }]}>Chakra</Text>
-                  <Text style={[ styles.colorWhite, { fontSize: 10 }]}>Visualization</Text>
-                </View>
-              </ImageBackground>
-            </View>
-          </TouchableOpacity>
+          <View style={{ marginTop: 5 }}>
+            <LibraryCard title='Chakra' type='Visualization' typeSize={10} image={hinduism_3} onPress={goToGuide}></LibraryCard>
+          </View>
         </View>
 
         <View style={[{ marginTop: 15 }]}>
@@ -205,61 +113,18 @@ export default function MedLibrary() {
           </View>
 
           <View style={inStyles.medContainer}>
-            <TouchableOpacity>
-              <View>
-                <ImageBackground style={[inStyles.medItem]} source={buddhism_1}>
-                  <View style={inStyles.medContent}>
-                    <Text style={[ styles.colorWhite, { fontSize: 13, fontWeight: 'bold' }]}>Breath</Text>
-                    <Text style={[ styles.colorWhite, { fontSize: 10 }]}>Focused</Text>
-                  </View>
-                </ImageBackground>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <View>
-                <ImageBackground style={[inStyles.medItem]} source={buddhism_2}>
-                  <View style={inStyles.medContent}>
-                    <Text style={[ styles.colorWhite, { fontSize: 13, fontWeight: 'bold' }]}>Walk</Text>
-                    <Text style={[ styles.colorWhite, { fontSize: 10 }]}>Movement</Text>
-                  </View>
-                </ImageBackground>
-              </View>
-            </TouchableOpacity>
+            <LibraryCard title='Breath' type='Focused' typeSize={10} image={buddhism_1} onPress={goToGuide}></LibraryCard>
+            <LibraryCard title='Walk' type='Movement' typeSize={10} image={buddhism_2} onPress={goToGuide}></LibraryCard>
           </View>
 
           <View style={inStyles.medContainer}>
-            <TouchableOpacity>
-              <View>
-                <ImageBackground style={[inStyles.medItem]} source={buddhism_3}>
-                  <View style={inStyles.medContent}>
-                    <Text style={[ styles.colorWhite, { fontSize: 13, fontWeight: 'bold' }]}>Tonglen</Text>
-                    <Text style={[ styles.colorWhite, { fontSize: 10 }]}>Loving-kindness, Visualization</Text>
-                  </View>
-                </ImageBackground>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <View>
-                <ImageBackground style={[inStyles.medItem]} source={buddhism_4}>
-                  <View style={inStyles.medContent}>
-                    <Text style={[ styles.colorWhite, { fontSize: 13, fontWeight: 'bold' }]}>Metta</Text>
-                    <Text style={[ styles.colorWhite, { fontSize: 10 }]}>Spiritual, Mantra</Text>
-                  </View>
-                </ImageBackground>
-              </View>
-            </TouchableOpacity>
+            <LibraryCard title='Tonglen' type='Loving-kindness, Visualization' typeSize={10} image={buddhism_3} onPress={goToGuide}></LibraryCard>
+            <LibraryCard title='Metta' type='Spiritual, Mantra' typeSize={10} image={buddhism_4} onPress={goToGuide}></LibraryCard>
           </View>
 
-          <TouchableOpacity style={[{ marginTop: 5 }]}>
-            <View>
-              <ImageBackground style={[inStyles.medItem]} source={buddhism_5}>
-                <View style={inStyles.medContent}>
-                  <Text style={[ styles.colorWhite, { fontSize: 13, fontWeight: 'bold' }]}>Body Scan</Text>
-                  <Text style={[ styles.colorWhite, { fontSize: 10 }]}>Mindfulness, Relaxation</Text>
-                </View>
-              </ImageBackground>
-            </View>
-          </TouchableOpacity>
+          <View style={{ marginTop: 5 }}>
+            <LibraryCard title='Body Scan' type='Mindfulness, Relaxation' typeSize={10} image={buddhism_5} onPress={goToGuide}></LibraryCard>
+          </View>
         </View>
 
         <View style={[{ marginTop: 15 }]}>
@@ -271,38 +136,13 @@ export default function MedLibrary() {
           </View>
 
           <View style={inStyles.medContainer}>
-            <TouchableOpacity>
-              <View>
-                <ImageBackground style={[inStyles.medItem]} source={judaism_1}>
-                  <View style={inStyles.medContent}>
-                    <Text style={[ styles.colorWhite, { fontSize: 13, fontWeight: 'bold' }]}>Hitbodedut</Text>
-                    <Text style={[ styles.colorWhite, { fontSize: 10 }]}>Spiritual</Text>
-                  </View>
-                </ImageBackground>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <View>
-                <ImageBackground style={[inStyles.medItem]} source={judaism_2}>
-                  <View style={inStyles.medContent}>
-                    <Text style={[ styles.colorWhite, { fontSize: 13, fontWeight: 'bold' }]}>Kabbalistic/Chassidic</Text>
-                    <Text style={[ styles.colorWhite, { fontSize: 10 }]}>Visualization</Text>
-                  </View>
-                </ImageBackground>
-              </View>
-            </TouchableOpacity>
+            <LibraryCard title='Hitbodedut' type='Spiritual' typeSize={10} image={judaism_1} onPress={goToGuide}></LibraryCard>
+            <LibraryCard title='Kabbalistic/Chassidic' type='Visualization' typeSize={10} image={judaism_2} onPress={goToGuide}></LibraryCard>
           </View>
 
-          <TouchableOpacity style={[{ marginTop: 5 }]}>
-            <View>
-              <ImageBackground style={[inStyles.medItem]} source={judaism_3}>
-                <View style={inStyles.medContent}>
-                  <Text style={[ styles.colorWhite, { fontSize: 13, fontWeight: 'bold' }]}>Shema</Text>
-                  <Text style={[ styles.colorWhite, { fontSize: 10 }]}>Focused</Text>
-                </View>
-              </ImageBackground>
-            </View>
-          </TouchableOpacity>
+          <View style={{ marginTop: 5 }}>
+            <LibraryCard title='Shema' type='Focused' typeSize={10} image={judaism_3} onPress={goToGuide}></LibraryCard>
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -318,30 +158,16 @@ const inStyles = StyleSheet.create({
   },
 
   religionContent: {
+    flex: 1,
     flexDirection: 'row',
   },
 
   medContainer: {
     flexDirection: 'row',
     paddingHorizontal: 15,
-    paddingTop: 10,
+    paddingTop: 5,
     alignItems: 'center',
     justifyContent: 'center',
     width: 330,
-  },
-
-  medItem: {
-    width: 160,
-    height: 140,
-    marginRight: 5,
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  medContent: {
-    position: 'absolute',
-    left: 15,
-    bottom: 15,
   },
 });

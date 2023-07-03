@@ -59,12 +59,13 @@ export default function Home({ navigation, route }) {
     useEffect(() => {
         const fetchMotivationData = async () => {
             try {
-                const motivationDoc = await db.collection("motivation").doc("NXHKiHiYxL7NZDvrpnk9").get();
-                console.log(((await db.collection("motivation").get()).docs))
+                const collectionRef = db.collection("motivation")
+                const motivationDoc = await collectionRef.doc('BU0yqIecT8Bm2Zz3dZ5mEB').get();
+                console.log(((await collectionRef.get()).docs))
                 const motivationData = motivationDoc.data(); 
                 if (motivationData) {
                     // fetch quote
-                    setQuote(motivationData.quote);
+                    setQuote(motivationData.quote+'.');
                     setSource(motivationData.source);
                 }
             } catch (error) {
@@ -98,7 +99,7 @@ export default function Home({ navigation, route }) {
     };
 
     return (
-        <SafeAreaView style={styles.screen}>
+        <SafeAreaView style={styles.screenCenter}>
             <View>
                 <View style={inStyles.titleContainer}>
                     <Text style={[styles.colorSecondary, inStyles.title]}>Welcome, { firstName + " " + lastName }</Text>
