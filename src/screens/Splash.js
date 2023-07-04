@@ -8,6 +8,7 @@ export default function Splash() {
     <View style={[inStyles.container, {}]}>
       <Image style={styles.app_logo} source={appLogo} />
       <Text style={[styles.colorPrimary, { fontSize: 40, fontWeight: 'bold' }]}>REMEADI</Text>
+      {/* react native material */}
       <ActivityIndicator style={inStyles.margin_top} size="large" />
     </View>
   )

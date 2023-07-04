@@ -2,10 +2,19 @@ import { StyleSheet, Text, View, SafeAreaView, Image } from 'react-native';
 import { screenWidth, screenHeight } from '../components/dimensions';
 import { PrimaryButton } from '../components/buttons';
 
+import { meditationDescDB } from '../Data/LocalDB';
+
 import { styles } from '../../assets/css/Style';
-import christianity_1 from '../../assets/images/christianity/christianity_1.png';
+import { useState } from 'react';
+// import christianity_1 from '../../assets/images/christianity/christianity_1.png';
 
 export const MedGuide = ({ title, desc, guideImg }) => {
+  // const [ description, setDescription ] = useState('')
+
+  // console.log(meditationDescDB['Lectio Divina'])
+  // setDescription(meditationDescDB[title])
+  // console.log(description)
+
   return (
     <SafeAreaView style={styles.screen}>
       <View style={inStyles.imgContainer}>
@@ -28,12 +37,21 @@ export const MedGuide = ({ title, desc, guideImg }) => {
   );
 };
 
-export default function Guide() {
+export default function Guide({navigation, route}) {
+  const { data }= route.params
+  console.log("title: "+data.title)
+  // console.log("description: "+data.desc)
+  console.log("image: "+data.guideImg)
+
+  console.log(meditationDescDB[data.title])
+  const desc = meditationDescDB[data.title]
+
   return (
     <MedGuide
-    title='Title'
-    desc='Desc'
-    guideImg={christianity_1}> 
+      title={data.title}
+      desc={desc}
+      guideImg={data.guideImg}
+    > 
     </MedGuide>
   );
 }
