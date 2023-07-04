@@ -1,7 +1,7 @@
-import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Image, ScrollView, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView } from 'react-native';
 
 import { styles } from '../../assets/css/Style';
-import { LibraryCard } from '../components/cards';
+import { ImageCard } from '../components/cards';
 
 // Religion logos
 import christianity_logo from '../../assets/images/religion/christianity_logo.png';
@@ -57,13 +57,13 @@ export default function MedLibrary( {navigation}) {
           </View>
 
           <View style={inStyles.medContainer}>
-            <LibraryCard title='Lectio Divina' type='Spiritual' titleSize={13} typeSize={10} image={christianity_1} onPress={goToGuide}></LibraryCard>
-            <LibraryCard title='Christian Meditation' type='Mantra' titleSize={13} typeSize={10} image={christianity_2} onPress={goToGuide}></LibraryCard>
+            <ImageCard title='Lectio Divina' type='Spiritual' titleSize={13} typeSize={10} image={christianity_1} onPress={goToGuide}></ImageCard>
+            <ImageCard title='Christian Meditation' type='Mantra' titleSize={13} typeSize={10} image={christianity_2} onPress={goToGuide}></ImageCard>
           </View>
 
           <View style={inStyles.medContainer}>
-            <LibraryCard title='Examen' type='Mindfulness, Visualization' titleSize={13} typeSize={10} image={christianity_3} onPress={goToGuide}></LibraryCard>
-            <LibraryCard title='Rosary' type='Focused, Loving-kindness' titleSize={13} typeSize={10} image={christianity_4} onPress={goToGuide}></LibraryCard>
+            <ImageCard title='Examen' type='Mindfulness, Visualization' titleSize={13} typeSize={10} image={christianity_3} onPress={goToGuide}></ImageCard>
+            <ImageCard title='Rosary' type='Focused, Loving-kindness' titleSize={13} typeSize={10} image={christianity_4} onPress={goToGuide}></ImageCard>
           </View>
         </View>
 
@@ -76,13 +76,13 @@ export default function MedLibrary( {navigation}) {
           </View>
 
           <View style={inStyles.medContainer}>
-            <LibraryCard title='Taffakur' type='Mindfulness, Spiritual' titleSize={13} typeSize={10} image={islam_1} onPress={goToGuide}></LibraryCard>
-            <LibraryCard title='Dhikr' type='Mantra' titleSize={13} typeSize={10} image={islam_2} onPress={goToGuide}></LibraryCard>
+            <ImageCard title='Taffakur' type='Mindfulness, Spiritual' titleSize={13} typeSize={10} image={islam_1} onPress={goToGuide}></ImageCard>
+            <ImageCard title='Dhikr' type='Mantra' titleSize={13} typeSize={10} image={islam_2} onPress={goToGuide}></ImageCard>
           </View>
 
           <View style={inStyles.medContainer}>
-            <LibraryCard title='Muraqaba' type='Focused' titleSize={13} typeSize={10} image={islam_3} onPress={goToGuide}></LibraryCard>
-            <LibraryCard title='Sufi Breathing' type='Visualization' titleSize={13} typeSize={10} image={islam_4} onPress={goToGuide}></LibraryCard>
+            <ImageCard title='Muraqaba' type='Focused' titleSize={13} typeSize={10} image={islam_3} onPress={goToGuide}></ImageCard>
+            <ImageCard title='Sufi Breathing' type='Visualization' titleSize={13} typeSize={10} image={islam_4} onPress={goToGuide}></ImageCard>
           </View>
         </View>
 
@@ -95,12 +95,12 @@ export default function MedLibrary( {navigation}) {
           </View>
 
           <View style={inStyles.medContainer}>
-            <LibraryCard title='Hatha Yoga' type='Movement, Mindfulness, Spiritual' titleSize={13} typeSize={8} image={hinduism_1} onPress={goToGuide}></LibraryCard>
-            <LibraryCard title='Kriya Yoga' type='Focused' titleSize={13} typeSize={10} image={hinduism_2} onPress={goToGuide}></LibraryCard>
+            <ImageCard title='Hatha Yoga' type='Movement, Mindfulness, Spiritual' titleSize={13} typeSize={8} image={hinduism_1} onPress={goToGuide}></ImageCard>
+            <ImageCard title='Kriya Yoga' type='Focused' titleSize={13} typeSize={10} image={hinduism_2} onPress={goToGuide}></ImageCard>
           </View>
 
           <View style={{ marginTop: 5 }}>
-            <LibraryCard title='Chakra' type='Visualization' titleSize={13} typeSize={10} image={hinduism_3} onPress={goToGuide}></LibraryCard>
+            <ImageCard title='Chakra' type='Visualization' titleSize={13} typeSize={10} image={hinduism_3} onPress={goToGuide}></ImageCard>
           </View>
         </View>
 
@@ -113,17 +113,17 @@ export default function MedLibrary( {navigation}) {
           </View>
 
           <View style={inStyles.medContainer}>
-            <LibraryCard title='Breath' type='Focused' titleSize={13} typeSize={10} image={buddhism_1} onPress={goToGuide}></LibraryCard>
-            <LibraryCard title='Walk' type='Movement' titleSize={13} typeSize={10} image={buddhism_2} onPress={goToGuide}></LibraryCard>
+            <ImageCard title='Breath' type='Focused' titleSize={13} typeSize={10} image={buddhism_1} onPress={goToGuide}></ImageCard>
+            <ImageCard title='Walk' type='Movement' titleSize={13} typeSize={10} image={buddhism_2} onPress={goToGuide}></ImageCard>
           </View>
 
           <View style={inStyles.medContainer}>
-            <LibraryCard title='Tonglen' type='Loving-kindness, Visualization' titleSize={13} typeSize={10} image={buddhism_3} onPress={goToGuide}></LibraryCard>
-            <LibraryCard title='Metta' type='Spiritual, Mantra' titleSize={13} typeSize={10} image={buddhism_4} onPress={goToGuide}></LibraryCard>
+            <ImageCard title='Tonglen' type='Loving-kindness, Visualization' titleSize={13} typeSize={10} image={buddhism_3} onPress={goToGuide}></ImageCard>
+            <ImageCard title='Metta' type='Spiritual, Mantra' titleSize={13} typeSize={10} image={buddhism_4} onPress={goToGuide}></ImageCard>
           </View>
 
           <View style={{ marginTop: 5 }}>
-            <LibraryCard title='Body Scan' type='Mindfulness, Relaxation' titleSize={13} typeSize={10} image={buddhism_5} onPress={goToGuide}></LibraryCard>
+            <ImageCard title='Body Scan' type='Mindfulness, Relaxation' titleSize={13} typeSize={10} image={buddhism_5} onPress={goToGuide}></ImageCard>
           </View>
         </View>
 
@@ -136,12 +136,12 @@ export default function MedLibrary( {navigation}) {
           </View>
 
           <View style={inStyles.medContainer}>
-            <LibraryCard title='Hitbodedut' type='Spiritual' titleSize={13} typeSize={10} image={judaism_1} onPress={goToGuide}></LibraryCard>
-            <LibraryCard title='Kabbalistic/Chassidic' type='Visualization' titleSize={13} typeSize={10} image={judaism_2} onPress={goToGuide}></LibraryCard>
+            <ImageCard title='Hitbodedut' type='Spiritual' titleSize={13} typeSize={10} image={judaism_1} onPress={goToGuide}></ImageCard>
+            <ImageCard title='Kabbalistic/Chassidic' type='Visualization' titleSize={13} typeSize={10} image={judaism_2} onPress={goToGuide}></ImageCard>
           </View>
 
           <View style={{ marginTop: 5 }}>
-            <LibraryCard title='Shema' type='Focused' titleSize={13} typeSize={10} image={judaism_3} onPress={goToGuide}></LibraryCard>
+            <ImageCard title='Shema' type='Focused' titleSize={13} typeSize={10} image={judaism_3} onPress={goToGuide}></ImageCard>
           </View>
         </View>
       </ScrollView>

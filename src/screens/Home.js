@@ -6,6 +6,7 @@ import meditate from '../../assets/images/home/meditate.png';
 import meditation_library from '../../assets/images/home/meditation_library.png';
 import daily_motivation from '../../assets/images/home/daily_motivation.png';
 import { auth, db } from '../../firebase';
+import close from '../../assets/images/close.png';
 
 const remindVerification = () => {
     alert('Please verify your account')
@@ -143,10 +144,10 @@ export default function Home({ navigation, route }) {
                 <Modal visible={quoteVisible} animationType='slide' transparent={true}>
                     <View style={inStyles.modalContainer}>
                         <View style={[inStyles.modalContent, styles.dropShadow]}>
-                            <Text>"{quote}"</Text>
+                            <Text>"{quote}"</Text><br></br>
                             <Text>{source}</Text>
                             <TouchableOpacity style={inStyles.btnCloseModal} onPress={hideQuoteModal}>
-                                <Text>Close</Text>
+                                <Image style={[{ width: 20, height: 20 }]} source={close}/>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -157,7 +158,7 @@ export default function Home({ navigation, route }) {
                         <View style={[inStyles.modalContent, styles.dropShadow]}>
                             <Text>Avatar</Text>
                             <TouchableOpacity style={inStyles.btnCloseModal} onPress={hideAvatarModal}>
-                                <Text>Close</Text>
+                                <Image style={[{ width: 20, height: 20 }]} source={close}/>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -218,6 +219,7 @@ const inStyles = StyleSheet.create({
         borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
+        textAlign: 'center',
     },
 
     progressContainer: {

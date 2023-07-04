@@ -34,7 +34,7 @@ export default function EditAccount({ navigation }) {
 
   const goToAccount = () => {
     hideMsgModal();
-    navigation.navigate('Account');
+    navigation.goBack();
   };
 
 

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, ScrollView, Image } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, ScrollView } from 'react-native';
 
 import { styles } from './../../assets/css/Style';
-import { MilestoneCard, MilestoneLockedCard } from '../components/cards';
+import { TextCard, IconCard } from '../components/cards';
 
 import locked from '../../assets/images/locked.png';
 
@@ -73,22 +73,22 @@ export default function Milestones() {
 
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={inStyles.milestoneContainer}>
-                    <MilestoneCard title='Milestone Title' desc='Description'></MilestoneCard>
-                    <MilestoneCard title='Milestone Title' desc='Description'></MilestoneCard>
-                    <MilestoneCard title='Milestone Title' desc='Description'></MilestoneCard>
-                    <MilestoneCard title='Milestone Title' desc='Description'></MilestoneCard>
-                    <MilestoneCard title='Milestone Title' desc='Description'></MilestoneCard>
-                    <MilestoneCard title='Milestone Title' desc='Description'></MilestoneCard>
-                    <MilestoneCard title='Milestone Title' desc='Description'></MilestoneCard>
-                    <MilestoneCard title='Milestone Title' desc='Description'></MilestoneCard>
-                    <MilestoneLockedCard title='Milestone Title' desc='Description' icon={locked}></MilestoneLockedCard>
-                    <MilestoneLockedCard title='Milestone Title' desc='Description' icon={locked}></MilestoneLockedCard>
-                    <MilestoneLockedCard title='Milestone Title' desc='Description' icon={locked}></MilestoneLockedCard>
-                    <MilestoneLockedCard title='Milestone Title' desc='Description' icon={locked}></MilestoneLockedCard>
-                    <MilestoneLockedCard title='Milestone Title' desc='Description' icon={locked}></MilestoneLockedCard>
-                    <MilestoneLockedCard title='Milestone Title' desc='Description' icon={locked}></MilestoneLockedCard>
-                    <MilestoneLockedCard title='Milestone Title' desc='Description' icon={locked}></MilestoneLockedCard>
-                    <MilestoneLockedCard title='Milestone Title' desc='Description' icon={locked}></MilestoneLockedCard>
+                    <TextCard title='Milestone Title' desc='Description'></TextCard>
+                    <TextCard title='Milestone Title' desc='Description'></TextCard>
+                    <TextCard title='Milestone Title' desc='Description'></TextCard>
+                    <TextCard title='Milestone Title' desc='Description'></TextCard>
+                    <TextCard title='Milestone Title' desc='Description'></TextCard>
+                    <TextCard title='Milestone Title' desc='Description'></TextCard>
+                    <TextCard title='Milestone Title' desc='Description'></TextCard>
+                    <TextCard title='Milestone Title' desc='Description'></TextCard>
+                    <IconCard title='Milestone Title' desc='Description' icon={locked}></IconCard>
+                    <IconCard title='Milestone Title' desc='Description' icon={locked}></IconCard>
+                    <IconCard title='Milestone Title' desc='Description' icon={locked}></IconCard>
+                    <IconCard title='Milestone Title' desc='Description' icon={locked}></IconCard>
+                    <IconCard title='Milestone Title' desc='Description' icon={locked}></IconCard>
+                    <IconCard title='Milestone Title' desc='Description' icon={locked}></IconCard>
+                    <IconCard title='Milestone Title' desc='Description' icon={locked}></IconCard>
+                    <IconCard title='Milestone Title' desc='Description' icon={locked}></IconCard>
                 </View>
             </ScrollView>
         </SafeAreaView>
