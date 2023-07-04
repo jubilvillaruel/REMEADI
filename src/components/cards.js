@@ -4,14 +4,14 @@ import { View, Text, StyleSheet, TouchableOpacity, Image, ImageBackground } from
 import { styles } from './../../assets/css/Style';
 
 // Cards
-export const LibraryCard = ({ title, type, typeSize, image, onPress }) => {
+export const LibraryCard = ({ title, type, width, height, titleSize, typeSize, image, onPress }) => {
 
     return (
         <TouchableOpacity onPress={onPress}> 
             <View>
-              <ImageBackground style={[inStyles.libItem]} imageStyle={{ borderRadius: 10 }} source={image}>
+              <ImageBackground style={[inStyles.libItem, { width: width, height: height }]} imageStyle={{ borderRadius: 10 }} source={image}>
                 <View style={inStyles.libContent}>
-                  <Text style={[styles.colorWhite, styles.bold, { fontSize: 13 }]}>{title}</Text>
+                  <Text style={[styles.colorWhite, styles.bold, { fontSize: titleSize }]}>{title}</Text>
                   <Text style={[styles.colorWhite, { fontSize: typeSize }]}>{type}</Text>
                 </View>
               </ImageBackground>

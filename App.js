@@ -29,6 +29,7 @@ import EditAccount from './src/screens/EditAccount';
 import Splash from './src/screens/Splash';
 import { auth } from './firebase';
 import ManageQuote from './src/screens/ManageQuote';
+import ExpertResult from './src/screens/ExpertResult';
 
 // Google Sign in
 // import {
@@ -121,6 +122,7 @@ export default function App() {
     const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
     try {
       // custom logic
+      // await for the user existence verification
       await sleep(2000);
       await auth.currentUser !== null ? setUserToken(auth.currentUser.uid)  : setUserToken(null)
     } finally {
@@ -186,6 +188,7 @@ export default function App() {
             
             {/* Other Screens */}
             <Stack.Screen name='MedLibrary' component={MedLibrary} options={{title: 'Meditation Library'}}/>
+            <Stack.Screen name='ExpertResult' component={ExpertResult} options={{title: 'Recommended Practices'}}/>
             <Stack.Screen name='Guide' component={Guide} options={{title: 'Guide'}}/>
             {/* <Stack.Screen name='Account' component={Account} initialParams={ {setUserToken} } options={{headerShown: false}}/> */}
             <Stack.Screen name='EditAccount' component={EditAccount} options={{title: 'Edit Account Details'}}/>

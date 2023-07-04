@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, Image, TextInput, TouchableOpacity, Modal, Picker } from 'react-native';
 import { PrimaryButton } from '../components/buttons';
 import DatePicker from 'react-native-modern-datepicker';
+// import Picker from '@react-native-picker/picker'
 
 import { styles } from '../../assets/css/Style';
 import showPass from '../../assets/images/closed_eye.png';

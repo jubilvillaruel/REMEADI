@@ -38,7 +38,7 @@ export default function ManageQuote() {
             const errorMessage = error.message;
             console.log(errorCode, errorMessage);
         }
-        console.log("count: " + countDocs.size);
+        // console.log("count: " + countDocs.size);
 
 
         // clear all TextInputs

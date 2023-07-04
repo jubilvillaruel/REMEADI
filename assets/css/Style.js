@@ -55,6 +55,27 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+
+    religionContainer: {
+        paddingTop: 10,
+        alignItems: 'left',
+        justifyContent: 'left',
+        width: 330,
+    },
+
+    religionContent: {
+        flex: 1,
+        flexDirection: 'row',
+    },
+
+    medContainer: {
+        flexDirection: 'row',
+        paddingHorizontal: 15,
+        paddingTop: 5,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 330,
+    },
 });
 
 export { styles }
