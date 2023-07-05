@@ -4,17 +4,22 @@ import { PrimaryButton } from '../components/buttons';
 
 import { styles } from '../../assets/css/Style';
 import christianity_1 from '../../assets/images/christianity/christianity_1.png';
+import { TextCard, IconCard } from '../components/cards';
+import locked from '../../assets/images/locked.png';
+import { ScrollView } from 'react-native-web';
 
-export const MedGuide = ({ title, desc, guideImg }) => {
+export const MedGuide1 = ({ title, desc, guideImg }) => {
   return (
     <SafeAreaView style={styles.screen}>
       <View style={inStyles.imgContainer}>
         <Image style={inStyles.img} source={guideImg}></Image>
       </View>
+
       <View style={inStyles.textContainer}>
         <Text style={[styles.colorPrimary, inStyles.title]}>{title}</Text>
         <Text style={inStyles.content}>{desc}</Text>
       </View>
+
       <View style={inStyles.btnContainer}>
         <PrimaryButton
           text='Start'
@@ -28,13 +33,39 @@ export const MedGuide = ({ title, desc, guideImg }) => {
   );
 };
 
+export const MedGuide2 = ({ title, desc, guideImg }) => {
+  return (
+    <SafeAreaView style={styles.screen}>
+      <View style={inStyles.imgContainer}>
+        <Image style={inStyles.img} source={guideImg}></Image>
+      </View>
+
+      <View style={inStyles.textContainer}>
+        <Text style={[styles.colorPrimary, inStyles.title]}>{title}</Text>
+        <Text style={inStyles.content}>{desc}</Text>
+      </View>
+
+      {/* <View style={styles.dividerContainer}>
+        <View style={styles.dividerLine}/>
+        <Text style={styles.dividerText}>Guides</Text>
+        <View style={styles.dividerLine}/>
+      </View> */}
+
+      <ScrollView showsVerticalScrollIndicator={false} style={inStyles.cardContainer}>
+        <TextCard title='Milestone Title' desc='Description'></TextCard>
+        <IconCard title='Milestone Title' desc='Description' icon={locked}></IconCard>
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
+
 export default function Guide() {
   return (
-    <MedGuide
+    <MedGuide2
     title='Title'
     desc='Desc'
     guideImg={christianity_1}> 
-    </MedGuide>
+    </MedGuide2>
   );
 }
 
@@ -71,5 +102,11 @@ const inStyles = StyleSheet.create({
     position: 'absolute',
     padding: 15,
     height: screenHeight('20%'),
-  }
+  },
+
+  cardContainer: {
+    padding: 15,
+    width: screenWidth('90%'),
+    height: screenHeight('20%'),
+  },
 });

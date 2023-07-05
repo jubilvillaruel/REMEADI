@@ -99,6 +99,10 @@ export default function Home({ navigation, route }) {
         navigation.navigate('MedLibrary');
     };
 
+    const goToExpert = () => {
+        navigation.navigate('ExpertResult');
+    };
+
     return (
         <SafeAreaView style={styles.screenCenter}>
             <View>
@@ -122,7 +126,7 @@ export default function Home({ navigation, route }) {
                 </View>
 
                 <View style={inStyles.sec2Container}>
-                    <TouchableOpacity style={[inStyles.btnFeature, styles.bgColorPrimary, styles.dropShadow]} onPress={() => (emailVerified === true ? goToMeditate() : remindVerification())}>
+                    <TouchableOpacity style={[inStyles.btnFeature, styles.bgColorPrimary, styles.dropShadow]} onPress={() => (emailVerified === true ? goToExpert() : remindVerification())}>
                         <Image style={[{ width: 100, height: 110 }]} source={meditate}/>
                         <Text style={[styles.colorWhite, { fontSize: 20, fontWeight: 'bold', marginTop: 5 }]}>Meditate</Text>
                         <Text style={[styles.colorWhite, { fontSize: 16 }]}>{'Recommend a practice for you'}</Text>

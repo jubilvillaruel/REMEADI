@@ -1,6 +1,4 @@
-import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView } from 'react-native';
-
-import { styles } from '../../assets/css/Style';
+import { Text, View, SafeAreaView, ScrollView } from 'react-native';
 import { ImageCard } from '../components/cards';
 
 // Christianity
@@ -18,14 +16,14 @@ export default function ExpertResult({ navigation }) {
         <View style={[{ marginTop: 15 }]}>
           <View style={styles.medContainer}>
             <ImageCard
-            title='Examen'
-            type='Mindfulness, Visualization'
-            titleSize={20}
-            typeSize={16}
-            image={christianity_1}
-            width={320}
-            height={300}
-            onPress={goToGuide}></ImageCard>
+              title='Examen'
+              type='Mindfulness, Visualization'
+              titleSize={20}
+              typeSize={16}
+              image={christianity_1}
+              width={320}
+              height={300}
+              onPress={goToGuide}></ImageCard>
           </View>
         </View>
 
