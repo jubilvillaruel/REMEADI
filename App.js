@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Image } from 'react-native';
-import { screenWidth, screenHeight } from './src/components/dimensions';
+import { screenHeight } from './src/components/dimensions';
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -27,6 +27,7 @@ import Account from './src/screens/Account';
 // Other Screens
 import MedLibrary from './src/screens/MedLibrary';
 import Guide from './src/screens/Guide';
+import GuideOptions from './src/screens/GuideOptions';
 import EditAccount from './src/screens/EditAccount';
 import Splash from './src/screens/Splash';
 import { auth } from './firebase';
@@ -196,6 +197,7 @@ export default function App() {
             <Stack.Screen name='MedLibrary' component={MedLibrary} options={{title: 'Meditation Library'}}/>
             <Stack.Screen name='ExpertResult' component={ExpertResult} options={{title: 'Recommended Practices'}}/>
             <Stack.Screen name='Guide' component={Guide} options={{headerTransparent: true, title: '',}}/>
+            <Stack.Screen name='GuideOptions' component={GuideOptions} options={{title: 'Guide Options'}}/>
             <Stack.Screen name='EditAccount' component={EditAccount} options={{title: 'Edit Account Details'}}/>
         </Stack.Navigator>
         )}

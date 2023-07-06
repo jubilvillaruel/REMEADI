@@ -1,20 +1,12 @@
 import { StyleSheet, Text, View, SafeAreaView, Image } from 'react-native';
 import { screenWidth, screenHeight } from '../components/dimensions';
 import { PrimaryButton } from '../components/buttons';
-
 import { meditationDescDB } from '../Data/LocalDB';
-
 import { styles } from '../../assets/css/Style';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 
-import christianity_1 from '../../assets/images/christianity/christianity_1.png';
-import { TextCard, IconCard } from '../components/cards';
-import locked from '../../assets/images/locked.png';
-import { ScrollView } from 'react-native-web';
+export const MedGuide = ({ title, desc, guideImg, onPress }) => {
 
-export const MedGuide1 = ({ title, desc, guideImg }) => {
-  const goToSession = () => {
-    navigation.navigate('Session',{sessionTitle:title})
-  }
   return (
     <SafeAreaView style={styles.screen}>
       <View style={inStyles.imgContainer}>
@@ -30,51 +22,27 @@ export const MedGuide1 = ({ title, desc, guideImg }) => {
         <PrimaryButton
           text='Start'
           textColor='#FFFFFF'
-          width={screenWidth('90%')}
-          height={screenHeight('5%')}
-          borderRad={20}
-          onPress={goToSession(title)}>
+          textSize={RFPercentage(2.2)}
+          width={screenWidth('80%')}
+          height={screenHeight('7%')}
+          borderRad={30}
+          onPress={onPress}>
         </PrimaryButton>
       </View>
     </SafeAreaView>
   );
 };
 
-export const MedGuide2 = ({ title, desc, guideImg }) => {
-  return (
-    <SafeAreaView style={styles.screen}>
-      <View style={inStyles.imgContainer}>
-        <Image style={inStyles.img} source={guideImg}></Image>
-      </View>
-
-      <View style={inStyles.textContainer}>
-        <Text style={[styles.colorPrimary, inStyles.title]}>{title}</Text>
-        <Text style={inStyles.content}>{desc}</Text>
-      </View>
-
-      {/* <View style={styles.dividerContainer}>
-        <View style={styles.dividerLine}/>
-        <Text style={styles.dividerText}>Guides</Text>
-        <View style={styles.dividerLine}/>
-      </View> */}
-
-      <ScrollView showsVerticalScrollIndicator={false} style={inStyles.cardContainer}>
-        <TextCard title='Milestone Title' desc='Description'></TextCard>
-        <IconCard title='Milestone Title' desc='Description' icon={locked}></IconCard>
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
-
-export default function Guide({navigation, route}) {
-  const { data }= route.params
-  console.log("title: "+data.title)
-  console.log("image: "+data.guideImg)
-  console.log("desc: "+meditationDescDB[data.title])
+export default function Guide({ navigation, route }) {
+  const { data } = route.params
   const desc = meditationDescDB[data.title]
-  
+
+  const goToOptions = () => {
+    navigation.navigate('GuideOptions');
+  };
+
   return (
-    <MedGuide2
+    <MedGuide
       title={data.title}
       desc={desc}
       guideImg={data.guideImg}
@@ -98,13 +66,13 @@ const inStyles = StyleSheet.create({
   },
 
   title: {
-    fontSize: 24,
+    fontSize: RFPercentage(3),
     fontWeight: 'bold',
     padding: 15,
   },
 
   content: {
-    fontSize: 18,
+    fontSize: RFPercentage(2),
     color: '#8C8C8C',
     textAlign: 'justify',
     paddingHorizontal: 15,
@@ -114,12 +82,6 @@ const inStyles = StyleSheet.create({
     bottom: 0,
     position: 'absolute',
     padding: 15,
-    height: screenHeight('20%'),
-  },
-
-  cardContainer: {
-    padding: 15,
-    width: screenWidth('90%'),
     height: screenHeight('20%'),
   },
 });

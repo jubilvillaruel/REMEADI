@@ -222,6 +222,7 @@ const inStyles = StyleSheet.create({
         height: screenHeight('40%'),
         backgroundColor: '#FFFFFF',
         borderRadius: 10,
+        padding: 15,
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center',
@@ -238,23 +239,18 @@ const inStyles = StyleSheet.create({
     },
 
     title: {
-        fontSize: 24,
+        fontSize: RFPercentage(3),
         fontWeight: 'bold',
         marginBottom: 5,
     },
     subtitle: {
-        fontSize: 16,
+        fontSize: RFPercentage(2),
         color: '#8C8C8C',
     },
 
     sec1Title: {
-        fontSize: 14,
+        fontSize: RFPercentage(2),
         marginBottom: 5,
-    },
-
-    subtitle: {
-        fontSize: 16,
-        color: '#8C8C8C',
     },
 
     btnAvatar: {
