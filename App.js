@@ -196,7 +196,6 @@ export default function App() {
             <Stack.Screen name='MedLibrary' component={MedLibrary} options={{title: 'Meditation Library'}}/>
             <Stack.Screen name='ExpertResult' component={ExpertResult} options={{title: 'Recommended Practices'}}/>
             <Stack.Screen name='Guide' component={Guide} options={{headerTransparent: true, title: '',}}/>
-            {/* <Stack.Screen name='Account' component={Account} initialParams={ {setUserToken} } options={{headerShown: false}}/> */}
             <Stack.Screen name='EditAccount' component={EditAccount} options={{title: 'Edit Account Details'}}/>
         </Stack.Navigator>
         )}

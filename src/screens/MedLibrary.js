@@ -1,5 +1,4 @@
 import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView } from 'react-native';
-
 import { styles } from '../../assets/css/Style';
 import { ImageCard } from '../components/cards';
 
@@ -39,10 +38,15 @@ import judaism_1 from '../../assets/images/judaism/judaism_1.png';
 import judaism_2 from '../../assets/images/judaism/judaism_2.png';
 import judaism_3 from '../../assets/images/judaism/judaism_3.png';
 
-export default function MedLibrary( {navigation}) {
+import { useState } from 'react';
 
-  const goToGuide = () => {
-    navigation.navigate('Guide');
+export default function MedLibrary( {navigation}) {
+  const goToGuide = (title, guideImg) => {
+    const data = {
+      title: title, 
+      guideImg: guideImg,
+    };
+    navigation.navigate('Guide', {data});
   };
 
   return (
@@ -57,13 +61,15 @@ export default function MedLibrary( {navigation}) {
           </View>
 
           <View style={inStyles.medContainer}>
-            <ImageCard title='Lectio Divina' type='Spiritual' titleSize={13} typeSize={10} image={christianity_1} onPress={goToGuide}></ImageCard>
-            <ImageCard title='Christian Meditation' type='Mantra' titleSize={13} typeSize={10} image={christianity_2} onPress={goToGuide}></ImageCard>
+            <ImageCard title='Lectio Divina' type='Spiritual' titleSize={13} typeSize={10} image={christianity_1} onPress={() => {
+              goToGuide('Lectio Divina',christianity_1)
+            }}></ImageCard>
+            <ImageCard title='Christian Meditation' type='Mantra' titleSize={13} typeSize={10} image={christianity_2} onPress={() => {goToGuide('Christian Meditation',christianity_2)}}></ImageCard>
           </View>
 
           <View style={inStyles.medContainer}>
-            <ImageCard title='Examen' type='Mindfulness, Visualization' titleSize={13} typeSize={10} image={christianity_3} onPress={goToGuide}></ImageCard>
-            <ImageCard title='Rosary' type='Focused, Loving-kindness' titleSize={13} typeSize={10} image={christianity_4} onPress={goToGuide}></ImageCard>
+            <ImageCard title='Examen' type='Mindfulness, Visualization' titleSize={13} typeSize={10} image={christianity_3} onPress={() => {goToGuide('Examen',christianity_3)}}></ImageCard>
+            <ImageCard title='Rosary' type='Focused, Loving-kindness' titleSize={13} typeSize={10} image={christianity_4} onPress={() => {goToGuide('Rosary',christianity_4)}}></ImageCard>
           </View>
         </View>
 
@@ -76,13 +82,13 @@ export default function MedLibrary( {navigation}) {
           </View>
 
           <View style={inStyles.medContainer}>
-            <ImageCard title='Taffakur' type='Mindfulness, Spiritual' titleSize={13} typeSize={10} image={islam_1} onPress={goToGuide}></ImageCard>
-            <ImageCard title='Dhikr' type='Mantra' titleSize={13} typeSize={10} image={islam_2} onPress={goToGuide}></ImageCard>
+            <ImageCard title='Taffakur' type='Mindfulness, Spiritual' titleSize={13} typeSize={10} image={islam_1} onPress={() => {goToGuide('Taffakur',islam_1)}}></ImageCard>
+            <ImageCard title='Dhikr' type='Mantra' titleSize={13} typeSize={10} image={islam_2} onPress={() => {goToGuide('Dhikr',islam_2)}}></ImageCard>
           </View>
 
           <View style={inStyles.medContainer}>
-            <ImageCard title='Muraqaba' type='Focused' titleSize={13} typeSize={10} image={islam_3} onPress={goToGuide}></ImageCard>
-            <ImageCard title='Sufi Breathing' type='Visualization' titleSize={13} typeSize={10} image={islam_4} onPress={goToGuide}></ImageCard>
+            <ImageCard title='Muraqaba' type='Focused' titleSize={13} typeSize={10} image={islam_3} onPress={() => {goToGuide('Muraqaba',islam_3)}}></ImageCard>
+            <ImageCard title='Sufi Breathing' type='Visualization' titleSize={13} typeSize={10} image={islam_4} onPress={() => {goToGuide('Sufi Breathing',islam_4)}}></ImageCard>
           </View>
         </View>
 
@@ -95,12 +101,12 @@ export default function MedLibrary( {navigation}) {
           </View>
 
           <View style={inStyles.medContainer}>
-            <ImageCard title='Hatha Yoga' type='Movement, Mindfulness, Spiritual' titleSize={13} typeSize={8} image={hinduism_1} onPress={goToGuide}></ImageCard>
-            <ImageCard title='Kriya Yoga' type='Focused' titleSize={13} typeSize={10} image={hinduism_2} onPress={goToGuide}></ImageCard>
+            <ImageCard title='Hatha Yoga' type='Movement, Mindfulness, Spiritual' titleSize={13} typeSize={8} image={hinduism_1} onPress={() => {goToGuide('Hatha Yoga',hinduism_1)}}></ImageCard>
+            <ImageCard title='Kriya Yoga' type='Focused' titleSize={13} typeSize={10} image={hinduism_2} onPress={() => {goToGuide('Kriya Yoga',hinduism_2)}}></ImageCard>
           </View>
 
           <View style={{ marginTop: 5 }}>
-            <ImageCard title='Chakra' type='Visualization' titleSize={13} typeSize={10} image={hinduism_3} onPress={goToGuide}></ImageCard>
+            <ImageCard title='Chakra' type='Visualization' titleSize={13} typeSize={10} image={hinduism_3} onPress={() => {goToGuide('Chakra',hinduism_3)}}></ImageCard>
           </View>
         </View>
 
@@ -113,17 +119,17 @@ export default function MedLibrary( {navigation}) {
           </View>
 
           <View style={inStyles.medContainer}>
-            <ImageCard title='Breath' type='Focused' titleSize={13} typeSize={10} image={buddhism_1} onPress={goToGuide}></ImageCard>
-            <ImageCard title='Walk' type='Movement' titleSize={13} typeSize={10} image={buddhism_2} onPress={goToGuide}></ImageCard>
+            <ImageCard title='Breath' type='Focused' titleSize={13} typeSize={10} image={buddhism_1} onPress={() => {goToGuide('Breath',buddhism_1)}}></ImageCard>
+            <ImageCard title='Walk' type='Movement' titleSize={13} typeSize={10} image={buddhism_2} onPress={() => {goToGuide('Walk',buddhism_2)}}></ImageCard>
           </View>
 
           <View style={inStyles.medContainer}>
-            <ImageCard title='Tonglen' type='Loving-kindness, Visualization' titleSize={13} typeSize={10} image={buddhism_3} onPress={goToGuide}></ImageCard>
-            <ImageCard title='Metta' type='Spiritual, Mantra' titleSize={13} typeSize={10} image={buddhism_4} onPress={goToGuide}></ImageCard>
+            <ImageCard title='Tonglen' type='Loving-kindness, Visualization' titleSize={13} typeSize={10} image={buddhism_3} onPress={() => {goToGuide('Tonglen',buddhism_3)}}></ImageCard>
+            <ImageCard title='Metta' type='Spiritual, Mantra' titleSize={13} typeSize={10} image={buddhism_4} onPress={() => {goToGuide('Metta',buddhism_4)}}></ImageCard>
           </View>
 
           <View style={{ marginTop: 5 }}>
-            <ImageCard title='Body Scan' type='Mindfulness, Relaxation' titleSize={13} typeSize={10} image={buddhism_5} onPress={goToGuide}></ImageCard>
+            <ImageCard title='Body Scan' type='Mindfulness, Relaxation' titleSize={13} typeSize={10} image={buddhism_5} onPress={() => {goToGuide('Body Scan',buddhism_5)}}></ImageCard>
           </View>
         </View>
 
@@ -136,12 +142,12 @@ export default function MedLibrary( {navigation}) {
           </View>
 
           <View style={inStyles.medContainer}>
-            <ImageCard title='Hitbodedut' type='Spiritual' titleSize={13} typeSize={10} image={judaism_1} onPress={goToGuide}></ImageCard>
-            <ImageCard title='Kabbalistic/Chassidic' type='Visualization' titleSize={13} typeSize={10} image={judaism_2} onPress={goToGuide}></ImageCard>
+            <ImageCard title='Hitbodedut' type='Spiritual' titleSize={13} typeSize={10} image={judaism_1} onPress={() => {goToGuide('Hitbodedut',judaism_1)}}></ImageCard>
+            <ImageCard title='Kabbalistic/Chassidic' type='Visualization' titleSize={13} typeSize={10} image={judaism_2} onPress={() => {goToGuide('Kabbalistic/Chassidic',judaism_2)}}></ImageCard>
           </View>
 
           <View style={{ marginTop: 5 }}>
-            <ImageCard title='Shema' type='Focused' titleSize={13} typeSize={10} image={judaism_3} onPress={goToGuide}></ImageCard>
+            <ImageCard title='Shema' type='Focused' titleSize={13} typeSize={10} image={judaism_3} onPress={() => {goToGuide('Shema',judaism_3)}}></ImageCard>
           </View>
         </View>
       </ScrollView>

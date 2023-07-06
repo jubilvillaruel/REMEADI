@@ -2,13 +2,19 @@ import { StyleSheet, Text, View, SafeAreaView, Image } from 'react-native';
 import { screenWidth, screenHeight } from '../components/dimensions';
 import { PrimaryButton } from '../components/buttons';
 
+import { meditationDescDB } from '../Data/LocalDB';
+
 import { styles } from '../../assets/css/Style';
+
 import christianity_1 from '../../assets/images/christianity/christianity_1.png';
 import { TextCard, IconCard } from '../components/cards';
 import locked from '../../assets/images/locked.png';
 import { ScrollView } from 'react-native-web';
 
 export const MedGuide1 = ({ title, desc, guideImg }) => {
+  const goToSession = () => {
+    navigation.navigate('Session',{sessionTitle:title})
+  }
   return (
     <SafeAreaView style={styles.screen}>
       <View style={inStyles.imgContainer}>
@@ -26,7 +32,8 @@ export const MedGuide1 = ({ title, desc, guideImg }) => {
           textColor='#FFFFFF'
           width={screenWidth('90%')}
           height={screenHeight('5%')}
-          borderRad={20}>
+          borderRad={20}
+          onPress={goToSession(title)}>
         </PrimaryButton>
       </View>
     </SafeAreaView>
@@ -59,12 +66,18 @@ export const MedGuide2 = ({ title, desc, guideImg }) => {
   );
 };
 
-export default function Guide() {
+export default function Guide({navigation, route}) {
+  const { data }= route.params
+  console.log("title: "+data.title)
+  console.log("image: "+data.guideImg)
+  console.log("desc: "+meditationDescDB[data.title])
+  const desc = meditationDescDB[data.title]
+  
   return (
     <MedGuide2
-    title='Title'
-    desc='Desc'
-    guideImg={christianity_1}> 
+      title={data.title}
+      desc={desc}
+      guideImg={data.guideImg}
     </MedGuide2>
   );
 }
