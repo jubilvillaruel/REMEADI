@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, Image, TextInput, TouchableOpacity, Modal } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Image, TextInput, TouchableOpacity, Modal, Picker } from 'react-native';
 import { PrimaryButton } from '../components/buttons'; 
+import DropDownPicker from 'react-native-dropdown-picker';
 
 import { styles } from './../../assets/css/Style';
 import showPass from '../../assets/images/closed_eye.png';
@@ -11,6 +12,15 @@ export default function EditAccount({ navigation }) {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
   const [msgVisible, setMsgVisible] = useState(false);
+  const [religion, setReligion] = useState('Christianity');
+  const [dropdown, setDropdown] = useState(false);
+  const [items, setItems] = useState([
+    {label: 'Christianity', value: 'Christianity'},
+    {label: 'Islam', value: 'Islam'},
+    {label: 'Hinduism', value: 'Hinduism'},
+    {label: 'Buddhism', value: 'Buddhism'},
+    {label: 'Judaism', value: 'Judaism'},
+  ]);
 
   const toggleOldPasswordVisibility = () => {
     setOldPasswordVisible(!oldPasswordVisible);
@@ -34,7 +44,7 @@ export default function EditAccount({ navigation }) {
 
   const goToAccount = () => {
     hideMsgModal();
-    navigation.navigate('Account');
+    navigation.goBack();
   };
 
 
@@ -50,9 +60,26 @@ export default function EditAccount({ navigation }) {
             <TextInput style={inStyles.input} placeholder='First Name' selectionColor='transparent'/>
           </View>
 
-          <View style={inStyles.inputGroup}>
-            <TextInput style={inStyles.input} placeholder='Religion' selectionColor='transparent'/>
-          </View>
+          <DropDownPicker
+            style={[inStyles.input, { borderRadius: 30, paddingVertical: 15, paddingHorizontal: 15 }]}
+            open={dropdown}
+            value={religion}
+            items={items}
+            setOpen={setDropdown}
+            setValue={setReligion}
+            setItems={setItems}
+            containerStyle={{ width: 280, marginTop: 10 }}
+          />
+
+          {/* <View style={inStyles.inputGroup}>
+            <Picker style={inStyles.input} selectedValue={religion} onValueChange={(itemValue, itemIndex) => setReligion(itemValue)}>
+              <Picker.Item label='Christianity' value='Christianity'/>
+              <Picker.Item label='Islam' value='Islam'/>
+              <Picker.Item label='Hinduism' value='Hinduism'/>
+              <Picker.Item label='Buddhism' value='Buddhism'/>
+              <Picker.Item label='Judaism' value='Judaism'/>
+            </Picker>
+          </View> */}
 
           <View style={inStyles.inputGroup}>
             <View style={inStyles.passwordInputContainer}>
@@ -107,8 +134,8 @@ export default function EditAccount({ navigation }) {
                     text='Continue'
                     textColor='#FFFFFF'
                     width={280}
-                    height={40}
-                    borderRad={20} 
+                    height={50}
+                    borderRad={30} 
                     onPress={goToAccount}>
                   </PrimaryButton>
               </View>
@@ -128,24 +155,25 @@ const inStyles = StyleSheet.create({
   input: {
     marginTop: 10,
     width: '100%',
-    height: 40,
+    height: 50,
     backgroundColor: '#fff',
     paddingVertical: 10,
     paddingHorizontal: 15,
     borderColor: '#000000',
     borderWidth: 2,
-    borderRadius: 20,
+    borderRadius: 30,
     fontSize: 14,
   },
 
   btnSave: {
     marginTop: 15,
     width: 280,
-    height: 40,
+    height: 50,
     paddingVertical: 10,
     paddingHorizontal: 15,
     alignItems: 'center',
-    borderRadius: 20,
+    justifyContent: 'center',
+    borderRadius: 30,
     fontSize: 14,
     fontWeight: 'bold',
   },
@@ -155,13 +183,13 @@ const inStyles = StyleSheet.create({
     alignItems: 'center',
     borderColor: '#000000',
     borderWidth: 2,
-    borderRadius: 20,
+    borderRadius: 30,
     marginTop: 10,
   },
 
   passwordInput: {
     flex: 1,
-    height: 40,
+    height: 50,
     paddingHorizontal: 15,
     fontSize: 14,
   },

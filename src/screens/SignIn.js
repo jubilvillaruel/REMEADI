@@ -1,5 +1,7 @@
 import { StyleSheet, Text, SafeAreaView, View, Image, TextInput, TouchableOpacity } from 'react-native';
 import React, { useState, useEffect }  from 'react'
+import { screenWidth, screenHeight } from '../components/dimensions';
+import { RFPercentage } from "react-native-responsive-fontsize";
 import { IconButton, PrimaryButton } from '../components/buttons';
 
 import { styles } from '../../assets/css/Style';
@@ -54,18 +56,18 @@ export default function SignIn({ navigation, route }) {
     };
   
     return (
-      <SafeAreaView style={styles.screenCenter}>
-        <View style={inStyles.signInContainer}>
+      <SafeAreaView style={styles.screen}>
+        <View style={[styles.containerCentered, inStyles.appContainer]}>
           <Image style={styles.app_logo} source={appLogo}/>
-          <Text style={[styles.colorPrimary, { fontSize: 40, fontWeight: 'bold' }]}>REMEADI</Text>
-  
-          <View>
-            <TextInput style={inStyles.input} placeholder="Username" selectionColor="transparent" onChangeText={text => setUsername(text)}/>
-  
-            <View style={inStyles.passwordInputContainer}>
-              <TextInput style={inStyles.passwordInput} placeholder="Password" secureTextEntry={!passwordVisible} selectionColor="transparent" onChangeText={text => setPassword(text)}/>
-  
-              <TouchableOpacity style={inStyles.passwordVisibilityButton} onPress={togglePasswordVisibility}>
+          <Text style={[styles.colorPrimary, styles.bold, { fontSize: RFPercentage(4)}]}>REMEADI</Text>
+        </View>
+
+        <View style={inStyles.bodyContainer}>
+          <View style={styles.containerCentered}>
+            <TextInput style={styles.inputContainer} placeholder="Email" selectionColor="transparent" onChangeText={text => setUsername(text)}/>
+            <View style={styles.passwordInputContainer}>
+              <TextInput style={styles.passwordInput} placeholder="Password" secureTextEntry={!passwordVisible} selectionColor="transparent" onChangeText={text => setPassword(text)}/>
+              <TouchableOpacity style={styles.passwordVisibilityButton} onPress={togglePasswordVisibility}>
                 {passwordVisible ? (
                   <Image style={[{ width: 19, height: 14 }]} source={hidePass}/>
                 ) : (
@@ -73,144 +75,92 @@ export default function SignIn({ navigation, route }) {
                 )}
               </TouchableOpacity>
             </View>
-  
-            <TouchableOpacity style={[styles.bgColorPrimary, inStyles.btnSignIn, styles.dropShadow]} onPress={() => handleSignIn()}>
-            <Text style={[styles.colorWhite, { fontWeight: 'bold' }]}>Sign In</Text>
-            </TouchableOpacity>
-  
-            <Text style={inStyles.forgotPassword}><TouchableOpacity><Text>Forgot Password?</Text></TouchableOpacity></Text>
-  
-            <View style={inStyles.dividerContainer}>
-              <View style={inStyles.dividerLine} />
-              <Text style={inStyles.dividerText}>or</Text>
-              <View style={inStyles.dividerLine} />
-            </View>
-          </View>
-  
-          <IconButton
-            text='Continue with Google'
-            textColor='#000000'
-            width={280}
-            height={40}
-            borderRad={20}
-            icon={googleLogo}
-            borderC='#000000'
-            borderW={2}>
-          </IconButton>
 
-          <IconButton
-            text='Continue with Facebook'
-            textColor='#FFFFFF'
-            bgColor='#1877F2'
-            width={280}
-            height={40}
-            borderRad={20}
-            icon={facebookLogo}>
-          </IconButton>
+            <PrimaryButton
+              text='Sign In'
+              textColor= '#FFFFFF'
+              textSize={RFPercentage(2.2)}
+              width={screenWidth('80%')}
+              height={screenHeight('7%')}
+              borderRad={30}
+              borderW={0}
+              onPress={() => handleSignIn()}>
+            </PrimaryButton>
+
+            <Text style={[styles.bold, inStyles.forgotPassword]}>
+              <TouchableOpacity>
+                <Text style={{ fontSize: RFPercentage(2) }}>Forgot Password?</Text>
+              </TouchableOpacity>
+            </Text>
+
+            <View style={inStyles.dividerContainer}>
+              <View style={inStyles.dividerLine}/>
+              <Text style={[inStyles.dividerText, { fontSize: RFPercentage(2) }]}>or</Text>
+              <View style={inStyles.dividerLine}/>
+            </View>
+
+            <IconButton
+              text='Continue with Google'
+              textColor='#000000'
+              textSize={RFPercentage(2.2)}
+              width={screenWidth('80%')}
+              height={screenHeight('7%')}
+              borderRad={30}
+              icon={googleLogo}
+              borderC='#000000'
+              borderW={2}>
+            </IconButton>
+
+            <IconButton
+              text='Continue with Facebook'
+              textColor='#FFFFFF'
+              bgColor='#1877F2'
+              textSize={RFPercentage(2.2)}
+              width={screenWidth('80%')}
+              height={screenHeight('7%')}
+              borderRad={30}
+              icon={facebookLogo}>
+            </IconButton>
+
+          </View>
         </View>
       </SafeAreaView>
     );
   }
 
   const inStyles = StyleSheet.create({
-    input: {
-      marginTop: 15,
-      width: 280,
-      height: 40,
-      backgroundColor: '#fff',
-      paddingVertical: 10,
-      paddingHorizontal: 15,
-      borderColor: '#000000',
-      borderWidth: 2,
-      borderRadius: 20,
-      fontSize: 14,
+    appContainer: {
+      height: screenHeight('35%'),
+      width: screenWidth('100%'),
     },
-    btnSignIn: {
-      marginTop: 15,
-      width: 280,
-      height: 40,
-      paddingVertical: 10,
-      paddingHorizontal: 15,
-      alignItems: 'center',
-      borderRadius: 20,
-      fontSize: 14,
-      fontWeight: 'bold',
+
+    bodyContainer: {
+      height: screenHeight('40%'),
+      width: screenWidth('100%'),
     },
-    passwordInputContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      borderColor: '#000000',
-      borderWidth: 2,
-      borderRadius: 20,
-      marginTop: 15,
-    },
-    passwordInput: {
-      flex: 1,
-      height: 40,
-      paddingHorizontal: 15,
-      fontSize: 14,
-    },
-    passwordVisibilityButton: {
-      padding: 10,
-      marginRight: 5,
-    },
-    passwordVisibilityButtonText: {
-      fontSize: 14,
-    },
+
     forgotPassword: {
-      color: '#000000',
       marginTop: 15,
-      fontWeight: 'bold',
       textAlign: 'center',
     },
+
     dividerContainer: {
       flexDirection: 'row',
       alignItems: 'center',
-      marginTop: 15,
+      marginTop: 10,
     },
+
     dividerLine: {
       flex: 1,
       height: 2,
       backgroundColor: '#FF9F1C',
+      zIndex: 1,
     },
+    
     dividerText: {
       paddingHorizontal: 10,
-      fontSize: 14,
+      fontSize: RFPercentage(2),
       fontWeight: 'bold',
       color: '#000',
-    },
-    btnOthers: {
-      marginTop: 15,
-      width: 280,
-      height: 40,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 20,
-      fontSize: 12,
-      fontWeight: 'bold',
-    },
-    btnText: {
-      fontSize: 12,
-      fontWeight: 'bold',
-      marginLeft: 8,
-    },
-    btnGoogle: {
-      flexDirection: 'row',
-      backgroundColor: '#fff',
-      borderColor: '#000',
-      borderWidth: 2,
-    },
-    btnFacebook: {
-      flexDirection: 'row',
-      backgroundColor: '#1877F2',
-      borderWidth: 0,
-    },
-    icon: {
-      width: 20,
-      height: 20,
-      marginRight: 8,
-    },
-    signInContainer: {
-      alignItems: 'center',
     },
   });

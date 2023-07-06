@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Image, ImageBackground } from
 import { styles } from './../../assets/css/Style';
 
 // Cards
-export const LibraryCard = ({ title, type, width, height, titleSize, typeSize, image, onPress }) => {
+export const ImageCard = ({ title, type, width, height, titleSize, typeSize, image, onPress }) => {
 
     return (
         <TouchableOpacity onPress={onPress}> 
@@ -20,7 +20,7 @@ export const LibraryCard = ({ title, type, width, height, titleSize, typeSize, i
     );
 };
 
-export const MilestoneCard = ({ title, desc, onPress }) => {
+export const TextCard = ({ title, desc, onPress }) => {
 
   return (
     <TouchableOpacity style={[inStyles.milestoneItem, styles.bgColorPrimary]} onPress={onPress}>
@@ -32,7 +32,7 @@ export const MilestoneCard = ({ title, desc, onPress }) => {
   );
 };
 
-export const MilestoneLockedCard = ({ title, desc, icon, onPress }) => {
+export const IconCard = ({ title, desc, icon, onPress }) => {
 
   return (
     <TouchableOpacity style={inStyles.milestoneLockedItem} onPress={onPress}>
