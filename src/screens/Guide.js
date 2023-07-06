@@ -6,14 +6,13 @@ import { meditationDescDB } from '../Data/LocalDB';
 
 import { styles } from '../../assets/css/Style';
 import { useState } from 'react';
-// import christianity_1 from '../../assets/images/christianity/christianity_1.png';
+import Meditation from './Meditation';
+import Session from './Session';
 
 export const MedGuide = ({ title, desc, guideImg }) => {
-  // const [ description, setDescription ] = useState('')
-
-  // console.log(meditationDescDB['Lectio Divina'])
-  // setDescription(meditationDescDB[title])
-  // console.log(description)
+  const goToSession = () => {
+    navigation.navigate('Session',{sessionTitle:title})
+  }
 
   return (
     <SafeAreaView style={styles.screen}>
@@ -30,7 +29,8 @@ export const MedGuide = ({ title, desc, guideImg }) => {
           textColor='#FFFFFF'
           width={screenWidth('90%')}
           height={screenHeight('5%')}
-          borderRad={20}>
+          borderRad={20}
+          onPress={goToSession(title)}>
         </PrimaryButton>
       </View>
     </SafeAreaView>
@@ -40,7 +40,6 @@ export const MedGuide = ({ title, desc, guideImg }) => {
 export default function Guide({navigation, route}) {
   const { data }= route.params
   console.log("title: "+data.title)
-  // console.log("description: "+data.desc)
   console.log("image: "+data.guideImg)
 
   console.log(meditationDescDB[data.title])

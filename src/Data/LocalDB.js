@@ -1,5 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { BuddhismDB } from "./Practices/BuddhismDB"
 
 const meditationDescDB = {
     'Lectio Divina' : "A contemplative way of reading the Bible. It dates back to the early centuries of the Christian Church and was established as a monastic practice by Benedict in the 6th century. It is a way of praying the scriptures that leads us deeper into God's word.",
@@ -22,5 +21,7 @@ const meditationDescDB = {
     'Kabbalistic/Chassidic' : "Kabbalistic meditation is a form of spiritual practice rooted in the Jewish mystical tradition of Kabbalah. It combines various techniques, including visualization, breathwork, and contemplation, to connect with the divine and gain insight into the nature of reality.",
     'Shema' : "Shema meditation refers to the practice of meditating on the Shema, which is one of the most important prayers in Judaism. The Shema is a central declaration of faith and devotion to God, traditionally recited twice daily by Jewish individuals.",
 }
+
+// BuddhismDB
 
 export { meditationDescDB } 
