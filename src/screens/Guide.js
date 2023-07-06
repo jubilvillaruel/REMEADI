@@ -78,7 +78,7 @@ export default function Guide({navigation, route}) {
       title={data.title}
       desc={desc}
       guideImg={data.guideImg}
-    </MedGuide2>
+    />
   );
 }
 
