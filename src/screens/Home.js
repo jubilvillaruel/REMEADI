@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Image, Modal } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Image, Modal, ScrollView } from 'react-native';
+import { screenWidth, screenHeight } from '../components/dimensions';
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 import { styles } from './../../assets/css/Style';
 import meditate from '../../assets/images/home/meditate.png';
@@ -104,43 +106,42 @@ export default function Home({ navigation, route }) {
     };
 
     return (
-        <SafeAreaView style={styles.screenCenter}>
-            <View>
+        <SafeAreaView style={styles.screen}>
+            <ScrollView showsVerticalScrollIndicator={false} style={{ paddingHorizontal: 15 }}>
                 <View style={inStyles.titleContainer}>
-                    <Text style={[styles.colorSecondary, inStyles.title]}>Welcome, { firstName + " " + lastName }</Text>
+                    <Text style={[styles.colorSecondary, inStyles.title]}>Welcome, { firstName }</Text>
                     <Text style={inStyles.subtitle}>May you have a pleasant day</Text>
                 </View>
 
                 <View style={[inStyles.sec1Container, styles.dropShadow]}>
                     <View style={inStyles.progressContainer}>
-                    <Text style={[styles.colorPrimary, inStyles.sec1Title, { fontWeight: 'bold' }]}>Your Progress</Text>
+                    <Text style={[styles.colorPrimary, inStyles.sec1Title, styles.bold]}>Your Progress</Text>
                         <View style={[styles.bgColorPrimary, inStyles.progressContent]}>
-                            <Text style={[styles.colorWhite, { fontSize: 16, fontWeight: 'bold' }]}>Date</Text>
+                            <Text style={[styles.colorWhite, styles.bold, { fontSize: RFPercentage(2.2) }]}>Date</Text>
                             <Text style={styles.colorWhite}>Meditation Streak: 6 days</Text>
                         </View>
                     </View>
                     <TouchableOpacity style={[inStyles.btnAvatar, styles.bgColorPrimary]} onPress={showAvatarModal}>
                         <Text style={styles.colorWhite}>Avatar</Text>
                     </TouchableOpacity>
-
                 </View>
 
                 <View style={inStyles.sec2Container}>
                     <TouchableOpacity style={[inStyles.btnFeature, styles.bgColorPrimary, styles.dropShadow]} onPress={() => (emailVerified === true ? goToExpert() : remindVerification())}>
-                        <Image style={[{ width: 100, height: 110 }]} source={meditate}/>
-                        <Text style={[styles.colorWhite, { fontSize: 20, fontWeight: 'bold', marginTop: 5 }]}>Meditate</Text>
-                        <Text style={[styles.colorWhite, { fontSize: 16 }]}>{'Recommend a practice for you'}</Text>
+                        <Image style={[{ width: 110, height: 120 }]} source={meditate}/>
+                        <Text style={[styles.colorWhite, styles.bold, { fontSize: RFPercentage(2.5), marginTop: 5 }]}>Meditate</Text>
+                        <Text style={[styles.colorWhite, { fontSize: RFPercentage(2.2) }]}>{'Recommend a practice for you'}</Text>
                     </TouchableOpacity>
                     <View style={inStyles.sec2SubContainer}>
                         <TouchableOpacity style={[inStyles.btnSubFeature, styles.dropShadow]} onPress={() => (emailVerified === true ? goToLibrary() : remindVerification())}>
                             <Image style={[{ width: 40, height: 40 }]} source={meditation_library}/>
-                            <Text style={[styles.colorPrimary, { fontSize: 12, fontWeight: 'bold', marginTop: 5 }]}>{'Meditation\nLibrary'}</Text>
-                            <Text style={[styles.colorPrimary, { fontSize: 12, marginTop: 5 }]}>{'Explore practice from different religions'}</Text>
+                            <Text style={[styles.colorPrimary, styles.bold, { fontSize: RFPercentage(2), marginTop: 5 }]}>{'Meditation\nLibrary'}</Text>
+                            <Text style={[styles.colorPrimary, { fontSize: RFPercentage(1.6), marginTop: 5 }]}>{'Explore practice from different religions'}</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={[inStyles.btnSubFeature, styles.dropShadow]} onPress={showQuoteModal}>
+                        <TouchableOpacity style={[inStyles.btnSubFeature, styles.dropShadow, { marginLeft: 15 }]} onPress={showQuoteModal}>
                             <Image style={[{ width: 40, height: 40 }]} source={daily_motivation}/>
-                            <Text style={[styles.colorPrimary, { fontSize: 12, fontWeight: 'bold', marginTop: 5 }]}>{'Daily\nMotivation'}</Text>
-                            <Text style={[styles.colorPrimary, { fontSize: 12, marginTop: 5 }]}>{'Start your day with a motivational quote'}</Text>
+                            <Text style={[styles.colorPrimary, styles.bold, { fontSize: RFPercentage(2), marginTop: 5 }]}>{'Daily\nMotivation'}</Text>
+                            <Text style={[styles.colorPrimary, { fontSize: RFPercentage(1.8), marginTop: 5 }]}>{'Start your day with a motivational quote'}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -167,8 +168,7 @@ export default function Home({ navigation, route }) {
                         </View>
                     </View>
                 </Modal>
-
-            </View>
+            </ScrollView>
         </SafeAreaView>
     );
 }
@@ -181,7 +181,7 @@ const inStyles = StyleSheet.create({
         alignItems: 'flex-start',
         paddingVertical: 15,
         paddingRight: 15,
-        width: 330,
+        width: screenWidth('90%'),
     },
 
     sec1Container: {
@@ -192,14 +192,15 @@ const inStyles = StyleSheet.create({
         padding: 15,
         alignItems: 'center',
         justifyContent: 'center',
-        width: 330,
+        width: screenWidth('90%'),
     },
 
     sec2Container: {
-        padding: 15,
+        paddingTop: 15,
+        paddingHorizontal: 15,
         alignItems: 'center',
         justifyContent: 'center',
-        width: 330,
+        width: screenWidth('90%'),
     },
 
     sec2SubContainer: {
@@ -207,7 +208,7 @@ const inStyles = StyleSheet.create({
         padding: 15,
         alignItems: 'center',
         justifyContent: 'center',
-        width: 330,
+        width: screenWidth('90%'),
     },
 
     modalContainer: {
@@ -217,8 +218,8 @@ const inStyles = StyleSheet.create({
     },
 
     modalContent: {
-        width: 300,
-        height: 250,
+        width: screenWidth('90%'),
+        height: screenHeight('40%'),
         backgroundColor: '#FFFFFF',
         borderRadius: 10,
         justifyContent: 'center',
@@ -266,18 +267,17 @@ const inStyles = StyleSheet.create({
     },
 
     btnFeature: {
-        marginLeft: 5,
-        width: 330,
-        height: 220,
+        width: screenWidth('90%'),
+        height: screenHeight('30%'),
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 10,
     },
 
     btnSubFeature: {
-        marginLeft: 5,
-        width: 160,
-        height: 190,
+        padding: 15,
+        width: screenWidth('43%'),
+        height: screenHeight('25%'),
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 10,

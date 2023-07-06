@@ -89,13 +89,13 @@ export default function SignIn({ navigation, route }) {
 
             <Text style={[styles.bold, inStyles.forgotPassword]}>
               <TouchableOpacity>
-                <Text>Forgot Password?</Text>
+                <Text style={{ fontSize: RFPercentage(2) }}>Forgot Password?</Text>
               </TouchableOpacity>
             </Text>
 
             <View style={inStyles.dividerContainer}>
               <View style={inStyles.dividerLine}/>
-              <Text style={inStyles.dividerText}>or</Text>
+              <Text style={[inStyles.dividerText, { fontSize: RFPercentage(2) }]}>or</Text>
               <View style={inStyles.dividerLine}/>
             </View>
 

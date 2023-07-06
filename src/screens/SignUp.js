@@ -300,7 +300,7 @@ const inStyles = StyleSheet.create({
     borderColor: '#000000',
     borderWidth: 2,
     borderRadius: 30,
-    fontSize: 14,
+    fontSize: RFPercentage(1.5),
   },
 
   datePickerContainer: {
@@ -315,7 +315,7 @@ const inStyles = StyleSheet.create({
   datePickerInput: {
     flex: 1,
     height: 50,
-    fontSize: 14,
+    fontSize: RFPercentage(1.5),
   },
 
   ageInput: {
@@ -328,7 +328,7 @@ const inStyles = StyleSheet.create({
     borderColor: '#000000',
     borderWidth: 2,
     borderRadius: 20,
-    fontSize: 14,
+    fontSize: RFPercentage(1.5),
   },
 
   modalContent: {

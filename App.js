@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Image } from 'react-native';
+import { screenWidth, screenHeight } from './src/components/dimensions';
+import { RFPercentage } from "react-native-responsive-fontsize";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -50,9 +52,9 @@ function HomeScreen ( {route} ) {
     <Tab.Navigator initialRouteName='Home' initialParams={ {setUserToken} } screenOptions={{
       headerShown: false,
       tabBarStyle: {
-        height: 60,
-        paddingBottom: 5,
-        paddingTop: 5,
+        height: screenHeight('10%'),
+        justifyContent: 'center',
+        paddingBottom: 15,
         shadowColor: '#000000',
         shadowOffset: {
           width: 0,
@@ -63,6 +65,10 @@ function HomeScreen ( {route} ) {
       },
       tabBarActiveTintColor: '#FFBF69',
       tabBarLabelPosition: 'below-icon',
+      tabBarLabelStyle: {
+        fontWeight: 'bold',
+        position: 'absolute'
+      }
     }}>
       <Tab.Screen
         name='Home'
@@ -71,7 +77,7 @@ function HomeScreen ( {route} ) {
         options={{
           title: 'Home',
           tabBarIcon: () => (
-            <Image source={appLogo} style={{ width: '130%', height: 24 }}/>
+            <Image source={appLogo} style={{ width: '145%', height: 28 }}/>
           ),
         }}>
       </Tab.Screen>
@@ -82,7 +88,7 @@ function HomeScreen ( {route} ) {
         options={{
           title: 'Statistics',
           tabBarIcon: () => (
-            <Image source={statisticsLogo} style={{ width: 24, height: 24 }}/>
+            <Image source={statisticsLogo} style={{ width: 28, height: 28 }}/>
           ),
         }}>
       </Tab.Screen>
@@ -93,7 +99,7 @@ function HomeScreen ( {route} ) {
         options={{
           title: 'Milestones',
           tabBarIcon: () => (
-            <Image source={milestonesLogo} style={{ width: 24, height: 24 }}/>
+            <Image source={milestonesLogo} style={{ width: 28, height: 28 }}/>
           ),
         }}>
       </Tab.Screen>
@@ -105,7 +111,7 @@ function HomeScreen ( {route} ) {
         options={{
           title: 'Account',
           tabBarIcon: () => (
-            <Image source={accountLogo} style={{ width: 24, height: 24 }}/>
+            <Image source={accountLogo} style={{ width: 28, height: 28 }}/>
           ),
         }}>
       </Tab.Screen>
@@ -157,7 +163,7 @@ export default function App() {
             headerTintColor: '#2EC4B6',
             headerTitleStyle: {
               fontWeight: 'bold',
-              fontSize: 20,
+              fontSize: RFPercentage(2.5),
             }
         }}>
             <Stack.Screen name="Landing" component={Landing} options={{headerShown: false}}/>
@@ -181,7 +187,7 @@ export default function App() {
             headerTintColor: '#2EC4B6',
             headerTitleStyle: {
               fontWeight: 'bold',
-              fontSize: 20,
+              fontSize: RFPercentage(2.5),
             }
         }}>
             <Stack.Screen name='HomeScreen' component={HomeScreen} initialParams={ {setUserToken} } options={{headerShown: false}}/>
