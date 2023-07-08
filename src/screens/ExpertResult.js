@@ -3,6 +3,7 @@ import { ImageCard } from '../components/cards';
 
 // Christianity
 import christianity_1 from '../../assets/images/christianity/christianity_1.png';
+import { styles } from '../../assets/css/Style';
 
 export default function ExpertResult({ navigation }) {
 

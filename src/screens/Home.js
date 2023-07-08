@@ -9,6 +9,7 @@ import meditation_library from '../../assets/images/home/meditation_library.png'
 import daily_motivation from '../../assets/images/home/daily_motivation.png';
 import { auth, db } from '../../firebase';
 import close from '../../assets/images/close.png';
+import { getQuote, getQuoteID } from '../modules/QuoteModule';
 
 const remindVerification = () => {
     alert('Please verify your account')
@@ -24,27 +25,23 @@ const goToMeditationLibrary =() => {
 
 export default function Home({ navigation, route }) {
     const { setUserToken } = route.params;
-    // console.log(route.params);
+
     const [ firstName, setFirstName ] = useState('');
     const [ lastName, setLastName ] = useState('');
-
     const [ quote, setQuote ] = useState('')
     const [ source, setSource ] = useState('')
 
     const uid = auth.currentUser.uid
     const emailVerified = auth.currentUser.emailVerified
-
-    // const { user } = route.params;
-    // const uid = user.uid;
-    // console.log("email verified: " + emailVerified)
-    // console.log(user)
+    
+    console.log("email verified: " + emailVerified)
 
     // fetch user data from firestore
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const userDoc = await db.collection("users").doc(uid).get();
-                const userData = userDoc.data();
+                const userDoc = await db.collection("users").doc(uid).get();  
+                const userData = userDoc.data();                              
                 if (userData) {
                     // fetch firstName
                     setFirstName(userData.firstName);
@@ -62,8 +59,12 @@ export default function Home({ navigation, route }) {
     useEffect(() => {
         const fetchMotivationData = async () => {
             try {
-                const collectionRef = db.collection("motivation")
-                const motivationDoc = await collectionRef.doc('BU0yqIecT8Bm2Zz3dZ5mEB').get();
+                const collectionRef = await db.collection("motivation")
+                let quoteID = await getQuoteID()
+                console.log('quoteID: ',quoteID)
+                const motivationDoc = await collectionRef.doc(quoteID).get();
+                
+
                 console.log(((await collectionRef.get()).docs))
                 const motivationData = motivationDoc.data(); 
                 if (motivationData) {
