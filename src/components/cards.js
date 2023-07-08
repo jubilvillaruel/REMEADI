@@ -45,6 +45,18 @@ export const IconCard = ({ title, desc, icon, onPress }) => {
   );
 };
 
+export const StepCard = ({ title, desc }) => {
+
+  return (
+    <View style={inStyles.stepsItemContainer}>     
+      <View style={[inStyles.stepTitle, styles.bgColorPrimary]}>
+        <Text style={styles.colorWhite}>{title}</Text>
+      </View>
+      <Text style={inStyles.stepContent}>{desc}</Text>
+    </View>
+  );
+};
+
 const inStyles = StyleSheet.create({
     libItem: {
         width: 160,
@@ -81,5 +93,27 @@ const inStyles = StyleSheet.create({
 
     milestoneContent: {
       flex: 1,
+    },
+
+    stepsItemContainer: {
+      padding: 15,
+      marginVertical: 10,
+      gap: 5,
+      borderRadius: 10,
+      borderWidth: 2,
+      borderColor: '#2EC4B6',
+    },
+
+    stepTitle: {
+      borderRadius: 20,
+      padding: 5,
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '25%',
+    },
+
+    stepContent: {
+      textAlign: 'justify',
+      color: '#757575',
     },
 });
