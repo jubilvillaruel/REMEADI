@@ -54,6 +54,10 @@ export default function SignIn({ navigation, route }) {
     const goToHome = () => {
       navigation.navigate('HomeScreen');
     };
+
+    const handleForgotPassword = () => {
+      alert("Please enter your email address to reset password");
+    }
   
     return (
       <SafeAreaView style={styles.screen}>
@@ -88,7 +92,7 @@ export default function SignIn({ navigation, route }) {
             </PrimaryButton>
 
             <Text style={[styles.bold, inStyles.forgotPassword]}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={handleForgotPassword}>
                 <Text style={{ fontSize: RFPercentage(2) }}>Forgot Password?</Text>
               </TouchableOpacity>
             </Text>
