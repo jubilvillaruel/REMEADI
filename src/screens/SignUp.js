@@ -98,7 +98,6 @@ export default function SignUp({ navigation, route }) {
   };
 
   const handleForm = () => {
-    // store var a, b, c, and d in a hashmap
     const userDetails = {};
     userDetails['First Name'] = firstName;
     userDetails['Last Name'] = lastName;

@@ -29,6 +29,7 @@
     "react-native-responsive-fontsize": "^0.5.1",
     "react-native-stopwatch-timer": "^0.0.21",
     "react-native-web": "~0.18.11"
+    "expo-crypto": "~12.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

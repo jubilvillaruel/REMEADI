@@ -34,6 +34,8 @@ import Session from './src/screens/Session';
 import Splash from './src/screens/Splash';
 import { auth } from './firebase';
 import ManageQuote from './src/screens/ManageQuote';
+import ForgotPassword from './src/screens/ForgotPassword';
+
 
 // Google Sign in
 // import {
@@ -173,6 +175,7 @@ export default function App() {
             <Stack.Screen name="SignUp" component={SignUp} initialParams={ {setUserToken} } options={{title: 'Sign Up'}}/>
             <Stack.Screen name="Verification" component={Verification} options={{title: 'Verification'}}/>
             <Stack.Screen name="ManageQuote" component={ManageQuote} options={{title: 'ADMIN - Manage Quote'}}/>
+            <Stack.Screen name="ForgotPassword" component={ForgotPassword} options={{title: 'Forgot Password'}}/>
         </Stack.Navigator>
         ) : (
           <Stack.Navigator initialRouteName="HomeScreen" screenOptions={{

@@ -6,13 +6,22 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { styles } from './../../assets/css/Style';
 import showPass from '../../assets/images/closed_eye.png';
 import hidePass from '../../assets/images/open_eye.png';
+import { auth } from '../../firebase';
+
+
 
 export default function EditAccount({ navigation }) {
+  const [lastName, setLastName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [religion, setReligion] = useState('Christianity');
+  const [oldPassword, setOldPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
   const [oldPasswordVisible, setOldPasswordVisible] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
   const [msgVisible, setMsgVisible] = useState(false);
-  const [religion, setReligion] = useState('Christianity');
   const [dropdown, setDropdown] = useState(false);
   const [items, setItems] = useState([
     {label: 'Christianity', value: 'Christianity'},
@@ -47,17 +56,57 @@ export default function EditAccount({ navigation }) {
     navigation.goBack();
   };
 
+  const hanldeChangePassword = () => {
+    const userDetails = {};
+    userDetails['First Name'] = firstName;
+    userDetails['Last Name'] = lastName;
+    userDetails['Religion'] = religion;
+    userDetails['Old Password'] = oldPassword;
+    userDetails['Password'] = newPassword;
+    userDetails['Confirm Password'] = confirmPassword;
+
+    // loop through each item of the hashmap and check if empty or not
+    Object.keys(userDetails).forEach((key)=>{
+      if ((userDetails[key] == null)||(userDetails[key]=='')){
+        alert(`Please provide ${key}`);
+        throw new Error(`${key} cannot be blank`);
+      }
+    });
+
+    console.log('Sign up button pressed!');
+    if (!oldPassword || !newPassword || !confirmPassword){
+      alert('Please enter all password fields');
+      // return false;
+    } else {
+      if (newPassword!== confirmPassword) {
+        alert('The new password and confirm password do not match.');
+        // return false;
+      } else {
+        try {
+          // handle Change Password
+          auth.sendPasswordResetEmail(auth.currentUser.email)
+          .then(() => {
+            alert('Password Reset Email Sent');
+          }) 
+        }catch(error) {
+          console.log(error)
+        }
+      }
+    }
+    showMsgModal
+  }
+
 
   return (
     <SafeAreaView style={styles.screen}>
       <View style={inStyles.editContainer}>
         <View>
           <View style={inStyles.inputGroup}>
-            <TextInput style={inStyles.input} placeholder='Last Name' selectionColor='transparent'/>
+            <TextInput style={inStyles.input} placeholder='Last Name' selectionColor='transparent' value={lastName} onChangeText={setLastName} />
           </View>
 
           <View style={inStyles.inputGroup}>
-            <TextInput style={inStyles.input} placeholder='First Name' selectionColor='transparent'/>
+            <TextInput style={inStyles.input} placeholder='First Name' selectionColor='transparent' value={firstName} onChangeText={setFirstName}/>
           </View>
 
           <DropDownPicker
@@ -71,19 +120,9 @@ export default function EditAccount({ navigation }) {
             containerStyle={{ width: 280, marginTop: 10 }}
           />
 
-          {/* <View style={inStyles.inputGroup}>
-            <Picker style={inStyles.input} selectedValue={religion} onValueChange={(itemValue, itemIndex) => setReligion(itemValue)}>
-              <Picker.Item label='Christianity' value='Christianity'/>
-              <Picker.Item label='Islam' value='Islam'/>
-              <Picker.Item label='Hinduism' value='Hinduism'/>
-              <Picker.Item label='Buddhism' value='Buddhism'/>
-              <Picker.Item label='Judaism' value='Judaism'/>
-            </Picker>
-          </View> */}
-
           <View style={inStyles.inputGroup}>
             <View style={inStyles.passwordInputContainer}>
-              <TextInput style={inStyles.passwordInput} placeholder='Old Password' secureTextEntry={!oldPasswordVisible} selectionColor='transparent'/>
+              <TextInput style={inStyles.passwordInput} placeholder='Old Password' secureTextEntry={!oldPasswordVisible} selectionColor='transparent' value={oldPassword} onChangeText={setOldPassword}/>
               <TouchableOpacity style={inStyles.passwordVisibilityButton} onPress={toggleOldPasswordVisibility}>
                 {oldPasswordVisible ? (
                   <Image style={[{ width: 19, height: 14 }]} source={hidePass} />
@@ -96,7 +135,7 @@ export default function EditAccount({ navigation }) {
 
           <View style={inStyles.inputGroup}>
             <View style={inStyles.passwordInputContainer}>
-              <TextInput style={inStyles.passwordInput} placeholder='Password' secureTextEntry={!passwordVisible} selectionColor='transparent'/>
+              <TextInput style={inStyles.passwordInput} placeholder='New Password' secureTextEntry={!passwordVisible} selectionColor='transparent' value={newPassword} onChangeText={setNewPassword}/>
               <TouchableOpacity style={inStyles.passwordVisibilityButton} onPress={togglePasswordVisibility}>
                 {passwordVisible ? (
                   <Image style={[{ width: 19, height: 14 }]} source={hidePass} />
@@ -109,7 +148,7 @@ export default function EditAccount({ navigation }) {
 
           <View style={inStyles.inputGroup}>
             <View style={inStyles.passwordInputContainer}>
-              <TextInput style={inStyles.passwordInput} placeholder='Confirm Password' secureTextEntry={!confirmPasswordVisible} selectionColor='transparent'/>
+              <TextInput style={inStyles.passwordInput} placeholder='Confirm Password' secureTextEntry={!confirmPasswordVisible} selectionColor='transparent' value={confirmPassword} onChangeText={setConfirmPassword} />
 
               <TouchableOpacity style={inStyles.passwordVisibilityButton} onPress={toggleConfirmPasswordVisibility}>
                 {confirmPasswordVisible ? (
@@ -121,7 +160,7 @@ export default function EditAccount({ navigation }) {
             </View>
           </View>
 
-          <TouchableOpacity style={[styles.bgColorPrimary, inStyles.btnSave, styles.dropShadow]} onPress={showMsgModal}>
+          <TouchableOpacity style={[styles.bgColorPrimary, inStyles.btnSave, styles.dropShadow]} onPress={hanldeChangePassword}>
             <Text style={[styles.colorWhite, { fontWeight: 'bold' }]}>Save Changes</Text>
           </TouchableOpacity>
         </View>

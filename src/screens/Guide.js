@@ -51,7 +51,7 @@ export default function Guide({ navigation, route }) {
       desc={desc}
       guideImg={data.guideImg}
       onPress={goToSession}> 
-    </MedGuide>
+    />
   );
 }
 
