@@ -22,6 +22,33 @@ const meditationDescDB = {
     'Shema' : "Shema meditation refers to the practice of meditating on the Shema, which is one of the most important prayers in Judaism. The Shema is a central declaration of faith and devotion to God, traditionally recited twice daily by Jewish individuals.",
 }
 
+const religionDB = {
+    'Christianity': ['Lectio Divina','Christian Meditation','Examen','Rosary'],
+    'Islam': ['Taffakur','Dhikr','Muraqaba','Sufi Breathing'],
+    'Hinduism': ['Hatha Yoga','Kriya Yoga','Chakra'],
+    'Buddhism': ['Breath','Walk','Tonglen','Metta','Body Scan'],
+    'Judaism': ['Hitbodedut','Kabbalistic/Chassidic','Shema'],
+}
+
+const getReligionByPractice = (title) => {
+    // loop through religionDB and return key if value matched with title
+    for(let [key,value] of Object.entries(religionDB))
+    {
+        let matchFound=false;
+        for(var i in value){
+            const practiceTitle = value[i];
+            // console.log(`Checking ${practiceTitle}`);
+            if((new RegExp('^'+practiceTitle+'$', "gi")).test(title)){
+                // console.log(`${title}: Matched to Practice: "${practiceTitle}" under Religion:${key}`)
+                matchFound=true;
+                break;
+            }  
+        }
+        if(matchFound== true )return  {key};
+    };
+    return null ;
+}
+
 // BuddhismDB
 
-export { meditationDescDB } 
+export { meditationDescDB, religionDB, getReligionByPractice } 

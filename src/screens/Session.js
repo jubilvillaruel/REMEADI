@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, ScrollView, Image } from 'react-native'
 import { StepCard } from '../components/cards';
 import { screenWidth, screenHeight } from '../components/dimensions';
@@ -9,12 +9,55 @@ import text from '../../assets/images/text.png';
 import video from '../../assets/images/video.png';
 
 import { styles } from '../../assets/css/Style';
+import { getGuide } from '../Data/Practices/GuideDB';
+import { getReligionByPractice } from '../Data/LocalDB';
 
-export default function Session({  }) {
+export default function Session({ navigation, route }) {
+    const practiceTitle = route.params.title
+    const religion = getReligionByPractice(practiceTitle)
+
+    const [ guide, setGuide ] = useState({'key':'value'})
+    
+    useEffect(() => {
+        const fetchGuide = () => {
+            // get meditation text guide from GuideDB base on the title of the meditation practice 
+            setGuide(getGuide(practiceTitle, religion))
+            console.log(guide)
+            // print key and value of guide dictionary
+            for (const property in guide){
+                console.log(`${property}: ${guide[property]}`);
+            }
+                // console.log('guide: ', guide)
+            // display meditation text guide
+        };
+        fetchGuide();
+    }, [guide, practiceTitle])
+
+    const showGuide = () => {
+        const steps = [];
+        for (const property in guide){
+            steps.push(
+                <StepCard title={property} desc={guide[property]}></StepCard>
+            );
+        }
+        return steps;
+    }
+    
+
+    // get meditation video guide
+    // if video guide exists: display video guide on click
+    // else: disable on click
+
+    // get duration 
+    // if duration is applicable: start timer/stopwatch
+    // else: display sequence/stages
+
+    // set ambient sounds
+
     return (
         <SafeAreaView style={styles.screen}>
             <View style={inStyles.headerContainer}>
-                <Text style={[styles.bold, styles.colorPrimary, { fontSize: RFPercentage(2.5) }]}>Title</Text>
+                <Text style={[styles.bold, styles.colorPrimary, { fontSize: RFPercentage(2.5) }]}>{practiceTitle}</Text>
                 <View style={inStyles.mediaContainer}>
                     <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia]}>
                         <Image style={[{ width: 40, height: 40 }]} source={music}/>
@@ -32,16 +75,7 @@ export default function Session({  }) {
 
             <View style={[styles.dropShadow, inStyles.guideContainer]}>
                 <ScrollView showsVerticalScrollIndicator={false} style={inStyles.stepsContainer}>
-                    <StepCard title='Step 1' desc='Content'></StepCard>
-                    <StepCard title='Step 1' desc='Content'></StepCard>
-                    <StepCard title='Step 1' desc='Content'></StepCard>
-                    <StepCard title='Step 1' desc='Content'></StepCard>
-                    <StepCard title='Step 1' desc='Content'></StepCard>
-                    <StepCard title='Step 1' desc='Content'></StepCard>
-                    <StepCard title='Step 1' desc='Content'></StepCard>
-                    <StepCard title='Step 1' desc='Content'></StepCard>
-                    <StepCard title='Step 1' desc='Content'></StepCard>
-                    <StepCard title='Step 1' desc='Content'></StepCard>
+                    {showGuide()}
                 </ScrollView>
             </View>
 
@@ -51,7 +85,7 @@ export default function Session({  }) {
                     <Text style={[{ fontSize: RFPercentage(3) }, styles.colorWhite, styles.bold]}>00:00</Text> */}
                     <Stopwatch
                          start={true}
-                         startTime={0}
+                         startTime={10}
                          />
                 </View>
                 <TouchableOpacity style={[styles.dropShadow, inStyles.btnEnd]}>

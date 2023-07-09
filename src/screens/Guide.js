@@ -42,7 +42,7 @@ export default function Guide({ navigation, route }) {
   };
 
   const goToSession = () => {
-    navigation.navigate('Session');
+    navigation.navigate('Session', {title: data.title});
   };
 
   return (

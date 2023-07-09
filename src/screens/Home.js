@@ -9,7 +9,7 @@ import meditation_library from '../../assets/images/home/meditation_library.png'
 import daily_motivation from '../../assets/images/home/daily_motivation.png';
 import { auth, db } from '../../firebase';
 import close from '../../assets/images/close.png';
-import { getQuote, getQuoteID } from '../modules/QuoteModule';
+import { getQuote, getQuoteID } from '../models/QuoteModel';
 
 const remindVerification = () => {
     alert('Please verify your account')

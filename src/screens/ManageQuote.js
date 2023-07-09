@@ -2,8 +2,8 @@ import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View, Picker } from '
 import React, { useState } from 'react'
 import { TextInput } from 'react-native-web'
 import { styles } from '../../assets/css/Style'
-import { auth, db } from '../../firebase'
-import { getQuoteID, getRandomNumberPerDay } from '../modules/QuoteModule'
+import { db } from '../../firebase'
+import { getQuoteID} from '../models/QuoteModel'
 
 
 export default function ManageQuote() {
