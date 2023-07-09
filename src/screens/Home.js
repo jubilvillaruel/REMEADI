@@ -63,9 +63,6 @@ export default function Home({ navigation, route }) {
                 let quoteID = await getQuoteID()
                 console.log('quoteID: ',quoteID)
                 const motivationDoc = await collectionRef.doc(quoteID).get();
-                
-
-                console.log(((await collectionRef.get()).docs))
                 const motivationData = motivationDoc.data(); 
                 if (motivationData) {
                     // fetch quote

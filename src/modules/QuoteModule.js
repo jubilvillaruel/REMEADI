@@ -16,10 +16,6 @@ const getQuoteID = async () => {
 
     await collectionRef.get().then(
       snapshot=>snapshot.docs.forEach(doc=>{
-        // console.log(doc.id)
-        // console.log(doc.data())
-        // console.log(doc.data().quote)
-        // console.log(doc.data().source)
         quotes.push(doc.id)
       })
     )
@@ -28,21 +24,7 @@ const getQuoteID = async () => {
     index = (await getRandomNumberPerDay(quotes.length))
 
     const docId = quotes[index]
-    // const sourceId = source[index]
-    console.log("index: ",index)
-    console.log('quote: ',docId)
-    // console.log('source: ',sourceId)
 
-    // const quoteDataList = []
-    // quoteDataList.push(docId)
-    // quoteDataList.push(sourceId)
-
-    // checking
-    const quoteDoc = await collectionRef.doc(docId).get()
-    const quoteData = quoteDoc.data()
-    console.log(quoteData.quote)
-    console.log(quoteData.source)
-    console.log(quoteData.religion)
     return docId
   } catch (error) {
     const errorCode = error.code;

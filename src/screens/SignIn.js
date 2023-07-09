@@ -56,7 +56,8 @@ export default function SignIn({ navigation, route }) {
     };
 
     const handleForgotPassword = () => {
-      alert("Please enter your email address to reset password");
+      // alert("Please enter your email address to reset password");
+      navigation.navigate('ForgotPassword')
     }
   
     return (
