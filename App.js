@@ -16,7 +16,6 @@ import accountLogo from './assets/images/navigation/account.png';
 import Landing from './src/screens/LandingPage';
 import SignIn from './src/screens/SignIn';
 import SignUp from './src/screens/SignUp';
-import Verification from './src/screens/Verification';
 
 // Tab Navigation
 import Home from './src/screens/Home';
@@ -171,7 +170,6 @@ export default function App() {
             <Stack.Screen name="Landing" component={Landing} options={{headerShown: false}}/>
             <Stack.Screen name="SignIn" component={SignIn} initialParams={ {setUserToken} } options={{title: 'Sign In'}}/>
             <Stack.Screen name="SignUp" component={SignUp} initialParams={ {setUserToken} } options={{title: 'Sign Up'}}/>
-            <Stack.Screen name="Verification" component={Verification} options={{title: 'Verification'}}/>
             <Stack.Screen name="ManageQuote" component={ManageQuote} options={{title: 'ADMIN - Manage Quote'}}/>
         </Stack.Navigator>
         ) : (
