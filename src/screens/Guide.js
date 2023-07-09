@@ -41,12 +41,16 @@ export default function Guide({ navigation, route }) {
     navigation.navigate('GuideOptions');
   };
 
+  const goToSession = () => {
+    navigation.navigate('Session');
+  };
+
   return (
     <MedGuide
       title={data.title}
       desc={desc}
       guideImg={data.guideImg}
-      onPress={goToOptions}
+      onPress={goToSession}> 
     />
   );
 }

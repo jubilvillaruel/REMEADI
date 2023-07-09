@@ -25,15 +25,17 @@ import Milestones from './src/screens/Milestones';
 import Account from './src/screens/Account';
 
 // Other Screens
+import EditAccount from './src/screens/EditAccount';
 import MedLibrary from './src/screens/MedLibrary';
+import ExpertResult from './src/screens/ExpertResult';
 import Guide from './src/screens/Guide';
 import GuideOptions from './src/screens/GuideOptions';
-import EditAccount from './src/screens/EditAccount';
+import Session from './src/screens/Session';
 import Splash from './src/screens/Splash';
 import { auth } from './firebase';
 import ManageQuote from './src/screens/ManageQuote';
-import ExpertResult from './src/screens/ExpertResult';
 import ForgotPassword from './src/screens/ForgotPassword';
+
 
 // Google Sign in
 // import {
@@ -196,11 +198,12 @@ export default function App() {
             <Stack.Screen name='HomeScreen' component={HomeScreen} initialParams={ {setUserToken} } options={{headerShown: false}}/>
             
             {/* Other Screens */}
+            <Stack.Screen name='EditAccount' component={EditAccount} options={{title: 'Edit Account Details'}}/>
             <Stack.Screen name='MedLibrary' component={MedLibrary} options={{title: 'Meditation Library'}}/>
-            <Stack.Screen name='ExpertResult' component={ExpertResult} options={{title: 'Recommended Practices'}}/>
+            <Stack.Screen name='ExpertResult' component={ExpertResult} options={{title: 'Recommended'}}/>
             <Stack.Screen name='Guide' component={Guide} options={{headerTransparent: true, title: '',}}/>
             <Stack.Screen name='GuideOptions' component={GuideOptions} options={{title: 'Guide Options'}}/>
-            <Stack.Screen name='EditAccount' component={EditAccount} options={{title: 'Edit Account Details'}}/>
+            <Stack.Screen name="Session" component={Session} options={{headerShown: false}}/>
         </Stack.Navigator>
         )}
     </NavigationContainer>
