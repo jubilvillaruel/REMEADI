@@ -1,4 +1,8 @@
 import { BuddhismDB } from "./BuddhismDB";
+import { ChristianityDB } from "./ChristianityDB";
+import { HinduismDB } from "./HinduismDB";
+import { IslamDB } from "./IslamDB";
+import { JudaismDB } from "./JudaismDB";
 
 const getGuide = (title, religionDict) => {
     let religion = religionDict['key']
@@ -6,16 +10,20 @@ const getGuide = (title, religionDict) => {
     // 5-level if-else template
     let guide;
     switch(religion){
-        case "Christian":
+        case "Christianity":
+            guide = ChristianityDB[title]
             break;
         case "Islam":
+            guide = IslamDB[title]
             break;
         case "Hinduism":
+            guide = HinduismDB[title]
             break;
         case 'Buddhism':
             guide = BuddhismDB[title]
             break;
         case "Judaism":
+            guide = JudaismDB[title]
             break;
         default:
             break;

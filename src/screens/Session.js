@@ -11,27 +11,36 @@ import video from '../../assets/images/video.png';
 import { styles } from '../../assets/css/Style';
 import { getGuide } from '../Data/Practices/GuideDB';
 import { getReligionByPractice } from '../Data/LocalDB';
+import { getTimeModel } from '../models/TimeModel';
 
 export default function Session({ navigation, route }) {
-    const practiceTitle = route.params.title
+    const data = route.params
+    const practiceTitle = data.title
     const religion = getReligionByPractice(practiceTitle)
 
     const [ guide, setGuide ] = useState({'key':'value'})
+    const [ time, setTime ] = useState(Number)
     
     useEffect(() => {
         const fetchGuide = () => {
-            // get meditation text guide from GuideDB base on the title of the meditation practice 
             setGuide(getGuide(practiceTitle, religion))
-            console.log(guide)
-            // print key and value of guide dictionary
-            for (const property in guide){
-                console.log(`${property}: ${guide[property]}`);
-            }
-                // console.log('guide: ', guide)
-            // display meditation text guide
+            // evaluate if practice is time-based or not
+            // if time based
+            setTime(getTimeModel(practiceTitle))
+
+            // if stage based
+            // code here
+
         };
         fetchGuide();
-    }, [guide, practiceTitle])
+    }, [guide, practiceTitle, religion])
+
+    useEffect(() => {
+        // get duration 
+        
+        // if duration is applicable: start timer/stopwatch
+        // else: display sequence/stages
+    }, [])
 
     const showGuide = () => {
         const steps = [];
@@ -42,15 +51,38 @@ export default function Session({ navigation, route }) {
         }
         return steps;
     }
+
+    const callStopwatch = () => {
+        const clock = [];
+        clock.push(
+            <Stopwatch
+                start={true}
+                startTime={time}
+            />
+        )
+        return clock
+    }
+
+    const callTimer = () => {
+        const clock = [];
+        console.log('time: ',time)
+        clock.push(
+            <Timer
+                totalDuration={time}  
+                start={true}
+                handleFinish={() => {
+                    alert('Meditation Session Finished');
+                  }}
+      
+            />
+        )
+        return clock
+    }
     
 
     // get meditation video guide
     // if video guide exists: display video guide on click
     // else: disable on click
-
-    // get duration 
-    // if duration is applicable: start timer/stopwatch
-    // else: display sequence/stages
 
     // set ambient sounds
 
@@ -83,10 +115,7 @@ export default function Session({ navigation, route }) {
                 <View style={[styles.dropShadow, styles.bgColorPrimary, inStyles.timerContainer]}>
                     {/* <Text style={[{ color: '#CBF3F0', fontSize: RFPercentage(3) }, styles.bold]}>Duration: </Text>
                     <Text style={[{ fontSize: RFPercentage(3) }, styles.colorWhite, styles.bold]}>00:00</Text> */}
-                    <Stopwatch
-                         start={true}
-                         startTime={10}
-                         />
+                    {time === 0 ? callStopwatch() : callTimer()}
                 </View>
                 <TouchableOpacity style={[styles.dropShadow, inStyles.btnEnd]}>
                     <Text style={[{ fontSize: RFPercentage(3) }, styles.colorPrimary, styles.bold]}>Finish</Text>

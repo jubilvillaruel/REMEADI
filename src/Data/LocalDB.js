@@ -30,6 +30,30 @@ const religionDB = {
     'Judaism': ['Hitbodedut','Kabbalistic/Chassidic','Shema'],
 }
 
+const timeDB = {
+    'Lectio Divina' : 0,
+    'Christian Meditation' : 0,
+    'Examen' : 0,
+    'Rosary' : 1200000, // 20 mins
+    'Taffakur' : 0,
+    'Dhikr' : [5,10,15],
+    'Muraqaba' : [4,5,10],
+    'Sufi Breathing' : 10,
+    // 'Hatha Yoga': null,
+    // 'Kriya Yoga' : null,
+    'Chakra' : 0,
+    'Breath' : [5,15,30],
+    'Walk' : [10,20,30],
+    'Tonglen' : [5,15,30],
+    'Metta' : [10,15,20],
+    'Body Scan' : [20,30,45],
+    'Hitbodedut' : 0,
+    'Kabbalistic/Chassidic' : [10,20,30],
+    'Shema' : [10,20,30]
+}
+
+
+
 const getReligionByPractice = (title) => {
     // loop through religionDB and return key if value matched with title
     for(let [key,value] of Object.entries(religionDB))
@@ -49,6 +73,4 @@ const getReligionByPractice = (title) => {
     return null ;
 }
 
-// BuddhismDB
-
-export { meditationDescDB, religionDB, getReligionByPractice } 
+export { meditationDescDB, religionDB, getReligionByPractice, timeDB } 
