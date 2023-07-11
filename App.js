@@ -201,7 +201,7 @@ export default function App() {
             <Stack.Screen name='ExpertResult' component={ExpertResult} options={{title: 'Recommended'}}/>
             <Stack.Screen name='Guide' component={Guide} options={{headerTransparent: true, title: '',}}/>
             <Stack.Screen name='GuideOptions' component={GuideOptions} options={{title: 'Guide Options'}}/>
-            <Stack.Screen name="Session" component={Session} options={{headerShown: true}}/>
+            <Stack.Screen name="Session" component={Session} options={{headerShown: false}}/>
         </Stack.Navigator>
         )}
     </NavigationContainer>

@@ -1,4 +1,4 @@
-import React, { useState }from 'react'
+import React, { useState, useEffect }from 'react'
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, ScrollView, Image, Modal } from 'react-native';
 import { StepCard } from '../components/cards';
 import { screenWidth, screenHeight } from '../components/dimensions';
@@ -46,10 +46,14 @@ export default function Session({ navigation, route }) {
 
     const showGuide = () => {
         const steps = [];
+        let stepCount = 1
+        let count = ''
         for (const property in guide){
+            count = ('Step ' + stepCount)
             steps.push(
-                <StepCard title={property} desc={guide[property]}></StepCard>
+                <StepCard title={count} desc={property}></StepCard>
             );
+            stepCount++
         }
         return steps;
     }
@@ -60,6 +64,10 @@ export default function Session({ navigation, route }) {
             <Stopwatch
                 start={true}
                 startTime={time}
+                options= {{
+                    container: inStyles.duration,
+                    text: inStyles.durationText,
+                }}
             />
         )
         return clock
@@ -70,12 +78,15 @@ export default function Session({ navigation, route }) {
         console.log('time: ',time)
         clock.push(
             <Timer
-                totalDuration={time}  
                 start={true}
+                totalDuration={time}
+                options={{
+                    container: inStyles.duration,
+                    text: inStyles.durationText,
+                }}
                 handleFinish={() => {
                     alert('Meditation Session Finished');
-                  }}
-      
+                }}
             />
         )
         return clock
@@ -88,7 +99,7 @@ export default function Session({ navigation, route }) {
 
     // set ambient sounds
 
-    
+
     const [isFlipped, setIsFlipped] = useState(false);
     // Set either stopwatch or timer to true based on practice.
     const [isStopwatchVisible] = useState(true);
@@ -131,26 +142,8 @@ export default function Session({ navigation, route }) {
 
             <View style={inStyles.headerContainer}>
                 <View style={[styles.bgColorPrimary, inStyles.timerContainer]}>
-                    {isStopwatchVisible && (
-                        <Stopwatch
-                            start={true}
-                            startTime={0}
-                            options= {{
-                                container: inStyles.duration,
-                                text: inStyles.durationText,
-                            }}
-                        />
-                    )}
-                    {isTimerVisible && (
-                        <Timer
-                            start={true}
-                            totalDuration={61000}
-                            options={{
-                                container: inStyles.duration,
-                                text: inStyles.durationText,
-                            }}
-                        />
-                    )}
+                    {/* remove isStopwatchVisible */}
+                    {time === 0 ? callStopwatch() : callTimer()}
                 </View>
                 <View style={{ flexDirection: 'row', gap: 15, }}>
                     <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia]} onPress={showBgmModal}>
@@ -185,11 +178,6 @@ export default function Session({ navigation, route }) {
             </View>
 
             <View style={inStyles.bottomContainer}>      
-                <View style={[styles.dropShadow, styles.bgColorPrimary, inStyles.timerContainer]}>
-                    {/* <Text style={[{ color: '#CBF3F0', fontSize: RFPercentage(3) }, styles.bold]}>Duration: </Text>
-                    <Text style={[{ fontSize: RFPercentage(3) }, styles.colorWhite, styles.bold]}>00:00</Text> */}
-                    {time === 0 ? callStopwatch() : callTimer()}
-                </View>
                 <TouchableOpacity style={[styles.dropShadow, inStyles.btnEnd]} onPress={showMsgModal}>
                     <Text style={[{ fontSize: RFPercentage(3) }, styles.colorPrimary, styles.bold]}>Done</Text>
                 </TouchableOpacity>
