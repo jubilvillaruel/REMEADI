@@ -33,6 +33,8 @@ import Session from './src/screens/Session';
 import Splash from './src/screens/Splash';
 import { auth } from './firebase';
 import ManageQuote from './src/screens/ManageQuote';
+import ForgotPassword from './src/screens/ForgotPassword';
+
 
 // Google Sign in
 // import {
@@ -171,6 +173,7 @@ export default function App() {
             <Stack.Screen name="SignIn" component={SignIn} initialParams={ {setUserToken} } options={{title: 'Sign In'}}/>
             <Stack.Screen name="SignUp" component={SignUp} initialParams={ {setUserToken} } options={{title: 'Sign Up'}}/>
             <Stack.Screen name="ManageQuote" component={ManageQuote} options={{title: 'ADMIN - Manage Quote'}}/>
+            <Stack.Screen name="ForgotPassword" component={ForgotPassword} options={{title: 'Forgot Password'}}/>
         </Stack.Navigator>
         ) : (
           <Stack.Navigator initialRouteName="HomeScreen" screenOptions={{
@@ -198,7 +201,7 @@ export default function App() {
             <Stack.Screen name='ExpertResult' component={ExpertResult} options={{title: 'Recommended'}}/>
             <Stack.Screen name='Guide' component={Guide} options={{headerTransparent: true, title: '',}}/>
             <Stack.Screen name='GuideOptions' component={GuideOptions} options={{title: 'Guide Options'}}/>
-            <Stack.Screen name="Session" component={Session} options={{headerShown: false}}/>
+            <Stack.Screen name="Session" component={Session} options={{headerShown: true}}/>
         </Stack.Navigator>
         )}
     </NavigationContainer>

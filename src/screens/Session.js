@@ -11,6 +11,82 @@ import text from '../../assets/images/text.png';
 import video from '../../assets/images/video.png';
 
 import { styles } from '../../assets/css/Style';
+import { getGuide } from '../Data/Practices/GuideDB';
+import { getReligionByPractice } from '../Data/LocalDB';
+import { getTimeModel } from '../models/TimeModel';
+
+export default function Session({ navigation, route }) {
+    const data = route.params
+    const practiceTitle = data.title
+    const religion = getReligionByPractice(practiceTitle)
+
+    const [ guide, setGuide ] = useState({'key':'value'})
+    const [ time, setTime ] = useState(Number)
+    
+    useEffect(() => {
+        const fetchGuide = () => {
+            setGuide(getGuide(practiceTitle, religion))
+            // evaluate if practice is time-based or not
+            // if time based
+            setTime(getTimeModel(practiceTitle))
+
+            // if stage based
+            // code here
+
+        };
+        fetchGuide();
+    }, [guide, practiceTitle, religion])
+
+    useEffect(() => {
+        // get duration 
+        
+        // if duration is applicable: start timer/stopwatch
+        // else: display sequence/stages
+    }, [])
+
+    const showGuide = () => {
+        const steps = [];
+        for (const property in guide){
+            steps.push(
+                <StepCard title={property} desc={guide[property]}></StepCard>
+            );
+        }
+        return steps;
+    }
+
+    const callStopwatch = () => {
+        const clock = [];
+        clock.push(
+            <Stopwatch
+                start={true}
+                startTime={time}
+            />
+        )
+        return clock
+    }
+
+    const callTimer = () => {
+        const clock = [];
+        console.log('time: ',time)
+        clock.push(
+            <Timer
+                totalDuration={time}  
+                start={true}
+                handleFinish={() => {
+                    alert('Meditation Session Finished');
+                  }}
+      
+            />
+        )
+        return clock
+    }
+    
+
+    // get meditation video guide
+    // if video guide exists: display video guide on click
+    // else: disable on click
+
+    // set ambient sounds
 
 export default function Session({ navigation }) {
     const [isFlipped, setIsFlipped] = useState(false);
@@ -51,7 +127,7 @@ export default function Session({ navigation }) {
 
     return (
         <SafeAreaView style={styles.screen}>
-            <Text style={[styles.bold, styles.colorPrimary, { fontSize: RFPercentage(3), margin: 15 }]}>Title</Text>
+            <Text style={[styles.bold, styles.colorPrimary, { fontSize: RFPercentage(3), margin: 15 }]}>{practiceTitle}</Text>
 
             <View style={inStyles.headerContainer}>
                 <View style={[styles.bgColorPrimary, inStyles.timerContainer]}>
@@ -100,16 +176,7 @@ export default function Session({ navigation }) {
                     flip={isFlipped}
                     clickable={false}>
                     <ScrollView showsVerticalScrollIndicator={false} style={{ paddingHorizontal: 5 }}>
-                        <StepCard title='Step 1' desc='Content'></StepCard>
-                        <StepCard title='Step 1' desc='Content'></StepCard>
-                        <StepCard title='Step 1' desc='Content'></StepCard>
-                        <StepCard title='Step 1' desc='Content'></StepCard>
-                        <StepCard title='Step 1' desc='Content'></StepCard>
-                        <StepCard title='Step 1' desc='Content'></StepCard>
-                        <StepCard title='Step 1' desc='Content'></StepCard>
-                        <StepCard title='Step 1' desc='Content'></StepCard>
-                        <StepCard title='Step 1' desc='Content'></StepCard>
-                        <StepCard title='Step 1' desc='Content'></StepCard>
+                        {showGuide()}
                     </ScrollView>
                     <View style={styles.back}>
                         <Text>The Back</Text>
@@ -117,7 +184,12 @@ export default function Session({ navigation }) {
                 </FlipCard>
             </View>
 
-            <View style={inStyles.bottomContainer}>
+            <View style={inStyles.bottomContainer}>      
+                <View style={[styles.dropShadow, styles.bgColorPrimary, inStyles.timerContainer]}>
+                    {/* <Text style={[{ color: '#CBF3F0', fontSize: RFPercentage(3) }, styles.bold]}>Duration: </Text>
+                    <Text style={[{ fontSize: RFPercentage(3) }, styles.colorWhite, styles.bold]}>00:00</Text> */}
+                    {time === 0 ? callStopwatch() : callTimer()}
+                </View>
                 <TouchableOpacity style={[styles.dropShadow, inStyles.btnEnd]} onPress={showMsgModal}>
                     <Text style={[{ fontSize: RFPercentage(3) }, styles.colorPrimary, styles.bold]}>Done</Text>
                 </TouchableOpacity>

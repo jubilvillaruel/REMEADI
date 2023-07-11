@@ -42,7 +42,7 @@ export default function Guide({ navigation, route }) {
   };
 
   const goToSession = () => {
-    navigation.navigate('Session');
+    navigation.navigate('Session', {title: data.title});
   };
 
   return (
@@ -50,8 +50,7 @@ export default function Guide({ navigation, route }) {
       title={data.title}
       desc={desc}
       guideImg={data.guideImg}
-      onPress={goToSession}> 
-    </MedGuide>
+      onPress={goToSession}/> 
   );
 }
 
