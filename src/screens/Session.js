@@ -88,7 +88,7 @@ export default function Session({ navigation, route }) {
 
     // set ambient sounds
 
-export default function Session({ navigation }) {
+    
     const [isFlipped, setIsFlipped] = useState(false);
     // Set either stopwatch or timer to true based on practice.
     const [isStopwatchVisible] = useState(true);
@@ -397,5 +397,5 @@ const inStyles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         gap: 75,
-    },
+    }
 });
