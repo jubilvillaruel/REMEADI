@@ -6,9 +6,15 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
 import { Stopwatch, Timer } from 'react-native-stopwatch-timer';
 import { PrimaryButton } from '../components/buttons';
 import FlipCard from 'react-native-flip-card';
+
 import music from '../../assets/images/music.png';
 import text from '../../assets/images/text.png';
 import video from '../../assets/images/video.png';
+import * as Speech from 'expo-speech';
+import { Audio } from 'expo-av';
+
+import night from './../../assets/sounds/night.wav'
+
 
 import { styles } from '../../assets/css/Style';
 import { getGuide } from '../Data/Practices/GuideDB';
@@ -22,6 +28,30 @@ export default function Session({ navigation, route }) {
 
     const [ guide, setGuide ] = useState({'key':'value'})
     const [ time, setTime ] = useState(Number)
+
+    const [sound, setSound] = useState();
+
+    const playSound = async () => {
+        console.log('Loading Sound');
+        // Audio.setAudioModeAsync({
+            
+        // })
+        const { sound } = await Audio.Sound.createAsync( require('./../../assets/sounds/waves.wav')
+        );
+        setSound(sound);
+
+        console.log('Playing Sound');
+        await sound.playAsync();
+    }
+
+    useEffect(() => {
+        return sound
+        ? () => {
+            console.log('Unloading Sound');
+            sound.unloadAsync();
+            }
+        : undefined;
+    }, [sound]);
     
     useEffect(() => {
         const fetchGuide = () => {
@@ -91,7 +121,18 @@ export default function Session({ navigation, route }) {
         )
         return clock
     }
-    
+
+    const speak = () => {
+        let thingToSay = []
+        for (const property in guide){
+            thingToSay.push(guide[property])
+        }
+        const options = {
+            voice: 'Google Bahasa Indonesia',
+            rate: 0.7
+        }
+        Speech.speak(thingToSay, options);
+    };    
 
     // get meditation video guide
     // if video guide exists: display video guide on click
@@ -150,8 +191,14 @@ export default function Session({ navigation, route }) {
                         <Image style={[{ width: 40, height: 40 }]} source={music}/>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia]}>
+                    <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia]} onPress={speak}>
                     <Image style={[{ width: 40, height: 40 }]} source={text}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia]} onPress={Speech.stop}>
+                    <Text>STOP</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia]} onPress={playSound}>
+                    <Text>SOUND</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia]} onPress={flip}>

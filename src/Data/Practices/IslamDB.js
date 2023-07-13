@@ -34,12 +34,12 @@ const MuraqabaDB = {
 }
 
 const SufiDB = {
-    'Step 1' : 'Close your eyes. Breathe normally a few times.',
-    'Step 2' : 'Concentrate on the spiritual heart, while thinking about God. Feel his light in your heart.',
-    'Step 3' : 'As you inhale, mentally repeat Allah, and feel that God\'s lights are being sucked into your heart.',
-    'Step 4' : 'As you exhale, mentally repeat Hu, and feel that the light of Hu is powerfully striking your heart.',
-    'Step 5' : 'Gradually increase the breathing rate to three to four times your normal speed, while keeping the same visualization and mantra. Take shallow but rapid breaths. The inhalation should be longer than the exhalation. The exhalation is a bit short and forceful.',
-    'Step 6' : 'Practice for ten minutes.',
+    'Close your eyes' : 'Close your eyes. Breathe normally a few times.',
+    'Concentrate on the spiritual heart' : 'Concentrate on the spiritual heart, while thinking about God. Feel his light in your heart.',
+    'As you inhale, mentally repeat Allah' : 'As you inhale, mentally repeat Allah, and feel that God\'s lights are being sucked into your heart.',
+    'As you exhale, mentally repeat Hu' : 'As you exhale, mentally repeat Hu, and feel that the light of Hu is powerfully striking your heart.',
+    'Gradually increase the breathing rate to three to four times your normal speed' : 'Gradually increase the breathing rate to three to four times your normal speed, while keeping the same visualization and mantra. Take shallow but rapid breaths. The inhalation should be longer than the exhalation. The exhalation is a bit short and forceful.',
+    'Practice for ten minutes' : 'Practice for ten minutes.',
 }
 
 const IslamDB = {

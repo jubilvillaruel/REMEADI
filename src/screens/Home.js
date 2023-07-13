@@ -15,14 +15,6 @@ const remindVerification = () => {
     alert('Please verify your account')
 }
 
-const goToMeditate = () => {
-    alert("meditate")
-}
-
-const goToMeditationLibrary =() => {
-    alert("meditation library")
-}
-
 export default function Home({ navigation, route }) {
     const { setUserToken } = route.params;
 
@@ -40,8 +32,8 @@ export default function Home({ navigation, route }) {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const userDoc = await db.collection("users").doc(uid).get();  
-                const userData = userDoc.data();                              
+                const userDoc = await db.collection("users").doc(uid).get();
+                const userData = userDoc.data();
                 if (userData) {
                     // fetch firstName
                     setFirstName(userData.firstName);
