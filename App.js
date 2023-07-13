@@ -130,17 +130,30 @@ export default function App() {
   const [userToken, setUserToken] = useState(null);
 
   const getUserToken = async () => {
-    // testing purposes
-    // const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
     try {
-      // custom logic
-      // await for the user existence verification
-      // await sleep(2000);
-      await auth.currentUser !== null ? setUserToken(auth.currentUser.uid)  : setUserToken(null)
-    } finally {
+      let counter = 0;
+      const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+      while (counter < 30) {
+        // console.log('counter:',counter)
+        await sleep(100);
+        // console.log('0.1 sec lapsed')
+        if (auth.currentUser !== null) {
+          console.log('user is found!')
+          setUserToken(auth.currentUser.uid);
+          break;
+        } else {
+          console.log('no user!')
+          counter++;
+          continue
+        }
+      }
+      console.log('total waiting second/s :',counter/10)
+    }finally {
       setIsLoading(false);
     }
   };
+  
+  
 
   useEffect(() => {
     getUserToken();
