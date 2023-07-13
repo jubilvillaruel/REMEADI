@@ -206,7 +206,7 @@ const inStyles = StyleSheet.create({
         padding: 15,
         borderWidth: 2,
         borderColor: '#2EC4B6',
-        borderRadius: 10,
+        borderRadius: 20,
     },
 
     bottomContainer: {
@@ -220,7 +220,7 @@ const inStyles = StyleSheet.create({
         alignItems: 'center',
         width: screenWidth('30%'),
         height: screenHeight('5%'),
-        borderRadius: 10,
+        borderRadius: 20,
         padding: 15,
     },
 
@@ -240,7 +240,7 @@ const inStyles = StyleSheet.create({
         width: '100%',
         height: '100%',
         borderWidth: 2,
-        borderRadius: 10,
+        borderRadius: 20,
         borderColor: '#2EC4B6',
         padding: 15,
     },
@@ -305,7 +305,7 @@ const inStyles = StyleSheet.create({
         padding: 15,
         gap: 15,
         borderWidth: 2,
-        borderRadius: 10,
+        borderRadius: 20,
         borderColor: '#2EC4B6',
     },
 
@@ -319,6 +319,7 @@ const inStyles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#FFFFFF',
         backgroundColor: '#FFBF69',
+        borderRadius: 20,
     },
     
     infoContainer: {

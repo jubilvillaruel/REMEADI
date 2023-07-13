@@ -99,7 +99,7 @@ const inStyles = StyleSheet.create({
       padding: 15,
       marginVertical: 10,
       gap: 5,
-      borderRadius: 10,
+      borderRadius: 20,
       borderWidth: 2,
       borderColor: '#2EC4B6',
     },
