@@ -180,12 +180,6 @@ export default function Session({ navigation, route }) {
 
     const [guideFlipped, setGuideFlipped] = useState(false);
     const [textFlipped, setTextFlipped] = useState(false);
-    // Set either stopwatch or timer to true based on practice.
-    const [isStopwatchVisible] = useState(true);
-    const [isTimerVisible] = useState(false);
-    const [msgVisible, setMsgVisible] = useState(false);
-    const [bgmVisible, setBgmVisible] = useState(false);
-    const [selectedItems, setSelectedItems] = useState([]);
 
     const flipGuide = () => {
         setGuideFlipped(!guideFlipped);
@@ -344,21 +338,6 @@ export default function Session({ navigation, route }) {
                                 <Text style={[styles.bold, { fontSize: RFPercentage(2) }]}>Background Music</Text>
                                 <ScrollView style={inStyles.bgmListContainer}>
                                     <Sounds/>
-                                    <TouchableOpacity onPress={() => toggleItem('Item 1')}>
-                                        <Text style={[inStyles.itemText, selectedItems.includes('Item 1') && inStyles.selectedItemText]}>
-                                            Item 1
-                                        </Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity onPress={() => toggleItem('Item 2')}>
-                                        <Text style={[inStyles.itemText, selectedItems.includes('Item 2') && inStyles.selectedItemText]}>
-                                            Item 2
-                                        </Text>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity onPress={() => toggleItem('Item 3')}>
-                                        <Text style={[inStyles.itemText, selectedItems.includes('Item 3') && inStyles.selectedItemText]}>
-                                            Item 3
-                                        </Text>
-                                    </TouchableOpacity>
                                 </ScrollView>
 
                                 <TouchableOpacity onPress={hideBgmModal}>
