@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, ImageBackground } from 'react-native';
+import { screenWidth, screenHeight } from '../components/dimensions';
 
 import { styles } from './../../assets/css/Style';
 
@@ -59,9 +60,8 @@ export const StepCard = ({ title, desc }) => {
 
 const inStyles = StyleSheet.create({
     libItem: {
-        width: 160,
-        height: 140,
-        marginRight: 5,
+        width: screenWidth('41%'),
+        height: screenHeight('18%'),
         justifyContent: 'center',
         alignItems: 'center',
     },

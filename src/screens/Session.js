@@ -5,12 +5,13 @@ import { screenWidth, screenHeight } from '../components/dimensions';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { Stopwatch, Timer } from 'react-native-stopwatch-timer';
 import { PrimaryButton } from '../components/buttons';
+import { Video, ResizeMode } from 'expo-av';
 import FlipCard from 'react-native-flip-card';
 
 import music from '../../assets/images/music.png';
 import text from '../../assets/images/text.png';
 import stop from '../../assets/images/stop.png';
-import video from '../../assets/images/video.png';
+import videoImg from '../../assets/images/video.png';
 import * as Speech from 'expo-speech';
 import { Audio } from 'expo-av';
 
@@ -149,6 +150,9 @@ export default function Session({ navigation, route }) {
 
     // set ambient sounds
 
+    const video = React.useRef(null);
+    const [status, setStatus] = React.useState({});
+
 
     const [guideFlipped, setGuideFlipped] = useState(false);
     const [textFlipped, setTextFlipped] = useState(false);
@@ -229,7 +233,7 @@ export default function Session({ navigation, route }) {
                                 </TouchableOpacity> */}
 
                                 <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia]} onPress={flipGuide}>
-                                    <Image style={[{ width: 40, height: 40 }]} source={video}/>
+                                    <Image style={[{ width: 40, height: 40 }]} source={videoImg}/>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -247,7 +251,25 @@ export default function Session({ navigation, route }) {
                                 {showGuide()}
                             </ScrollView>
                             <View style={styles.back}>
-                                <Text>The Back</Text>
+                                <Video
+                                    ref={video}
+                                    style={{ width: screenWidth('82%'), height: screenHeight('35%'), borderRadius: 10, aspectRatio: 1 / 1  }}
+                                    source={require('../../assets/videos/hehehhehee.mp4')}
+                                    useNativeControls
+                                    resizeMode={Video.RESIZE_MODE_CONTAIN}
+                                    onPlaybackStatusUpdate={(status) => setStatus(status)}
+                                />
+                                <View>
+                                    <TouchableOpacity onPress={() => {
+                                        if (status.isPlaying) {
+                                        video.current.pauseAsync();
+                                        } else {
+                                        video.current.playAsync();
+                                        }
+                                        }}>
+                                        <Image style={{ width: 40, height: 40 }} source={videoImg}/>
+                                    </TouchableOpacity>
+                                </View>
                             </View>
                         </FlipCard>
                     </View>
