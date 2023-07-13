@@ -22,6 +22,55 @@ const meditationDescDB = {
     'Shema' : "Shema meditation refers to the practice of meditating on the Shema, which is one of the most important prayers in Judaism. The Shema is a central declaration of faith and devotion to God, traditionally recited twice daily by Jewish individuals.",
 }
 
-// BuddhismDB
+const religionDB = {
+    'Christianity': ['Lectio Divina','Christian Meditation','Examen','Rosary'],
+    'Islam': ['Taffakur','Dhikr','Muraqaba','Sufi Breathing'],
+    'Hinduism': ['Hatha Yoga','Kriya Yoga','Chakra'],
+    'Buddhism': ['Breath','Walk','Tonglen','Metta','Body Scan'],
+    'Judaism': ['Hitbodedut','Kabbalistic/Chassidic','Shema'],
+}
 
-export { meditationDescDB } 
+const timeDB = {
+    'Lectio Divina' : 0,
+    'Christian Meditation' : 0,
+    'Examen' : 0,
+    'Rosary' : 1200000, // 20 mins
+    'Taffakur' : 0,
+    'Dhikr' : [5,10,15],
+    'Muraqaba' : [4,5,10],
+    'Sufi Breathing' : 10,
+    // 'Hatha Yoga': null,
+    // 'Kriya Yoga' : null,
+    'Chakra' : 0,
+    'Breath' : [5,15,30],
+    'Walk' : [10,20,30],
+    'Tonglen' : [5,15,30],
+    'Metta' : [10,15,20],
+    'Body Scan' : [20,30,45],
+    'Hitbodedut' : 0,
+    'Kabbalistic/Chassidic' : [10,20,30],
+    'Shema' : [10,20,30]
+}
+
+
+
+const getReligionByPractice = (title) => {
+    // loop through religionDB and return key if value matched with title
+    for(let [key,value] of Object.entries(religionDB))
+    {
+        let matchFound=false;
+        for(var i in value){
+            const practiceTitle = value[i];
+            // console.log(`Checking ${practiceTitle}`);
+            if((new RegExp('^'+practiceTitle+'$', "gi")).test(title)){
+                // console.log(`${title}: Matched to Practice: "${practiceTitle}" under Religion:${key}`)
+                matchFound=true;
+                break;
+            }  
+        }
+        if(matchFound== true )return  {key};
+    };
+    return null ;
+}
+
+export { meditationDescDB, religionDB, getReligionByPractice, timeDB } 

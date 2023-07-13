@@ -1,4 +1,4 @@
-import React, { useState }from 'react'
+import React, { useState, useEffect }from 'react'
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, ScrollView, Image, Modal } from 'react-native';
 import { StepCard } from '../components/cards';
 import { screenWidth, screenHeight } from '../components/dimensions';
@@ -6,13 +6,141 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
 import { Stopwatch, Timer } from 'react-native-stopwatch-timer';
 import { PrimaryButton } from '../components/buttons';
 import FlipCard from 'react-native-flip-card';
+
 import music from '../../assets/images/music.png';
 import text from '../../assets/images/text.png';
 import video from '../../assets/images/video.png';
+import * as Speech from 'expo-speech';
+import { Audio } from 'expo-av';
+
+import night from './../../assets/sounds/night.wav'
+
 
 import { styles } from '../../assets/css/Style';
+import { getGuide } from '../Data/Practices/GuideDB';
+import { getReligionByPractice } from '../Data/LocalDB';
+import { getTimeModel } from '../models/TimeModel';
 
-export default function Session({ navigation }) {
+export default function Session({ navigation, route }) {
+    const data = route.params
+    const practiceTitle = data.title
+    const religion = getReligionByPractice(practiceTitle)
+
+    const [ guide, setGuide ] = useState({'key':'value'})
+    const [ time, setTime ] = useState(Number)
+
+    const [sound, setSound] = useState();
+
+    const playSound = async () => {
+        console.log('Loading Sound');
+        // Audio.setAudioModeAsync({
+            
+        // })
+        const { sound } = await Audio.Sound.createAsync( require('./../../assets/sounds/waves.wav')
+        );
+        setSound(sound);
+
+        console.log('Playing Sound');
+        await sound.playAsync();
+    }
+
+    useEffect(() => {
+        return sound
+        ? () => {
+            console.log('Unloading Sound');
+            sound.unloadAsync();
+            }
+        : undefined;
+    }, [sound]);
+    
+    useEffect(() => {
+        const fetchGuide = () => {
+            setGuide(getGuide(practiceTitle, religion))
+            // evaluate if practice is time-based or not
+            // if time based
+            setTime(getTimeModel(practiceTitle))
+
+            // if stage based
+            // code here
+
+        };
+        fetchGuide();
+    }, [guide, practiceTitle, religion])
+
+    useEffect(() => {
+        // get duration 
+        
+        // if duration is applicable: start timer/stopwatch
+        // else: display sequence/stages
+    }, [])
+
+    const showGuide = () => {
+        const steps = [];
+        let stepCount = 1
+        let count = ''
+        for (const property in guide){
+            count = ('Step ' + stepCount)
+            steps.push(
+                <StepCard title={count} desc={property}></StepCard>
+            );
+            stepCount++
+        }
+        return steps;
+    }
+
+    const callStopwatch = () => {
+        const clock = [];
+        clock.push(
+            <Stopwatch
+                start={true}
+                startTime={time}
+                options= {{
+                    container: inStyles.duration,
+                    text: inStyles.durationText,
+                }}
+            />
+        )
+        return clock
+    }
+
+    const callTimer = () => {
+        const clock = [];
+        console.log('time: ',time)
+        clock.push(
+            <Timer
+                start={true}
+                totalDuration={time}
+                options={{
+                    container: inStyles.duration,
+                    text: inStyles.durationText,
+                }}
+                handleFinish={() => {
+                    alert('Meditation Session Finished');
+                }}
+            />
+        )
+        return clock
+    }
+
+    const speak = () => {
+        let thingToSay = []
+        for (const property in guide){
+            thingToSay.push(guide[property])
+        }
+        const options = {
+            voice: 'Google Bahasa Indonesia',
+            rate: 0.7
+        }
+        Speech.speak(thingToSay, options);
+    };    
+
+    // get meditation video guide
+    // if video guide exists: display video guide on click
+    // else: disable on click
+
+    // set ambient sounds
+
+
     const [isFlipped, setIsFlipped] = useState(false);
     // Set either stopwatch or timer to true based on practice.
     const [isStopwatchVisible] = useState(true);
@@ -51,38 +179,26 @@ export default function Session({ navigation }) {
 
     return (
         <SafeAreaView style={styles.screen}>
-            <Text style={[styles.bold, styles.colorPrimary, { fontSize: RFPercentage(3), margin: 15 }]}>Title</Text>
+            <Text style={[styles.bold, styles.colorPrimary, { fontSize: RFPercentage(3), margin: 15 }]}>{practiceTitle}</Text>
 
             <View style={inStyles.headerContainer}>
                 <View style={[styles.bgColorPrimary, inStyles.timerContainer]}>
-                    {isStopwatchVisible && (
-                        <Stopwatch
-                            start={true}
-                            startTime={0}
-                            options= {{
-                                container: inStyles.duration,
-                                text: inStyles.durationText,
-                            }}
-                        />
-                    )}
-                    {isTimerVisible && (
-                        <Timer
-                            start={true}
-                            totalDuration={61000}
-                            options={{
-                                container: inStyles.duration,
-                                text: inStyles.durationText,
-                            }}
-                        />
-                    )}
+                    {/* remove isStopwatchVisible */}
+                    {time === 0 ? callStopwatch() : callTimer()}
                 </View>
                 <View style={{ flexDirection: 'row', gap: 15, }}>
                     <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia]} onPress={showBgmModal}>
                         <Image style={[{ width: 40, height: 40 }]} source={music}/>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia]}>
+                    <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia]} onPress={speak}>
                     <Image style={[{ width: 40, height: 40 }]} source={text}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia]} onPress={Speech.stop}>
+                    <Text>STOP</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia]} onPress={playSound}>
+                    <Text>SOUND</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia]} onPress={flip}>
@@ -100,16 +216,7 @@ export default function Session({ navigation }) {
                     flip={isFlipped}
                     clickable={false}>
                     <ScrollView showsVerticalScrollIndicator={false} style={{ paddingHorizontal: 5 }}>
-                        <StepCard title='Step 1' desc='Content'></StepCard>
-                        <StepCard title='Step 1' desc='Content'></StepCard>
-                        <StepCard title='Step 1' desc='Content'></StepCard>
-                        <StepCard title='Step 1' desc='Content'></StepCard>
-                        <StepCard title='Step 1' desc='Content'></StepCard>
-                        <StepCard title='Step 1' desc='Content'></StepCard>
-                        <StepCard title='Step 1' desc='Content'></StepCard>
-                        <StepCard title='Step 1' desc='Content'></StepCard>
-                        <StepCard title='Step 1' desc='Content'></StepCard>
-                        <StepCard title='Step 1' desc='Content'></StepCard>
+                        {showGuide()}
                     </ScrollView>
                     <View style={styles.back}>
                         <Text>The Back</Text>
@@ -117,7 +224,7 @@ export default function Session({ navigation }) {
                 </FlipCard>
             </View>
 
-            <View style={inStyles.bottomContainer}>
+            <View style={inStyles.bottomContainer}>      
                 <TouchableOpacity style={[styles.dropShadow, inStyles.btnEnd]} onPress={showMsgModal}>
                     <Text style={[{ fontSize: RFPercentage(3) }, styles.colorPrimary, styles.bold]}>Done</Text>
                 </TouchableOpacity>
@@ -326,5 +433,5 @@ const inStyles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         gap: 75,
-    },
+    }
 });

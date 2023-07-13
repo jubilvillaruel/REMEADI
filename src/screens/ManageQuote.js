@@ -2,7 +2,9 @@ import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View, Picker } from '
 import React, { useState } from 'react'
 import { TextInput } from 'react-native-web'
 import { styles } from '../../assets/css/Style'
-import { auth, db } from '../../firebase'
+import { db } from '../../firebase'
+import { getQuoteID} from '../models/QuoteModel'
+
 
 export default function ManageQuote() {
     const [ quote, setQuote ] = useState('')
@@ -50,32 +52,39 @@ export default function ManageQuote() {
         <SafeAreaView style={[styles.screen]}>
             <View style={inStyles.signUpContainer}>
                 <View>
+                  <View style={[inStyles.inputGroup ]}>
+                      <TextInput  multiline numberOfLines={4} style={inStyles.inputWide} placeholder="Quote" selectionColor="transparent" value={quote} onChangeText={setQuote}/>
+                  </View>
 
-                <View style={[inStyles.inputGroup ]}>
-                    <TextInput  multiline numberOfLines={4} style={inStyles.inputWide} placeholder="Quote" selectionColor="transparent" value={quote} onChangeText={setQuote}/>
-                </View>
+                  <View style={inStyles.inputGroup}>
+                      <TextInput style={inStyles.input} placeholder="Source" selectionColor="transparent" value={source} onChangeText={setSource}/>
+                  </View>
 
-                <View style={inStyles.inputGroup}>
-                    <TextInput style={inStyles.input} placeholder="Source" selectionColor="transparent" value={source} onChangeText={setSource}/>
-                </View>
+                  <Picker style={[inStyles.btnSignUp]}
+                  selectedValue={religion}
+                  onValueChange={(itemValue, itemIndex) => setReligion(itemValue)}>
+                      <Picker.Item label='Christianity' value='Christianity'/>
+                      <Picker.Item label='Islam' value='Islam'/>
+                      <Picker.Item label='Hinduism' value='Hinduism'/>
+                      <Picker.Item label='Buddhism' value='Buddhism'/>
+                      <Picker.Item label='Judaism' value='Judaism'/>
+                  </Picker>
 
-                <Picker style={[inStyles.btnSignUp]}
-                selectedValue={religion}
-                onValueChange={(itemValue, itemIndex) => setReligion(itemValue)}>
-                    <Picker.Item label='Christianity' value='Christianity'/>
-                    <Picker.Item label='Islam' value='Islam'/>
-                    <Picker.Item label='Hinduism' value='Hinduism'/>
-                    <Picker.Item label='Buddhism' value='Buddhism'/>
-                    <Picker.Item label='Judaism' value='Judaism'/>
-                </Picker>
+                  {/* <View style={inStyles.inputGroup}>
+                      <TextInput style={inStyles.input} placeholder="Religion" selectionColor="transparent" value={religion} onChangeText={setReligion}/>
+                  </View> */}
 
-                {/* <View style={inStyles.inputGroup}>
-                    <TextInput style={inStyles.input} placeholder="Religion" selectionColor="transparent" value={religion} onChangeText={setReligion}/>
-                </View> */}
+                  <TouchableOpacity 
+                    style={[styles.bgColorPrimary, inStyles.btnSignUp, styles.dropShadow]} 
+                    onPress={handleAddQuote}>
+                      <Text style={[styles.colorWhite, { fontWeight: 'bold' }]}>Add Quote</Text>
+                  </TouchableOpacity>
 
-                <TouchableOpacity style={[styles.bgColorPrimary, inStyles.btnSignUp, styles.dropShadow]} onPress={handleAddQuote}>
-                    <Text style={[styles.colorWhite, { fontWeight: 'bold' }]}>Add Quote</Text>
-                </TouchableOpacity>
+                  <TouchableOpacity 
+                    style={[styles.bgColorPrimary, inStyles.btnSignUp, styles.dropShadow]} 
+                    onPress={getQuoteID}>
+                      <Text style={[styles.colorWhite, { fontWeight: 'bold' }]}>Get Quote</Text>
+                  </TouchableOpacity>
                 </View>
 
             </View>
