@@ -36,6 +36,7 @@ import Splash from './src/screens/Splash';
 import { auth } from './firebase';
 import ManageQuote from './src/screens/ManageQuote';
 import ForgotPassword from './src/screens/ForgotPassword';
+// import TestSound from './src/screens/TestSound';
 
 
 // Google Sign in
@@ -130,11 +131,11 @@ export default function App() {
 
   const getUserToken = async () => {
     // testing purposes
-    const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+    // const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
     try {
       // custom logic
       // await for the user existence verification
-      await sleep(2000);
+      // await sleep(2000);
       await auth.currentUser !== null ? setUserToken(auth.currentUser.uid)  : setUserToken(null)
     } finally {
       setIsLoading(false);
@@ -154,7 +155,7 @@ export default function App() {
     
     <NavigationContainer>
         {userToken == null ? (
-          <Stack.Navigator initialRouteName="Landing" screenOptions={{
+          <Stack.Navigator initialRouteName="TestSound" screenOptions={{
             headerTitleAlign: 'center',
             headerStyle: {
               shadowColor: '#000000',
@@ -176,6 +177,7 @@ export default function App() {
             <Stack.Screen name="SignUp" component={SignUp} initialParams={ {setUserToken} } options={{title: 'Sign Up'}}/>
             <Stack.Screen name="ManageQuote" component={ManageQuote} options={{title: 'ADMIN - Manage Quote'}}/>
             <Stack.Screen name="ForgotPassword" component={ForgotPassword} options={{title: 'Forgot Password'}}/>
+            {/* <Stack.Screen name="TestSound" component={TestSound} options={{title: 'Test Sound'}} /> */}
         </Stack.Navigator>
         ) : (
           <Stack.Navigator initialRouteName="HomeScreen" screenOptions={{
@@ -206,6 +208,7 @@ export default function App() {
             <Stack.Screen name='Guide' component={Guide} options={{headerTransparent: true, title: '',}}/>
             <Stack.Screen name='GuideOptions' component={GuideOptions} options={{title: 'Guide Options'}}/>
             <Stack.Screen name="Session" component={Session} options={{headerShown: false}}/>
+            {/* <Stack.Screen name="Session" component={TestSound} options={{headerShown: false}}/> */}
         </Stack.Navigator>
         )}
     </NavigationContainer>
