@@ -91,8 +91,8 @@ export default function Home({ navigation, route }) {
         navigation.navigate('MedLibrary');
     };
 
-    const goToExpert = () => {
-        navigation.navigate('ExpertResult');
+    const goToSelectReligion = () => {
+        navigation.navigate('SelectReligion');
     };
 
     return (
@@ -117,7 +117,7 @@ export default function Home({ navigation, route }) {
                 </View>
 
                 <View style={inStyles.sec2Container}>
-                    <TouchableOpacity style={[inStyles.btnFeature, styles.bgColorPrimary, styles.dropShadow]} onPress={() => (emailVerified === true ? goToExpert() : remindVerification())}>
+                    <TouchableOpacity style={[inStyles.btnFeature, styles.bgColorPrimary, styles.dropShadow]} onPress={() => (emailVerified === true ? goToSelectReligion() : remindVerification())}>
                         <Image style={[{ width: 110, height: 120 }]} source={meditate}/>
                         <Text style={[styles.colorWhite, styles.bold, { fontSize: RFPercentage(2.5), marginTop: 5 }]}>Meditate</Text>
                         <Text style={[styles.colorWhite, { fontSize: RFPercentage(2.2) }]}>{'Recommend a practice for you'}</Text>
@@ -139,6 +139,7 @@ export default function Home({ navigation, route }) {
                 <Modal visible={quoteVisible} animationType='slide' transparent={true}>
                     <View style={inStyles.modalContainer}>
                         <View style={[inStyles.modalContent, styles.dropShadow]}>
+                            <Text style={[styles.bold, { fontSize: RFPercentage(2.5), top: 15, position: 'absolute' }]}>Daily Motivation</Text><br></br>
                             <Text>"{quote}"</Text><br></br>
                             <Text>{source}</Text>
                             <TouchableOpacity style={inStyles.btnCloseModal} onPress={hideQuoteModal}>
@@ -151,7 +152,7 @@ export default function Home({ navigation, route }) {
                 <Modal visible={avatarVisible} animationType='slide' transparent={true}>
                     <View style={inStyles.modalContainer}>
                         <View style={[inStyles.modalContent, styles.dropShadow]}>
-                            <Text>Avatar</Text>
+                            <Text>Coming soon.</Text>
                             <TouchableOpacity style={inStyles.btnCloseModal} onPress={hideAvatarModal}>
                                 <Image style={[{ width: 20, height: 20 }]} source={close}/>
                             </TouchableOpacity>

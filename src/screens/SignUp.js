@@ -60,9 +60,18 @@ export default function SignUp({ navigation, route }) {
   const handleDateSelect = (date) => {
     const currentDate = new Date();
     const selectedYear = parseInt(date.substring(0, 4), 10);
+    const selectedMonth = parseInt(date.substring(5, 7), 10);
+    const selectedDay = parseInt(date.substring(8, 10), 10);
     const currentYear = currentDate.getFullYear();
-    const calculatedAge = currentYear - selectedYear;
-
+    const currentMonth = currentDate.getMonth() + 1;
+    const currentDay = currentDate.getDate();
+  
+    let calculatedAge = currentYear - selectedYear;
+  
+    if (currentMonth < selectedMonth || (currentMonth === selectedMonth && currentDay < selectedDay)) {
+      calculatedAge--;
+    }
+  
     if (calculatedAge >= 12) {
       setSelectedDate(date);
       setAge(calculatedAge.toString());
@@ -239,7 +248,7 @@ export default function SignUp({ navigation, route }) {
             <Modal visible={calendarVisible} animationType="slide" transparent={true} onRequestClose={hideCalendarModal}>
               <View style={inStyles.modalContainer}>
                 <View style={{ width: 300, height: 300 }}>
-                  <DatePicker mode="calendar" onSelectedChange={handleDateSelect} />
+                  <DatePicker style={{ borderWidth: 2, borderColor: '#2EC4B6', borderRadius: 20 }} mode="calendar" onSelectedChange={handleDateSelect} />
                 </View>
               </View>
             </Modal>
