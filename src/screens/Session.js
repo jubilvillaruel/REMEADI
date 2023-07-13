@@ -5,6 +5,8 @@ import { screenWidth, screenHeight } from '../components/dimensions';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { Stopwatch, Timer } from 'react-native-stopwatch-timer';
 import { PrimaryButton } from '../components/buttons';
+import { Sounds } from './TestSound';
+
 import FlipCard from 'react-native-flip-card';
 
 import music from '../../assets/images/music.png';
@@ -12,9 +14,6 @@ import text from '../../assets/images/text.png';
 import video from '../../assets/images/video.png';
 import * as Speech from 'expo-speech';
 import { Audio } from 'expo-av';
-
-import night from './../../assets/sounds/night.wav'
-
 
 import { styles } from '../../assets/css/Style';
 import { getGuide } from '../Data/Practices/GuideDB';
@@ -26,32 +25,67 @@ export default function Session({ navigation, route }) {
     const practiceTitle = data.title
     const religion = getReligionByPractice(practiceTitle)
 
+    const [isFlipped, setIsFlipped] = useState(false);
+    const [msgVisible, setMsgVisible] = useState(false);
+    const [bgmVisible, setBgmVisible] = useState(false);
+    const [selectedItems, setSelectedItems] = useState([]);
+
     const [ guide, setGuide ] = useState({'key':'value'})
     const [ time, setTime ] = useState(Number)
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [sounds, setSounds] = useState([]);
 
-    const [sound, setSound] = useState();
-
-    const playSound = async () => {
-        console.log('Loading Sound');
-        // Audio.setAudioModeAsync({
-            
-        // })
-        const { sound } = await Audio.Sound.createAsync( require('./../../assets/sounds/waves.wav')
-        );
-        setSound(sound);
-
-        console.log('Playing Sound');
-        await sound.playAsync();
-    }
-
-    useEffect(() => {
-        return sound
-        ? () => {
-            console.log('Unloading Sound');
-            sound.unloadAsync();
-            }
-        : undefined;
-    }, [sound]);
+    const playSound = async (soundFile) => {
+        console.log('hello from playsound')
+        try {
+            const { sound } = await Audio.Sound.createAsync(soundFile);
+            console.log('hello from Audio.Sound.createAsync')
+            setSounds((prevSounds) => [...prevSounds, sound]);
+            sound.setOnPlaybackStatusUpdate((status) => {
+                console.log('hello from setOnPlaybackStatusUpdate')
+                if (status.didJustFinish) {
+                    console.log('hello from didJustFinish')
+                    sound.replayAsync(); // Replay the sound
+                }
+            });
+            sound.playAsync();
+        } catch (error) {
+            console.log('Error playing sound:', error);
+        }
+    };
+    
+    
+    const stopSound = async (sound) => {
+        console.log('hello from stopSound')
+        try {
+            await sound.stopAsync();
+            setSounds((prevSounds) => prevSounds.filter((s) => s !== sound));
+        } catch (error) {
+            console.log('Error stopping sound:', error);
+        }
+    };
+    
+    const stopAllSounds = async () => {
+        try {
+            await Promise.all(sounds.map((sound) => sound.stopAsync()));
+            setSounds([]);
+        } catch (error) {
+            console.log('Error stopping sounds:', error);
+        }
+    };
+      
+    const playSound0 = () => {
+        console.log('hello from playSound0')
+        playSound(require('./../../assets/sounds/alarm-clock.wav'));
+    };
+    
+    const playSound1 = () => {
+        stopSound(require('./../../assets/sounds/alarm-clock.wav'))
+    };
+    
+    const playSound2 = () => {
+        playSound(require('./../../assets/sounds/rain.wav'));
+    };
     
     useEffect(() => {
         const fetchGuide = () => {
@@ -66,13 +100,6 @@ export default function Session({ navigation, route }) {
         };
         fetchGuide();
     }, [guide, practiceTitle, religion])
-
-    useEffect(() => {
-        // get duration 
-        
-        // if duration is applicable: start timer/stopwatch
-        // else: display sequence/stages
-    }, [])
 
     const showGuide = () => {
         const steps = [];
@@ -128,26 +155,11 @@ export default function Session({ navigation, route }) {
             thingToSay.push(guide[property])
         }
         const options = {
-            voice: 'Google Bahasa Indonesia',
-            rate: 0.7
+            voice: 'Microsoft Zira - English (United States)',
+            rate: 0.9
         }
         Speech.speak(thingToSay, options);
     };    
-
-    // get meditation video guide
-    // if video guide exists: display video guide on click
-    // else: disable on click
-
-    // set ambient sounds
-
-
-    const [isFlipped, setIsFlipped] = useState(false);
-    // Set either stopwatch or timer to true based on practice.
-    const [isStopwatchVisible] = useState(true);
-    const [isTimerVisible] = useState(false);
-    const [msgVisible, setMsgVisible] = useState(false);
-    const [bgmVisible, setBgmVisible] = useState(false);
-    const [selectedItems, setSelectedItems] = useState([]);
 
     const flip = () => {
         setIsFlipped(!isFlipped);
@@ -163,6 +175,7 @@ export default function Session({ navigation, route }) {
 
     const showBgmModal = () => {
         setBgmVisible(true);
+        Sounds.loadSounds
     };
     
     const hideBgmModal = () => {
@@ -183,7 +196,6 @@ export default function Session({ navigation, route }) {
 
             <View style={inStyles.headerContainer}>
                 <View style={[styles.bgColorPrimary, inStyles.timerContainer]}>
-                    {/* remove isStopwatchVisible */}
                     {time === 0 ? callStopwatch() : callTimer()}
                 </View>
                 <View style={{ flexDirection: 'row', gap: 15, }}>
@@ -197,15 +209,13 @@ export default function Session({ navigation, route }) {
                     <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia]} onPress={Speech.stop}>
                     <Text>STOP</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia]} onPress={playSound}>
-                    <Text>SOUND</Text>
-                    </TouchableOpacity>
 
                     <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia]} onPress={flip}>
                         <Image style={[{ width: 40, height: 40 }]} source={video}/>
                     </TouchableOpacity>
                 </View>
             </View>
+            
             
             <View style={inStyles.guideContainer}>
                 <FlipCard
@@ -270,21 +280,7 @@ export default function Session({ navigation, route }) {
                         <Text style={[styles.bold, { fontSize: RFPercentage(2) }]}>Background Music</Text>
 
                         <ScrollView style={inStyles.bgmListContainer}>
-                            <TouchableOpacity onPress={() => toggleItem('Item 1')}>
-                                <Text style={[inStyles.itemText, selectedItems.includes('Item 1') && inStyles.selectedItemText]}>
-                                    Item 1
-                                </Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => toggleItem('Item 2')}>
-                                <Text style={[inStyles.itemText, selectedItems.includes('Item 2') && inStyles.selectedItemText]}>
-                                    Item 2
-                                </Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => toggleItem('Item 3')}>
-                                <Text style={[inStyles.itemText, selectedItems.includes('Item 3') && inStyles.selectedItemText]}>
-                                    Item 3
-                                </Text>
-                            </TouchableOpacity>
+                            <Sounds/>
                         </ScrollView>
 
                         <TouchableOpacity onPress={hideBgmModal}>
