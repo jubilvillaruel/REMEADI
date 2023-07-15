@@ -240,10 +240,10 @@ export default function Session({ navigation, route }) {
     };
 
     return (
-        <SafeAreaView style={styles.screen}>
+        <SafeAreaView style={[styles.screen, styles.bgColorPrimary]}>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                    <View style={inStyles.imageContainer}>
+                    <View style={[inStyles.imageContainer, styles.dropShadow]}>
                         <Image style={[{ width: '100%', height: '100%' }]} source={christianity_1}></Image>
                     
                         <View style={inStyles.headerContainer}>
@@ -314,8 +314,8 @@ export default function Session({ navigation, route }) {
                     </View>
 
                     <View style={inStyles.bottomContainer}>      
-                        <TouchableOpacity style={[styles.dropShadow, inStyles.btnEnd]} onPress={concludeSession}>
-                            <Text style={[{ fontSize: RFPercentage(3) }, styles.colorPrimary, styles.bold]}>Done</Text>
+                        <TouchableOpacity style={[styles.dropShadow, styles.bgColorPrimary, inStyles.btnEnd]} onPress={concludeSession}>
+                            <Text style={[{ fontSize: RFPercentage(3) }, styles.colorWhite, styles.bold]}>Done</Text>
                         </TouchableOpacity>
                     </View>
 
@@ -323,7 +323,6 @@ export default function Session({ navigation, route }) {
                         <View style={inStyles.summaryContainer}>
                             <View style={[inStyles.summaryContent, styles.dropShadow, { gap: 15 }]}>
                                 <Text style={[styles.bold, { fontSize: RFPercentage(3) }]}>Session Done!</Text>
-
                                 <View style={{ gap: 5 }}>
                                     <Text style={{ fontSize: RFPercentage(2) }}>Title</Text>
                                     <View style={inStyles.infoContainer}>
@@ -386,6 +385,7 @@ const inStyles = StyleSheet.create({
     imageContainer: {
         width: screenWidth('100%'),
         height: screenHeight('40%'),
+        zIndex: 1,
     },
 
     headerContainer: {
@@ -405,18 +405,19 @@ const inStyles = StyleSheet.create({
 
     guideContainer: {
         width: screenWidth('90%'),
-        height: screenHeight('45%'),
-        padding: 15,
-        margin: 15,
-        borderWidth: 2,
-        borderColor: '#2EC4B6',
-        borderRadius: 20,
+        height: screenHeight('50%'),
     },
 
     bottomContainer: {
-        width: screenWidth('90%'),
+        width: screenWidth('100%'),
         height: screenHeight('10%'),
+        alignItems: 'center',
         paddingVertical: 15,
+        backgroundColor: '#FFFFFF',
+        shadowColor: 'rgba(35, 35, 35, 0.5)',
+        shadowOpacity: 3,
+        shadowRadius: 4,
+        shadowOffset: { width: 0, height: -3 },
     },
 
     timerContainer: {
@@ -444,11 +445,9 @@ const inStyles = StyleSheet.create({
     btnEnd: {
         justifyContent: 'center',
         alignItems: 'center',
-        width: '100%',
+        width: screenWidth('90%'),
         height: '100%',
-        borderWidth: 2,
-        borderRadius: 20,
-        borderColor: '#2EC4B6',
+        borderRadius: 30,
         padding: 15,
     },
 

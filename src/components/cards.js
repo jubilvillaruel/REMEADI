@@ -100,8 +100,8 @@ const inStyles = StyleSheet.create({
       marginVertical: 10,
       gap: 5,
       borderRadius: 20,
-      borderWidth: 2,
-      borderColor: '#2EC4B6',
+      backgroundColor: '#FFFFFF',
+
     },
 
     stepTitle: {
