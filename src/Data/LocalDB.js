@@ -41,7 +41,7 @@ const timeDB = {
 
 const timeDB2 = {
     'Dhikr' : [5,10,15],
-    'Muraqaba' : [4,5,10],
+    'Muraqaba' : [1,5,10],
     'Breath' : [5,15,30],
     'Walk' : [10,20,30],
     'Tonglen' : [5,15,30],

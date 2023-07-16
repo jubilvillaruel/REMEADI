@@ -38,6 +38,7 @@ export default function Session({ navigation, route }) {
     const [ guide, setGuide ] = useState({'key':'value'});
     const [ time, setTime ] = useState(Number);
     const [timerRunning, setTimerRunning] = useState(true);
+    const [stopwatchTime, setStopwatchTime] = useState([])
 
     // Video component
     const video = React.useRef(null);
@@ -146,24 +147,25 @@ export default function Session({ navigation, route }) {
     
     useEffect(() => {
         const fetchGuide = () => {
+            if (!timerRunning) {
+                // Timer finished, stop the useEffect
+                return;
+            }
             setGuide(getGuide(practiceTitle, religion))
             // evaluate if practice 
             const inTimeDB = Object.keys(timeDB).includes(practiceTitle);
             const inTimeDB2 = Object.keys(timeDB2).includes(practiceTitle);
             const inTimeDB3 = Object.keys(timeDB3).includes(practiceTitle);
             if (inTimeDB) {
-                console.log('active: timeDB')
+                // console.log('active: timeDB')
                 setTime(getTimeModel(practiceTitle))
             } else if (inTimeDB2) {
-                console.log('active: timeDB2')
+                // console.log('active: timeDB2')
                 setTime(getTimeModel2(practiceTitle,bia))
             } else if (inTimeDB3) {
-                console.log('active: timeDB3')
+                // console.log('active: timeDB3')
                 // setTime(getTimeModel3(practiceTitle))
             }
-            // if stage based
-            // code here
-
         };
         fetchGuide();
     }, [guide, practiceTitle, religion])
@@ -192,6 +194,9 @@ export default function Session({ navigation, route }) {
                     container: inStyles.duration,
                     text: inStyles.durationText,
                 }}
+                getTime={(time) => {
+                    setStopwatchTime(time)
+                }}
             />
         )
         return clock
@@ -199,7 +204,7 @@ export default function Session({ navigation, route }) {
 
     const callTimer = () => {
         const clock = [];
-        console.log('time: ',time)
+        // console.log('time: ',time)
         clock.push(
             <Timer
                 start={timerRunning}
@@ -209,7 +214,12 @@ export default function Session({ navigation, route }) {
                     text: inStyles.durationText,
                 }}
                 handleFinish={() => {
-                    alert('Meditation Session Finished');
+                    setTimerRunning(false)
+                    concludeSession()
+                    setStopwatchTime((time/60000))
+                }}
+                getTime={(time) => {
+                    setStopwatchTime(time)
                 }}
             />
         )
@@ -232,7 +242,7 @@ export default function Session({ navigation, route }) {
     const stopSpeech = () => {
         Speech.stop();
         flipText();
-    }; 
+    };
 
     const flipGuide = () => {
         setGuideFlipped(!guideFlipped);
@@ -345,14 +355,14 @@ export default function Session({ navigation, route }) {
                             <View style={[inStyles.summaryContent, styles.dropShadow, { gap: 15 }]}>
                                 <Text style={[styles.bold, { fontSize: RFPercentage(3) }]}>Session Done!</Text>
                                 <View style={{ gap: 5 }}>
-                                    <Text style={{ fontSize: RFPercentage(2) }}>Title</Text>
+                                    <Text style={{ fontSize: RFPercentage(2) }}>{practiceTitle}</Text>
                                     <View style={inStyles.infoContainer}>
                                         <Text style={{ fontSize: RFPercentage(2) }}>Meditation Type:</Text>
                                         <Text style={{ fontSize: RFPercentage(2) }}>Spiritual</Text>
                                     </View>
                                     <View style={inStyles.infoContainer}>
                                         <Text style={{ fontSize: RFPercentage(2) }}>Duration:</Text>
-                                        <Text style={{ fontSize: RFPercentage(2) }}>10 minutes</Text>
+                                        <Text style={{ fontSize: RFPercentage(2) }}>{stopwatchTime} Minute/s</Text>
                                     </View>
                                     <View style={inStyles.infoContainer}>
                                         <Text style={{ fontSize: RFPercentage(2) }}>Times Practiced:</Text>

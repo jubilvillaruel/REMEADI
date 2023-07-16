@@ -6,7 +6,7 @@ import { JudaismDB } from "./JudaismDB";
 
 const getGuide = (title, religionDict) => {
     let religion = religionDict['key']
-    console.log(title, religion)
+    // console.log(title, religion)
     // 5-level if-else template
     let guide;
     switch(religion){
