@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     },
 
     dropShadow: {
-        shadowColor: 'rgba(0, 0, 0, 0.2)',
+        shadowColor: 'rgba(35, 35, 35, 0.5)',
         shadowOpacity: 3,
         shadowRadius: 4,
         shadowOffset: { width: 0, height: 3 },

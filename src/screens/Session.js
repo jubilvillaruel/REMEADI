@@ -6,8 +6,7 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
 import { Stopwatch, Timer } from 'react-native-stopwatch-timer';
 import { PrimaryButton } from '../components/buttons';
 
-import { Video, ResizeMode } from 'expo-av';
-import { Sounds } from './TestSound';
+import { Video } from 'expo-av';
 
 import FlipCard from 'react-native-flip-card';
 
@@ -17,8 +16,6 @@ import stop from '../../assets/images/stop.png';
 import videoImg from '../../assets/images/video.png';
 import * as Speech from 'expo-speech';
 import { Audio } from 'expo-av';
-
-import night from './../../assets/sounds/night.wav'
 
 import christianity_1 from '../../assets/images/christianity/christianity_1.png';
 
@@ -32,66 +29,108 @@ export default function Session({ navigation, route }) {
     const practiceTitle = data.title
     const religion = getReligionByPractice(practiceTitle)
 
-    const [isFlipped, setIsFlipped] = useState(false);
+    // Modals for Summary and BGM Selection
     const [msgVisible, setMsgVisible] = useState(false);
     const [bgmVisible, setBgmVisible] = useState(false);
-    const [selectedItems, setSelectedItems] = useState([]);
 
-    const [ guide, setGuide ] = useState({'key':'value'})
-    const [ time, setTime ] = useState(Number)
-    const [isPlaying, setIsPlaying] = useState(false);
+    // Set Value for guide content and time
+    const [ guide, setGuide ] = useState({'key':'value'});
+    const [ time, setTime ] = useState(Number);
+    const [timerRunning, setTimerRunning] = useState(true);
+
+    // Video component
+    const video = React.useRef(null);
+    const [status, setStatus] = React.useState({});
+
+    // Use States for flippable components
+    const [guideFlipped, setGuideFlipped] = useState(false);
+    const [textFlipped, setTextFlipped] = useState(false);
+
+    // Use States for sounds and selected sounds
     const [sounds, setSounds] = useState([]);
+    const [clickedIndexes, setClickedIndexes] = useState([]);
 
-    const playSound = async (soundFile) => {
-        console.log('hello from playsound')
-        try {
-            const { sound } = await Audio.Sound.createAsync(soundFile);
-            console.log('hello from Audio.Sound.createAsync')
-            setSounds((prevSounds) => [...prevSounds, sound]);
-            sound.setOnPlaybackStatusUpdate((status) => {
-                console.log('hello from setOnPlaybackStatusUpdate')
-                if (status.didJustFinish) {
-                    console.log('hello from didJustFinish')
-                    sound.replayAsync(); // Replay the sound
-                }
-            });
-            sound.playAsync();
-        } catch (error) {
-            console.log('Error playing sound:', error);
+    const toggleItem = (index) => {
+        if (clickedIndexes.includes(index)) {
+            setClickedIndexes(clickedIndexes.filter((clickedIndex) => clickedIndex !== index));
+        } else {
+            setClickedIndexes([...clickedIndexes, index]);
         }
     };
-    
-    
-    const stopSound = async (sound) => {
-        console.log('hello from stopSound')
+
+    const soundFiles = [
+        require('./../../assets/sounds/alarm-clock.wav'),
+        require('./../../assets/sounds/campfire.wav'),
+        require('./../../assets/sounds/night.wav'),
+        require('./../../assets/sounds/rain.wav')
+    ];
+
+    const soundFilesName = [
+        'Alarm-clock',
+        'Campfire',
+        'Night',
+        'Rain'
+    ];
+
+    useEffect(() => {
+        const loadSounds = async () => {
+            try {
+                const loadedSounds = await Promise.all(
+                    soundFiles.map(async (soundFile) => {
+                        const { sound } = await Audio.Sound.createAsync(soundFile);
+                        return sound;
+                    })
+                );
+                setSounds(loadedSounds);
+            } catch (error) {
+                console.error('Error loading sounds:', error);
+            }
+        };
+        loadSounds();
+    }, []);
+
+    const playSound = async (index) => {
         try {
+            const sound = sounds[index];
+            await sound.replayAsync();
+            toggleItem(index);
+        } catch (error) {
+            console.error('Error playing sound:', error);
+        }
+    };
+
+    const stopSound = async (index) => {
+        try {
+            const sound = sounds[index];
             await sound.stopAsync();
-            setSounds((prevSounds) => prevSounds.filter((s) => s !== sound));
+            setClickedIndexes(clickedIndexes.filter((clickedIndex) => clickedIndex !== index));
         } catch (error) {
-            console.log('Error stopping sound:', error);
+            console.error('Error stopping sound:', error);
         }
     };
-    
+
     const stopAllSounds = async () => {
         try {
             await Promise.all(sounds.map((sound) => sound.stopAsync()));
             setSounds([]);
+            setClickedIndexes([]);
         } catch (error) {
-            console.log('Error stopping sounds:', error);
+            console.error('Error stopping all sounds:', error);
         }
     };
-      
-    const playSound0 = () => {
-        console.log('hello from playSound0')
-        playSound(require('./../../assets/sounds/alarm-clock.wav'));
+
+    useEffect(() => {
+        return () => {
+            stopAllSounds();
+        };
+    }, []);
+
+    const handlePlaySound = (index) => {
+        playSound(index);
     };
-    
-    const playSound1 = () => {
-        stopSound(require('./../../assets/sounds/alarm-clock.wav'))
-    };
-    
-    const playSound2 = () => {
-        playSound(require('./../../assets/sounds/rain.wav'));
+
+    const handleStopSound = (index) => {
+        stopSound(index);
     };
     
     useEffect(() => {
@@ -126,7 +165,7 @@ export default function Session({ navigation, route }) {
         const clock = [];
         clock.push(
             <Stopwatch
-                start={true}
+                start={timerRunning}
                 startTime={time}
                 options= {{
                     container: inStyles.duration,
@@ -142,7 +181,7 @@ export default function Session({ navigation, route }) {
         console.log('time: ',time)
         clock.push(
             <Timer
-                start={true}
+                start={timerRunning}
                 totalDuration={time}
                 options={{
                     container: inStyles.duration,
@@ -174,13 +213,6 @@ export default function Session({ navigation, route }) {
         flipText();
     }; 
 
-    const video = React.useRef(null);
-    const [status, setStatus] = React.useState({});
-
-
-    const [guideFlipped, setGuideFlipped] = useState(false);
-    const [textFlipped, setTextFlipped] = useState(false);
-
     const flipGuide = () => {
         setGuideFlipped(!guideFlipped);
     };
@@ -189,8 +221,10 @@ export default function Session({ navigation, route }) {
         setTextFlipped(!textFlipped);
     };
 
-    const showMsgModal = () => {
+    const concludeSession = () => {
         setMsgVisible(true);
+        stopAllSounds();
+        setTimerRunning(false);
     };
     
     const backToHome = () => {
@@ -199,26 +233,17 @@ export default function Session({ navigation, route }) {
 
     const showBgmModal = () => {
         setBgmVisible(true);
-        Sounds.loadSounds
     };
     
     const hideBgmModal = () => {
         setBgmVisible(false);
     };
 
-    const toggleItem = (item) => {
-        if (selectedItems.includes(item)) {
-            setSelectedItems(selectedItems.filter((selectedItem) => selectedItem !== item));
-        } else {
-            setSelectedItems([...selectedItems, item]);
-        }
-    };
-
     return (
-        <SafeAreaView style={styles.screen}>
+        <SafeAreaView style={[styles.screen, styles.bgColorPrimary]}>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                    <View style={inStyles.imageContainer}>
+                    <View style={[inStyles.imageContainer, styles.dropShadow]}>
                         <Image style={[{ width: '100%', height: '100%' }]} source={christianity_1}></Image>
                     
                         <View style={inStyles.headerContainer}>
@@ -246,10 +271,6 @@ export default function Session({ navigation, route }) {
                                     <Image style={[{ width: 40, height: 40 }]} source={stop}/>
                                     </TouchableOpacity>
                                 </FlipCard>
-
-                                {/* <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia]} onPress={playSound}>
-                                    <Text>SOUND</Text>
-                                </TouchableOpacity> */}
 
                                 <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia]} onPress={flipGuide}>
                                     <Image style={[{ width: 40, height: 40 }]} source={videoImg}/>
@@ -293,8 +314,8 @@ export default function Session({ navigation, route }) {
                     </View>
 
                     <View style={inStyles.bottomContainer}>      
-                        <TouchableOpacity style={[styles.dropShadow, inStyles.btnEnd]} onPress={showMsgModal}>
-                            <Text style={[{ fontSize: RFPercentage(3) }, styles.colorPrimary, styles.bold]}>Done</Text>
+                        <TouchableOpacity style={[styles.dropShadow, styles.bgColorPrimary, inStyles.btnEnd]} onPress={concludeSession}>
+                            <Text style={[{ fontSize: RFPercentage(3) }, styles.colorWhite, styles.bold]}>Done</Text>
                         </TouchableOpacity>
                     </View>
 
@@ -302,7 +323,6 @@ export default function Session({ navigation, route }) {
                         <View style={inStyles.summaryContainer}>
                             <View style={[inStyles.summaryContent, styles.dropShadow, { gap: 15 }]}>
                                 <Text style={[styles.bold, { fontSize: RFPercentage(3) }]}>Session Done!</Text>
-
                                 <View style={{ gap: 5 }}>
                                     <Text style={{ fontSize: RFPercentage(2) }}>Title</Text>
                                     <View style={inStyles.infoContainer}>
@@ -336,10 +356,19 @@ export default function Session({ navigation, route }) {
                         <View style={inStyles.bgmContainer}>
                             <View style={[inStyles.bgmContent, { gap: 15 }]}>
                                 <Text style={[styles.bold, { fontSize: RFPercentage(2) }]}>Background Music</Text>
-                                <ScrollView style={inStyles.bgmListContainer}>
-                                    <Sounds/>
+                                <ScrollView style={inStyles.bgmListContainer} showsVerticalScrollIndicator={false}>
+                                    {sounds.map((sound, index) => (
+                                        <View key={index}>
+                                            <TouchableOpacity onPress={() => {
+                                                if (clickedIndexes.includes(index)) {handleStopSound(index);}
+                                                else {handlePlaySound(index);}}}>
+                                                <Text style={[inStyles.itemText, styles.bold, clickedIndexes.includes(index) && inStyles.selectedItemText]}>
+                                                    {soundFilesName[index]}
+                                                </Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                    ))}
                                 </ScrollView>
-
                                 <TouchableOpacity onPress={hideBgmModal}>
                                     <Text style={[styles.bold, { fontSize: RFPercentage(2) }]}>Close</Text>
                                 </TouchableOpacity>
@@ -356,6 +385,7 @@ const inStyles = StyleSheet.create({
     imageContainer: {
         width: screenWidth('100%'),
         height: screenHeight('40%'),
+        zIndex: 1,
     },
 
     headerContainer: {
@@ -375,18 +405,19 @@ const inStyles = StyleSheet.create({
 
     guideContainer: {
         width: screenWidth('90%'),
-        height: screenHeight('45%'),
-        padding: 15,
-        margin: 15,
-        borderWidth: 2,
-        borderColor: '#2EC4B6',
-        borderRadius: 20,
+        height: screenHeight('50%'),
     },
 
     bottomContainer: {
-        width: screenWidth('90%'),
+        width: screenWidth('100%'),
         height: screenHeight('10%'),
+        alignItems: 'center',
         paddingVertical: 15,
+        backgroundColor: '#FFFFFF',
+        shadowColor: 'rgba(35, 35, 35, 0.5)',
+        shadowOpacity: 3,
+        shadowRadius: 4,
+        shadowOffset: { width: 0, height: -3 },
     },
 
     timerContainer: {
@@ -414,11 +445,9 @@ const inStyles = StyleSheet.create({
     btnEnd: {
         justifyContent: 'center',
         alignItems: 'center',
-        width: '100%',
+        width: screenWidth('90%'),
         height: '100%',
-        borderWidth: 2,
-        borderRadius: 20,
-        borderColor: '#2EC4B6',
+        borderRadius: 30,
         padding: 15,
     },
 
@@ -481,7 +510,6 @@ const inStyles = StyleSheet.create({
         width: screenWidth('90%'),
         height: screenHeight('15%'),
         padding: 15,
-        gap: 15,
         borderWidth: 2,
         borderRadius: 20,
         borderColor: '#2EC4B6',
@@ -490,11 +518,11 @@ const inStyles = StyleSheet.create({
     itemText: {
         fontSize: RFPercentage(2),
         paddingVertical: 5,
+        margin: 5,
         flex: 1,
     },
     
     selectedItemText: {
-        fontWeight: 'bold',
         color: '#FFFFFF',
         backgroundColor: '#FFBF69',
         borderRadius: 20,
@@ -504,5 +532,5 @@ const inStyles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         gap: 75,
-    }
+    },
 });
