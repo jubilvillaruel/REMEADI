@@ -21,13 +21,15 @@ const Sounds = () => {
     require('./../../assets/sounds/campfire.wav'),
     require('./../../assets/sounds/night.wav'),
     require('./../../assets/sounds/rain.wav')
+    require('./../../assets/sounds/waves.wav')
   ];
 
   const soundFilesName = [
     'Alarm-clock',
     'Campfire',
     'Night',
-    'Rain'
+    'Rain',
+    'Waves'
   ];
 
   useEffect(() => {

@@ -31,9 +31,6 @@ const getTimeModel = (practiceTitle) => {
             console.log('data type is not')
             break;
     };
-
-    
-    
     
     return minute
 }

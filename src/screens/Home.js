@@ -26,7 +26,7 @@ export default function Home({ navigation, route }) {
     const uid = auth.currentUser.uid
     const emailVerified = auth.currentUser.emailVerified
     
-    console.log("email verified: " + emailVerified)
+    // console.log("email verified: " + emailVerified)
 
     // fetch user data from firestore
     useEffect(() => {
@@ -53,7 +53,7 @@ export default function Home({ navigation, route }) {
             try {
                 const collectionRef = await db.collection("motivation")
                 let quoteID = await getQuoteID()
-                console.log('quoteID: ',quoteID)
+                // console.log('quoteID: ',quoteID)
                 const motivationDoc = await collectionRef.doc(quoteID).get();
                 const motivationData = motivationDoc.data(); 
                 if (motivationData) {
