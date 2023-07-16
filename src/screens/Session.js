@@ -62,14 +62,16 @@ export default function Session({ navigation, route }) {
         require('./../../assets/sounds/alarm-clock.wav'),
         require('./../../assets/sounds/campfire.wav'),
         require('./../../assets/sounds/night.wav'),
-        require('./../../assets/sounds/rain.wav')
+        require('./../../assets/sounds/rain.wav'),
+        require('./../../assets/sounds/waves.wav')
     ];
 
     const soundFilesName = [
         'Alarm-clock',
         'Campfire',
         'Night',
-        'Rain'
+        'Rain',
+        'Waves'
     ];
 
     useEffect(() => {
@@ -93,6 +95,14 @@ export default function Session({ navigation, route }) {
         try {
             const sound = sounds[index];
             await sound.replayAsync();
+            
+            sound.setOnPlaybackStatusUpdate((status) => {
+                if (status.didJustFinish) {
+                  // Sound finished playing, replay it
+                  playSound(index);
+                }
+            });
+
             toggleItem(index);
         } catch (error) {
             console.error('Error playing sound:', error);
