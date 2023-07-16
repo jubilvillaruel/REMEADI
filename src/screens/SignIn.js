@@ -21,7 +21,7 @@ export default function SignIn({ navigation, route }) {
     useEffect(() => {
       const unsubscribe = auth.onAuthStateChanged(user => {
           if (user) {
-            console.log('uid: '+ user.uid)
+            // console.log('uid: '+ user.uid)
             setUserToken(user.uid)
             // navigation.navigate('HomeScreen', {
             //   screen: 'Home',
@@ -38,7 +38,7 @@ export default function SignIn({ navigation, route }) {
         .signInWithEmailAndPassword(getUsername, getPassword)
         .then((userCredential) => {
             const user = userCredential.user;
-            console.log(user.email + "You are logged in successfully")
+            // console.log(user.email + "You are logged in successfully")
         })
         .catch((error) => {
             const errorCode = error.code;
