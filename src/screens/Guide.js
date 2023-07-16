@@ -45,19 +45,69 @@ export default function Guide({ navigation, route }) {
     navigation.navigate('Session', {title: data.title});
   };
 
+  const goToSession2 = (bia) => {
+    navigation.navigate('Session', {title: data.title, bia: bia});
+  };
+
   return (
-    <MedGuide
-      title={data.title}
-      desc={desc}
-      guideImg={data.guideImg}
-      onPress={goToSession}/> 
+    <SafeAreaView style={styles.screen}>
+      <View style={inStyles.imgContainer}>
+        <Image style={inStyles.img} source={data.guideImg}></Image>
+      </View>
+
+      <View style={inStyles.textContainer}>
+        <Text style={[styles.colorPrimary, inStyles.title]}>{data.title}</Text>
+        <Text style={inStyles.content}>{desc}</Text>
+      </View>
+      {(data.bia) ?
+        <View style={inStyles.btnContainer}>
+          <PrimaryButton
+            text='Beginner'
+            textColor='#FFFFFF'
+            textSize={RFPercentage(2.2)}
+            width={screenWidth('80%')}
+            height={screenHeight('7%')}
+            borderRad={30}
+            onPress={() => goToSession2(0)}>
+          </PrimaryButton>
+          <PrimaryButton
+            text='Intermediate'
+            textColor='#FFFFFF'
+            textSize={RFPercentage(2.2)}
+            width={screenWidth('80%')}
+            height={screenHeight('7%')}
+            borderRad={30}
+            onPress={() => goToSession2(1)}>
+          </PrimaryButton>
+          <PrimaryButton
+            text='Advanced'
+            textColor='#FFFFFF'
+            textSize={RFPercentage(2.2)}
+            width={screenWidth('80%')}
+            height={screenHeight('7%')}
+            borderRad={30}
+            onPress={() => goToSession2(2)}>
+          </PrimaryButton>
+        </View>
+      : <View style={inStyles.btnContainer}>
+        <PrimaryButton
+          text='Start'
+          textColor='#FFFFFF'
+          textSize={RFPercentage(2.2)}
+          width={screenWidth('80%')}
+          height={screenHeight('7%')}
+          borderRad={30}
+          onPress={goToSession}>
+        </PrimaryButton>
+      </View>}
+    </SafeAreaView>
   );
 }
 
 const inStyles = StyleSheet.create({
   imgContainer: {
     width: screenWidth('100%'),
-    height: screenHeight('50%'),
+    height: screenHeight('40%'),
   },
 
   img : {
@@ -86,6 +136,6 @@ const inStyles = StyleSheet.create({
     bottom: 0,
     position: 'absolute',
     padding: 15,
-    height: screenHeight('20%'),
+    height: screenHeight('30%'),
   },
 });

@@ -21,12 +21,13 @@ import christianity_1 from '../../assets/images/christianity/christianity_1.png'
 
 import { styles } from '../../assets/css/Style';
 import { getGuide } from '../Data/Practices/GuideDB';
-import { getReligionByPractice } from '../Data/LocalDB';
-import { getTimeModel } from '../models/TimeModel';
+import { getReligionByPractice, timeDB, timeDB2, timeDB3 } from '../Data/LocalDB';
+import { getTimeModel, getTimeModel2 } from '../models/TimeModel';
 
 export default function Session({ navigation, route }) {
     const data = route.params
     const practiceTitle = data.title
+    const bia = data?.bia
     const religion = getReligionByPractice(practiceTitle)
 
     // Modals for Summary and BGM Selection
@@ -146,10 +147,20 @@ export default function Session({ navigation, route }) {
     useEffect(() => {
         const fetchGuide = () => {
             setGuide(getGuide(practiceTitle, religion))
-            // evaluate if practice is time-based or not
-            // if time based
-            setTime(getTimeModel(practiceTitle))
-
+            // evaluate if practice 
+            const inTimeDB = Object.keys(timeDB).includes(practiceTitle);
+            const inTimeDB2 = Object.keys(timeDB2).includes(practiceTitle);
+            const inTimeDB3 = Object.keys(timeDB3).includes(practiceTitle);
+            if (inTimeDB) {
+                console.log('active: timeDB')
+                setTime(getTimeModel(practiceTitle))
+            } else if (inTimeDB2) {
+                console.log('active: timeDB2')
+                setTime(getTimeModel2(practiceTitle,bia))
+            } else if (inTimeDB3) {
+                console.log('active: timeDB3')
+                // setTime(getTimeModel3(practiceTitle))
+            }
             // if stage based
             // code here
 

@@ -1,5 +1,3 @@
-import { BuddhismDB } from "./Practices/BuddhismDB"
-
 const meditationDescDB = {
     'Lectio Divina' : "A contemplative way of reading the Bible. It dates back to the early centuries of the Christian Church and was established as a monastic practice by Benedict in the 6th century. It is a way of praying the scriptures that leads us deeper into God's word.",
     'Christian Meditation' : "Meditation is above all a quest …To the extent that we are humble and faithful, we discover in meditation the movements that stir the heart and we are able to discern them. It is a question of acting truthfully in order to come into the light: “Lord, what do you want me to do?",
@@ -36,20 +34,27 @@ const timeDB = {
     'Examen' : 0,
     'Rosary' : 1200000, // 20 mins
     'Taffakur' : 0,
+    'Sufi Breathing' : 600000, //10 mins
+    'Chakra' : 0,
+    'Hitbodedut' : 0,
+}
+
+const timeDB2 = {
     'Dhikr' : [5,10,15],
     'Muraqaba' : [4,5,10],
-    'Sufi Breathing' : 10,
-    // 'Hatha Yoga': null,
-    // 'Kriya Yoga' : null,
-    'Chakra' : 0,
     'Breath' : [5,15,30],
     'Walk' : [10,20,30],
     'Tonglen' : [5,15,30],
     'Metta' : [10,15,20],
     'Body Scan' : [20,30,45],
-    'Hitbodedut' : 0,
     'Kabbalistic/Chassidic' : [10,20,30],
     'Shema' : [10,20,30]
+}
+
+const timeDB3 = {
+    'Rosary' : 1200000, // 20 mins
+    'Hatha Yoga': null,
+    'Kriya Yoga' : null,
 }
 
 
@@ -73,4 +78,4 @@ const getReligionByPractice = (title) => {
     return null ;
 }
 
-export { meditationDescDB, religionDB, getReligionByPractice, timeDB } 
+export { meditationDescDB, religionDB, getReligionByPractice, timeDB, timeDB2, timeDB3 } 

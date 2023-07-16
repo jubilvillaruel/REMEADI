@@ -41,10 +41,11 @@ import judaism_2 from '../../assets/images/judaism/judaism_2.png';
 import judaism_3 from '../../assets/images/judaism/judaism_3.png';
 
 export default function MedLibrary( {navigation}) {
-  const goToGuide = (title, guideImg) => {
+  const goToGuide = (title, guideImg, bia) => {
     const data = {
       title: title, 
       guideImg: guideImg,
+      bia: bia
     };
     navigation.navigate('Guide', {data});
   };
@@ -82,12 +83,12 @@ export default function MedLibrary( {navigation}) {
           </View>
 
           <View style={inStyles.medContainer}>
-            <ImageCard title='Taffakur' type='Mindfulness, Spiritual' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={islam_1} onPress={() => {goToGuide('Taffakur',islam_1)}}></ImageCard>
-            <ImageCard title='Dhikr' type='Mantra' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={islam_2} onPress={() => {goToGuide('Dhikr',islam_2)}}></ImageCard>
+            <ImageCard title='Taffakur' type='Mindfulness, Spiritual' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={islam_1} onPress={() => {goToGuide('Taffakur',islam_1,false)}}></ImageCard>
+            <ImageCard title='Dhikr' type='Mantra' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={islam_2} onPress={() => {goToGuide('Dhikr',islam_2,true)}}></ImageCard>
           </View>
 
           <View style={inStyles.medContainer}>
-            <ImageCard title='Muraqaba' type='Focused' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={islam_3} onPress={() => {goToGuide('Muraqaba',islam_3)}}></ImageCard>
+            <ImageCard title='Muraqaba' type='Focused' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={islam_3} onPress={() => {goToGuide('Muraqaba',islam_3,true)}}></ImageCard>
             <ImageCard title='Sufi Breathing' type='Visualization' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={islam_4} onPress={() => {goToGuide('Sufi Breathing',islam_4)}}></ImageCard>
           </View>
         </View>
@@ -119,17 +120,17 @@ export default function MedLibrary( {navigation}) {
           </View>
 
           <View style={inStyles.medContainer}>
-            <ImageCard title='Breath' type='Focused' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={buddhism_1} onPress={() => {goToGuide('Breath',buddhism_1)}}></ImageCard>
-            <ImageCard title='Walk' type='Movement' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={buddhism_2} onPress={() => {goToGuide('Walk',buddhism_2)}}></ImageCard>
+            <ImageCard title='Breath' type='Focused' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={buddhism_1} onPress={() => {goToGuide('Breath',buddhism_1,true)}}></ImageCard>
+            <ImageCard title='Walk' type='Movement' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={buddhism_2} onPress={() => {goToGuide('Walk',buddhism_2,true)}}></ImageCard>
           </View>
 
           <View style={inStyles.medContainer}>
-            <ImageCard title='Tonglen' type='Loving-kindness, Visualization' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={buddhism_3} onPress={() => {goToGuide('Tonglen',buddhism_3)}}></ImageCard>
-            <ImageCard title='Metta' type='Spiritual, Mantra' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={buddhism_4} onPress={() => {goToGuide('Metta',buddhism_4)}}></ImageCard>
+            <ImageCard title='Tonglen' type='Loving-kindness, Visualization' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={buddhism_3} onPress={() => {goToGuide('Tonglen',buddhism_3,true)}}></ImageCard>
+            <ImageCard title='Metta' type='Spiritual, Mantra' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={buddhism_4} onPress={() => {goToGuide('Metta',buddhism_4,true)}}></ImageCard>
           </View>
 
           <View style={{ marginTop: 5, paddingHorizontal: 13.5, width: screenWidth('90%') }}>
-            <ImageCard title='Body Scan' type='Mindfulness, Relaxation' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={buddhism_5} onPress={() => {goToGuide('Body Scan',buddhism_5)}}></ImageCard>
+            <ImageCard title='Body Scan' type='Mindfulness, Relaxation' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={buddhism_5} onPress={() => {goToGuide('Body Scan',buddhism_5,true)}}></ImageCard>
           </View>
         </View>
 
@@ -143,11 +144,11 @@ export default function MedLibrary( {navigation}) {
 
           <View style={inStyles.medContainer}>
             <ImageCard title='Hitbodedut' type='Spiritual' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={judaism_1} onPress={() => {goToGuide('Hitbodedut',judaism_1)}}></ImageCard>
-            <ImageCard title='Kabbalistic/Chassidic' type='Visualization' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={judaism_2} onPress={() => {goToGuide('Kabbalistic/Chassidic',judaism_2)}}></ImageCard>
+            <ImageCard title='Kabbalistic/Chassidic' type='Visualization' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={judaism_2} onPress={() => {goToGuide('Kabbalistic/Chassidic',judaism_2,true)}}></ImageCard>
           </View>
 
           <View style={{ marginTop: 5, paddingHorizontal: 13.5, width: screenWidth('90%') }}>
-            <ImageCard title='Shema' type='Focused' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={judaism_3} onPress={() => {goToGuide('Shema',judaism_3)}}></ImageCard>
+            <ImageCard title='Shema' type='Focused' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={judaism_3} onPress={() => {goToGuide('Shema',judaism_3,true)}}></ImageCard>
           </View>
         </View>
       </ScrollView>
