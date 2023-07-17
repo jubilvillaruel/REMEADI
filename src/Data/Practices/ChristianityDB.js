@@ -17,7 +17,7 @@ const ChristianMeditationDB = {
 const ExamenDB = {
     'Give thanks' : 'Spend a few moments in gratitude for the gifts and blessings of the day. ',
     'Ask for light' : 'Ask God to enlighten you, showing where he has been at work and present in your day through events, people and places. ',
-    'Examine the day' : 'Review the moments of the day, noticing what has led to consolation and what has led to desolation and my reactions to these events, people, and places (see below on consolation and desolation). ',
+    'Examine the day' : 'Review the moments of the day, noticing what has led to consolation and what has led to desolation and my reactions to these events, people, and places. ',
     'Seek forgiveness' : 'Ask God\'s forgiveness for the times when you have acted, spoken, or thought contrary to his grace and calling for you. ',
     'Resolve to change' : 'Decide what in your behavior or attitude you will try to improve tomorrow. '
 }

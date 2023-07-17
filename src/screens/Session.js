@@ -153,6 +153,7 @@ export default function Session({ navigation, route }) {
                 return;
             }
             setGuide(getGuide(practiceTitle, religion))
+            // console.log(practiceTitle,religion)
             // evaluate if practice 
             const inTimeDB = Object.keys(timeDB).includes(practiceTitle);
             const inTimeDB2 = Object.keys(timeDB2).includes(practiceTitle);
@@ -178,7 +179,7 @@ export default function Session({ navigation, route }) {
         for (const property in guide){
             count = ('Step ' + stepCount)
             steps.push(
-                <StepCard title={count} desc={property}></StepCard>
+                <StepCard count={count} desc={property} detailedDesc={guide[property]}></StepCard>
             );
             stepCount++
         }

@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, ImageBackground } from 'react-native';
 import { screenWidth, screenHeight } from '../components/dimensions';
+import * as Speech from 'expo-speech';
+
+import text from '../../assets/images/text.png';
 
 import { styles } from './../../assets/css/Style';
+import { getGuide } from '../Data/Practices/GuideDB';
 
 // Cards
 export const ImageCard = ({ title, type, width, height, titleSize, typeSize, image, onPress }) => {
@@ -46,14 +50,27 @@ export const IconCard = ({ title, desc, icon, onPress }) => {
   );
 };
 
-export const StepCard = ({ title, desc }) => {
+export const StepCard = ({ count, desc, detailedDesc }) => {
+  const [ guide, setGuide ] = useState({'key':'value'});
+
+  const speakStep = () => {
+    const options = {
+        voice: 'Microsoft Zira - English (United States)',
+        rate: 0.9
+    }
+    Speech.speak(detailedDesc, options);
+    // flipTextStep();
+  };
 
   return (
     <View style={inStyles.stepsItemContainer}>     
       <View style={[inStyles.stepTitle, styles.bgColorPrimary]}>
-        <Text style={styles.colorWhite}>{title}</Text>
+        <Text style={styles.colorWhite}>{count}</Text>
       </View>
       <Text style={inStyles.stepContent}>{desc}</Text>
+      <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia]} onPress={() => {speakStep()}}>
+          <Image style={[{ width: 40, height: 40 }]} source={text}/>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -115,5 +132,16 @@ const inStyles = StyleSheet.create({
     stepContent: {
       textAlign: 'justify',
       color: '#757575',
+    },
+    
+    btnMedia: {
+      width: 50,
+      height: 50,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 50,
+      borderWidth: 2,
+      borderColor: '#2EC4B6',
+      backgroundColor: '#FFFFFF',
     },
 });
