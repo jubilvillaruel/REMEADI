@@ -17,8 +17,6 @@ import videoImg from '../../assets/images/video.png';
 import * as Speech from 'expo-speech';
 import { Audio } from 'expo-av';
 
-import christianity_1 from '../../assets/images/christianity/christianity_1.png';
-
 import { styles } from '../../assets/css/Style';
 import { getGuide } from '../Data/Practices/GuideDB';
 import { getReligionByPractice, timeDB, timeDB2, timeDB3 } from '../Data/LocalDB';
@@ -26,8 +24,11 @@ import { getTimeModel, getTimeModel2 } from '../models/TimeModel';
 
 export default function Session({ navigation, route }) {
     const data = route.params
+
     const practiceTitle = data.title
     const bia = data?.bia
+    const imgGuide = data.img
+
     const religion = getReligionByPractice(practiceTitle)
 
     // Modals for Summary and BGM Selection
@@ -164,7 +165,7 @@ export default function Session({ navigation, route }) {
                 setTime(getTimeModel2(practiceTitle,bia))
             } else if (inTimeDB3) {
                 // console.log('active: timeDB3')
-                // setTime(getTimeModel3(practiceTitle))
+                setTime(0)
             }
         };
         fetchGuide();
@@ -276,7 +277,7 @@ export default function Session({ navigation, route }) {
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                     <View style={[inStyles.imageContainer, styles.dropShadow]}>
-                        <Image style={[{ width: '100%', height: '100%' }]} source={christianity_1}></Image>
+                        <Image style={[{ width: '100%', height: '100%' }]} source={imgGuide}></Image>
                     
                         <View style={inStyles.headerContainer}>
                             <View style={{ gap: 5 }}>
