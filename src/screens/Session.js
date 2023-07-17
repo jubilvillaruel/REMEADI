@@ -215,9 +215,9 @@ export default function Session({ navigation, route }) {
                 }}
                 handleFinish={() => {
                     setTimerRunning(false)
-                    concludeSession()
                     setStopwatchTime((time/60000))
                     stopSpeech()
+                    concludeSession()
                 }}
                 getTime={(time) => {
                     setStopwatchTime(time)
