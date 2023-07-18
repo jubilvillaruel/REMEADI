@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
 import { screenWidth, screenHeight } from '../components/dimensions';
 import { styles } from '../../assets/css/Style';
@@ -12,39 +13,43 @@ import judaism_logo_w from '../../assets/images/religion/judaism_logo_w.png';
 
 export default function SelectReligion({ navigation }) {
 
-    const goToSelectMedType = () => {
-        navigation.navigate('SelectMedType');
+    const goToSelectMedType = (religion) => {
+        if (religion === 'Christianity') {
+            navigation.navigate('SelectRelBranch', { religion });
+        } else {
+            navigation.navigate('SelectMedType', { religion });
+        }
     };
 
     return (
         <View style={styles.screenCenter}>
             <View style={inStyles.religionContainer}>
                 <View style={inStyles.row}>
-                    <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary]} onPress={goToSelectMedType}>
+                    <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary]} onPress={() => goToSelectMedType('Christianity')}>
                         <Image style={[{ width: 50, height: 70 }]} source={christianity_logo_w}/>
                         <Text style={[styles.bold, styles.colorWhite, { fontSize: RFPercentage(2) }]}>Christianity</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary]} onPress={goToSelectMedType}>
+                    <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary]} onPress={() => goToSelectMedType('Islam')}>
                         <Image style={[{ width: 65, height: 70 }]} source={islam_logo_w}/>
                         <Text style={[styles.bold, styles.colorWhite, { fontSize: RFPercentage(2) }]}>Islam</Text>
                     </TouchableOpacity>
                 </View>
                 
                 <View style={inStyles.row}>
-                    <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary]} onPress={goToSelectMedType}>
+                    <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary]} onPress={() => goToSelectMedType('Hinduism')}>
                         <Image style={[{ width: 70, height: 70 }]} source={hinduism_logo_w}/>
                         <Text style={[styles.bold, styles.colorWhite, { fontSize: RFPercentage(2) }]}>Hinduism</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary]} onPress={goToSelectMedType}>
+                    <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary]} onPress={() => goToSelectMedType('Buddhism')}>
                         <Image style={[{ width: 70, height: 70 }]} source={buddhism_logo_w}/>
                         <Text style={[styles.bold, styles.colorWhite, { fontSize: RFPercentage(2) }]}>Buddhism</Text>
                     </TouchableOpacity>
                 </View>
 
-                <View style={ { alignSelf: 'flex-start', paddingHorizontal: 15 }}>
-                    <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary]} onPress={goToSelectMedType}>
+                <View style={{ alignSelf: 'flex-start', paddingHorizontal: 17 }}>
+                    <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary]} onPress={() => goToSelectMedType('Judaism')}>
                         <Image style={[{ width: 65, height: 70 }]} source={judaism_logo_w}/>
                         <Text style={[styles.bold, styles.colorWhite, { fontSize: RFPercentage(2) }]}>Judaism</Text>
                     </TouchableOpacity>

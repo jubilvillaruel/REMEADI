@@ -11,34 +11,7 @@ import hinduism_logo from '../../assets/images/religion/hinduism_logo.png';
 import buddhism_logo from '../../assets/images/religion/buddhism_logo.png';
 import judaism_logo from '../../assets/images/religion/judaism_logo.png';
 
-// Christianity
-import christianity_1 from '../../assets/images/christianity/christianity_1.png';
-import christianity_2 from '../../assets/images/christianity/christianity_2.png';
-import christianity_3 from '../../assets/images/christianity/christianity_3.png';
-import christianity_4 from '../../assets/images/christianity/christianity_4.png';
-
-// Islam
-import islam_1 from '../../assets/images/islam/islam_1.png';
-import islam_2 from '../../assets/images/islam/islam_2.png';
-import islam_3 from '../../assets/images/islam/islam_3.png';
-import islam_4 from '../../assets/images/islam/islam_4.png';
-
-// Hinduism
-import hinduism_1 from '../../assets/images/hinduism/hinduism_1.png';
-import hinduism_2 from '../../assets/images/hinduism/hinduism_2.png';
-import hinduism_3 from '../../assets/images/hinduism/hinduism_3.png';
-
-// Buddhism
-import buddhism_1 from '../../assets/images/buddhism/buddhism_1.png';
-import buddhism_2 from '../../assets/images/buddhism/buddhism_2.png';
-import buddhism_3 from '../../assets/images/buddhism/buddhism_3.png';
-import buddhism_4 from '../../assets/images/buddhism/buddhism_4.png';
-import buddhism_5 from '../../assets/images/buddhism/buddhism_5.png';
-
-// Judaism
-import judaism_1 from '../../assets/images/judaism/judaism_1.png';
-import judaism_2 from '../../assets/images/judaism/judaism_2.png';
-import judaism_3 from '../../assets/images/judaism/judaism_3.png';
+import { meditationImgDB } from '../Data/ImageDB';
 
 export default function MedLibrary( {navigation}) {
   const goToGuide = (title, guideImg, bia) => {
@@ -62,15 +35,14 @@ export default function MedLibrary( {navigation}) {
           </View>
 
           <View style={inStyles.medContainer}>
-            <ImageCard title='Lectio Divina' type='Spiritual' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={christianity_1} onPress={() => {
-              goToGuide('Lectio Divina',christianity_1)
-            }}></ImageCard>
-            <ImageCard title='Christian Meditation' type='Mantra' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={christianity_2} onPress={() => {goToGuide('Christian Meditation',christianity_2)}}></ImageCard>
+            <ImageCard title='Lectio Divina' type='Spiritual' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={meditationImgDB['Lectio Divina']} onPress={() => {
+              goToGuide('Lectio Divina', meditationImgDB['Lectio Divina'])}}></ImageCard>
+            <ImageCard title='Christian Meditation' type='Mantra' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={meditationImgDB['Christian Meditation']} onPress={() => {goToGuide('Christian Meditation',meditationImgDB['Christian Meditation'])}}></ImageCard>
           </View>
 
           <View style={inStyles.medContainer}>
-            <ImageCard title='Examen' type='Mindfulness, Visualization' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={christianity_3} onPress={() => {goToGuide('Examen',christianity_3)}}></ImageCard>
-            <ImageCard title='Rosary' type='Focused, Loving-kindness' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={christianity_4} onPress={() => {goToGuide('Rosary',christianity_4)}}></ImageCard>
+            <ImageCard title='Examen' type='Mindfulness, Visualization' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={meditationImgDB['Examen']} onPress={() => {goToGuide('Examen',meditationImgDB['Examen'])}}></ImageCard>
+            <ImageCard title='Rosary' type='Focused, Loving-kindness' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={meditationImgDB['Rosary']} onPress={() => {goToGuide('Rosary',meditationImgDB['Rosary'])}}></ImageCard>
           </View>
         </View>
 
@@ -83,13 +55,13 @@ export default function MedLibrary( {navigation}) {
           </View>
 
           <View style={inStyles.medContainer}>
-            <ImageCard title='Taffakur' type='Mindfulness, Spiritual' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={islam_1} onPress={() => {goToGuide('Taffakur',islam_1,false)}}></ImageCard>
-            <ImageCard title='Dhikr' type='Mantra' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={islam_2} onPress={() => {goToGuide('Dhikr',islam_2,true)}}></ImageCard>
+            <ImageCard title='Taffakur' type='Mindfulness, Spiritual' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={meditationImgDB['Taffakur']} onPress={() => {goToGuide('Taffakur',meditationImgDB['Taffakur'],false)}}></ImageCard>
+            <ImageCard title='Dhikr' type='Mantra' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={meditationImgDB['Dhikr']} onPress={() => {goToGuide('Dhikr',meditationImgDB['Dhikr'],true)}}></ImageCard>
           </View>
 
           <View style={inStyles.medContainer}>
-            <ImageCard title='Muraqaba' type='Focused' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={islam_3} onPress={() => {goToGuide('Muraqaba',islam_3,true)}}></ImageCard>
-            <ImageCard title='Sufi Breathing' type='Visualization' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={islam_4} onPress={() => {goToGuide('Sufi Breathing',islam_4)}}></ImageCard>
+            <ImageCard title='Muraqaba' type='Focused' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={meditationImgDB['Muraqaba']} onPress={() => {goToGuide('Muraqaba',meditationImgDB['Muraqaba'],true)}}></ImageCard>
+            <ImageCard title='Sufi Breathing' type='Visualization' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={meditationImgDB['Sufi Breathing']} onPress={() => {goToGuide('Sufi Breathing',meditationImgDB['Sufi Breathing'])}}></ImageCard>
           </View>
         </View>
 
@@ -102,12 +74,12 @@ export default function MedLibrary( {navigation}) {
           </View>
 
           <View style={inStyles.medContainer}>
-            <ImageCard title='Hatha Yoga' type='Movement, Mindfulness, Spiritual' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.1)} image={hinduism_1} onPress={() => {goToGuide('Hatha Yoga',hinduism_1)}}></ImageCard>
-            <ImageCard title='Kriya Yoga' type='Focused' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={hinduism_2} onPress={() => {goToGuide('Kriya Yoga',hinduism_2)}}></ImageCard>
+            <ImageCard title='Hatha Yoga' type='Movement, Mindfulness, Spiritual' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.1)} image={meditationImgDB['Hatha Yoga']} onPress={() => {goToGuide('Hatha Yoga',meditationImgDB['Hatha Yoga'])}}></ImageCard>
+            <ImageCard title='Kriya Yoga' type='Focused' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={meditationImgDB['Kriya Yoga']} onPress={() => {goToGuide('Kriya Yoga',meditationImgDB['Kriya Yoga'])}}></ImageCard>
           </View>
 
           <View style={{ marginTop: 5, paddingHorizontal: 13.5, width: screenWidth('90%') }}>
-            <ImageCard title='Chakra' type='Visualization' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={hinduism_3} onPress={() => {goToGuide('Chakra',hinduism_3)}}></ImageCard>
+            <ImageCard title='Chakra' type='Visualization' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={meditationImgDB['Chakra']} onPress={() => {goToGuide('Chakra',meditationImgDB['Chakra'])}}></ImageCard>
           </View>
         </View>
 
@@ -120,17 +92,17 @@ export default function MedLibrary( {navigation}) {
           </View>
 
           <View style={inStyles.medContainer}>
-            <ImageCard title='Breath' type='Focused' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={buddhism_1} onPress={() => {goToGuide('Breath',buddhism_1,true)}}></ImageCard>
-            <ImageCard title='Walk' type='Movement' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={buddhism_2} onPress={() => {goToGuide('Walk',buddhism_2,true)}}></ImageCard>
+            <ImageCard title='Breath' type='Focused' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={meditationImgDB['Breath']} onPress={() => {goToGuide('Breath',meditationImgDB['Breath'],true)}}></ImageCard>
+            <ImageCard title='Walk' type='Movement' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={meditationImgDB['Walk']} onPress={() => {goToGuide('Walk',meditationImgDB['Walk'],true)}}></ImageCard>
           </View>
 
           <View style={inStyles.medContainer}>
-            <ImageCard title='Tonglen' type='Loving-kindness, Visualization' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={buddhism_3} onPress={() => {goToGuide('Tonglen',buddhism_3,true)}}></ImageCard>
-            <ImageCard title='Metta' type='Spiritual, Mantra' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={buddhism_4} onPress={() => {goToGuide('Metta',buddhism_4,true)}}></ImageCard>
+            <ImageCard title='Tonglen' type='Loving-kindness, Visualization' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={meditationImgDB['Tonglen']} onPress={() => {goToGuide('Tonglen',meditationImgDB['Tonglen'],true)}}></ImageCard>
+            <ImageCard title='Metta' type='Spiritual, Mantra' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={meditationImgDB['Metta']} onPress={() => {goToGuide('Metta',meditationImgDB['Metta'],true)}}></ImageCard>
           </View>
 
           <View style={{ marginTop: 5, paddingHorizontal: 13.5, width: screenWidth('90%') }}>
-            <ImageCard title='Body Scan' type='Mindfulness, Relaxation' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={buddhism_5} onPress={() => {goToGuide('Body Scan',buddhism_5,true)}}></ImageCard>
+            <ImageCard title='Body Scan' type='Mindfulness, Relaxation' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={meditationImgDB['Body Scan']} onPress={() => {goToGuide('Body Scan',meditationImgDB['Body Scan'],true)}}></ImageCard>
           </View>
         </View>
 
@@ -143,12 +115,12 @@ export default function MedLibrary( {navigation}) {
           </View>
 
           <View style={inStyles.medContainer}>
-            <ImageCard title='Hitbodedut' type='Spiritual' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={judaism_1} onPress={() => {goToGuide('Hitbodedut',judaism_1)}}></ImageCard>
-            <ImageCard title='Kabbalistic/Chassidic' type='Visualization' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={judaism_2} onPress={() => {goToGuide('Kabbalistic/Chassidic',judaism_2,true)}}></ImageCard>
+            <ImageCard title='Hitbodedut' type='Spiritual' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={meditationImgDB['Hitbodedut']} onPress={() => {goToGuide('Hitbodedut',meditationImgDB['Hitbodedut'])}}></ImageCard>
+            <ImageCard title='Kabbalistic/Chassidic' type='Visualization' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={meditationImgDB['Kabbalistic/Chassidic']} onPress={() => {goToGuide('Kabbalistic/Chassidic',meditationImgDB['Kabbalistic/Chassidic'],true)}}></ImageCard>
           </View>
 
           <View style={{ marginTop: 5, paddingHorizontal: 13.5, width: screenWidth('90%') }}>
-            <ImageCard title='Shema' type='Focused' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={judaism_3} onPress={() => {goToGuide('Shema',judaism_3,true)}}></ImageCard>
+            <ImageCard title='Shema' type='Focused' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={meditationImgDB['Shema']} onPress={() => {goToGuide('Shema',meditationImgDB['Shema'],true)}}></ImageCard>
           </View>
         </View>
       </ScrollView>

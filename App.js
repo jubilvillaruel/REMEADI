@@ -27,7 +27,9 @@ import Account from './src/screens/Account';
 import EditAccount from './src/screens/EditAccount';
 import MedLibrary from './src/screens/MedLibrary';
 import SelectReligion from './src/screens/SelectReligion';
+import SelectRelBranch from './src/screens/SelectRelBranch';
 import SelectMedType from './src/screens/SelectMedType';
+import Questions from './src/screens/Questions';
 import ExpertResult from './src/screens/ExpertResult';
 import Guide from './src/screens/Guide';
 import GuideOptions from './src/screens/GuideOptions';
@@ -216,7 +218,9 @@ export default function App() {
             <Stack.Screen name='EditAccount' component={EditAccount} options={{title: 'Edit Account Details'}}/>
             <Stack.Screen name='MedLibrary' component={MedLibrary} options={{title: 'Meditation Library'}}/>
             <Stack.Screen name='SelectReligion' component={SelectReligion} options={{title: 'Religion'}}/>
+            <Stack.Screen name='SelectRelBranch' component={SelectRelBranch} options={{title: 'Religion'}}/>
             <Stack.Screen name='SelectMedType' component={SelectMedType} options={{title: 'Meditation Type'}}/>
+            <Stack.Screen name='Questions' component={Questions} options={{title: 'Questions'}}/>
             <Stack.Screen name='ExpertResult' component={ExpertResult} options={{title: 'Recommended'}}/>
             <Stack.Screen name='Guide' component={Guide} options={{headerTransparent: true, title: '',}}/>
             <Stack.Screen name='GuideOptions' component={GuideOptions} options={{title: 'Guide Options'}}/>
