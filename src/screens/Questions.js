@@ -598,18 +598,27 @@ export default function Questions({ navigation, route }) {
     const [secondOptions, setSecondOptions] = useState(null);
     const [thirdOptions, setThirdOptions] = useState(null);
 
-    const goToGuide = (title, guideImg, bia) => {
+    // const goToGuide = (title, guideImg, bia) => {
+    //     const data = {
+    //         title: title, 
+    //         guideImg: guideImg,
+    //         bia: bia
+    //     };
+    //     navigation.navigate('Guide', {data});
+    // };
+
+    const goToResult = (title, guideImg, bia) => {
         const data = {
             title: title, 
             guideImg: guideImg,
             bia: bia
         };
-        navigation.navigate('Guide', {data});
+        navigation.navigate('ExpertResult', {data});
     };
 
     useEffect(() => {
         if (!questionData.options) {
-            goToGuide(questionData.title, questionData.guideImg, questionData.bia);
+            goToResult(questionData.title, questionData.guideImg, questionData.bia);
         }
     }, [questionData.options]);
 
@@ -620,7 +629,7 @@ export default function Questions({ navigation, route }) {
         setThirdOptions(null);
 
         if (option.title) {
-            goToGuide(option.title, option.guideImg, option.bia);
+            goToResult(option.title, option.guideImg, option.bia);
         }
     };
 

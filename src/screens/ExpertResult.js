@@ -1,14 +1,52 @@
-import { Text, View, SafeAreaView, ScrollView } from 'react-native';
+import { Text, View, SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import { ImageCard } from '../components/cards';
 import { styles } from '../../assets/css/Style';
+import { RFPercentage } from 'react-native-responsive-fontsize';
+import { meditationImgDB } from '../Data/ImageDB';
+import { meditationReligionDB, meditationTypeDB } from '../Data/TypeDB';
+import { screenWidth, screenHeight } from '../components/dimensions';
 
-// Christianity
-import christianity_1 from '../../assets/images/christianity/christianity_1.png';
+export default function ExpertResult({ navigation, route }) {
+  const { data } = route.params;
 
-export default function ExpertResult({ navigation }) {
+  const goToGuide = (title, guideImg, bia) => {
+    const data = {
+      title: title, 
+      guideImg: guideImg,
+      bia: bia
+    };
+    navigation.navigate('Guide', {data});
+  };
 
-  const goToGuide = () => {
-    navigation.navigate('Guide');
+  const getMeditationType = (title) => {
+    return meditationTypeDB[title] || 'Unknown';
+  };
+
+  const getMeditationReligion = (title) => {
+    return meditationReligionDB[title] || 'Unknown';
+  };
+
+  const getOtherPracticesFromSameReligion = () => {
+    const religion = getMeditationReligion(data.title);
+    const practices = Object.keys(meditationReligionDB);
+
+    if (practices && practices.length > 0) {
+      return practices
+        .filter((practice) => meditationReligionDB[practice] === religion && practice !== data.title)
+        .map((practice) => (
+          <View key={practice} style={inStyles.practiceCard}>
+            <ImageCard
+              title={practice}
+              image={meditationImgDB[practice]}
+              width={screenWidth('30%')} // Adjust the width as needed
+              height={screenHeight('15%')} // Adjust the height as needed
+              onPress={() => { goToGuide(practice, meditationImgDB[practice]) }}
+            />
+          </View>
+        ));
+    }
+
+    return null;
   };
 
   return (
@@ -17,51 +55,47 @@ export default function ExpertResult({ navigation }) {
         <View style={[{ marginTop: 15 }]}>
           <View style={styles.medContainer}>
             <ImageCard
-              title='Examen'
-              type='Mindfulness, Visualization'
-              titleSize={20}
-              typeSize={16}
-              image={christianity_1}
-              width={320}
-              height={300}
-              onPress={goToGuide}></ImageCard>
+              title={data.title}
+              type={getMeditationType(data.title)}
+              titleSize={RFPercentage(2.5)}
+              typeSize={RFPercentage(2)}
+              image={data.guideImg}
+              width={screenWidth('90%')}
+              height={screenHeight('40%')}
+              onPress={() => {goToGuide(data.title, data.guideImg, data.bia)}}
+            />
           </View>
         </View>
 
         <View style={[{ marginTop: 15 }]}>
           <View style={styles.religionContainer}>
             <View style={styles.religionContent}>
-              <Text style={[styles.colorPrimary, { fontSize: 16, fontWeight: 'bold' }]}>Other Practices from Christianity</Text>
+              <Text style={[styles.colorPrimary, { fontSize: RFPercentage(2.5), fontWeight: 'bold' }]}>Other Practices from {getMeditationReligion(data.title)}</Text>
             </View>
           </View>
-
-          <View style={styles.medContainer}>
-            <ImageCard title='Taffakur' type='Mindfulness, Spiritual' titleSize={13} typeSize={10} image={christianity_1} onPress={goToGuide}></ImageCard>
-            <ImageCard title='Dhikr' type='Mantra' titleSize={13} typeSize={10} image={christianity_1} onPress={goToGuide}></ImageCard>
-          </View>
-
-          <View style={{ marginTop: 5 }}>
-            <ImageCard title='Muraqaba' type='Focused' titleSize={13} typeSize={10} image={christianity_1} onPress={goToGuide}></ImageCard>
-          </View>
         </View>
+
+        <ScrollView horizontal>
+          {getOtherPracticesFromSameReligion()}
+        </ScrollView>
 
         <View style={[{ marginTop: 15 }]}>
           <View style={styles.religionContainer}>
             <View style={styles.religionContent}>
-              <Text style={[styles.colorPrimary, { fontSize: 16, fontWeight: 'bold' }]}>Other Practices of the same Meditation Type</Text>
+              <Text style={[styles.colorPrimary, { fontSize: RFPercentage(2.5), fontWeight: 'bold' }]}>Other Practices of the same Meditation Type</Text>
             </View>
-          </View>
-
-          <View style={styles.medContainer}>
-            <ImageCard title='Hatha Yoga' type='Movement, Mindfulness, Spiritual' titleSize={13} typeSize={8} image={christianity_1} onPress={goToGuide}></ImageCard>
-            <ImageCard title='Kriya Yoga' type='Focused' titleSize={13} typeSize={10} image={christianity_1} onPress={goToGuide}></ImageCard>
-          </View>
-
-          <View style={{ marginTop: 5 }}>
-            <ImageCard title='Chakra' type='Visualization' titleSize={13} typeSize={10} image={christianity_1} onPress={goToGuide}></ImageCard>
           </View>
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 }
+
+const inStyles = StyleSheet.create({
+  practiceCard: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 15,
+  },
+});
