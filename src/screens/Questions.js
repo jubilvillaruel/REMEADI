@@ -500,8 +500,92 @@ const followUpQuestions = {
     },
 
     Judaism: {
-        Mindfulness: 'How does mindfulness align with your Islamic beliefs?',
-        Spiritual: 'What spiritual practices are emphasized in Islam?',
+        Mindfulness: {
+            question: 'What meditation approach do you prefer?',
+            options: [
+                {
+                    label: 'Incorporates mystical teachings of Kabbalah and Chassidic philosophy',
+                    title: 'Kabbalistic/Chassidic',
+                    guideImg: meditationImgDB['Kabbalistic/Chassidic'],
+                    bia: true,
+                },
+                {
+                    label: 'Centers around the recitation and contemplation of the Shema',
+                    title: 'Shema',
+                    guideImg: meditationImgDB['Shema'],
+                    bia: true,
+                },
+            ],
+        },
+
+        Spiritual: {
+            question: 'What meditation approach do you prefer?',
+            options: [
+                {
+                    label: 'Focuses on personalized prayer',
+                    title: 'Hitbodedut',
+                    guideImg: meditationImgDB['Hitbodedut'],
+                    bia: '',
+                },
+                {
+                    label: 'Incorporates mystical elements',
+                    title: 'Kabbalistic/Chassidic',
+                    guideImg: meditationImgDB['Kabbalistic/Chassidic'],
+                    bia: true,
+                },
+            ],
+        },
+
+        Focused: {
+            question: 'What meditation approach do you prefer?',
+            options: [
+                {
+                    label: 'Focuses on personalized prayer',
+                    title: 'Hitbodedut',
+                    guideImg: meditationImgDB['Hitbodedut'],
+                    bia: '',
+                },
+                {
+                    label: 'Incorporates mystical elements',
+                    question: 'What meditation approach do you prefer?',
+                    options: [
+                        {
+                            label: 'Incorporates teachings of Kabbalahand Chassidic philosophy',
+                            title: 'Kabbalistic/Chassidic',
+                            guideImg: meditationImgDB['Kabbalistic/Chassidic'],
+                            bia: true,
+                        },
+                        {
+                            label: 'Centers around the recitation and contemplation of the Shema',
+                            title: 'Shema',
+                            guideImg: meditationImgDB['Shema'],
+                            bia: true,
+                        },
+                    ],
+                },
+            ],
+        },
+
+        Visualization: {
+            question: 'What meditation approach do you prefer?',
+            options: [
+                {
+                    label: 'Incorporates mystical teachings of Kabbalah and Chassidic philosophy',
+                    title: 'Kabbalistic/Chassidic',
+                    guideImg: meditationImgDB['Kabbalistic/Chassidic'],
+                    bia: true,
+                },
+                {
+                    label: 'Centers around the recitation and contemplation of the Shema',
+                    title: 'Shema',
+                    guideImg: meditationImgDB['Shema'],
+                    bia: true,
+                },
+            ],
+        },
+
+
+
     },
 };
   
@@ -558,12 +642,9 @@ export default function Questions({ navigation, route }) {
                             {questionData.options.map((option) => (
                                 <TouchableOpacity
                                     key={option.label}
-                                    style={[
-                                        inStyles.optionButton,
-                                        selectedOption === option ? inStyles.selectedOptionButton : null,
-                                    ]}
+                                    style={[inStyles.optionButton, styles.bgColorPrimary]}
                                     onPress={() => handleOptionSelect(option)}>
-                                    <Text style={[styles.colorWhite, { fontSize: RFPercentage(2) }]}>{option.label}</Text>
+                                    <Text style={[styles.colorWhite, inStyles.optionText, styles.bold, { fontSize: RFPercentage(2.2) }]}>{option.label}</Text>
                                 </TouchableOpacity>
                             ))}
                         </View>
@@ -577,12 +658,9 @@ export default function Questions({ navigation, route }) {
                     {secondOptions.map((option) => (
                         <TouchableOpacity
                             key={option.label}
-                            style={[
-                                inStyles.optionButton,
-                                selectedOption === option ? inStyles.selectedOptionButton : null,
-                            ]}
+                            style={[inStyles.optionButton, styles.bgColorPrimary]}
                             onPress={() => handleOptionSelect(option)}>
-                            <Text style={[styles.colorWhite, { fontSize: RFPercentage(2) }]}>{option.label}</Text>
+                            <Text style={[styles.colorWhite, inStyles.optionText, styles.bold, { fontSize: RFPercentage(2.2) }]}>{option.label}</Text>
                         </TouchableOpacity>
                     ))}
                 </View>
@@ -595,12 +673,9 @@ export default function Questions({ navigation, route }) {
                         {thirdOptions.map((option) => (
                             <TouchableOpacity
                                 key={option.label}
-                                style={[
-                                    inStyles.optionButton,
-                                    selectedOption === option ? inStyles.selectedOptionButton : null,
-                                ]}
+                                style={[inStyles.optionButton, styles.bgColorPrimary]}
                                 onPress={() => handleOptionSelect(option)}>
-                                <Text style={[styles.colorWhite, { fontSize: RFPercentage(2) }]}>{option.label}</Text>
+                                <Text style={[styles.colorWhite, inStyles.optionText, styles.bold, { fontSize: RFPercentage(2.2) }]}>{option.label}</Text>
                             </TouchableOpacity>
                         ))}
                     </View>
@@ -620,18 +695,22 @@ const inStyles = StyleSheet.create({
 
     optionsContainer: {
         marginTop: 20,
-        flexDirection: 'row',
-        justifyContent: 'space-around',
+        gap: 15,
+        width: screenWidth('90%'),
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 
     optionButton: {
-        paddingVertical: 10,
-        paddingHorizontal: 20,
-        backgroundColor: 'lightgray',
-        borderRadius: 10,
+        padding: 15,
+        borderRadius: 40,
+        width: screenWidth('70%'),
+        height: screenHeight('10%'),
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 
-    selectedOptionButton: {
-        backgroundColor: 'gray',
-    },
+    optionText: {
+        textAlign: 'center',
+    }
 });
