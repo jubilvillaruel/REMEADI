@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, SafeAreaView, Image } from 'react-native';
-import { screenWidth, screenHeight } from '../components/dimensions';
-import { PrimaryButton } from '../components/buttons';
+import { screenWidth, screenHeight } from '../components/Dimensions';
+import { PrimaryButton } from '../components/Buttons';
 import { meditationDescDB } from '../Data/LocalDB';
 import { styles } from '../../assets/css/Style';
 import { RFPercentage } from 'react-native-responsive-fontsize';

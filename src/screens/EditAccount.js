@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, Image, TextInput, TouchableOpacity, Modal, Picker } from 'react-native';
-import { PrimaryButton } from '../components/buttons'; 
+import { PrimaryButton } from '../components/Buttons'; 
 import DropDownPicker from 'react-native-dropdown-picker';
 
 import { styles } from './../../assets/css/Style';

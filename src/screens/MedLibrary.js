@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView } from 'react-native';
 import { styles } from '../../assets/css/Style';
-import { ImageCard } from '../components/cards';
-import { screenWidth } from '../components/dimensions';
+import { ImageCard } from '../components/Cards';
+import { screenWidth } from '../components/Dimensions';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 
 // Religion logos
@@ -159,8 +159,8 @@ export default function MedLibrary( {navigation}) {
 const inStyles = StyleSheet.create({
   religionContainer: {
     paddingTop: 10,
-    alignItems: 'left',
-    justifyContent: 'left',
+    alignItems: 'center',
+    justifyContent: 'center',
     width: screenWidth('90%'),
   },
 

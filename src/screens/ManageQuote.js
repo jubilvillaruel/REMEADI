@@ -1,6 +1,6 @@
 import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View, Picker } from 'react-native'
 import React, { useState } from 'react'
-import { TextInput } from 'react-native-web'
+import { TextInput } from 'react-native'
 import { styles } from '../../assets/css/Style'
 import { db } from '../../firebase'
 import { getQuoteID} from '../models/QuoteModel'

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Image } from 'react-native';
-import { screenHeight } from './src/components/dimensions';
+import { screenHeight } from './src/components/Dimensions';
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';

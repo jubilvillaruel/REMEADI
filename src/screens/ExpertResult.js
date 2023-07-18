@@ -1,5 +1,5 @@
 import { Text, View, SafeAreaView, ScrollView } from 'react-native';
-import { ImageCard } from '../components/cards';
+import { ImageCard } from '../components/Cards';
 import { styles } from '../../assets/css/Style';
 
 // Christianity
