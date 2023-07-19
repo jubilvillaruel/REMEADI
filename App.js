@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Image } from 'react-native';
-import { screenHeight } from './src/components/dimensions';
+import { screenHeight } from './src/components/Dimensions';
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -38,8 +38,6 @@ import Splash from './src/screens/Splash';
 import { auth } from './firebase';
 import ManageQuote from './src/screens/ManageQuote';
 import ForgotPassword from './src/screens/ForgotPassword';
-// import TestSound from './src/screens/TestSound';
-
 
 // Google Sign in
 // import {
@@ -136,9 +134,7 @@ export default function App() {
       let counter = 0;
       const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
       while (counter < 30) {
-        // console.log('counter:',counter)
         await sleep(100);
-        // console.log('0.1 sec lapsed')
         if (auth.currentUser !== null) {
           console.log('user is found!')
           setUserToken(auth.currentUser.uid);
@@ -170,7 +166,7 @@ export default function App() {
     
     <NavigationContainer>
         {userToken == null ? (
-          <Stack.Navigator initialRouteName="TestSound" screenOptions={{
+          <Stack.Navigator initialRouteName="Landing" screenOptions={{
             headerTitleAlign: 'center',
             headerStyle: {
               shadowColor: '#000000',
@@ -192,7 +188,6 @@ export default function App() {
             <Stack.Screen name="SignUp" component={SignUp} initialParams={ {setUserToken} } options={{title: 'Sign Up'}}/>
             <Stack.Screen name="ManageQuote" component={ManageQuote} options={{title: 'ADMIN - Manage Quote'}}/>
             <Stack.Screen name="ForgotPassword" component={ForgotPassword} options={{title: 'Forgot Password'}}/>
-            {/* <Stack.Screen name="TestSound" component={TestSound} options={{title: 'Test Sound'}} /> */}
         </Stack.Navigator>
         ) : (
           <Stack.Navigator initialRouteName="HomeScreen" screenOptions={{
@@ -225,7 +220,6 @@ export default function App() {
             <Stack.Screen name='Guide' component={Guide} options={{headerTransparent: true, title: '',}}/>
             <Stack.Screen name='GuideOptions' component={GuideOptions} options={{title: 'Guide Options'}}/>
             <Stack.Screen name="Session" component={Session} options={{headerShown: false}}/>
-            {/* <Stack.Screen name="Session" component={TestSound} options={{headerShown: false}}/> */}
         </Stack.Navigator>
         )}
     </NavigationContainer>

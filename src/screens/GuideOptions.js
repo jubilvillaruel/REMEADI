@@ -1,9 +1,9 @@
 import { StyleSheet, Text, SafeAreaView, ScrollView } from 'react-native';
-import { screenWidth, screenHeight } from '../components/dimensions';
+import { screenWidth, screenHeight } from '../components/Dimensions';
 import { RFPercentage } from "react-native-responsive-fontsize";
 
 import { styles } from '../../assets/css/Style';
-import { TextCard, IconCard } from '../components/cards';
+import { TextCard, IconCard } from '../components/Cards';
 import locked from '../../assets/images/locked.png';
 
 export const Options = ({ title }) => {

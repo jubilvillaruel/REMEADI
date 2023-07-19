@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, SafeAreaView, Image } from 'react-native';
-import { screenWidth, screenHeight } from '../components/dimensions';
-import { PrimaryButton } from '../components/buttons';
+import { screenWidth, screenHeight } from '../components/Dimensions';
+import { PrimaryButton } from '../components/Buttons';
 import { meditationDescDB } from '../Data/LocalDB';
 import { styles } from '../../assets/css/Style';
 import { RFPercentage } from 'react-native-responsive-fontsize';
@@ -50,13 +50,13 @@ export default function Guide({ navigation, route }) {
   };
 
   return (
-    <SafeAreaView style={styles.screen}>
+    <SafeAreaView style={inStyles.screen}>
       <View style={inStyles.imgContainer}>
         <Image style={inStyles.img} source={data.guideImg}></Image>
       </View>
 
       <View style={inStyles.textContainer}>
-        <Text style={[styles.colorPrimary, inStyles.title]}>{data.title}</Text>
+        <Text style={[inStyles.colorPrimary, inStyles.title]}>{data.title}</Text>
         <Text style={inStyles.content}>{desc}</Text>
       </View>
       {(data.bia) ?
@@ -105,6 +105,13 @@ export default function Guide({ navigation, route }) {
 }
 
 const inStyles = StyleSheet.create({
+  screen: {
+    top: 0,
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+  },
+
   imgContainer: {
     width: screenWidth('100%'),
     height: screenHeight('40%'),

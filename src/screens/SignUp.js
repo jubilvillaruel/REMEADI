@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, Image, TextInput, TouchableOpacity, Modal } from 'react-native';
-import { screenWidth, screenHeight } from '../components/dimensions';
-import { PrimaryButton } from '../components/buttons';
+import { screenWidth, screenHeight } from '../components/Dimensions';
+import { PrimaryButton } from '../components/Buttons';
 import { RFPercentage } from "react-native-responsive-fontsize";
 import DropDownPicker from 'react-native-dropdown-picker';
 import DatePicker from 'react-native-modern-datepicker';

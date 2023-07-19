@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, ImageBackground } from 'react-native';
-import { screenWidth, screenHeight } from '../components/dimensions';
+import { screenWidth, screenHeight } from './Dimensions';
 import * as Speech from 'expo-speech';
 
 import text from '../../assets/images/text.png';
 
-import { styles } from './../../assets/css/Style';
+import { styles } from '../../assets/css/Style';
 import { getGuide } from '../Data/Practices/GuideDB';
 
 // Cards
@@ -15,7 +15,7 @@ export const ImageCard = ({ title, type, width, height, titleSize, typeSize, ima
         <TouchableOpacity onPress={onPress}> 
             <View>
               <ImageBackground style={[inStyles.libItem, { width: width, height: height }]} imageStyle={{ borderRadius: 10 }} source={image}>
-                <View style={inStyles.libContent}>
+                <View style={[inStyles.libContent, {borderWidth:1,borderColor:'red'}]}>
                   <Text style={[styles.colorWhite, styles.bold, { fontSize: titleSize }]}>{title}</Text>
                   <Text style={[styles.colorWhite, { fontSize: typeSize }]}>{type}</Text>
                 </View>

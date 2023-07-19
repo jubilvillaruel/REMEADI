@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Image, Modal, ScrollView } from 'react-native';
-import { screenWidth, screenHeight } from '../components/dimensions';
+
 import { RFPercentage } from "react-native-responsive-fontsize";
 
 import { styles } from './../../assets/css/Style';
@@ -10,6 +10,7 @@ import daily_motivation from '../../assets/images/home/daily_motivation.png';
 import { auth, db } from '../../firebase';
 import close from '../../assets/images/close.png';
 import { getQuote, getQuoteID } from '../models/QuoteModel';
+import { screenHeight, screenWidth } from '../components/Dimensions';
 
 const remindVerification = () => {
     alert('Please verify your account')
@@ -125,7 +126,7 @@ export default function Home({ navigation, route }) {
                     <View style={inStyles.sec2SubContainer}>
                         <TouchableOpacity style={[inStyles.btnSubFeature, styles.dropShadow]} onPress={() => (emailVerified === true ? goToLibrary() : remindVerification())}>
                             <Image style={[{ width: 40, height: 40 }]} source={meditation_library}/>
-                            <Text style={[styles.colorPrimary, styles.bold, { fontSize: RFPercentage(2), marginTop: 5 }]}>{'Meditation\nLibrary'}</Text>
+                            <Text style={[styles.colorPrimary, styles.bold, { fontSize: RFPercentage(2), marginTop: 5, alignItems:'center'}]}>{'Meditation\nLibrary'}</Text>
                             <Text style={[styles.colorPrimary, { fontSize: RFPercentage(1.6), marginTop: 5 }]}>{'Explore practice from different religions'}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={[inStyles.btnSubFeature, styles.dropShadow, { marginLeft: 15 }]} onPress={showQuoteModal}>
@@ -139,8 +140,8 @@ export default function Home({ navigation, route }) {
                 <Modal visible={quoteVisible} animationType='slide' transparent={true}>
                     <View style={inStyles.modalContainer}>
                         <View style={[inStyles.modalContent, styles.dropShadow]}>
-                            <Text style={[styles.bold, { fontSize: RFPercentage(2.5), top: 15, position: 'absolute' }]}>Daily Motivation</Text><br></br>
-                            <Text>"{quote}"</Text><br></br>
+                            <Text style={[styles.bold, { fontSize: RFPercentage(2.5), top: 15, position: 'absolute' }]}>Daily Motivation</Text>
+                            <Text>"{quote}"</Text>
                             <Text>{source}</Text>
                             <TouchableOpacity style={inStyles.btnCloseModal} onPress={hideQuoteModal}>
                                 <Image style={[{ width: 20, height: 20 }]} source={close}/>

@@ -1,8 +1,8 @@
 import { SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native'
 import React, { useState } from 'react'
-import { PrimaryButton } from '../components/buttons'
+import { PrimaryButton } from '../components/Buttons'
 import { styles } from '../../assets/css/Style'
-import { screenHeight, screenWidth } from '../components/dimensions'
+import { screenHeight, screenWidth } from '../components/Dimensions'
 import { RFPercentage } from 'react-native-responsive-fontsize'
 import { auth } from '../../firebase'
 

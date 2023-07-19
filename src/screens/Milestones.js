@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, ScrollView } from 'react-native';
 
 import { styles } from './../../assets/css/Style';
-import { TextCard, IconCard } from '../components/cards';
+import { TextCard, IconCard } from '../components/Cards';
 
 import locked from '../../assets/images/locked.png';
 

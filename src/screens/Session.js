@@ -1,10 +1,10 @@
 import React, { useState, useEffect }from 'react'
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, ScrollView, Image, Modal } from 'react-native';
-import { StepCard } from '../components/cards';
-import { screenWidth, screenHeight } from '../components/dimensions';
+import { StepCard } from '../components/Cards';
+import { screenWidth, screenHeight } from '../components/Dimensions';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { Stopwatch, Timer } from 'react-native-stopwatch-timer';
-import { PrimaryButton } from '../components/buttons';
+import { PrimaryButton } from '../components/Buttons';
 
 import { Video } from 'expo-av';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity } from 'react-native';
-import { screenWidth, screenHeight } from '../components/dimensions';
-import { SecondaryButton } from '../components/buttons';
+import { screenWidth, screenHeight } from '../components/Dimensions';
+import { SecondaryButton } from '../components/Buttons';
 import { RFPercentage } from "react-native-responsive-fontsize";
 
 import { styles } from './../../assets/css/Style';

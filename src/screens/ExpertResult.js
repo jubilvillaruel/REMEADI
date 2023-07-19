@@ -1,5 +1,6 @@
 import { Text, View, SafeAreaView, ScrollView, StyleSheet } from 'react-native';
-import { ImageCard } from '../components/cards';
+import { ImageCard } from '../components/Cards';
+
 import { styles } from '../../assets/css/Style';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { meditationImgDB } from '../Data/ImageDB';

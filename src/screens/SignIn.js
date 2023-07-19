@@ -1,8 +1,8 @@
 import { StyleSheet, Text, SafeAreaView, View, Image, TextInput, TouchableOpacity } from 'react-native';
 import React, { useState, useEffect }  from 'react'
-import { screenWidth, screenHeight } from '../components/dimensions';
+import { screenWidth, screenHeight } from '../components/Dimensions';
 import { RFPercentage } from "react-native-responsive-fontsize";
-import { IconButton, PrimaryButton } from '../components/buttons';
+import { IconButton, PrimaryButton } from '../components/Buttons';
 
 import { styles } from '../../assets/css/Style';
 import appLogo from '../../assets/images/app_logo.png';
