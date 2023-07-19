@@ -50,13 +50,13 @@ export default function Guide({ navigation, route }) {
   };
 
   return (
-    <SafeAreaView style={styles.screen}>
+    <SafeAreaView style={inStyles.screen}>
       <View style={inStyles.imgContainer}>
         <Image style={inStyles.img} source={data.guideImg}></Image>
       </View>
 
       <View style={inStyles.textContainer}>
-        <Text style={[styles.colorPrimary, inStyles.title]}>{data.title}</Text>
+        <Text style={[inStyles.colorPrimary, inStyles.title]}>{data.title}</Text>
         <Text style={inStyles.content}>{desc}</Text>
       </View>
       {(data.bia) ?
@@ -105,6 +105,13 @@ export default function Guide({ navigation, route }) {
 }
 
 const inStyles = StyleSheet.create({
+  screen: {
+    top: 0,
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+  },
+
   imgContainer: {
     width: screenWidth('100%'),
     height: screenHeight('40%'),
