@@ -4,7 +4,6 @@ import { StepCard } from '../components/Cards';
 import { screenWidth, screenHeight } from '../components/Dimensions';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { Stopwatch, Timer } from 'react-native-stopwatch-timer';
-import { PrimaryButton } from '../components/Buttons';
 
 import { Video } from 'expo-av';
 
@@ -33,7 +32,6 @@ export default function Session({ navigation, route }) {
     const religion = getReligionByPractice(practiceTitle)
 
     // Modals for Summary and BGM Selection
-    const [msgVisible, setMsgVisible] = useState(false);
     const [bgmVisible, setBgmVisible] = useState(false);
 
     // Set Value for guide content and time
@@ -270,7 +268,6 @@ export default function Session({ navigation, route }) {
     };
 
     const concludeSession = (practiceTitle, stopwatchTime ) => {
-        // setMsgVisible(true);
         stopAllSounds();
         setTimerRunning(false);
         Speech.stop();
@@ -280,13 +277,8 @@ export default function Session({ navigation, route }) {
             // meditation type
             // times practiced
         };
-        // console.log('practiceTitle:',practiceTitle,'\nstopwatchTime',stopwatchTime)
         navigation.dispatch(StackActions.popToTop());
         navigation.navigate('ConcludeSession', {data});
-    };
-    
-    const backToHome = () => {
-        navigation.navigate('Home');
     };
 
     const showBgmModal = () => {
@@ -376,39 +368,6 @@ export default function Session({ navigation, route }) {
                             <Text style={[{ fontSize: RFPercentage(3) }, styles.colorWhite, styles.bold]}>Done</Text>
                         </TouchableOpacity>
                     </View>
-
-                    <Modal visible={msgVisible} animationType='fade' transparent={true}>
-                        <View style={inStyles.summaryContainer}>
-                            <View style={[inStyles.summaryContent, styles.dropShadow, { gap: 15 }]}>
-                                <Text style={[styles.bold, { fontSize: RFPercentage(3) }]}>Session Done!</Text>
-                                <View style={{ gap: 5 }}>
-                                    <Text style={{ fontSize: RFPercentage(2) }}>{practiceTitle}</Text>
-                                    <View style={inStyles.infoContainer}>
-                                        <Text style={{ fontSize: RFPercentage(2) }}>Meditation Type:</Text>
-                                        <Text style={{ fontSize: RFPercentage(2) }}>Spiritual</Text>
-                                    </View>
-                                    <View style={inStyles.infoContainer}>
-                                        <Text style={{ fontSize: RFPercentage(2) }}>Duration:</Text>
-                                        <Text style={{ fontSize: RFPercentage(2) }}>{stopwatchTime} Minute/s</Text>
-                                    </View>
-                                    <View style={inStyles.infoContainer}>
-                                        <Text style={{ fontSize: RFPercentage(2) }}>Times Practiced:</Text>
-                                        <Text style={{ fontSize: RFPercentage(2) }}>5</Text>
-                                    </View>
-                                </View>
-
-                                <PrimaryButton
-                                    text='Back to Home'
-                                    textColor= '#FFFFFF'
-                                    textSize={RFPercentage(2.2)}
-                                    width={screenWidth('70%')}
-                                    height={screenHeight('7%')}
-                                    borderRad={30}
-                                    onPress={backToHome}>
-                                </PrimaryButton>
-                            </View>
-                        </View>
-                    </Modal>
 
                     <Modal visible={bgmVisible} animationType='slide' transparent={true}>
                         <View style={inStyles.bgmContainer}>
@@ -520,24 +479,6 @@ const inStyles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
     },
-
-    summaryContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        textAlign: 'center',
-        alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.2)',
-    },
-
-    summaryContent: {
-        width: screenWidth('90%'),
-        height: screenHeight('40%'),
-        padding: 15,
-        backgroundColor: '#FFFFFF',
-        borderRadius: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
     
     bgmContainer: {
         textAlign: 'center',
@@ -584,11 +525,5 @@ const inStyles = StyleSheet.create({
         color: '#FFFFFF',
         backgroundColor: '#FFBF69',
         borderRadius: 20,
-    },
-    
-    infoContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        gap: 75,
     },
 });

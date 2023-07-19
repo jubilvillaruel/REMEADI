@@ -26,6 +26,12 @@ export default function Home({ navigation, route }) {
 
     const uid = auth.currentUser.uid
     const emailVerified = auth.currentUser.emailVerified
+
+    const currentDate = new Date().toLocaleDateString('en-US', {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+    });
     
     // console.log("email verified: " + emailVerified)
 
@@ -108,7 +114,7 @@ export default function Home({ navigation, route }) {
                     <View style={inStyles.progressContainer}>
                     <Text style={[styles.colorPrimary, inStyles.sec1Title, styles.bold]}>Your Progress</Text>
                         <View style={[styles.bgColorPrimary, inStyles.progressContent]}>
-                            <Text style={[styles.colorWhite, styles.bold, { fontSize: RFPercentage(2.2) }]}>Date</Text>
+                            <Text style={[styles.colorWhite, styles.bold, { fontSize: RFPercentage(2.2) }]}>{currentDate}</Text>
                             <Text style={styles.colorWhite}>Meditation Streak: 6 days</Text>
                         </View>
                     </View>

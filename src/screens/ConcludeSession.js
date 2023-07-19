@@ -1,54 +1,57 @@
 import React from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, View, Image } from 'react-native'
 import { PrimaryButton } from '../components/Buttons';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { screenHeight, screenWidth } from '../components/Dimensions';
 import { styles } from '../../assets/css/Style';
+import appLogo from '../../assets/images/app_logo.png';
+import { meditationTypeDB } from '../Data/TypeDB';
 
 export default function ConcludeSession({ navigation, route }) {
     const {data} = route.params;
     const practiceTitle = data.practiceTitle;
     const stopwatchTime = data.stopwatchTime;
-    // console.log('practiceTitle:',practiceTitle,'\nstopwatchTime',stopwatchTime)
+    const medType = meditationTypeDB[data.practiceTitle];
 
     const gotoHome = () => {
         navigation.navigate('HomeScreen')
     }
 
     return (
-        <View style={inStyles.summaryContainer}>
-            <View style={[inStyles.summaryContent, styles.dropShadow]}>
-                <Text>Session Done!</Text>
-                <View>
-                    <Text>{practiceTitle}</Text>
-                    <View>
-                        <Text>Meditation Type:</Text>
-                        <Text>Spiritual</Text>
+        <View style={styles.screenCenter}>
+            <View style={[inStyles.summaryContainer, styles.dropShadow, { gap: 15 }]}>
+                <View style={inStyles.headerContainer}>
+                    <Image style={{ margin: 15, height: screenHeight('22%'), width: screenWidth('60%') }} source={appLogo} />
+                    <Text style={[styles.bold, styles.colorPrimary, { fontSize: RFPercentage(3.5) }]}>{practiceTitle}</Text>
+                    <Text style={[styles.colorPrimary, { fontSize: RFPercentage(2.5), marginTop: -8 }]}>Session Done!</Text>
+                </View>
+
+                <View style={inStyles.summaryContent}>
+                    <View style={inStyles.infoContainer}>
+                        <Text style={[ styles.bold, { fontSize: RFPercentage(2) }]}>Meditation Type</Text>
+                        <Text style={[ styles.bold, styles.colorPrimary, { fontSize: RFPercentage(2) }]}>{medType}</Text>
                     </View>
-                    <View>
-                        <Text>Duration:</Text>
-                        <Text>{stopwatchTime} Minute/s</Text>
+                    <View style={inStyles.infoContainer}>
+                        <Text style={[ styles.bold, { fontSize: RFPercentage(2) }]}>Meditation Duration</Text>
+                        <Text style={[ styles.bold, styles.colorPrimary, { fontSize: RFPercentage(2) }]}>{stopwatchTime}</Text>
                     </View>
-                    <View>
-                        <Text>Times Practiced:</Text>
-                        <Text>5</Text>
+                    <View style={inStyles.infoContainer}>
+                        <Text style={[ styles.bold, { fontSize: RFPercentage(2) }]}>Times Practiced</Text>
+                        <Text style={[ styles.bold, styles.colorPrimary, { fontSize: RFPercentage(2) }]}>5</Text>
                     </View>
                 </View>
-                {/* <TouchableOpacity onPress={gotoHome}>
-                    <Text>
-                        Go To Home
-                    </Text>
-                </TouchableOpacity> */}
 
-                <PrimaryButton
-                    text='Back to Home'
-                    textColor= '#FFFFFF'
-                    textSize={RFPercentage(2.2)}
-                    width={screenWidth('70%')}
-                    height={screenHeight('7%')}
-                    borderRad={30}
-                    onPress={gotoHome}>
-                </PrimaryButton>
+                <View style={inStyles.btnContainer}>
+                    <PrimaryButton
+                        text='Back to Home'
+                        textColor= '#FFFFFF'
+                        textSize={RFPercentage(2.2)}
+                        width={screenWidth('65%')}
+                        height={screenHeight('5%')}
+                        borderRad={30}
+                        onPress={gotoHome}>
+                    </PrimaryButton>
+                </View>
             </View>
         </View>
     )
@@ -56,20 +59,48 @@ export default function ConcludeSession({ navigation, route }) {
 
 const inStyles = StyleSheet.create({
     summaryContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        textAlign: 'center',
+        width: screenWidth('90%'),
+        height: screenHeight('95%'),
+        padding: 15,
+        backgroundColor: '#FFFFFF',
+        borderWidth: 2,
+        borderRadius: 10,
+        borderColor: '#FFBF69',
         alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.2)',
+        justifyContent: 'center',
+    },
+
+    headerContainer: {
+        width: screenWidth('80%'),
+        height: screenHeight('25%'),
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 15,
+        margin: 15,
     },
 
     summaryContent: {
-        width: screenWidth('90%'),
+        width: screenWidth('80%'),
         height: screenHeight('40%'),
         padding: 15,
-        backgroundColor: '#FFFFFF',
-        borderRadius: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 5,
+    },
+
+    infoContainer: {
+        width: screenWidth('80%'),
         justifyContent: 'center',
         alignItems: 'center',
+        paddingVertical: 10,
+      },
+      
+
+    btnContainer: {
+        padding: 15,
+        width: screenWidth('80%'),
+        height: screenHeight('15%'),
+        alignItems: 'center',
+        justifyContent: 'center',
     },
 })

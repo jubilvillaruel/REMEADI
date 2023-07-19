@@ -377,7 +377,7 @@ const followUpQuestions = {
                             label: 'Yes',
                             title: 'Walk',
                             guideImg: meditationImgDB['Walk'],
-                            bia: '',
+                            bia: true,
                         },
                         {
                             label: 'No',
