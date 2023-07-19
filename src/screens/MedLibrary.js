@@ -1,8 +1,10 @@
-import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, TextInput } from 'react-native';
 import { styles } from '../../assets/css/Style';
 import { ImageCard } from '../components/Cards';
 import { screenWidth } from '../components/Dimensions';
 import { RFPercentage } from 'react-native-responsive-fontsize';
+import React, { useState } from 'react';
+
 
 // Religion logos
 import christianity_logo from '../../assets/images/religion/christianity_logo.png';
@@ -41,6 +43,10 @@ import judaism_2 from '../../assets/images/judaism/judaism_2.png';
 import judaism_3 from '../../assets/images/judaism/judaism_3.png';
 
 export default function MedLibrary( {navigation}) {
+
+  const [searchInput, setSearchInput] = useState('');
+  const [filteredCards, setFilteredCards] = useState([]);
+
   const goToGuide = (title, guideImg, bia) => {
     const data = {
       title: title, 
@@ -50,107 +56,319 @@ export default function MedLibrary( {navigation}) {
     navigation.navigate('Guide', {data});
   };
 
+  const allCards = [
+    // Christianity
+    {
+      title: 'Lectio Divina',
+      type: 'Spiritual',
+      titleSize: RFPercentage(1.6),
+      typeSize: RFPercentage(1.2),
+      image: christianity_1,
+    },
+    {
+      title: 'Christian Meditation',
+      type: 'Mantra',
+      titleSize: RFPercentage(1.6),
+      typeSize: RFPercentage(1.2),
+      image: christianity_2,
+    },
+    {
+      title: 'Examen',
+      type: 'Mindfulness, Visualization',
+      titleSize: RFPercentage(1.6),
+      typeSize: RFPercentage(1.2),
+      image: christianity_3,
+    },
+    {
+      title: 'Rosary',
+      type: 'Focused, Loving-kindness',
+      titleSize: RFPercentage(1.6),
+      typeSize: RFPercentage(1.2),
+      image: christianity_4,
+    },
+    // Add more Christianity cards here if needed
+
+    // Islam
+    {
+      title: 'Taffakur',
+      type: 'Mindfulness, Spiritual',
+      titleSize: RFPercentage(1.6),
+      typeSize: RFPercentage(1.2),
+      image: islam_1,
+    },
+    {
+      title: 'Dhikr',
+      type: 'Mantra',
+      titleSize: RFPercentage(1.6),
+      typeSize: RFPercentage(1.2),
+      image: islam_2,
+    },
+    {
+      title: 'Muraqaba',
+      type: 'Focused',
+      titleSize: RFPercentage(1.6),
+      typeSize: RFPercentage(1.2),
+      image: islam_3,
+    },
+    {
+      title: 'Sufi Breathing',
+      type: 'Visualization',
+      titleSize: RFPercentage(1.6),
+      typeSize: RFPercentage(1.2),
+      image: islam_4,
+    },
+    // Add more Islam cards here if needed
+
+    // Hinduism
+    {
+      title: 'Hatha Yoga',
+      type: 'Movement, Mindfulness, Spiritual',
+      titleSize: RFPercentage(1.6),
+      typeSize: RFPercentage(1.1),
+      image: hinduism_1,
+    },
+    {
+      title: 'Kriya Yoga',
+      type: 'Focused',
+      titleSize: RFPercentage(1.6),
+      typeSize: RFPercentage(1.2),
+      image: hinduism_2,
+    },
+    {
+      title: 'Chakra',
+      type: 'Visualization',
+      titleSize: RFPercentage(1.6),
+      typeSize: RFPercentage(1.2),
+      image: hinduism_3,
+    },
+    // Add more Hinduism cards here if needed
+
+    // Buddhism
+    {
+      title: 'Breath',
+      type: 'Focused',
+      titleSize: RFPercentage(1.6),
+      typeSize: RFPercentage(1.2),
+      image: buddhism_1,
+    },
+    {
+      title: 'Walk',
+      type: 'Movement',
+      titleSize: RFPercentage(1.6),
+      typeSize: RFPercentage(1.2),
+      image: buddhism_2,
+    },
+    {
+      title: 'Tonglen',
+      type: 'Loving-kindness, Visualization',
+      titleSize: RFPercentage(1.6),
+      typeSize: RFPercentage(1.2),
+      image: buddhism_3,
+    },
+    {
+      title: 'Metta',
+      type: 'Spiritual, Mantra',
+      titleSize: RFPercentage(1.6),
+      typeSize: RFPercentage(1.2),
+      image: buddhism_4,
+    },
+    {
+      title: 'Body Scan',
+      type: 'Mindfulness, Relaxation',
+      titleSize: RFPercentage(1.6),
+      typeSize: RFPercentage(1.2),
+      image: buddhism_5,
+    },
+    // Add more Buddhism cards here if needed
+
+    // Judaism
+    {
+      title: 'Hitbodedut',
+      type: 'Spiritual',
+      titleSize: RFPercentage(1.6),
+      typeSize: RFPercentage(1.2),
+      image: judaism_1,
+    },
+    {
+      title: 'Kabbalistic/Chassidic',
+      type: 'Visualization',
+      titleSize: RFPercentage(1.6),
+      typeSize: RFPercentage(1.2),
+      image: judaism_2,
+    },
+    {
+      title: 'Shema',
+      type: 'Focused',
+      titleSize: RFPercentage(1.6),
+      typeSize: RFPercentage(1.2),
+      image: judaism_3,
+    },
+    // Add more Judaism cards here if needed
+  ];
+
+  const handleSearchInputChange = (text) => {
+    setSearchInput(text);
+    // Filter the cards based on the search input
+    const filtered = allCards.filter((card) =>
+      card.title.toLowerCase().includes(text.toLowerCase())
+    );
+    setFilteredCards(filtered);
+  };
+
   return (
     <SafeAreaView style={styles.screenCenter}>
       <ScrollView showsVerticalScrollIndicator={false} style={[{ marginBottom: 15 }]}>
+        <View style={[{ marginTop: 15 }]}>
+          <TextInput
+            style={inStyles.searchBox}
+            placeholder="Search a meditation practice..."
+            onChangeText={handleSearchInputChange}
+            value={searchInput}
+          />
+        </View>
+
         <View style={[{ marginTop: 10 }]}>
-          <View style={inStyles.religionContainer}>
+          {searchInput !== '' && filteredCards.length === 0 ? (
+            <Text style={{ textAlign: 'center' }}>No results found</Text>
+          ) : (
+            <View style={[inStyles.medContainer,{flexDirection: 'col'}]}>
+              {searchInput === '' ? (
+                // Show all cards if search input is empty
+                // allCards.map((card, index) => (
+                  <View>
+                    <Text></Text>
+                  </View>
+                  
+                  // <ImageCard
+                  //   key={index}
+                  //   title={card.title}
+                  //   type={card.type}
+                  //   titleSize={card.titleSize}
+                  //   typeSize={card.typeSize}
+                  //   image={card.image}
+                  //   onPress={() => {
+                  //     goToGuide(card.title, card.image);
+                  //   }}
+                  // />
+                // )
+                // )
+              ) : (
+                // Show filtered cards based on search input
+                filteredCards.map((card, index) => (
+                  <SearchCard
+                    key={index}
+                    title={card.title}
+                    type={card.type}
+                    titleSize={card.titleSize}
+                    typeSize={card.typeSize}
+                    image={card.image}
+                    onPress={() => {
+                      goToGuide(card.title, card.image);
+                    }}
+                  />
+                ))
+              )}
+            </View>
+          )}
+        </View>
+
+        <View style={inStyles.religionContainer}>
             <View style={inStyles.religionContent}>
               <Image style={[{ width: 23, height: 32 }]} source={christianity_logo}/>
               <Text style={[styles.colorPrimary, { fontSize: RFPercentage(3), fontWeight: 'bold', marginHorizontal: 10 }]}>Christianity</Text>
             </View>
-          </View>
+          
+            <View style={inStyles.medContainer}>
+              <ImageCard title='Lectio Divina' type='Spiritual' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={christianity_1} onPress={() => {
+                goToGuide('Lectio Divina',christianity_1)
+              }}></ImageCard>
+              <ImageCard title='Christian Meditation' type='Mantra' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={christianity_2} onPress={() => {goToGuide('Christian Meditation',christianity_2)}}></ImageCard>
+            </View>
 
-          <View style={inStyles.medContainer}>
-            <ImageCard title='Lectio Divina' type='Spiritual' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={christianity_1} onPress={() => {
-              goToGuide('Lectio Divina',christianity_1)
-            }}></ImageCard>
-            <ImageCard title='Christian Meditation' type='Mantra' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={christianity_2} onPress={() => {goToGuide('Christian Meditation',christianity_2)}}></ImageCard>
+            <View style={inStyles.medContainer}>
+              <ImageCard title='Examen' type='Mindfulness, Visualization' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={christianity_3} onPress={() => {goToGuide('Examen',christianity_3)}}></ImageCard>
+              <ImageCard title='Rosary' type='Focused, Loving-kindness' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={christianity_4} onPress={() => {goToGuide('Rosary',christianity_4)}}></ImageCard>
+            </View>
           </View>
+        
 
-          <View style={inStyles.medContainer}>
-            <ImageCard title='Examen' type='Mindfulness, Visualization' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={christianity_3} onPress={() => {goToGuide('Examen',christianity_3)}}></ImageCard>
-            <ImageCard title='Rosary' type='Focused, Loving-kindness' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={christianity_4} onPress={() => {goToGuide('Rosary',christianity_4)}}></ImageCard>
-          </View>
-        </View>
+          <View style={[{ marginTop: 15 }]}>
+            <View style={inStyles.religionContainer}>
+              <View style={inStyles.religionContent}>
+                <Image style={[{ width: 33, height: 36 }]} source={islam_logo}/>
+                <Text style={[styles.colorPrimary, { fontSize: RFPercentage(3), fontWeight: 'bold', marginHorizontal: 10 }]}>Islam</Text>
+              </View>
+            </View>
 
-        <View style={[{ marginTop: 15 }]}>
-          <View style={inStyles.religionContainer}>
-            <View style={inStyles.religionContent}>
-              <Image style={[{ width: 33, height: 36 }]} source={islam_logo}/>
-              <Text style={[styles.colorPrimary, { fontSize: RFPercentage(3), fontWeight: 'bold', marginHorizontal: 10 }]}>Islam</Text>
+            <View style={inStyles.medContainer}>
+              <ImageCard title='Taffakur' type='Mindfulness, Spiritual' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={islam_1} onPress={() => {goToGuide('Taffakur',islam_1,false)}}></ImageCard>
+              <ImageCard title='Dhikr' type='Mantra' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={islam_2} onPress={() => {goToGuide('Dhikr',islam_2,true)}}></ImageCard>
+            </View>
+
+            <View style={inStyles.medContainer}>
+              <ImageCard title='Muraqaba' type='Focused' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={islam_3} onPress={() => {goToGuide('Muraqaba',islam_3,true)}}></ImageCard>
+              <ImageCard title='Sufi Breathing' type='Visualization' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={islam_4} onPress={() => {goToGuide('Sufi Breathing',islam_4)}}></ImageCard>
             </View>
           </View>
 
-          <View style={inStyles.medContainer}>
-            <ImageCard title='Taffakur' type='Mindfulness, Spiritual' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={islam_1} onPress={() => {goToGuide('Taffakur',islam_1,false)}}></ImageCard>
-            <ImageCard title='Dhikr' type='Mantra' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={islam_2} onPress={() => {goToGuide('Dhikr',islam_2,true)}}></ImageCard>
-          </View>
+          <View style={[{ marginTop: 15 }]}>
+            <View style={inStyles.religionContainer}>
+              <View style={inStyles.religionContent}>
+                <Image style={[{ width: 35, height: 36 }]} source={hinduism_logo}/>
+                <Text style={[styles.colorPrimary, { fontSize: RFPercentage(3), fontWeight: 'bold', marginHorizontal: 10 }]}>Hinduism</Text>
+              </View>
+            </View>
 
-          <View style={inStyles.medContainer}>
-            <ImageCard title='Muraqaba' type='Focused' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={islam_3} onPress={() => {goToGuide('Muraqaba',islam_3,true)}}></ImageCard>
-            <ImageCard title='Sufi Breathing' type='Visualization' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={islam_4} onPress={() => {goToGuide('Sufi Breathing',islam_4)}}></ImageCard>
-          </View>
-        </View>
+            <View style={inStyles.medContainer}>
+              <ImageCard title='Hatha Yoga' type='Movement, Mindfulness, Spiritual' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.1)} image={hinduism_1} onPress={() => {goToGuide('Hatha Yoga',hinduism_1)}}></ImageCard>
+              <ImageCard title='Kriya Yoga' type='Focused' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={hinduism_2} onPress={() => {goToGuide('Kriya Yoga',hinduism_2)}}></ImageCard>
+            </View>
 
-        <View style={[{ marginTop: 15 }]}>
-          <View style={inStyles.religionContainer}>
-            <View style={inStyles.religionContent}>
-              <Image style={[{ width: 35, height: 36 }]} source={hinduism_logo}/>
-              <Text style={[styles.colorPrimary, { fontSize: RFPercentage(3), fontWeight: 'bold', marginHorizontal: 10 }]}>Hinduism</Text>
+            <View style={{ marginTop: 5, paddingHorizontal: 13.5, width: screenWidth('90%') }}>
+              <ImageCard title='Chakra' type='Visualization' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={hinduism_3} onPress={() => {goToGuide('Chakra',hinduism_3)}}></ImageCard>
             </View>
           </View>
 
-          <View style={inStyles.medContainer}>
-            <ImageCard title='Hatha Yoga' type='Movement, Mindfulness, Spiritual' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.1)} image={hinduism_1} onPress={() => {goToGuide('Hatha Yoga',hinduism_1)}}></ImageCard>
-            <ImageCard title='Kriya Yoga' type='Focused' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={hinduism_2} onPress={() => {goToGuide('Kriya Yoga',hinduism_2)}}></ImageCard>
-          </View>
+          <View style={[{ marginTop: 15 }]}>
+            <View style={inStyles.religionContainer}>
+              <View style={inStyles.religionContent}>
+                <Image style={[{ width: 36, height: 36 }]} source={buddhism_logo}/>
+                <Text style={[styles.colorPrimary, { fontSize: RFPercentage(3), fontWeight: 'bold', marginHorizontal: 10 }]}>Buddhism</Text>
+              </View>
+            </View>
 
-          <View style={{ marginTop: 5, paddingHorizontal: 13.5, width: screenWidth('90%') }}>
-            <ImageCard title='Chakra' type='Visualization' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={hinduism_3} onPress={() => {goToGuide('Chakra',hinduism_3)}}></ImageCard>
-          </View>
-        </View>
+            <View style={inStyles.medContainer}>
+              <ImageCard title='Breath' type='Focused' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={buddhism_1} onPress={() => {goToGuide('Breath',buddhism_1,true)}}></ImageCard>
+              <ImageCard title='Walk' type='Movement' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={buddhism_2} onPress={() => {goToGuide('Walk',buddhism_2,true)}}></ImageCard>
+            </View>
 
-        <View style={[{ marginTop: 15 }]}>
-          <View style={inStyles.religionContainer}>
-            <View style={inStyles.religionContent}>
-              <Image style={[{ width: 36, height: 36 }]} source={buddhism_logo}/>
-              <Text style={[styles.colorPrimary, { fontSize: RFPercentage(3), fontWeight: 'bold', marginHorizontal: 10 }]}>Buddhism</Text>
+            <View style={inStyles.medContainer}>
+              <ImageCard title='Tonglen' type='Loving-kindness, Visualization' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={buddhism_3} onPress={() => {goToGuide('Tonglen',buddhism_3,true)}}></ImageCard>
+              <ImageCard title='Metta' type='Spiritual, Mantra' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={buddhism_4} onPress={() => {goToGuide('Metta',buddhism_4,true)}}></ImageCard>
+            </View>
+
+            <View style={{ marginTop: 5, paddingHorizontal: 13.5, width: screenWidth('90%') }}>
+              <ImageCard title='Body Scan' type='Mindfulness, Relaxation' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={buddhism_5} onPress={() => {goToGuide('Body Scan',buddhism_5,true)}}></ImageCard>
             </View>
           </View>
 
-          <View style={inStyles.medContainer}>
-            <ImageCard title='Breath' type='Focused' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={buddhism_1} onPress={() => {goToGuide('Breath',buddhism_1,true)}}></ImageCard>
-            <ImageCard title='Walk' type='Movement' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={buddhism_2} onPress={() => {goToGuide('Walk',buddhism_2,true)}}></ImageCard>
-          </View>
+          <View style={[{ marginTop: 15 }]}>
+            <View style={inStyles.religionContainer}>
+              <View style={inStyles.religionContent}>
+                <Image style={[{ width: 32, height: 36 }]} source={judaism_logo}/>
+                <Text style={[styles.colorPrimary, { fontSize: RFPercentage(3), fontWeight: 'bold', marginHorizontal: 10 }]}>Judaism</Text>
+              </View>
+            </View>
 
-          <View style={inStyles.medContainer}>
-            <ImageCard title='Tonglen' type='Loving-kindness, Visualization' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={buddhism_3} onPress={() => {goToGuide('Tonglen',buddhism_3,true)}}></ImageCard>
-            <ImageCard title='Metta' type='Spiritual, Mantra' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={buddhism_4} onPress={() => {goToGuide('Metta',buddhism_4,true)}}></ImageCard>
-          </View>
+            <View style={inStyles.medContainer}>
+              <ImageCard title='Hitbodedut' type='Spiritual' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={judaism_1} onPress={() => {goToGuide('Hitbodedut',judaism_1)}}></ImageCard>
+              <ImageCard title='Kabbalistic/Chassidic' type='Visualization' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={judaism_2} onPress={() => {goToGuide('Kabbalistic/Chassidic',judaism_2,true)}}></ImageCard>
+            </View>
 
-          <View style={{ marginTop: 5, paddingHorizontal: 13.5, width: screenWidth('90%') }}>
-            <ImageCard title='Body Scan' type='Mindfulness, Relaxation' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={buddhism_5} onPress={() => {goToGuide('Body Scan',buddhism_5,true)}}></ImageCard>
-          </View>
-        </View>
-
-        <View style={[{ marginTop: 15 }]}>
-          <View style={inStyles.religionContainer}>
-            <View style={inStyles.religionContent}>
-              <Image style={[{ width: 32, height: 36 }]} source={judaism_logo}/>
-              <Text style={[styles.colorPrimary, { fontSize: RFPercentage(3), fontWeight: 'bold', marginHorizontal: 10 }]}>Judaism</Text>
+            <View style={{ marginTop: 5, paddingHorizontal: 13.5, width: screenWidth('90%') }}>
+              <ImageCard title='Shema' type='Focused' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={judaism_3} onPress={() => {goToGuide('Shema',judaism_3,true)}}></ImageCard>
             </View>
           </View>
-
-          <View style={inStyles.medContainer}>
-            <ImageCard title='Hitbodedut' type='Spiritual' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={judaism_1} onPress={() => {goToGuide('Hitbodedut',judaism_1)}}></ImageCard>
-            <ImageCard title='Kabbalistic/Chassidic' type='Visualization' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={judaism_2} onPress={() => {goToGuide('Kabbalistic/Chassidic',judaism_2,true)}}></ImageCard>
-          </View>
-
-          <View style={{ marginTop: 5, paddingHorizontal: 13.5, width: screenWidth('90%') }}>
-            <ImageCard title='Shema' type='Focused' titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={judaism_3} onPress={() => {goToGuide('Shema',judaism_3,true)}}></ImageCard>
-          </View>
-        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -179,4 +397,13 @@ const inStyles = StyleSheet.create({
     justifyContent: 'center',
     width: screenWidth('90%'),
   },
+
+  searchBox:{
+    width: screenWidth('80%'),
+    height: 50,
+    backgroundColor: '#8FD3D2',
+    borderRadius: 10,
+    borderColor: '#FFFFFF',
+    paddingLeft: 10
+  }
 });
