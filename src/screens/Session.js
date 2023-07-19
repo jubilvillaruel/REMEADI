@@ -21,6 +21,7 @@ import { styles } from '../../assets/css/Style';
 import { getGuide } from '../Data/Practices/GuideDB';
 import { getReligionByPractice, timeDB, timeDB2, timeDB3 } from '../Data/LocalDB';
 import { getTimeModel, getTimeModel2 } from '../models/TimeModel';
+import { StackActions } from '@react-navigation/native';
 
 export default function Session({ navigation, route }) {
     const data = route.params
@@ -153,7 +154,6 @@ export default function Session({ navigation, route }) {
                 return;
             }
             setGuide(getGuide(practiceTitle, religion))
-            // console.log(practiceTitle,religion)
             // evaluate if practice 
             const inTimeDB = Object.keys(timeDB).includes(practiceTitle);
             const inTimeDB2 = Object.keys(timeDB2).includes(practiceTitle);
@@ -208,23 +208,37 @@ export default function Session({ navigation, route }) {
         const clock = [];
         // console.log('time: ',time)
         clock.push(
-            <Timer
-                start={timerRunning}
-                totalDuration={time}
-                options={{
-                    container: inStyles.duration,
-                    text: inStyles.durationText,
-                }}
-                handleFinish={() => {
-                    setTimerRunning(false)
-                    setStopwatchTime((time/60000))
-                    stopSpeech()
-                    concludeSession()
-                }}
-                getTime={(time) => {
-                    setStopwatchTime(time)
-                }}
-            />
+            <>
+                <Timer
+                    start={timerRunning}
+                    totalDuration={time}
+                    options={{
+                        container: inStyles.duration,
+                        text: inStyles.durationText,
+                    }}
+                    // handleFinish={() => {
+                        // stopAllSounds();
+                        // setTimerRunning(false);
+                        // stopSpeech();
+                        // setStopwatchTime((time/60000))
+                        // concludeSession();
+                    // }}
+                    // getTime={(time) => {
+                    //     setStopwatchTime(time)
+                    // }}
+                />
+                <Stopwatch
+                    start={timerRunning}
+                    startTime={0}
+                    options= {{
+                        container: { display: 'none' },
+                        text: { display: 'none' },
+                    }}
+                    getTime={(time) => {
+                        setStopwatchTime(time)
+                    }}
+                />
+            </>
         )
         return clock
     }
@@ -255,10 +269,20 @@ export default function Session({ navigation, route }) {
         setTextFlipped(!textFlipped);
     };
 
-    const concludeSession = () => {
-        setMsgVisible(true);
+    const concludeSession = (practiceTitle, stopwatchTime ) => {
+        // setMsgVisible(true);
         stopAllSounds();
         setTimerRunning(false);
+        Speech.stop();
+        const data = {
+            practiceTitle: practiceTitle,
+            stopwatchTime: stopwatchTime
+            // meditation type
+            // times practiced
+        };
+        // console.log('practiceTitle:',practiceTitle,'\nstopwatchTime',stopwatchTime)
+        navigation.dispatch(StackActions.popToTop());
+        navigation.navigate('ConcludeSession', {data});
     };
     
     const backToHome = () => {
@@ -348,7 +372,7 @@ export default function Session({ navigation, route }) {
                     </View>
 
                     <View style={inStyles.bottomContainer}>      
-                        <TouchableOpacity style={[styles.dropShadow, styles.bgColorPrimary, inStyles.btnEnd]} onPress={concludeSession}>
+                        <TouchableOpacity style={[styles.dropShadow, styles.bgColorPrimary, inStyles.btnEnd]} onPress={() => {concludeSession(practiceTitle, stopwatchTime)}}>
                             <Text style={[{ fontSize: RFPercentage(3) }, styles.colorWhite, styles.bold]}>Done</Text>
                         </TouchableOpacity>
                     </View>

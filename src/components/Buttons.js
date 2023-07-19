@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
-import { styles } from './../../assets/css/Style';
+import { styles } from '../../assets/css/Style';
 
 // Clickables
 export const PrimaryButton = ({ text, textColor, textSize, width, height, borderRad, borderW, onPress }) => {
