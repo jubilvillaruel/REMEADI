@@ -39,6 +39,7 @@ import { auth } from './firebase';
 import ManageQuote from './src/screens/ManageQuote';
 import ForgotPassword from './src/screens/ForgotPassword';
 import ConcludeSession from './src/screens/ConcludeSession';
+import Bible from './src/screens/Test/Bible';
 
 // Google Sign in
 // import {
@@ -135,7 +136,7 @@ export default function App() {
       let counter = 0;
       const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
       while (counter < 30) {
-        await sleep(100);
+        // await sleep(100);
         if (auth.currentUser !== null) {
           console.log('user is found!')
           setUserToken(auth.currentUser.uid);
@@ -189,6 +190,7 @@ export default function App() {
             <Stack.Screen name="SignUp" component={SignUp} initialParams={ {setUserToken} } options={{title: 'Sign Up'}}/>
             <Stack.Screen name="ManageQuote" component={ManageQuote} options={{title: 'ADMIN - Manage Quote'}}/>
             <Stack.Screen name="ForgotPassword" component={ForgotPassword} options={{title: 'Forgot Password'}}/>
+            <Stack.Screen name="Bible" component={Bible} options={{headerShown: false}}/>
         </Stack.Navigator>
         ) : (
           <Stack.Navigator initialRouteName="HomeScreen" screenOptions={{

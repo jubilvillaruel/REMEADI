@@ -22,6 +22,7 @@ import { getGuide } from '../Data/Practices/GuideDB';
 import { getReligionByPractice, timeDB, timeDB2, timeDB3 } from '../Data/LocalDB';
 import { getTimeModel, getTimeModel2 } from '../models/TimeModel';
 import { StackActions } from '@react-navigation/native';
+import Bible from './Test/Bible';
 
 export default function Session({ navigation, route }) {
     const data = route.params
@@ -216,16 +217,6 @@ export default function Session({ navigation, route }) {
                         container: inStyles.duration,
                         text: inStyles.durationText,
                     }}
-                    // handleFinish={() => {
-                        // stopAllSounds();
-                        // setTimerRunning(false);
-                        // stopSpeech();
-                        // setStopwatchTime((time/60000))
-                        // concludeSession();
-                    // }}
-                    // getTime={(time) => {
-                    //     setStopwatchTime(time)
-                    // }}
                 />
                 <Stopwatch
                     start={timerRunning}
@@ -344,10 +335,15 @@ export default function Session({ navigation, route }) {
                             flipVertical={false}
                             flip={guideFlipped}
                             clickable={false}>
+                                
+                            {/* front */}
                             <ScrollView showsVerticalScrollIndicator={false} style={{ paddingHorizontal: 5 }}>
                                 {showGuide()}
                             </ScrollView>
-                            <View style={styles.back}>
+
+                            {/* back */}
+                            <ScrollView style={styles.back}>
+                                <Bible/>
                                 <Video
                                     ref={video}
                                     style={{ width: screenWidth('82%'), height: screenHeight('35%'), borderRadius: 10, aspectRatio: 1 / 1  }}
@@ -367,7 +363,7 @@ export default function Session({ navigation, route }) {
                                         <Image style={{ width: 40, height: 40 }} source={videoImg}/>
                                     </TouchableOpacity>
                                 </View>
-                            </View>
+                            </ScrollView>
                         </FlipCard>
                     </View>
 
