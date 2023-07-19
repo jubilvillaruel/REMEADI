@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, TextInput } from 'react-native';
 import { styles } from '../../assets/css/Style';
-import { ImageCard } from '../components/Cards';
+import { ImageCard, SearchCard } from '../components/Cards';
 import { screenWidth } from '../components/Dimensions';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import React, { useState } from 'react';
@@ -37,28 +37,28 @@ export default function MedLibrary( {navigation}) {
       type: 'Spiritual',
       titleSize: RFPercentage(1.6),
       typeSize: RFPercentage(1.2),
-      image: christianity_1,
+      image: meditationImgDB['Lectio Divina'],
     },
     {
       title: 'Christian Meditation',
       type: 'Mantra',
       titleSize: RFPercentage(1.6),
       typeSize: RFPercentage(1.2),
-      image: christianity_2,
+      image: meditationImgDB['Christian Meditation'],
     },
     {
       title: 'Examen',
       type: 'Mindfulness, Visualization',
       titleSize: RFPercentage(1.6),
       typeSize: RFPercentage(1.2),
-      image: christianity_3,
+      image: meditationImgDB['Examen'],
     },
     {
       title: 'Rosary',
       type: 'Focused, Loving-kindness',
       titleSize: RFPercentage(1.6),
       typeSize: RFPercentage(1.2),
-      image: christianity_4,
+      image: meditationImgDB['Rosary'],
     },
     // Add more Christianity cards here if needed
 
@@ -68,28 +68,28 @@ export default function MedLibrary( {navigation}) {
       type: 'Mindfulness, Spiritual',
       titleSize: RFPercentage(1.6),
       typeSize: RFPercentage(1.2),
-      image: islam_1,
+      image: meditationImgDB['Taffakur'],
     },
     {
       title: 'Dhikr',
       type: 'Mantra',
       titleSize: RFPercentage(1.6),
       typeSize: RFPercentage(1.2),
-      image: islam_2,
+      image: meditationImgDB['Dhikr'],
     },
     {
       title: 'Muraqaba',
       type: 'Focused',
       titleSize: RFPercentage(1.6),
       typeSize: RFPercentage(1.2),
-      image: islam_3,
+      image: meditationImgDB['Muraqaba'],
     },
     {
       title: 'Sufi Breathing',
       type: 'Visualization',
       titleSize: RFPercentage(1.6),
       typeSize: RFPercentage(1.2),
-      image: islam_4,
+      image: meditationImgDB['Sufi Breathing'],
     },
     // Add more Islam cards here if needed
 
@@ -99,21 +99,21 @@ export default function MedLibrary( {navigation}) {
       type: 'Movement, Mindfulness, Spiritual',
       titleSize: RFPercentage(1.6),
       typeSize: RFPercentage(1.1),
-      image: hinduism_1,
+      image: meditationImgDB['Hatha Yoga'],
     },
     {
       title: 'Kriya Yoga',
       type: 'Focused',
       titleSize: RFPercentage(1.6),
       typeSize: RFPercentage(1.2),
-      image: hinduism_2,
+      image: meditationImgDB['Kriya Yoga'],
     },
     {
       title: 'Chakra',
       type: 'Visualization',
       titleSize: RFPercentage(1.6),
       typeSize: RFPercentage(1.2),
-      image: hinduism_3,
+      image: meditationImgDB['Chakra'],
     },
     // Add more Hinduism cards here if needed
 
@@ -123,35 +123,35 @@ export default function MedLibrary( {navigation}) {
       type: 'Focused',
       titleSize: RFPercentage(1.6),
       typeSize: RFPercentage(1.2),
-      image: buddhism_1,
+      image: meditationImgDB['Breath'],
     },
     {
       title: 'Walk',
       type: 'Movement',
       titleSize: RFPercentage(1.6),
       typeSize: RFPercentage(1.2),
-      image: buddhism_2,
+      image: meditationImgDB['Walk'],
     },
     {
       title: 'Tonglen',
       type: 'Loving-kindness, Visualization',
       titleSize: RFPercentage(1.6),
       typeSize: RFPercentage(1.2),
-      image: buddhism_3,
+      image: meditationImgDB['Tonglen'],
     },
     {
       title: 'Metta',
       type: 'Spiritual, Mantra',
       titleSize: RFPercentage(1.6),
       typeSize: RFPercentage(1.2),
-      image: buddhism_4,
+      image: meditationImgDB['Metta'],
     },
     {
       title: 'Body Scan',
       type: 'Mindfulness, Relaxation',
       titleSize: RFPercentage(1.6),
       typeSize: RFPercentage(1.2),
-      image: buddhism_5,
+      image: meditationImgDB['Body Scan'],
     },
     // Add more Buddhism cards here if needed
 
@@ -161,21 +161,21 @@ export default function MedLibrary( {navigation}) {
       type: 'Spiritual',
       titleSize: RFPercentage(1.6),
       typeSize: RFPercentage(1.2),
-      image: judaism_1,
+      image: meditationImgDB['Hitbodedut'],
     },
     {
       title: 'Kabbalistic/Chassidic',
       type: 'Visualization',
       titleSize: RFPercentage(1.6),
       typeSize: RFPercentage(1.2),
-      image: judaism_2,
+      image: meditationImgDB['Kabbalistic/Chassidic'],
     },
     {
       title: 'Shema',
       type: 'Focused',
       titleSize: RFPercentage(1.6),
       typeSize: RFPercentage(1.2),
-      image: judaism_3,
+      image: meditationImgDB['Shema'],
     },
     // Add more Judaism cards here if needed
   ];
@@ -246,7 +246,8 @@ export default function MedLibrary( {navigation}) {
           )}
         </View>
 
-        <View style={inStyles.religionContainer}>
+        <View>
+          <View style={inStyles.religionContainer}>
             <View style={inStyles.religionContent}>
               <Image style={[{ width: 23, height: 32 }]} source={christianity_logo}/>
               <Text style={[styles.colorPrimary, { fontSize: RFPercentage(3), fontWeight: 'bold', marginHorizontal: 10 }]}>Christianity</Text>
