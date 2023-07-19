@@ -25,6 +25,22 @@ export const ImageCard = ({ title, type, width, height, titleSize, typeSize, ima
     );
 };
 
+export const SearchCard = ({ title, type, width, height, titleSize, typeSize, image, onPress }) => {
+
+  return (
+      <TouchableOpacity onPress={onPress}> 
+          <View>
+            <ImageBackground style={[inStyles.searchItem, { width: width, height: height }]} imageStyle={{ borderRadius: 10 }} source={image}>
+              <View style={inStyles.libContent}>
+                <Text style={[styles.colorWhite, styles.bold, { fontSize: titleSize }]}>{title}</Text>
+                <Text style={[styles.colorWhite, { fontSize: typeSize }]}>{type}</Text>
+              </View>
+            </ImageBackground>
+          </View>
+      </TouchableOpacity>
+  );
+};
+
 export const TextCard = ({ title, desc, onPress }) => {
 
   return (
@@ -81,6 +97,13 @@ const inStyles = StyleSheet.create({
         height: screenHeight('18%'),
         justifyContent: 'center',
         alignItems: 'center',
+    },
+
+    searchItem: {
+      width: screenWidth('82%'),
+      height: screenHeight('9%'),
+      justifyContent: 'center',
+      alignItems: 'center',
     },
 
     libContent: {
