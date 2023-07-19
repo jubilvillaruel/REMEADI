@@ -4,7 +4,9 @@ import { screenWidth, screenHeight } from './Dimensions';
 import * as Speech from 'expo-speech';
 
 import text from '../../assets/images/text.png';
+import stop from '../../assets/images/stop.png';
 import { styles } from '../../assets/css/Style';
+import FlipCard from 'react-native-flip-card';
 
 // Cards
 export const ImageCard = ({ title, type, width, height, titleSize, typeSize, image, onPress }) => {
@@ -65,7 +67,8 @@ export const IconCard = ({ title, desc, icon, onPress }) => {
 };
 
 export const StepCard = ({ count, desc, detailedDesc }) => {
-  const [ guide, setGuide ] = useState({'key':'value'});
+  const [textFlipped, setTextFlipped] = useState(false);
+  const [currentText, setCurrentText] = useState(desc);
 
   const speakStep = () => {
     const options = {
@@ -73,19 +76,50 @@ export const StepCard = ({ count, desc, detailedDesc }) => {
         rate: 0.9
     }
     Speech.speak(detailedDesc, options);
-    // flipTextStep();
+    flipText();
   };
 
+  const stopSpeech = () => {
+    Speech.stop();
+    flipText();
+  };
+
+  const flipText = () => {
+    setTextFlipped(!textFlipped);
+  };
+
+  const replaceText = () => {
+    if (currentText === detailedDesc) {
+      setCurrentText(desc);
+    } else {
+      setCurrentText(detailedDesc);
+    }
+  };
+  
   return (
-    <View style={inStyles.stepsItemContainer}>     
-      <View style={[inStyles.stepTitle, styles.bgColorPrimary]}>
-        <Text style={styles.colorWhite}>{count}</Text>
+    <TouchableOpacity style={inStyles.stepsItemContainer} onPress={replaceText}>
+      <View style={inStyles.stepHeader}>
+        <View style={[inStyles.stepTitle, styles.bgColorPrimary]}>
+          <Text style={styles.colorWhite}>{count}</Text>
+        </View>
+
+        <FlipCard
+          flipHorizontal={true}
+          flipVertical={false}
+          flip={textFlipped}
+          clickable={false}
+          style={{ width: 20, height: 20, right: 15, position: 'absolute' }}>
+          <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia]} onPress={speakStep}>
+            <Image style={[{ width: 20, height: 20 }]} source={text}/>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia]} onPress={stopSpeech}>
+            <Image style={[{ width: 20, height: 20 }]} source={stop}/>
+          </TouchableOpacity>
+        </FlipCard>
       </View>
-      <Text style={inStyles.stepContent}>{desc}</Text>
-      <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia]} onPress={() => {speakStep()}}>
-          <Image style={[{ width: 40, height: 40 }]} source={text}/>
-      </TouchableOpacity>
-    </View>
+      
+      <Text style={inStyles.stepContent}>{currentText}</Text>
+    </TouchableOpacity>
   );
 };
 
@@ -142,6 +176,12 @@ const inStyles = StyleSheet.create({
 
     },
 
+    stepHeader: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginVertical: 5,
+    },
+
     stepTitle: {
       borderRadius: 20,
       padding: 5,
@@ -156,8 +196,8 @@ const inStyles = StyleSheet.create({
     },
     
     btnMedia: {
-      width: 50,
-      height: 50,
+      width: 30,
+      height: 30,
       justifyContent: 'center',
       alignItems: 'center',
       borderRadius: 50,

@@ -35,7 +35,7 @@ export default function Session({ navigation, route }) {
     const [bgmVisible, setBgmVisible] = useState(false);
 
     // Set Value for guide content and time
-    const [ guide, setGuide ] = useState({'key':'value'});
+    const [ guide, setGuide ] = useState();
     const [ time, setTime ] = useState(Number);
     const [timerRunning, setTimerRunning] = useState(true);
     const [stopwatchTime, setStopwatchTime] = useState([])
