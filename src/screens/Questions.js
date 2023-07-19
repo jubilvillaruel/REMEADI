@@ -4,6 +4,7 @@ import { screenWidth, screenHeight } from '../components/dimensions';
 import { styles } from '../../assets/css/Style';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { meditationImgDB } from '../Data/ImageDB';
+import { StackActions } from '@react-navigation/native';
 
 const followUpQuestions = {
     C1: {
@@ -613,6 +614,7 @@ export default function Questions({ navigation, route }) {
             guideImg: guideImg,
             bia: bia
         };
+        navigation.dispatch(StackActions.popToTop());
         navigation.navigate('ExpertResult', {data});
     };
 

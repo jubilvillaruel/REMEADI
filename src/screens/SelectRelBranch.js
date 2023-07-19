@@ -13,13 +13,13 @@ export default function SelectRelBranch({ navigation }) {
         navigation.navigate('SelectMedType', { religion });
     };
 
-    const goToGuide = (title, guideImg, bia) => {
+    const goToResult= (title, guideImg, bia) => {
         const data = {
             title: title, 
             guideImg: guideImg,
             bia: bia
         };
-        navigation.navigate('Guide', {data});
+        navigation.navigate('ExpertResult', {data});
     };
 
     return (
@@ -36,11 +36,11 @@ export default function SelectRelBranch({ navigation }) {
                 </View>
                 
                 <View style={inStyles.row}>
-                    <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary]} onPress={() => {goToGuide('Christian Meditation',christianity_2)}}>
+                    <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary]} onPress={() => {goToResult('Christian Meditation',christianity_2)}}>
                         <Text style={[styles.bold, styles.colorWhite, { fontSize: RFPercentage(2) }]}>Iglesia ni Cristo</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary]} onPress={() => {goToGuide('Christian Meditation',christianity_2)}}>
+                    <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary]} onPress={() => {goToResult('Christian Meditation',christianity_2)}}>
                         <Text style={[styles.bold, styles.colorWhite, { fontSize: RFPercentage(2) }]}>Baptist</Text>
                     </TouchableOpacity>
                 </View>
@@ -50,7 +50,7 @@ export default function SelectRelBranch({ navigation }) {
                         <Text style={[styles.bold, styles.colorWhite, { fontSize: RFPercentage(2) }]}>Seventh-Day Adventist</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary]} onPress={() => {goToGuide('Lectio Divina',christianity_1)}}>
+                    <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary]} onPress={() => {goToResult('Lectio Divina',christianity_1)}}>
                         <Text style={[styles.bold, styles.colorWhite, { fontSize: RFPercentage(2) }]}>Evangelical</Text>
                     </TouchableOpacity>
                 </View>
