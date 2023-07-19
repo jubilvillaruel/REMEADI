@@ -29,26 +29,80 @@ export default function ExpertResult({ navigation, route }) {
   const getOtherPracticesFromSameReligion = () => {
     const religion = getMeditationReligion(data.title);
     const practices = Object.keys(meditationReligionDB);
-
+  
     if (practices && practices.length > 0) {
-      return practices
-        .filter((practice) => meditationReligionDB[practice] === religion && practice !== data.title)
-        .map((practice) => (
-          <View key={practice} style={inStyles.practiceCard}>
-            <ImageCard
-              title={practice}
-              image={meditationImgDB[practice]}
-              width={screenWidth('30%')} // Adjust the width as needed
-              height={screenHeight('15%')} // Adjust the height as needed
-              onPress={() => { goToGuide(practice, meditationImgDB[practice]) }}
-            />
-          </View>
-        ));
+      const otherPractices = practices
+        .filter((practice) => meditationReligionDB[practice] === religion && practice !== data.title);
+      
+      const rows = chunkArray(otherPractices, 2);
+  
+      return rows.map((row, index) => (
+        <View key={index} style={inStyles.practiceRow}>
+          {row.map((practice) => (
+            <View key={practice} style={inStyles.practiceCard}>
+              <ImageCard
+                title={practice}
+                image={meditationImgDB[practice]}
+                width={screenWidth('44%')}
+                height={screenHeight('17%')}
+                onPress={() => { goToGuide(practice, meditationImgDB[practice]) }}
+              />
+            </View>
+          ))}
+        </View>
+      ));
     }
-
+  
     return null;
   };
-
+  
+  const getOtherPracticesFromSameType = () => {
+    const meditationType = getMeditationType(data.title);
+    const practices = Object.keys(meditationTypeDB);
+  
+    if (practices && practices.length > 0) {
+      const otherPractices = practices
+        .filter((practice) => {
+          const practiceType = getMeditationType(practice);
+          const practiceTypes = practiceType.split(',').map((type) => type.trim());
+          return (
+            practice !== data.title &&
+            (practiceTypes.includes(meditationType) ||
+              (meditationType.includes(',') &&
+                meditationType.split(',').some((type) => practiceTypes.includes(type.trim()))))
+          );
+        });
+      
+      const rows = chunkArray(otherPractices, 2);
+  
+      return rows.map((row, index) => (
+        <View key={index} style={inStyles.practiceRow}>
+          {row.map((practice) => (
+            <View key={practice} style={inStyles.practiceCard}>
+              <ImageCard
+                title={practice}
+                image={meditationImgDB[practice]}
+                width={screenWidth('44%')}
+                height={screenHeight('17%')}
+                onPress={() => { goToGuide(practice, meditationImgDB[practice]) }}
+              />
+            </View>
+          ))}
+        </View>
+      ));
+    }
+  
+    return null;
+  };
+  
+  const chunkArray = (arr, size) => {
+    const chunkedArr = [];
+    for (let i = 0; i < arr.length; i += size) {
+      chunkedArr.push(arr.slice(i, i + size));
+    }
+    return chunkedArr;
+  };
+  
   return (
     <SafeAreaView style={styles.screenCenter}>
       <ScrollView showsVerticalScrollIndicator={false} style={[{ marginBottom: 15 }]}>
@@ -70,21 +124,25 @@ export default function ExpertResult({ navigation, route }) {
         <View style={[{ marginTop: 15 }]}>
           <View style={styles.religionContainer}>
             <View style={styles.religionContent}>
-              <Text style={[styles.colorPrimary, { fontSize: RFPercentage(2.5), fontWeight: 'bold' }]}>Other Practices from {getMeditationReligion(data.title)}</Text>
+              <Text style={[styles.colorPrimary, { fontSize: RFPercentage(2.5), fontWeight: 'bold', marginBottom: 15 }]}>Other Practices from {getMeditationReligion(data.title)}</Text>
             </View>
           </View>
         </View>
 
-        <ScrollView horizontal>
+        <View>
           {getOtherPracticesFromSameReligion()}
-        </ScrollView>
+        </View>
 
         <View style={[{ marginTop: 15 }]}>
           <View style={styles.religionContainer}>
             <View style={styles.religionContent}>
-              <Text style={[styles.colorPrimary, { fontSize: RFPercentage(2.5), fontWeight: 'bold' }]}>Other Practices of the same Meditation Type</Text>
+              <Text style={[styles.colorPrimary, { fontSize: RFPercentage(2.5), fontWeight: 'bold', marginBottom: 15 }]}>Other Practices of the same Meditation Type</Text>
             </View>
           </View>
+        </View>
+
+        <View>
+          {getOtherPracticesFromSameType()}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -92,10 +150,15 @@ export default function ExpertResult({ navigation, route }) {
 }
 
 const inStyles = StyleSheet.create({
-  practiceCard: {
-    flex: 1,
+  practiceRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 15,
+    width: screenWidth('90%'),
+  },
+
+  practiceCard: {
+    flex: 1,
+    marginHorizontal: 2.5,
+    marginBottom: 5,
   },
 });
