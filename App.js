@@ -38,6 +38,7 @@ import Splash from './src/screens/Splash';
 import { auth } from './firebase';
 import ManageQuote from './src/screens/ManageQuote';
 import ForgotPassword from './src/screens/ForgotPassword';
+import ConcludeSession from './src/screens/ConcludeSession';
 
 // Google Sign in
 // import {
@@ -220,6 +221,7 @@ export default function App() {
             <Stack.Screen name='Guide' component={Guide} options={{headerTransparent: true, title: '',}}/>
             <Stack.Screen name='GuideOptions' component={GuideOptions} options={{title: 'Guide Options'}}/>
             <Stack.Screen name="Session" component={Session} options={{headerShown: false}}/>
+            <Stack.Screen name="ConcludeSession" component={ConcludeSession} options={{headerShown: false}}/>
         </Stack.Navigator>
         )}
     </NavigationContainer>
