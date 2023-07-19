@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         alignItems: 'left',
         justifyContent: 'left',
-        width: 330,
+        width: screenWidth('90%'),
     },
 
     religionContent: {
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
         paddingTop: 5,
         alignItems: 'center',
         justifyContent: 'center',
-        width: 330,
+        width: screenWidth('90%'),
     },
 });
 

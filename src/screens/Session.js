@@ -153,7 +153,6 @@ export default function Session({ navigation, route }) {
                 return;
             }
             setGuide(getGuide(practiceTitle, religion))
-            // console.log(practiceTitle,religion)
             // evaluate if practice 
             const inTimeDB = Object.keys(timeDB).includes(practiceTitle);
             const inTimeDB2 = Object.keys(timeDB2).includes(practiceTitle);
@@ -216,10 +215,11 @@ export default function Session({ navigation, route }) {
                     text: inStyles.durationText,
                 }}
                 handleFinish={() => {
-                    setTimerRunning(false)
+                    // stopAllSounds();
+                    // setTimerRunning(false);
+                    // stopSpeech();
                     setStopwatchTime((time/60000))
-                    stopSpeech()
-                    concludeSession()
+                    concludeSession();
                 }}
                 getTime={(time) => {
                     setStopwatchTime(time)
@@ -259,6 +259,7 @@ export default function Session({ navigation, route }) {
         setMsgVisible(true);
         stopAllSounds();
         setTimerRunning(false);
+        Speech.stop();
     };
     
     const backToHome = () => {
