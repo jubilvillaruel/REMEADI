@@ -5,7 +5,7 @@ import { styles } from '../../assets/css/Style';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { meditationImgDB } from '../Data/ImageDB';
 import { meditationReligionDB, meditationTypeDB } from '../Data/TypeDB';
-import { screenWidth, screenHeight } from '../components/dimensions';
+import { screenWidth, screenHeight } from '../components/Dimensions';
 
 export default function ExpertResult({ navigation, route }) {
   const { data } = route.params;
