@@ -1,17 +1,118 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View, Image } from 'react-native'
+
 import { PrimaryButton } from '../components/Buttons';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { screenHeight, screenWidth } from '../components/Dimensions';
 import { styles } from '../../assets/css/Style';
 import appLogo from '../../assets/images/app_logo.png';
 import { meditationTypeDB } from '../Data/TypeDB';
+import { getReligionByPractice } from '../Data/LocalDB';
+
+import { auth } from '../../firebase';
+import { getDatabase, push, ref, set } from 'firebase/database';
+
+import moment from "moment";
+
 
 export default function ConcludeSession({ navigation, route }) {
     const {data} = route.params;
     const practiceTitle = data.practiceTitle;
-    const stopwatchTime = data.stopwatchTime;
+    const duration = data.stopwatchTime;
     const medType = meditationTypeDB[data.practiceTitle];
+    
+    const [ uid, setUID ] = useState();
+    const [ subPracticeTitle, setSubPracticeTitle ] = useState(null);
+    const [ religion, setReligion ] = useState();
+    const [ currentDate, setCurrentDate ] = useState();
+    
+
+    useEffect(() => {
+        const retrieveAllData = () => {
+            // retrieve the following:
+            // -uid*
+            // -practice title*
+            //     -sub practice title*
+            //     -religion*
+            // -duration*
+            // -date*
+
+            const id = auth.currentUser.uid
+            setUID(id)
+
+            // setReligion based on practice title with meditationReligionDB
+            let rel = getReligionByPractice(practiceTitle)
+            setReligion(rel.key)
+
+            // missing [set practice title]
+            // ... code here
+
+            const date = new Date().toISOString()
+            setCurrentDate(date)
+        };
+        retrieveAllData();
+    }, [])
+
+    useEffect(() => {
+        const displayData = () => {
+            if (uid && practiceTitle && religion && duration && currentDate) {
+                console.log(
+                    'uid:', uid,
+                    '\npractice title:', practiceTitle,
+                    '\nsub practice title:', subPracticeTitle,
+                    '\nreligion:', religion,
+                    '\nduration:', duration,
+                    '\ndate:', currentDate
+                )
+                
+                // TESTING: ADDING TIME
+                const result = addTimes('00:00:50', '00:00:10'); // incorrect
+                console.log(result); // Output: '00:01:00'
+
+                // store data to history
+                storeSessionToHistory();
+            } else {
+                console.log('... fetching other data')
+            }
+        };
+        displayData();
+    }, [uid, practiceTitle, religion, duration, currentDate])
+
+    const storeSessionToHistory = () => {
+        const realtimeDB = getDatabase()
+        const historyId = push(ref(realtimeDB, 'histories')).key;
+
+        set(ref(realtimeDB, 'histories/' + historyId), {
+            currentDate: currentDate,
+            duration: duration,
+            practiceTitle: practiceTitle,
+            religion: religion,
+            subPracticeTitle: subPracticeTitle,
+            uid: uid,
+        }).then(console.log('session history was saved successfully'))
+    }
+    
+    // CALCULATE DATE DIFFERENCE
+    // const [date1, setDate1] = useState(new Date());
+    // const [date2, setDate2] = useState(new Date());
+
+    // const calculateDifference = () => {
+    //     const difference = date1 - date2;
+    //     const days = difference / (1000 * 60 * 60 * 24);
+    //     return days;
+    // };
+
+    const addTimes = (timeStr1, timeStr2) => {
+        const time1 = moment.duration(timeStr1);
+        const time2 = moment.duration(timeStr2);
+        const sum = time1.add(time2);
+      
+        const resultTimeStr = moment(sum.asMilliseconds()).format('HH:mm:ss');
+        return resultTimeStr;
+    };
+      
+    
+    
 
     const gotoHome = () => {
         navigation.navigate('HomeScreen')
@@ -33,7 +134,7 @@ export default function ConcludeSession({ navigation, route }) {
                     </View>
                     <View style={inStyles.infoContainer}>
                         <Text style={[ styles.bold, { fontSize: RFPercentage(2) }]}>Meditation Duration</Text>
-                        <Text style={[ styles.bold, styles.colorPrimary, { fontSize: RFPercentage(2) }]}>{stopwatchTime}</Text>
+                        <Text style={[ styles.bold, styles.colorPrimary, { fontSize: RFPercentage(2) }]}>{duration}</Text>
                     </View>
                     <View style={inStyles.infoContainer}>
                         <Text style={[ styles.bold, { fontSize: RFPercentage(2) }]}>Times Practiced</Text>

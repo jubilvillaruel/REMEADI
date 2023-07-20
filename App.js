@@ -136,7 +136,7 @@ export default function App() {
       let counter = 0;
       const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
       while (counter < 30) {
-        // await sleep(100);
+        await sleep(100);
         if (auth.currentUser !== null) {
           console.log('user is found!')
           setUserToken(auth.currentUser.uid);
