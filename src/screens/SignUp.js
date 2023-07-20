@@ -10,20 +10,11 @@ import { styles } from '../../assets/css/Style';
 import showPass from '../../assets/images/closed_eye.png';
 import hidePass from '../../assets/images/open_eye.png';
 import calendar from '../../assets/images/calendar.png';
-import { auth, db } from '../../firebase';
+import { auth } from '../../firebase';
+import { getDatabase, ref, set } from 'firebase/database';
 
 export default function SignUp({ navigation, route }) {
   const { setUserToken } = route.params;
-
-  useEffect(() => {
-    // const unsubscribe = auth.onAuthStateChanged(user => {
-    //   if (user) {
-    //     console.log('uid: '+ user.uid)
-    //     setUserToken(user.uid)      
-    //   }
-    // })
-    // return unsubscribe
-  }, [])
 
   const [lastName, setLastName] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -148,16 +139,16 @@ export default function SignUp({ navigation, route }) {
       // Create the user with email and password
       const userCredential = await auth.createUserWithEmailAndPassword(email, password);
       const user = userCredential.user;
-  
-      // Store user information in Firestore
-      const collectionRef = db.collection("users");
-      await collectionRef.doc(user.uid).set({
-        firstName,
-        lastName,
-        selectedDate,
-        email,
-        religion
-      });
+
+      // Store user information in RealTime DB
+      const realtimeDB = getDatabase()
+      set(ref(realtimeDB, 'users/' + user.uid), {
+        email: email,
+        firstName: firstName,
+        lastName: lastName,
+        religion: religion,
+        birthDate: selectedDate
+      }).then(console.log('sign up successful'))
       
       // Send email verification
       await user.sendEmailVerification({

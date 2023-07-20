@@ -1,52 +1,35 @@
 import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View, Picker } from 'react-native'
-import React, { useState } from 'react'
+import React, { useId, useState } from 'react'
 import { TextInput } from 'react-native'
 import { styles } from '../../assets/css/Style'
-import { db } from '../../firebase'
 import { getQuoteID} from '../models/QuoteModel'
+import { getDatabase, ref, set, push } from 'firebase/database'
+
 
 
 export default function ManageQuote() {
     const [ quote, setQuote ] = useState('')
     const [ source, setSource ] = useState('')
-    const [ religion, setReligion ] = useState('')
+    const [ religion, setReligion ] = useState('Christianity')
 
-    const handleAddQuote = async () => {
-        console.log('add quote')
+    const writeUserData = () => {
+      const realtimeDB = getDatabase()
+      
+      // create custom ID
+      const motivationId = push(ref(realtimeDB, 'motivation')).key;
+      const religionMotivationId = (religion.substring(0,2).toUpperCase() + motivationId)
 
-        // Store user information in Firestore
-        const collectionRef = db.collection("motivation");
+      // add details to the RealTime DB
+      set(ref(realtimeDB, 'motivation/' + religionMotivationId), {
+        quote: quote,
+        religion : religion,
+        source: source
+      });
 
-        // custom document ID
-        const docRef_temp = collectionRef.doc();
-        const documentId = (religion.substring(0,2).toUpperCase() + docRef_temp.id);
-
-        const docRef = collectionRef.doc(documentId);
-
-        await docRef.set({
-            quote,
-            source,
-            religion            
-        });
-        
-        console.log("documentId:", documentId);
-        
-        // print the number of documents inside a collection
-        let countDocs;
-        try{
-            countDocs = await collectionRef.get()
-        } catch (error) {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorCode, errorMessage);
-        }
-        // console.log("count: " + countDocs.size);
-
-
-        // clear all TextInputs
-        setSource('');
-        setQuote('');
+      console.log('QUOTE SUCCESSFULLY ADDED')
+      console.log("documentId:", religionMotivationId),"\n-----------------------";
     }
+    
 
     return (
         <SafeAreaView style={[styles.screen]}>
@@ -76,7 +59,7 @@ export default function ManageQuote() {
 
                   <TouchableOpacity 
                     style={[styles.bgColorPrimary, inStyles.btnSignUp, styles.dropShadow]} 
-                    onPress={handleAddQuote}>
+                    onPress={writeUserData}>
                       <Text style={[styles.colorWhite, { fontWeight: 'bold' }]}>Add Quote</Text>
                   </TouchableOpacity>
 

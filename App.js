@@ -57,7 +57,7 @@ function HomeScreen ( {route} ) {
   const { setUserToken } = route.params;
 
   return (
-    <Tab.Navigator initialRouteName='Home' initialParams={ {setUserToken} } screenOptions={{
+    <Tab.Navigator initialRouteName='Home' screenOptions={{
       headerShown: false,
       tabBarStyle: {
         height: screenHeight('10%'),
@@ -81,7 +81,7 @@ function HomeScreen ( {route} ) {
       <Tab.Screen
         name='Home'
         component={Home}
-        initialParams={{ setUserToken }}
+        // initialParams={{ setUserToken }}
         options={{
           title: 'Home',
           tabBarIcon: () => (

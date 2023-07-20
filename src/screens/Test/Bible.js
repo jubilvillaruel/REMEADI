@@ -27,11 +27,11 @@ const Bible = () => {
       console.log(verses)
       setResults(verses)
 
-      {verses.map((verse) => {
-        console.log('Reference: ',verse.reference)
-        console.log('Verse: ',verse.text)
-        console.log('--------------------------')
-      })}
+      // {verses.map((verse) => {
+      //   console.log('Reference: ',verse.reference)
+      //   console.log('Verse: ',verse.text)
+      //   console.log('--------------------------')
+      // })}
     }
   };
 
@@ -39,6 +39,7 @@ const Bible = () => {
     <>
       <Text>{verse.reference}</Text>
       <Text>{verse.text}</Text>
+      <Text>------------------------</Text>
     </>
   ));
   

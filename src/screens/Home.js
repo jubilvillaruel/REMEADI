@@ -7,18 +7,17 @@ import { styles } from './../../assets/css/Style';
 import meditate from '../../assets/images/home/meditate.png';
 import meditation_library from '../../assets/images/home/meditation_library.png';
 import daily_motivation from '../../assets/images/home/daily_motivation.png';
-import { auth, db } from '../../firebase';
+import { auth } from '../../firebase';
 import close from '../../assets/images/close.png';
 import { getQuote, getQuoteID } from '../models/QuoteModel';
 import { screenHeight, screenWidth } from '../components/Dimensions';
+import { child, get, getDatabase, onValue, ref } from 'firebase/database';
 
 const remindVerification = () => {
     alert('Please verify your account')
 }
 
-export default function Home({ navigation, route }) {
-    const { setUserToken } = route.params;
-
+export default function Home({ navigation }) {
     const [ firstName, setFirstName ] = useState('');
     const [ lastName, setLastName ] = useState('');
     const [ quote, setQuote ] = useState('')
@@ -33,47 +32,57 @@ export default function Home({ navigation, route }) {
         year: 'numeric',
     });
     
-    // console.log("email verified: " + emailVerified)
-
-    // fetch user data from firestore
+    // fetch user data from realtime db
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const userDoc = await db.collection("users").doc(uid).get();
-                const userData = userDoc.data();
-                if (userData) {
-                    // fetch firstName
-                    setFirstName(userData.firstName);
-                    // fetch lastName
-                    setLastName(userData.lastName)
-                }
+                console.log('fetching user data\nuser id: ',uid)
+
+                // set user first name and last name
+                const realtimeDB = getDatabase()
+                const dbRef = ref(realtimeDB);
+                get(child(dbRef, `users/${uid}`)).then((snapshot) => {
+                    if (snapshot.exists()) {
+                      setFirstName(snapshot.val().firstName) // setFirstName("jubil reign")
+                    } else {
+                      console.log("No data available");
+                    }
+                }).catch((error) => {
+                console.error(error);
+                });
             } catch (error) {
                 console.log(error);
             }
         };
         fetchUserData();
-    }, [db, uid]);
+    }, [uid]);
 
     // fetch daily motivation - on going
     useEffect(() => {
         const fetchMotivationData = async () => {
             try {
-                const collectionRef = await db.collection("motivation")
                 let quoteID = await getQuoteID()
-                // console.log('quoteID: ',quoteID)
-                const motivationDoc = await collectionRef.doc(quoteID).get();
-                const motivationData = motivationDoc.data(); 
-                if (motivationData) {
-                    // fetch quote
-                    setQuote(motivationData.quote+'.');
-                    setSource(motivationData.source);
-                }
+                console.log('quoteID: ',quoteID)
+
+                // fetch quote 
+                const realtimeDB = getDatabase()
+                const dbRef = ref(realtimeDB);
+                get(child(dbRef, `motivation/${quoteID}`)).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        setQuote(snapshot.val().quote)
+                        setSource(snapshot.val().source)
+                    } else {
+                        console.log("No data available");
+                    }
+                }).catch((error) => {
+                console.error(error);
+                });
             } catch (error) {
                 console.log(error);
             }
         };
         fetchMotivationData();
-    }, [db, uid]);
+    }, [uid]);
 
     const [quoteVisible, setQuoteVisible] = useState(false);
     const [avatarVisible, setAvatarVisible] = useState(false);

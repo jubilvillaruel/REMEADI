@@ -6,7 +6,6 @@ import { RFPercentage } from "react-native-responsive-fontsize";
 
 import { styles } from './../../assets/css/Style';
 import appLogo from '../../assets/images/app_logo.png';
-import { auth } from '../../firebase';
 
 LandingPage.navigationOptions = {
   headerShown: false,
