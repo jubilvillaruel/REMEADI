@@ -39,7 +39,6 @@ import { auth } from './firebase';
 import ManageQuote from './src/screens/ManageQuote';
 import ForgotPassword from './src/screens/ForgotPassword';
 import ConcludeSession from './src/screens/ConcludeSession';
-import Bible from './src/screens/Test/Bible';
 
 // Google Sign in
 // import {

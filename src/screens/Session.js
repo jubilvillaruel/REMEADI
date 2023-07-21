@@ -4,9 +4,6 @@ import { StepCard } from '../components/Cards';
 import { screenWidth, screenHeight } from '../components/Dimensions';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { Stopwatch, Timer } from 'react-native-stopwatch-timer';
-
-import { Video } from 'expo-av';
-
 import FlipCard from 'react-native-flip-card';
 
 import music from '../../assets/images/music.png';
@@ -21,7 +18,8 @@ import { getGuide } from '../Data/Practices/GuideDB';
 import { getReligionByPractice, timeDB, timeDB2, timeDB3 } from '../Data/LocalDB';
 import { getTimeModel, getTimeModel2 } from '../models/TimeModel';
 import { StackActions } from '@react-navigation/native';
-import Bible from './Test/Bible';
+import Bible from './Extensions/Bible';
+import VideoPlayer from './Extensions/Video';
 
 export default function Session({ navigation, route }) {
     const data = route.params
@@ -336,25 +334,7 @@ export default function Session({ navigation, route }) {
                             {/* back */}
                             <ScrollView showsVerticalScrollIndicator={false}>
                                 <Bible/>
-                                {/* <Video
-                                    ref={video}
-                                    style={{ width: screenWidth('82%'), height: screenHeight('35%'), borderRadius: 10, aspectRatio: 1 / 1  }}
-                                    source={require('../../assets/videos/hehehhehee.mp4')}
-                                    useNativeControls
-                                    resizeMode={Video.RESIZE_MODE_CONTAIN}
-                                    onPlaybackStatusUpdate={(status) => setStatus(status)}
-                                /> */}
-                                {/* <View>
-                                    <TouchableOpacity onPress={() => {
-                                        if (status.isPlaying) {
-                                        video.current.pauseAsync();
-                                        } else {
-                                        video.current.playAsync();
-                                        }
-                                        }}>
-                                        <Image style={{ width: 40, height: 40 }} source={videoImg}/>
-                                    </TouchableOpacity>
-                                </View> */}
+                                {/* <VideoPlayer/> */}
                             </ScrollView>
                         </FlipCard>
                     </View>
