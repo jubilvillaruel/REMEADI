@@ -84,7 +84,7 @@ function HomeScreen ( {route} ) {
         options={{
           title: 'Home',
           tabBarIcon: () => (
-            <Image source={appLogo} style={{ width: '145%', height: 28 }}/>
+            <Image source={appLogo} style={{ width: 45, height: 45, resizeMode: 'contain' }}/>
           ),
         }}>
       </Tab.Screen>
