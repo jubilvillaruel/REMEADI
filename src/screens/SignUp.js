@@ -13,9 +13,7 @@ import calendar from '../../assets/images/calendar.png';
 import { auth } from '../../firebase';
 import { getDatabase, ref, set } from 'firebase/database';
 
-export default function SignUp({ navigation, route }) {
-  const { setUserToken } = route.params;
-
+export default function SignUp({ navigation }) {
   const [lastName, setLastName] = useState('');
   const [firstName, setFirstName] = useState('');
   const [email, setEmail] = useState('');
@@ -83,7 +81,7 @@ export default function SignUp({ navigation, route }) {
     const unsubscribe = auth.onAuthStateChanged(user => {
       if (user) {
         console.log('uid: '+ user.uid)
-        setUserToken(user.uid)      
+        navigation.navigate('SignIn')    
       }
     })
     return unsubscribe

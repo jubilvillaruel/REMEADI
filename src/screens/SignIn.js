@@ -17,28 +17,26 @@ export default function SignIn({ navigation, route }) {
     const [getUsername, setUsername] = useState("")
     const [getPassword, setPassword] = useState("")
     const [passwordVisible, setPasswordVisible] = useState(false);
+    const [user, setUser] = useState();
   
     useEffect(() => {
-      const unsubscribe = auth.onAuthStateChanged(user => {
-          if (user) {
-            // console.log('uid: '+ user.uid)
-            setUserToken(user.uid)
-            // navigation.navigate('HomeScreen', {
-            //   screen: 'Home',
-            //   params: { user: user }
-            // });          
-          }
-      })
-      return unsubscribe
-    }, [])
+      const isUserExist = () => {
+        const userExist = auth?.currentUser
+        if (userExist) {
+          setUserToken(userExist.uid)
+        }
+      }
+      isUserExist()
+    }, [user])
     
     const handleSignIn = () => {
       console.log("sign in pressed")
       auth
         .signInWithEmailAndPassword(getUsername, getPassword)
         .then((userCredential) => {
-            const user = userCredential.user;
-            // console.log(user.email + "You are logged in successfully")
+            // const user = userCredential.user;
+            console.log(userCredential.user.uid)
+            setUser(userCredential.user.uid)
         })
         .catch((error) => {
             const errorCode = error.code;

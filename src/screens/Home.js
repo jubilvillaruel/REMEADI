@@ -149,31 +149,15 @@ export default function Home({ navigation }) {
                     <View style={inStyles.sec2SubContainer}>
                         <TouchableOpacity style={[inStyles.btnSubFeature, styles.dropShadow]} onPress={() => (emailVerified === true ? goToLibrary() : remindVerification())}>
                             <Image style={[{ width: 40, height: 40 }]} source={meditation_library}/>
-                            <Text style={[styles.colorPrimary, styles.bold, { fontSize: RFPercentage(2), marginTop: 5, alignItems:'center'}]}>{'Meditation\nLibrary'}</Text>
-                            <Text style={[styles.colorPrimary, { fontSize: RFPercentage(1.6), marginTop: 5 }]}>{'Explore practice from different religions'}</Text>
+                            <Text style={[styles.colorPrimary, styles.bold, inStyles.medlib]}>{'Meditation\nLibrary'}</Text>
+                            <Text style={[styles.colorPrimary, { fontSize: RFPercentage(1.6), marginTop: 5, textAlign:'center' }]}>{'Explore practice from different religions'}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={[inStyles.btnSubFeature, styles.dropShadow, { marginLeft: 15 }]} onPress={showQuoteModal}>
                             <Image style={[{ width: 40, height: 40 }]} source={daily_motivation}/>
-                            <Text style={[styles.colorPrimary, styles.bold, { fontSize: RFPercentage(2), marginTop: 5 }]}>{'Daily\nMotivation'}</Text>
-                            <Text style={[styles.colorPrimary, { fontSize: RFPercentage(1.8), marginTop: 5 }]}>{'Start your day with a motivational quote'}</Text>
-                        </TouchableOpacity>
-
-                        
-                            
-                       
-
-                    </View>
-
-                    {/* experiment */}
-                    <View style={inStyles.sec2SubContainer}>
-                        <TouchableOpacity style={[inStyles.btnSubFeature, styles.dropShadow, { marginLeft: 15 }]} onPress={gotoTimerSession}>
-                            <Text style={[styles.colorPrimary, styles.bold, { fontSize: RFPercentage(2), marginTop: 5 }]}>{'Timer\nSession'}</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={[inStyles.btnSubFeature, styles.dropShadow, { marginLeft: 15 }]} onPress={gotoStopwatchSession}>
-                            <Text style={[styles.colorPrimary, styles.bold, { fontSize: RFPercentage(2), marginTop: 5 }]}>{'Stopwatch\nSession'}</Text>
+                            <Text style={[styles.colorPrimary, styles.bold, inStyles.medlib]}>{'Daily\nMotivation'}</Text>
+                            <Text style={[styles.colorPrimary, { fontSize: RFPercentage(1.8), marginTop: 5, textAlign:'center' }]}>{'Start your day with a motivational quote'}</Text>
                         </TouchableOpacity>
                     </View>
-                    {/* end experiment */}
                 </View>
 
                 <Modal visible={quoteVisible} animationType='slide' transparent={true}>
@@ -318,4 +302,11 @@ const inStyles = StyleSheet.create({
         right: 15,
         top: 15,
     },
+
+    medlib: { 
+        fontSize: RFPercentage(2),
+        marginTop: 5,
+        alignItems:'center',
+        textAlign:'center'
+    }
 });
