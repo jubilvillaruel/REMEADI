@@ -222,8 +222,6 @@ export default function App() {
             <Stack.Screen name='GuideOptions' component={GuideOptions} options={{title: 'Guide Options'}}/>
             <Stack.Screen name="Session" component={Session} options={{headerShown: false}}/>
             <Stack.Screen name="ConcludeSession" component={ConcludeSession} options={{headerShown: false}}/>
-            <Stack.Screen name="TimerSession" component={TimerSession} options={{headerShown: false}}/>
-            <Stack.Screen name="StopwatchSession" component={StopwatchSession} options={{headerShown: false}}/>
         </Stack.Navigator>
         )}
     </NavigationContainer>
