@@ -189,7 +189,6 @@ export default function App() {
             <Stack.Screen name="SignUp" component={SignUp} initialParams={ {setUserToken} } options={{title: 'Sign Up'}}/>
             <Stack.Screen name="ManageQuote" component={ManageQuote} options={{title: 'ADMIN - Manage Quote'}}/>
             <Stack.Screen name="ForgotPassword" component={ForgotPassword} options={{title: 'Forgot Password'}}/>
-            <Stack.Screen name="Bible" component={Bible} options={{headerShown: false}}/>
         </Stack.Navigator>
         ) : (
           <Stack.Navigator initialRouteName="HomeScreen" screenOptions={{
