@@ -15,7 +15,7 @@ import judaism_logo from '../../assets/images/religion/judaism_logo.png';
 import { meditationImgDB } from '../Data/ImageDB';
 import { meditationTypeDB } from '../Data/TypeDB';
 
-export default function MedLibrary( {navigation}) {
+export default function MedLibrary({ navigation }) {
   const [searchInput, setSearchInput] = useState('');
   const [filteredCards, setFilteredCards] = useState([]);
 
@@ -177,7 +177,7 @@ export default function MedLibrary( {navigation}) {
           {searchInput !== '' && filteredCards.length === 0 ? (
             <View></View>
           ) : (
-            <View style={[inStyles.medContainer,{flexDirection: 'col'}]}>
+            <View style={[inStyles.medContainer]}>
               {searchInput === '' ? (
                   <View>
                     <View>
@@ -279,20 +279,22 @@ export default function MedLibrary( {navigation}) {
                     </View>
                   </View>
               ) : (
-                filteredCards.map((card, index) => (
-                  <SearchCard
-                    key={index}
-                    title={card.title}
-                    type={card.type}
-                    titleSize={RFPercentage(2)}
-                    typeSize={RFPercentage(1.8)}
-                    height={screenHeight('18%')}
-                    image={card.image}
-                    onPress={() => {
-                      goToGuide(card.title, card.image, card.bia);
-                    }}
-                  />
-                ))
+                <View>
+                  {filteredCards.map((card, index) => (
+                    <SearchCard  
+                      key={index}
+                      title={card.title}
+                      type={card.type}
+                      titleSize={RFPercentage(2)}
+                      typeSize={RFPercentage(1.8)}
+                      height={screenHeight('18%')}
+                      image={card.image}
+                      onPress={() => {
+                        goToGuide(card.title, card.image, card.bia);
+                      }}
+                    />
+                  ))}
+                </View>
               )}
             </View>
           )}
