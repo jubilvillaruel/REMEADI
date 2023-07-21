@@ -157,7 +157,7 @@ export default function Home({ navigation }) {
                         <View style={[inStyles.modalContent, styles.dropShadow]}>
                             <Text style={[styles.bold, { fontSize: RFPercentage(2.5), top: 15, position: 'absolute' }]}>Daily Motivation</Text>
                             <Text>"{quote}"</Text>
-                            <Text>{source}</Text>
+                            <Text style={{ bottom: 15, right: 15, position: 'absolute' }}>- {source}</Text>
                             <TouchableOpacity style={inStyles.btnCloseModal} onPress={hideQuoteModal}>
                                 <Image style={[{ width: 20, height: 20 }]} source={close}/>
                             </TouchableOpacity>
