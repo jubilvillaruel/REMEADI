@@ -5,7 +5,6 @@ import { screenHeight, screenWidth } from '../components/Dimensions';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import React, { useState } from 'react';
 
-
 // Religion logos
 import christianity_logo from '../../assets/images/religion/christianity_logo.png';
 import islam_logo from '../../assets/images/religion/islam_logo.png';
@@ -17,7 +16,6 @@ import { meditationImgDB } from '../Data/ImageDB';
 import { meditationTypeDB } from '../Data/TypeDB';
 
 export default function MedLibrary( {navigation}) {
-
   const [searchInput, setSearchInput] = useState('');
   const [filteredCards, setFilteredCards] = useState([]);
 
@@ -153,8 +151,7 @@ export default function MedLibrary( {navigation}) {
           style={[inStyles.searchBox, styles.dropShadow]}
           placeholder="Search a meditation practice"
           onChangeText={handleSearchInputChange}
-          value={searchInput}
-        />
+          value={searchInput}/>
       </View>
       <ScrollView showsVerticalScrollIndicator={false} style={[{ marginBottom: 15 }]}>
         <View style={[{ marginTop: 10 }]}>
@@ -314,6 +311,7 @@ const inStyles = StyleSheet.create({
     width: screenWidth('100%'),
     height: screenHeight('10%'),
     justifyContent: 'center',
+    zIndex: 1,
   },
 
   searchBox:{
@@ -324,6 +322,6 @@ const inStyles = StyleSheet.create({
     borderRadius: 20,
     borderColor: '#2EC4B6',
     padding: 15,
-    
-  }
+    fontSize: RFPercentage(1.8),
+  },
 });

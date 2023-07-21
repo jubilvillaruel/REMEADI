@@ -329,22 +329,22 @@ export default function Session({ navigation, route }) {
                             clickable={false}>
                                 
                             {/* front */}
-                            <ScrollView showsVerticalScrollIndicator={false} style={{ paddingHorizontal: 5 }}>
+                            <ScrollView showsVerticalScrollIndicator={false}>
                                 {showGuide()}
                             </ScrollView>
 
                             {/* back */}
-                            <ScrollView style={styles.back}>
+                            <ScrollView showsVerticalScrollIndicator={false}>
                                 <Bible/>
-                                <Video
+                                {/* <Video
                                     ref={video}
                                     style={{ width: screenWidth('82%'), height: screenHeight('35%'), borderRadius: 10, aspectRatio: 1 / 1  }}
                                     source={require('../../assets/videos/hehehhehee.mp4')}
                                     useNativeControls
                                     resizeMode={Video.RESIZE_MODE_CONTAIN}
                                     onPlaybackStatusUpdate={(status) => setStatus(status)}
-                                />
-                                <View>
+                                /> */}
+                                {/* <View>
                                     <TouchableOpacity onPress={() => {
                                         if (status.isPlaying) {
                                         video.current.pauseAsync();
@@ -354,7 +354,7 @@ export default function Session({ navigation, route }) {
                                         }}>
                                         <Image style={{ width: 40, height: 40 }} source={videoImg}/>
                                     </TouchableOpacity>
-                                </View>
+                                </View> */}
                             </ScrollView>
                         </FlipCard>
                     </View>
@@ -419,6 +419,7 @@ const inStyles = StyleSheet.create({
     guideContainer: {
         width: screenWidth('90%'),
         height: screenHeight('50%'),
+        alignItems: 'center',
     },
 
     bottomContainer: {
