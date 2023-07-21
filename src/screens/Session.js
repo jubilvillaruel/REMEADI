@@ -39,6 +39,9 @@ export default function Session({ navigation, route }) {
     const [timerRunning, setTimerRunning] = useState(true);
     const [stopwatchTime, setStopwatchTime] = useState([])
 
+    // Use State for Text-To-Speech
+    const [isSpeaking, setIsSpeaking] = useState(true);
+
     // Video component
     const video = React.useRef(null);
     const [status, setStatus] = React.useState({});
@@ -60,7 +63,6 @@ export default function Session({ navigation, route }) {
     };
 
     const soundFiles = [
-        require('./../../assets/sounds/alarm-clock.wav'),
         require('./../../assets/sounds/campfire.wav'),
         require('./../../assets/sounds/night.wav'),
         require('./../../assets/sounds/rain.wav'),
@@ -68,7 +70,6 @@ export default function Session({ navigation, route }) {
     ];
 
     const soundFilesName = [
-        'Alarm-clock',
         'Campfire',
         'Night',
         'Rain',
@@ -230,17 +231,25 @@ export default function Session({ navigation, route }) {
         return clock
     }
 
+    useEffect(() => {
+        if (!isSpeaking) {
+            flipText();
+        }
+    }, [isSpeaking]);
+
     const speak = () => {
+        flipText();
         let thingToSay = []
         for (const property in guide){
             thingToSay.push(guide[property])
         }
         const options = {
             voice: 'Microsoft Zira - English (United States)',
-            rate: 0.9
+            rate: 0.9,
+            onStart: () => setIsSpeaking(true),
+            onDone: () => setIsSpeaking(false),
         }
         Speech.speak(thingToSay, options);
-        flipText();
     };
 
     const stopSpeech = () => {

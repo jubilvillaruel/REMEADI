@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, ImageBackground } from 'react-native';
 import { screenWidth, screenHeight } from './Dimensions';
 import * as Speech from 'expo-speech';
@@ -69,15 +69,25 @@ export const IconCard = ({ title, desc, icon, onPress }) => {
 export const StepCard = ({ count, desc, detailedDesc }) => {
   const [textFlipped, setTextFlipped] = useState(false);
   const [currentText, setCurrentText] = useState(desc);
+  const [isSpeaking, setIsSpeaking] = useState(true);
+
+  useEffect(() => {
+    if (!isSpeaking) {
+      flipText();
+    }
+  }, [isSpeaking]);
 
   const speakStep = () => {
-    const options = {
-        voice: 'Microsoft Zira - English (United States)',
-        rate: 0.9
-    }
-    Speech.speak(detailedDesc, options);
     flipText();
+    const options = {
+      voice: 'Microsoft Zira - English (United States)',
+      rate: 0.9,
+      onStart: () => setIsSpeaking(true),
+      onDone: () => setIsSpeaking(false),
+    };
+    Speech.speak(detailedDesc, options);
   };
+
 
   const stopSpeech = () => {
     Speech.stop();
@@ -169,6 +179,7 @@ const inStyles = StyleSheet.create({
 
     stepsItemContainer: {
       padding: 15,
+      width: screenWidth('90%'),
       marginVertical: 10,
       marginHorizontal: 5,
       gap: 5,
