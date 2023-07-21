@@ -40,6 +40,8 @@ import ManageQuote from './src/screens/ManageQuote';
 import ForgotPassword from './src/screens/ForgotPassword';
 import ConcludeSession from './src/screens/ConcludeSession';
 import Bible from './src/screens/Test/Bible';
+import TimerSession from './src/screens/Test/TimerSession';
+import StopwatchSession from './src/screens/Test/StopwatchSession';
 
 // Google Sign in
 // import {
@@ -224,6 +226,8 @@ export default function App() {
             <Stack.Screen name='GuideOptions' component={GuideOptions} options={{title: 'Guide Options'}}/>
             <Stack.Screen name="Session" component={Session} options={{headerShown: false}}/>
             <Stack.Screen name="ConcludeSession" component={ConcludeSession} options={{headerShown: false}}/>
+            <Stack.Screen name="TimerSession" component={TimerSession} options={{headerShown: false}}/>
+            <Stack.Screen name="StopwatchSession" component={StopwatchSession} options={{headerShown: false}}/>
         </Stack.Navigator>
         )}
     </NavigationContainer>
