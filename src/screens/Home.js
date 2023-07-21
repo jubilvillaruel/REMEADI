@@ -13,9 +13,7 @@ import { getQuote, getQuoteID } from '../models/QuoteModel';
 import { screenHeight, screenWidth } from '../components/Dimensions';
 import { child, get, getDatabase, onValue, ref } from 'firebase/database';
 
-const remindVerification = () => {
-    alert('Please verify your account')
-}
+
 
 export default function Home({ navigation }) {
     const [ firstName, setFirstName ] = useState('');
@@ -111,12 +109,8 @@ export default function Home({ navigation }) {
         navigation.navigate('SelectReligion');
     };
 
-    const gotoTimerSession = () => {
-        navigation.navigate('TimerSession');
-    }
-
-    const gotoStopwatchSession = () => {
-        navigation.navigate('StopwatchSession')
+    const remindVerification = () => {
+        console.log('Please verify your account')
     }
 
     return (
@@ -141,13 +135,13 @@ export default function Home({ navigation }) {
                 </View>
 
                 <View style={inStyles.sec2Container}>
-                    <TouchableOpacity style={[inStyles.btnFeature, styles.bgColorPrimary, styles.dropShadow]} onPress={() => (emailVerified === true ? goToSelectReligion() : remindVerification())}>
+                    <TouchableOpacity style={[inStyles.btnFeature, styles.bgColorPrimary, styles.dropShadow]} onPress={() => {emailVerified == true ? goToSelectReligion() : remindVerification()}}>
                         <Image style={[{ width: 110, height: 120 }]} source={meditate}/>
                         <Text style={[styles.colorWhite, styles.bold, { fontSize: RFPercentage(2.5), marginTop: 5 }]}>Meditate</Text>
                         <Text style={[styles.colorWhite, { fontSize: RFPercentage(2.2) }]}>{'Recommend a practice for you'}</Text>
                     </TouchableOpacity>
                     <View style={inStyles.sec2SubContainer}>
-                        <TouchableOpacity style={[inStyles.btnSubFeature, styles.dropShadow]} onPress={() => (emailVerified === true ? goToLibrary() : remindVerification())}>
+                        <TouchableOpacity style={[inStyles.btnSubFeature, styles.dropShadow]} onPress={() => {emailVerified == true ? goToLibrary() : remindVerification()}}>
                             <Image style={[{ width: 40, height: 40 }]} source={meditation_library}/>
                             <Text style={[styles.colorPrimary, styles.bold, inStyles.medlib]}>{'Meditation\nLibrary'}</Text>
                             <Text style={[styles.colorPrimary, { fontSize: RFPercentage(1.6), marginTop: 5, textAlign:'center' }]}>{'Explore practice from different religions'}</Text>
@@ -164,7 +158,7 @@ export default function Home({ navigation }) {
                     <View style={inStyles.modalContainer}>
                         <View style={[inStyles.modalContent, styles.dropShadow]}>
                             <Text style={[styles.bold, { fontSize: RFPercentage(2.5), top: 15, position: 'absolute' }]}>Daily Motivation</Text>
-                            <Text>"{quote}"</Text>
+                            <Text style={{ textAlign:'center', fontSize:20, fontWeight:'bold', color:'darkgray'}}>"{quote}"</Text>
                             <Text style={{ bottom: 15, right: 15, position: 'absolute' }}>- {source}</Text>
                             <TouchableOpacity style={inStyles.btnCloseModal} onPress={hideQuoteModal}>
                                 <Image style={[{ width: 20, height: 20 }]} source={close}/>
