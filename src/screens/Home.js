@@ -114,7 +114,7 @@ export default function Home({ navigation }) {
     }
 
     return (
-        <SafeAreaView style={styles.screen}>
+        <SafeAreaView style={[styles.screen, {marginTop:30}]}>
             <ScrollView showsVerticalScrollIndicator={false} style={{ paddingHorizontal: 15 }}>
                 <View style={inStyles.titleContainer}>
                     <Text style={[styles.colorSecondary, inStyles.title]}>Welcome, { firstName }</Text>
@@ -153,6 +153,23 @@ export default function Home({ navigation }) {
                         </TouchableOpacity>
                     </View>
                 </View>
+
+                {/* <View style={[inStyles.btnFeature, styles.bgColorPrimary, styles.dropShadow]}>
+                    <Text style={[styles.colorWhite, styles.bold, { fontSize: RFPercentage(3), position:'absolute', top:20 }]}>Daily Motivation</Text>
+                    <Image style={[{ width: 50, height: 50 }]} source={meditate}/>
+                    <Text style={[styles.colorWhite, { fontSize: RFPercentage(2.6), width: screenWidth('80%'), textAlign:'center' }]}>"{quote}"</Text>
+                    <Text style={[styles.colorWhite, { fontSize: RFPercentage(2.2), position:'absolute', bottom:10 }]}>{source}</Text>
+                </View> */}
+
+                {/* <View style={inStyles.sec2SubContainer}>
+                    <TouchableOpacity style={[styles.dropShadow, inStyles.sec1Container, styles.bgColorSecondary, { width: screenWidth('90%')}]} onPress={showQuoteModal}>
+                        <Image style={[{ width: 40, height: 40, paddingHorizontal:30, marginRight:20, resizeMode: 'contain' }]} source={daily_motivation}/>
+                        <View>
+                            <Text style={[styles.colorWhite, styles.bold, inStyles.medlib]}>{'Meditate'}</Text>
+                            <Text style={[styles.colorWhite, { fontSize: RFPercentage(1.8), marginTop: 5, textAlign:'center' }]}>{'Recommend a practice for you'}</Text>    
+                        </View>
+                    </TouchableOpacity>
+                </View> */}
 
                 <Modal visible={quoteVisible} animationType='slide' transparent={true}>
                     <View style={inStyles.modalContainer}>

@@ -51,6 +51,95 @@ export default function Session({ navigation, route }) {
     const [sounds, setSounds] = useState([]);
     const [clickedIndexes, setClickedIndexes] = useState([]);
 
+    const [bibleDisabled, setbibleDisabled] = useState(false);
+    const [videoDisabled, setvideoDisabled] = useState(false);
+
+
+    useEffect(() => {
+        const loadSounds = async () => {
+            try {
+                const loadedSounds = await Promise.all(
+                    soundFiles.map(async (soundFile) => {
+                        const { sound } = await Audio.Sound.createAsync(soundFile);
+                        return sound;
+                    })
+                );
+                setSounds(loadedSounds);
+            } catch (error) {
+                console.error('Error loading sounds:', error);
+            }
+        };
+        loadSounds();
+    }, []);
+
+    useEffect(() => {
+        const fetchGuide = () => {
+            if (!timerRunning) {
+                // Timer finished, stop the useEffect
+                return;
+            }
+            setGuide(getGuide(practiceTitle, religion))
+            // evaluate if practice 
+            const inTimeDB = Object.keys(timeDB).includes(practiceTitle);
+            const inTimeDB2 = Object.keys(timeDB2).includes(practiceTitle);
+            const inTimeDB3 = Object.keys(timeDB3).includes(practiceTitle);
+            if (inTimeDB) {
+                // console.log('active: timeDB')
+                setTime(getTimeModel(practiceTitle))
+            } else if (inTimeDB2) {
+                // console.log('active: timeDB2')
+                setTime(getTimeModel2(practiceTitle,bia))
+            } else if (inTimeDB3) {
+                // console.log('active: timeDB3')
+                setTime(0)
+            }
+            console.log(time)
+        };
+        fetchGuide();
+    }, [])
+
+    useEffect(() => {
+        const religion = getReligionByPractice(practiceTitle);
+        if (religion && religion.key === 'Christianity') {
+            if (practiceTitle === 'Rosary') {
+                setbibleDisabled(true);
+            } else {
+                setvideoDisabled(true);
+            }
+        } else {
+            setbibleDisabled(true);
+            setvideoDisabled(true);
+        }
+    }, [practiceTitle]);
+
+    useEffect(()=>{
+        try{
+            console.log(timeToMilliseconds(stopwatchTime),' == ', time, 'bia: ',bia)
+          if(timeToMilliseconds(stopwatchTime)==time && bia >= 0){
+            console.log('=====================\n\n\n\n\n           TRUE\n\n\n\n=====================')
+            // alert('it worked')
+            // handleDone()
+            concludeSession()
+          }
+        } catch (error) {
+          console.log(error)
+        }
+    },[stopwatchTime])
+
+    const showGuide = () => {
+        const steps = [];
+        let stepCount = 1
+        let count = ''
+        for (const property in guide){
+            count = ('Step ' + stepCount)
+            steps.push(
+                <StepCard count={count} desc={property} detailedDesc={guide[property]}></StepCard>
+            );
+            stepCount++
+        }
+        return steps;
+    }
+
     const toggleItem = (index) => {
         if (clickedIndexes.includes(index)) {
             setClickedIndexes(clickedIndexes.filter((clickedIndex) => clickedIndex !== index));
@@ -72,23 +161,6 @@ export default function Session({ navigation, route }) {
         'Rain',
         'Waves'
     ];
-
-    useEffect(() => {
-        const loadSounds = async () => {
-            try {
-                const loadedSounds = await Promise.all(
-                    soundFiles.map(async (soundFile) => {
-                        const { sound } = await Audio.Sound.createAsync(soundFile);
-                        return sound;
-                    })
-                );
-                setSounds(loadedSounds);
-            } catch (error) {
-                console.error('Error loading sounds:', error);
-            }
-        };
-        loadSounds();
-    }, []);
 
     const playSound = async (index) => {
         try {
@@ -141,60 +213,6 @@ export default function Session({ navigation, route }) {
     const handleStopSound = (index) => {
         stopSound(index);
     };
-    
-    useEffect(() => {
-        const fetchGuide = () => {
-            if (!timerRunning) {
-                // Timer finished, stop the useEffect
-                return;
-            }
-            setGuide(getGuide(practiceTitle, religion))
-            // evaluate if practice 
-            const inTimeDB = Object.keys(timeDB).includes(practiceTitle);
-            const inTimeDB2 = Object.keys(timeDB2).includes(practiceTitle);
-            const inTimeDB3 = Object.keys(timeDB3).includes(practiceTitle);
-            if (inTimeDB) {
-                // console.log('active: timeDB')
-                setTime(getTimeModel(practiceTitle))
-            } else if (inTimeDB2) {
-                // console.log('active: timeDB2')
-                setTime(getTimeModel2(practiceTitle,bia))
-            } else if (inTimeDB3) {
-                // console.log('active: timeDB3')
-                setTime(0)
-            }
-            console.log(time)
-        };
-        fetchGuide();
-    }, [])
-
-    const showGuide = () => {
-        const steps = [];
-        let stepCount = 1
-        let count = ''
-        for (const property in guide){
-            count = ('Step ' + stepCount)
-            steps.push(
-                <StepCard count={count} desc={property} detailedDesc={guide[property]}></StepCard>
-            );
-            stepCount++
-        }
-        return steps;
-    }
-
-    useEffect(()=>{
-        try{
-            console.log(timeToMilliseconds(stopwatchTime),' == ', time, 'bia: ',bia)
-          if(timeToMilliseconds(stopwatchTime)==time && bia >= 0){
-            console.log('=====================\n\n\n\n\n           TRUE\n\n\n\n=====================')
-            // alert('it worked')
-            // handleDone()
-            concludeSession()
-          }
-        } catch (error) {
-          console.log(error)
-        }
-    },[stopwatchTime])
 
     const callStopwatch = () => {
         const clock = [];
@@ -214,27 +232,6 @@ export default function Session({ navigation, route }) {
         return clock
     }
 
-    // const callTimer = () => {
-    //     const clock = [];
-    //     // console.log('time: ',time)
-    //     clock.push(
-    //         <>
-    //             <Stopwatch
-    //                 start={timerRunning}
-    //                 startTime={0}
-    //                 options= {{
-    //                     container: { display: 'none' },
-    //                     text: { display: 'none' },
-    //                 }}
-    //                 getTime={(time) => {
-    //                     setStopwatchTime(time)
-    //                 }}
-    //             />
-    //         </>
-    //     )
-    //     return clock
-    // }
-
     const callBibleOrVideoPlayer = () => {
         const religion = getReligionByPractice(practiceTitle);
         if (religion && religion.key === 'Christianity') {
@@ -247,23 +244,6 @@ export default function Session({ navigation, route }) {
             return <VideoPlayer />;
         }
     };
-
-    const [bibleDisabled, setbibleDisabled] = useState(false);
-    const [videoDisabled, setvideoDisabled] = useState(false);
-
-    useEffect(() => {
-        const religion = getReligionByPractice(practiceTitle);
-        if (religion && religion.key === 'Christianity') {
-            if (practiceTitle === 'Rosary') {
-                setbibleDisabled(true);
-            } else {
-                setvideoDisabled(true);
-            }
-        } else {
-            setbibleDisabled(true);
-            setvideoDisabled(true);
-        }
-    }, [practiceTitle]);
 
     useEffect(() => {
         if (!isSpeaking) {
@@ -299,6 +279,14 @@ export default function Session({ navigation, route }) {
         setTextFlipped(!textFlipped);
     };
 
+    const showBgmModal = () => {
+        setBgmVisible(true);
+    };
+    
+    const hideBgmModal = () => {
+        setBgmVisible(false);
+    };
+
     const concludeSession = () => {
         stopAllSounds();
         setTimerRunning(false);
@@ -311,14 +299,6 @@ export default function Session({ navigation, route }) {
         };
         navigation.dispatch(StackActions.popToTop());
         navigation.navigate('ConcludeSession', {data});
-    };
-
-    const showBgmModal = () => {
-        setBgmVisible(true);
-    };
-    
-    const hideBgmModal = () => {
-        setBgmVisible(false);
     };
 
     return (
@@ -433,9 +413,10 @@ const inStyles = StyleSheet.create({
     },
 
     headerContainer: {
-        width: screenWidth('100%'),
+        width: screenWidth('80%'),
         height: screenHeight('10%'),
         padding: 15,
+        marginTop:30,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
