@@ -13,13 +13,14 @@ import { auth } from '../../firebase';
 import { getDatabase, push, ref, set } from 'firebase/database';
 
 import moment from "moment";
+import { millisecondsToTime } from '../models/TimeModel';
 
 
 export default function ConcludeSession({ navigation, route }) {
-    const {data} = route.params;
-    const practiceTitle = data.practiceTitle;
-    const duration = data.stopwatchTime;
-    const medType = meditationTypeDB[data.practiceTitle];
+    const {data} = route?.params;
+    const practiceTitle = data?.practiceTitle;
+    const duration = data?.stopwatchTime;
+    const medType = meditationTypeDB[data?.practiceTitle];
     
     const [ uid, setUID ] = useState();
     const [ subPracticeTitle, setSubPracticeTitle ] = useState(null);
@@ -29,14 +30,6 @@ export default function ConcludeSession({ navigation, route }) {
 
     useEffect(() => {
         const retrieveAllData = () => {
-            // retrieve the following:
-            // -uid*
-            // -practice title*
-            //     -sub practice title*
-            //     -religion*
-            // -duration*
-            // -date*
-
             const id = auth.currentUser.uid
             setUID(id)
 
@@ -79,6 +72,7 @@ export default function ConcludeSession({ navigation, route }) {
     }, [uid, practiceTitle, religion, duration, currentDate])
 
     const storeSessionToHistory = () => {
+        console.log('=====storeSessionToHistory=====')
         const realtimeDB = getDatabase()
         const historyId = push(ref(realtimeDB, 'histories')).key;
 
@@ -110,9 +104,6 @@ export default function ConcludeSession({ navigation, route }) {
         const resultTimeStr = moment(sum.asMilliseconds()).format('HH:mm:ss');
         return resultTimeStr;
     };
-      
-    
-    
 
     const gotoHome = () => {
         navigation.navigate('HomeScreen')
@@ -134,7 +125,7 @@ export default function ConcludeSession({ navigation, route }) {
                     </View>
                     <View style={inStyles.infoContainer}>
                         <Text style={[ styles.bold, { fontSize: RFPercentage(2) }]}>Meditation Duration</Text>
-                        <Text style={[ styles.bold, styles.colorPrimary, { fontSize: RFPercentage(2) }]}>{duration}</Text>
+                        <Text style={[ styles.bold, styles.colorPrimary, { fontSize: RFPercentage(2) }]}>{millisecondsToTime(duration)}</Text>
                     </View>
                     <View style={inStyles.infoContainer}>
                         <Text style={[ styles.bold, { fontSize: RFPercentage(2) }]}>Times Practiced</Text>

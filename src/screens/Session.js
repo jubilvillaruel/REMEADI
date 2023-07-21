@@ -19,7 +19,7 @@ import { Audio } from 'expo-av';
 import { styles } from '../../assets/css/Style';
 import { getGuide } from '../Data/Practices/GuideDB';
 import { getReligionByPractice, timeDB, timeDB2, timeDB3 } from '../Data/LocalDB';
-import { getTimeModel, getTimeModel2 } from '../models/TimeModel';
+import { getTimeModel, getTimeModel2, timeToMilliseconds } from '../models/TimeModel';
 import { StackActions } from '@react-navigation/native';
 import Bible from './Test/Bible';
 
@@ -37,9 +37,9 @@ export default function Session({ navigation, route }) {
 
     // Set Value for guide content and time
     const [ guide, setGuide ] = useState();
-    const [ time, setTime ] = useState(Number);
+    const [ time, setTime ] = useState(999);
     const [timerRunning, setTimerRunning] = useState(true);
-    const [stopwatchTime, setStopwatchTime] = useState([])
+    const [stopwatchTime, setStopwatchTime] = useState('00:99:99')
 
     // Video component
     const video = React.useRef(null);
@@ -167,9 +167,10 @@ export default function Session({ navigation, route }) {
                 // console.log('active: timeDB3')
                 setTime(0)
             }
+            console.log(time)
         };
         fetchGuide();
-    }, [guide, practiceTitle, religion])
+    }, [])
 
     const showGuide = () => {
         const steps = [];
@@ -185,12 +186,26 @@ export default function Session({ navigation, route }) {
         return steps;
     }
 
+    useEffect(()=>{
+        try{
+            console.log(timeToMilliseconds(stopwatchTime),' == ', time, 'bia: ',bia)
+          if(timeToMilliseconds(stopwatchTime)==time && bia >= 0){
+            console.log('=====================\n\n\n\n\n           TRUE\n\n\n\n=====================')
+            // alert('it worked')
+            // handleDone()
+            concludeSession()
+          }
+        } catch (error) {
+          console.log(error)
+        }
+    },[stopwatchTime])
+
     const callStopwatch = () => {
         const clock = [];
         clock.push(
             <Stopwatch
                 start={timerRunning}
-                startTime={time}
+                startTime={0}
                 options= {{
                     container: inStyles.duration,
                     text: inStyles.durationText,
@@ -203,34 +218,26 @@ export default function Session({ navigation, route }) {
         return clock
     }
 
-    const callTimer = () => {
-        const clock = [];
-        // console.log('time: ',time)
-        clock.push(
-            <>
-                <Timer
-                    start={timerRunning}
-                    totalDuration={time}
-                    options={{
-                        container: inStyles.duration,
-                        text: inStyles.durationText,
-                    }}
-                />
-                <Stopwatch
-                    start={timerRunning}
-                    startTime={0}
-                    options= {{
-                        container: { display: 'none' },
-                        text: { display: 'none' },
-                    }}
-                    getTime={(time) => {
-                        setStopwatchTime(time)
-                    }}
-                />
-            </>
-        )
-        return clock
-    }
+    // const callTimer = () => {
+    //     const clock = [];
+    //     // console.log('time: ',time)
+    //     clock.push(
+    //         <>
+    //             <Stopwatch
+    //                 start={timerRunning}
+    //                 startTime={0}
+    //                 options= {{
+    //                     container: { display: 'none' },
+    //                     text: { display: 'none' },
+    //                 }}
+    //                 getTime={(time) => {
+    //                     setStopwatchTime(time)
+    //                 }}
+    //             />
+    //         </>
+    //     )
+    //     return clock
+    // }
 
     const speak = () => {
         let thingToSay = []
@@ -258,13 +265,13 @@ export default function Session({ navigation, route }) {
         setTextFlipped(!textFlipped);
     };
 
-    const concludeSession = (practiceTitle, stopwatchTime ) => {
+    const concludeSession = () => {
         stopAllSounds();
         setTimerRunning(false);
         Speech.stop();
         const data = {
             practiceTitle: practiceTitle,
-            stopwatchTime: stopwatchTime
+            stopwatchTime: timeToMilliseconds(stopwatchTime)
             // meditation type
             // times practiced
         };
@@ -291,7 +298,7 @@ export default function Session({ navigation, route }) {
                             <View style={{ gap: 5 }}>
                                 <Text style={[styles.bold, styles.colorWhite, { fontSize: RFPercentage(2) }]}>{practiceTitle}</Text>
                                 <View style={inStyles.timerContainer}>
-                                    {time === 0 ? callStopwatch() : callTimer()}
+                                    {callStopwatch()}
                                 </View>
                             </View>
                             
@@ -360,7 +367,7 @@ export default function Session({ navigation, route }) {
                     </View>
 
                     <View style={inStyles.bottomContainer}>      
-                        <TouchableOpacity style={[styles.dropShadow, styles.bgColorPrimary, inStyles.btnEnd]} onPress={() => {concludeSession(practiceTitle, stopwatchTime)}}>
+                        <TouchableOpacity style={[styles.dropShadow, styles.bgColorPrimary, inStyles.btnEnd]} onPress={() => {concludeSession()}}>
                             <Text style={[{ fontSize: RFPercentage(3) }, styles.colorWhite, styles.bold]}>Done</Text>
                         </TouchableOpacity>
                     </View>

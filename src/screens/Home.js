@@ -111,6 +111,14 @@ export default function Home({ navigation }) {
         navigation.navigate('SelectReligion');
     };
 
+    const gotoTimerSession = () => {
+        navigation.navigate('TimerSession');
+    }
+
+    const gotoStopwatchSession = () => {
+        navigation.navigate('StopwatchSession')
+    }
+
     return (
         <SafeAreaView style={styles.screen}>
             <ScrollView showsVerticalScrollIndicator={false} style={{ paddingHorizontal: 15 }}>
@@ -149,7 +157,23 @@ export default function Home({ navigation }) {
                             <Text style={[styles.colorPrimary, styles.bold, { fontSize: RFPercentage(2), marginTop: 5 }]}>{'Daily\nMotivation'}</Text>
                             <Text style={[styles.colorPrimary, { fontSize: RFPercentage(1.8), marginTop: 5 }]}>{'Start your day with a motivational quote'}</Text>
                         </TouchableOpacity>
+
+                        
+                            
+                       
+
                     </View>
+
+                    {/* experiment */}
+                    <View style={inStyles.sec2SubContainer}>
+                        <TouchableOpacity style={[inStyles.btnSubFeature, styles.dropShadow, { marginLeft: 15 }]} onPress={gotoTimerSession}>
+                            <Text style={[styles.colorPrimary, styles.bold, { fontSize: RFPercentage(2), marginTop: 5 }]}>{'Timer\nSession'}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[inStyles.btnSubFeature, styles.dropShadow, { marginLeft: 15 }]} onPress={gotoStopwatchSession}>
+                            <Text style={[styles.colorPrimary, styles.bold, { fontSize: RFPercentage(2), marginTop: 5 }]}>{'Stopwatch\nSession'}</Text>
+                        </TouchableOpacity>
+                    </View>
+                    {/* end experiment */}
                 </View>
 
                 <Modal visible={quoteVisible} animationType='slide' transparent={true}>
