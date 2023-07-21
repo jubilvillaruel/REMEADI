@@ -5,34 +5,6 @@ import { meditationDescDB } from '../Data/LocalDB';
 import { styles } from '../../assets/css/Style';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 
-export const MedGuide = ({ title, desc, guideImg, onPress }) => {
-
-  return (
-    <SafeAreaView style={styles.screen}>
-      <View style={inStyles.imgContainer}>
-        <Image style={inStyles.img} source={guideImg}></Image>
-      </View>
-
-      <View style={inStyles.textContainer}>
-        <Text style={[styles.colorPrimary, inStyles.title]}>{title}</Text>
-        <Text style={inStyles.content}>{desc}</Text>
-      </View>
-
-      <View style={inStyles.btnContainer}>
-        <PrimaryButton
-          text='Start'
-          textColor='#FFFFFF'
-          textSize={RFPercentage(2.2)}
-          width={screenWidth('80%')}
-          height={screenHeight('7%')}
-          borderRad={30}
-          onPress={onPress}>
-        </PrimaryButton>
-      </View>
-    </SafeAreaView>
-  );
-};
-
 export default function Guide({ navigation, route }) {
   const { data } = route.params
   const desc = meditationDescDB[data.title]
@@ -47,14 +19,13 @@ export default function Guide({ navigation, route }) {
 
   return (
     <SafeAreaView style={inStyles.screen}>
-      <View style={inStyles.imgContainer}>
-        <Image style={inStyles.img} source={data.guideImg}></Image>
-      </View>
+      <Image style={inStyles.imgGuide} source={data.guideImg}></Image>
 
       <View style={inStyles.textContainer}>
-        <Text style={[inStyles.colorPrimary, inStyles.title]}>{data.title}</Text>
-        <Text style={inStyles.content}>{desc}</Text>
+        <Text style={[inStyles.colorPrimary, inStyles.title, {textAlign:'center'}]}>{data.title}</Text>
+        <Text style={[inStyles.content, {textAlign:'center'}]}>{desc}</Text>
       </View>
+
       {(data.bia) ?
         <View style={inStyles.btnContainer}>
           <PrimaryButton
@@ -108,19 +79,28 @@ const inStyles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
 
-  imgContainer: {
+  imgGuide : {
+    resizeMode: 'cover',
+    // ...StyleSheet.absoluteFillObject, 
     width: screenWidth('100%'),
+    height: screenHeight('40%'),
+  },
+
+  textContainer: {
+    width: screenWidth('80%'),
+    height: screenHeight('20%'),
+    paddingBottom: 15,
+  },
+
+  btnContainer: {
+    // justifyContent: 'center',
+    padding: 15,
     height: screenHeight('40%'),
   },
 
   img : {
     resizeMode: 'cover',
     ...StyleSheet.absoluteFillObject, 
-  },
-
-  textContainer: {
-    height: screenHeight('20%'),
-    paddingBottom: 15,
   },
 
   title: {
@@ -136,9 +116,7 @@ const inStyles = StyleSheet.create({
     paddingHorizontal: 15,
   },
 
-  btnContainer: {
-    justifyContent: 'center',
-    padding: 15,
-    height: screenHeight('40%'),
-  },
+  colorPrimary: {
+    color: '#2EC4B6'
+  }
 });

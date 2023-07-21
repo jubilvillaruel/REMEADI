@@ -14,7 +14,10 @@ export const ImageCard = ({ title, type, width, height, titleSize, typeSize, ima
     return (
         <TouchableOpacity onPress={onPress}> 
             <View>
-              <ImageBackground style={[inStyles.libItem, { width: width, height: height }]} imageStyle={{ borderRadius: 15 }} source={image}>
+              <ImageBackground style={[inStyles.libItem]} 
+                imageStyle={{ borderRadius: 15 }} 
+                source={image}
+                >
                 <View style={inStyles.libContent}>
                   <Text style={[styles.colorWhite, styles.bold, { fontSize: titleSize }]}>{title}</Text>
                   <Text style={[styles.colorWhite, { fontSize: typeSize }]}>{type}</Text>
@@ -26,11 +29,10 @@ export const ImageCard = ({ title, type, width, height, titleSize, typeSize, ima
 };
 
 export const SearchCard = ({ title, type, width, height, titleSize, typeSize, image, onPress }) => {
-
   return (
-      <TouchableOpacity onPress={onPress}> 
+      <TouchableOpacity onPress={onPress} style={{paddingBottom:10}}> 
           <View>
-            <ImageBackground style={[inStyles.searchItem, { width: width, height: height }]} imageStyle={{ borderRadius: 10 }} source={image}>
+            <ImageBackground style={[inStyles.searchItem]} imageStyle={{ borderRadius: 10 }} source={image}>
               <View style={inStyles.libContent}>
                 <Text style={[styles.colorWhite, styles.bold, { fontSize: titleSize }]}>{title}</Text>
                 <Text style={[styles.colorWhite, { fontSize: typeSize }]}>{type}</Text>
