@@ -37,10 +37,6 @@ export default function Guide({ navigation, route }) {
   const { data } = route.params
   const desc = meditationDescDB[data.title]
 
-  const goToOptions = () => {
-    navigation.navigate('GuideOptions');
-  };
-
   const goToSession = () => {
     navigation.navigate('Session', {title: data.title, img: data.guideImg});
   };
@@ -123,7 +119,8 @@ const inStyles = StyleSheet.create({
   },
 
   textContainer: {
-    height: screenHeight('30%'),
+    height: screenHeight('20%'),
+    paddingBottom: 15,
   },
 
   title: {
@@ -140,9 +137,8 @@ const inStyles = StyleSheet.create({
   },
 
   btnContainer: {
-    bottom: 0,
-    position: 'absolute',
+    justifyContent: 'center',
     padding: 15,
-    height: screenHeight('30%'),
+    height: screenHeight('40%'),
   },
 });

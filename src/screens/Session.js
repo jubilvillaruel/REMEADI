@@ -4,15 +4,13 @@ import { StepCard } from '../components/Cards';
 import { screenWidth, screenHeight } from '../components/Dimensions';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { Stopwatch, Timer } from 'react-native-stopwatch-timer';
-
-import { Video } from 'expo-av';
-
 import FlipCard from 'react-native-flip-card';
 
 import music from '../../assets/images/music.png';
 import text from '../../assets/images/text.png';
 import stop from '../../assets/images/stop.png';
 import videoImg from '../../assets/images/video.png';
+import bible from '../../assets/images/bible.png';
 import * as Speech from 'expo-speech';
 import { Audio } from 'expo-av';
 
@@ -21,7 +19,8 @@ import { getGuide } from '../Data/Practices/GuideDB';
 import { getReligionByPractice, timeDB, timeDB2, timeDB3 } from '../Data/LocalDB';
 import { getTimeModel, getTimeModel2, timeToMilliseconds } from '../models/TimeModel';
 import { StackActions } from '@react-navigation/native';
-import Bible from './Test/Bible';
+import Bible from './Extensions/Bible';
+import VideoPlayer from './Extensions/Video';
 
 export default function Session({ navigation, route }) {
     const data = route.params
@@ -41,9 +40,8 @@ export default function Session({ navigation, route }) {
     const [timerRunning, setTimerRunning] = useState(true);
     const [stopwatchTime, setStopwatchTime] = useState('00:99:99')
 
-    // Video component
-    const video = React.useRef(null);
-    const [status, setStatus] = React.useState({});
+    // Use State for Text-To-Speech
+    const [isSpeaking, setIsSpeaking] = useState(true);
 
     // Use States for flippable components
     const [guideFlipped, setGuideFlipped] = useState(false);
@@ -62,7 +60,6 @@ export default function Session({ navigation, route }) {
     };
 
     const soundFiles = [
-        require('./../../assets/sounds/alarm-clock.wav'),
         require('./../../assets/sounds/campfire.wav'),
         require('./../../assets/sounds/night.wav'),
         require('./../../assets/sounds/rain.wav'),
@@ -70,7 +67,6 @@ export default function Session({ navigation, route }) {
     ];
 
     const soundFilesName = [
-        'Alarm-clock',
         'Campfire',
         'Night',
         'Rain',
@@ -239,17 +235,55 @@ export default function Session({ navigation, route }) {
     //     return clock
     // }
 
+    const callBibleOrVideoPlayer = () => {
+        const religion = getReligionByPractice(practiceTitle);
+        if (religion && religion.key === 'Christianity') {
+            if (practiceTitle === 'Rosary') {
+                return <VideoPlayer />;
+            } else {
+                return <Bible />;
+            }
+        } else {
+            return <VideoPlayer />;
+        }
+    };
+
+    const [bibleDisabled, setbibleDisabled] = useState(false);
+    const [videoDisabled, setvideoDisabled] = useState(false);
+
+    useEffect(() => {
+        const religion = getReligionByPractice(practiceTitle);
+        if (religion && religion.key === 'Christianity') {
+            if (practiceTitle === 'Rosary') {
+                setbibleDisabled(true);
+            } else {
+                setvideoDisabled(true);
+            }
+        } else {
+            setbibleDisabled(true);
+            setvideoDisabled(true);
+        }
+    }, [practiceTitle]);
+
+    useEffect(() => {
+        if (!isSpeaking) {
+            flipText();
+        }
+    }, [isSpeaking]);
+
     const speak = () => {
+        flipText();
         let thingToSay = []
         for (const property in guide){
             thingToSay.push(guide[property])
         }
         const options = {
             voice: 'Microsoft Zira - English (United States)',
-            rate: 0.9
+            rate: 0.9,
+            onStart: () => setIsSpeaking(true),
+            onDone: () => setIsSpeaking(false),
         }
         Speech.speak(thingToSay, options);
-        flipText();
     };
 
     const stopSpeech = () => {
@@ -296,7 +330,7 @@ export default function Session({ navigation, route }) {
                     
                         <View style={inStyles.headerContainer}>
                             <View style={{ gap: 5 }}>
-                                <Text style={[styles.bold, styles.colorWhite, { fontSize: RFPercentage(2) }]}>{practiceTitle}</Text>
+                                <Text style={[styles.bold, styles.colorWhite, { fontSize: RFPercentage(1.5), alignSelf: 'center' }]}>{practiceTitle}</Text>
                                 <View style={inStyles.timerContainer}>
                                     {callStopwatch()}
                                 </View>
@@ -320,7 +354,16 @@ export default function Session({ navigation, route }) {
                                     </TouchableOpacity>
                                 </FlipCard>
 
-                                <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia]} onPress={flipGuide}>
+                                <TouchableOpacity
+                                    style={[styles.dropShadow, inStyles.btnMedia, bibleDisabled && inStyles.disabledButtonContainer]}
+                                    onPress={flipGuide}
+                                    disabled={bibleDisabled}>
+                                    <Image style={[{ width: 35, height: 35 }]} source={bible}/>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    style={[styles.dropShadow, inStyles.btnMedia, videoDisabled && inStyles.disabledButtonContainer]}
+                                    onPress={flipGuide}
+                                    disabled={videoDisabled}>
                                     <Image style={[{ width: 40, height: 40 }]} source={videoImg}/>
                                 </TouchableOpacity>
                             </View>
@@ -336,39 +379,20 @@ export default function Session({ navigation, route }) {
                             clickable={false}>
                                 
                             {/* front */}
-                            <ScrollView showsVerticalScrollIndicator={false} style={{ paddingHorizontal: 5 }}>
+                            <ScrollView showsVerticalScrollIndicator={false}>
                                 {showGuide()}
                             </ScrollView>
 
                             {/* back */}
-                            <ScrollView style={styles.back}>
-                                <Bible/>
-                                <Video
-                                    ref={video}
-                                    style={{ width: screenWidth('82%'), height: screenHeight('35%'), borderRadius: 10, aspectRatio: 1 / 1  }}
-                                    source={require('../../assets/videos/hehehhehee.mp4')}
-                                    useNativeControls
-                                    resizeMode={Video.RESIZE_MODE_CONTAIN}
-                                    onPlaybackStatusUpdate={(status) => setStatus(status)}
-                                />
-                                <View>
-                                    <TouchableOpacity onPress={() => {
-                                        if (status.isPlaying) {
-                                        video.current.pauseAsync();
-                                        } else {
-                                        video.current.playAsync();
-                                        }
-                                        }}>
-                                        <Image style={{ width: 40, height: 40 }} source={videoImg}/>
-                                    </TouchableOpacity>
-                                </View>
+                            <ScrollView showsVerticalScrollIndicator={false}>
+                                {callBibleOrVideoPlayer()}
                             </ScrollView>
                         </FlipCard>
                     </View>
 
                     <View style={inStyles.bottomContainer}>      
                         <TouchableOpacity style={[styles.dropShadow, styles.bgColorPrimary, inStyles.btnEnd]} onPress={() => {concludeSession()}}>
-                            <Text style={[{ fontSize: RFPercentage(3) }, styles.colorWhite, styles.bold]}>Done</Text>
+                            <Text style={[{ fontSize: RFPercentage(3) }, styles.colorWhite, styles.bold]}>Conclude Session</Text>
                         </TouchableOpacity>
                     </View>
 
@@ -426,6 +450,7 @@ const inStyles = StyleSheet.create({
     guideContainer: {
         width: screenWidth('90%'),
         height: screenHeight('50%'),
+        alignItems: 'center',
     },
 
     bottomContainer: {
@@ -528,5 +553,9 @@ const inStyles = StyleSheet.create({
         color: '#FFFFFF',
         backgroundColor: '#FFBF69',
         borderRadius: 20,
+    },
+
+    disabledButtonContainer: {
+        opacity: 0.5,
     },
 });

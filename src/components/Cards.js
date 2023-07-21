@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, ImageBackground } from 'react-native';
 import { screenWidth, screenHeight } from './Dimensions';
 import * as Speech from 'expo-speech';
@@ -14,7 +14,7 @@ export const ImageCard = ({ title, type, width, height, titleSize, typeSize, ima
     return (
         <TouchableOpacity onPress={onPress}> 
             <View>
-              <ImageBackground style={[inStyles.libItem, { width: width, height: height }]} imageStyle={{ borderRadius: 10 }} source={image}>
+              <ImageBackground style={[inStyles.libItem, { width: width, height: height }]} imageStyle={{ borderRadius: 15 }} source={image}>
                 <View style={inStyles.libContent}>
                   <Text style={[styles.colorWhite, styles.bold, { fontSize: titleSize }]}>{title}</Text>
                   <Text style={[styles.colorWhite, { fontSize: typeSize }]}>{type}</Text>
@@ -44,7 +44,7 @@ export const SearchCard = ({ title, type, width, height, titleSize, typeSize, im
 export const TextCard = ({ title, desc, onPress }) => {
 
   return (
-    <TouchableOpacity style={[inStyles.milestoneItem, styles.bgColorPrimary]} onPress={onPress}>
+    <TouchableOpacity style={[inStyles.milestoneItem, styles.bgColorPrimary, styles.dropShadow]} onPress={onPress}>
       <View style={inStyles.milestoneContent}>
         <Text style={[styles.colorWhite, styles.bold, { fontSize: 16 }]}>{title}</Text>
         <Text style={styles.colorWhite}>{desc}</Text>
@@ -56,7 +56,7 @@ export const TextCard = ({ title, desc, onPress }) => {
 export const IconCard = ({ title, desc, icon, onPress }) => {
 
   return (
-    <TouchableOpacity style={inStyles.milestoneLockedItem} onPress={onPress}>
+    <TouchableOpacity style={[inStyles.milestoneLockedItem, styles.dropShadow]} onPress={onPress}>
       <View style={inStyles.milestoneContent}>
         <Text style={[styles.colorWhite, styles.bold, { fontSize: 16 }]}>{title}</Text>
         <Text style={styles.colorWhite}>{desc}</Text>
@@ -69,15 +69,25 @@ export const IconCard = ({ title, desc, icon, onPress }) => {
 export const StepCard = ({ count, desc, detailedDesc }) => {
   const [textFlipped, setTextFlipped] = useState(false);
   const [currentText, setCurrentText] = useState(desc);
+  const [isSpeaking, setIsSpeaking] = useState(true);
+
+  useEffect(() => {
+    if (!isSpeaking) {
+      flipText();
+    }
+  }, [isSpeaking]);
 
   const speakStep = () => {
-    const options = {
-        voice: 'Microsoft Zira - English (United States)',
-        rate: 0.9
-    }
-    Speech.speak(detailedDesc, options);
     flipText();
+    const options = {
+      voice: 'Microsoft Zira - English (United States)',
+      rate: 0.9,
+      onStart: () => setIsSpeaking(true),
+      onDone: () => setIsSpeaking(false),
+    };
+    Speech.speak(detailedDesc, options);
   };
+
 
   const stopSpeech = () => {
     Speech.stop();
@@ -97,7 +107,7 @@ export const StepCard = ({ count, desc, detailedDesc }) => {
   };
   
   return (
-    <TouchableOpacity style={inStyles.stepsItemContainer} onPress={replaceText}>
+    <TouchableOpacity style={[inStyles.stepsItemContainer, styles.dropShadow]} onPress={replaceText}>
       <View style={inStyles.stepHeader}>
         <View style={[inStyles.stepTitle, styles.bgColorPrimary]}>
           <Text style={styles.colorWhite}>{count}</Text>
@@ -169,7 +179,9 @@ const inStyles = StyleSheet.create({
 
     stepsItemContainer: {
       padding: 15,
+      width: screenWidth('90%'),
       marginVertical: 10,
+      marginHorizontal: 5,
       gap: 5,
       borderRadius: 20,
       backgroundColor: '#FFFFFF',

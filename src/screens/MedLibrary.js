@@ -5,7 +5,6 @@ import { screenHeight, screenWidth } from '../components/Dimensions';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import React, { useState } from 'react';
 
-
 // Religion logos
 import christianity_logo from '../../assets/images/religion/christianity_logo.png';
 import islam_logo from '../../assets/images/religion/islam_logo.png';
@@ -17,7 +16,6 @@ import { meditationImgDB } from '../Data/ImageDB';
 import { meditationTypeDB } from '../Data/TypeDB';
 
 export default function MedLibrary( {navigation}) {
-
   const [searchInput, setSearchInput] = useState('');
   const [filteredCards, setFilteredCards] = useState([]);
 
@@ -36,21 +34,25 @@ export default function MedLibrary( {navigation}) {
       title: 'Lectio Divina',
       type: meditationTypeDB['Lectio Divina'],
       image: meditationImgDB['Lectio Divina'],
+      bia: '',
     },
     {
       title: 'Christian Meditation',
       type: meditationTypeDB['Christian Meditation'],
       image: meditationImgDB['Christian Meditation'],
+      bia: '',
     },
     {
       title: 'Examen',
       type: meditationTypeDB['Examen'],
       image: meditationImgDB['Examen'],
+      bia: '',
     },
     {
       title: 'Rosary',
       type: meditationTypeDB['Rosary'],
       image: meditationImgDB['Rosary'],
+      bia: '',
     },
 
     // Islam
@@ -58,21 +60,25 @@ export default function MedLibrary( {navigation}) {
       title: 'Taffakur',
       type: meditationTypeDB['Taffakur'],
       image: meditationImgDB['Taffakur'],
+      bia: '',
     },
     {
       title: 'Dhikr',
       type: meditationTypeDB['Dhikr'],
       image: meditationImgDB['Dhikr'],
+      bia: true,
     },
     {
       title: 'Muraqaba',
       type: meditationTypeDB['Muraqaba'],
       image: meditationImgDB['Muraqaba'],
+      bia: true,
     },
     {
       title: 'Sufi Breathing',
       type: meditationTypeDB['Sufi Breathing'],
       image: meditationImgDB['Sufi Breathing'],
+      bia: '',
     },
 
     // Hinduism
@@ -80,16 +86,19 @@ export default function MedLibrary( {navigation}) {
       title: 'Hatha Yoga',
       type: meditationTypeDB['Hatha Yoga'],
       image: meditationImgDB['Hatha Yoga'],
+      bia: '',
     },
     {
       title: 'Kriya Yoga',
       type: meditationTypeDB['Kriya Yoga'],
       image: meditationImgDB['Kriya Yoga'],
+      bia: '',
     },
     {
       title: 'Chakra',
       type: meditationTypeDB['Chakra'],
       image: meditationImgDB['Chakra'],
+      bia: '',
     },
 
     // Buddhism
@@ -97,26 +106,31 @@ export default function MedLibrary( {navigation}) {
       title: 'Breath',
       type: meditationTypeDB['Breath'],
       image: meditationImgDB['Breath'],
+      bia: true,
     },
     {
       title: 'Walk',
       type: meditationTypeDB['Walk'],
       image: meditationImgDB['Walk'],
+      bia: true,
     },
     {
       title: 'Tonglen',
       type: meditationTypeDB['Tonglen'],
       image: meditationImgDB['Tonglen'],
+      bia: true,
     },
     {
       title: 'Metta',
       type: meditationTypeDB['Metta'],
       image: meditationImgDB['Metta'],
+      bia: true,
     },
     {
       title: 'Body Scan',
       type: meditationTypeDB['Body Scan'],
       image: meditationImgDB['Body Scan'],
+      bia: true,
     },
 
     // Judaism
@@ -124,16 +138,19 @@ export default function MedLibrary( {navigation}) {
       title: 'Hitbodedut',
       type: meditationTypeDB['Hitbodedut'],
       image: meditationImgDB['Hitbodedut'],
+      bia: '',
     },
     {
       title: 'Kabbalistic/Chassidic',
       type: meditationTypeDB['Kabbalistic/Chassidic'],
       image: meditationImgDB['Kabbalistic/Chassidic'],
+      bia: true,
     },
     {
       title: 'Shema',
       type: meditationTypeDB['Shema'],
       image: meditationImgDB['Shema'],
+      bia: true,
     },
   ];
 
@@ -153,8 +170,7 @@ export default function MedLibrary( {navigation}) {
           style={[inStyles.searchBox, styles.dropShadow]}
           placeholder="Search a meditation practice"
           onChangeText={handleSearchInputChange}
-          value={searchInput}
-        />
+          value={searchInput}/>
       </View>
       <ScrollView showsVerticalScrollIndicator={false} style={[{ marginBottom: 15 }]}>
         <View style={[{ marginTop: 10 }]}>
@@ -273,7 +289,7 @@ export default function MedLibrary( {navigation}) {
                     height={screenHeight('18%')}
                     image={card.image}
                     onPress={() => {
-                      goToGuide(card.title, card.image);
+                      goToGuide(card.title, card.image, card.bia);
                     }}
                   />
                 ))
@@ -314,6 +330,7 @@ const inStyles = StyleSheet.create({
     width: screenWidth('100%'),
     height: screenHeight('10%'),
     justifyContent: 'center',
+    zIndex: 1,
   },
 
   searchBox:{
@@ -324,6 +341,6 @@ const inStyles = StyleSheet.create({
     borderRadius: 20,
     borderColor: '#2EC4B6',
     padding: 15,
-    
-  }
+    fontSize: RFPercentage(1.8),
+  },
 });

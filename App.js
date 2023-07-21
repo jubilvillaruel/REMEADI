@@ -39,9 +39,6 @@ import { auth } from './firebase';
 import ManageQuote from './src/screens/ManageQuote';
 import ForgotPassword from './src/screens/ForgotPassword';
 import ConcludeSession from './src/screens/ConcludeSession';
-import Bible from './src/screens/Test/Bible';
-import TimerSession from './src/screens/Test/TimerSession';
-import StopwatchSession from './src/screens/Test/StopwatchSession';
 
 // Google Sign in
 // import {
@@ -192,7 +189,6 @@ export default function App() {
             <Stack.Screen name="SignUp" component={SignUp} initialParams={ {setUserToken} } options={{title: 'Sign Up'}}/>
             <Stack.Screen name="ManageQuote" component={ManageQuote} options={{title: 'ADMIN - Manage Quote'}}/>
             <Stack.Screen name="ForgotPassword" component={ForgotPassword} options={{title: 'Forgot Password'}}/>
-            <Stack.Screen name="Bible" component={Bible} options={{headerShown: false}}/>
         </Stack.Navigator>
         ) : (
           <Stack.Navigator initialRouteName="HomeScreen" screenOptions={{
