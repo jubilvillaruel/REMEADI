@@ -437,7 +437,7 @@ const inStyles = StyleSheet.create({
 
     guideContainer: {
         width: screenWidth('90%'),
-        height: screenHeight('50%'),
+        height: screenHeight('54.2%'),
         alignItems: 'center',
     },
 
@@ -445,6 +445,7 @@ const inStyles = StyleSheet.create({
         width: screenWidth('100%'),
         height: screenHeight('10%'),
         alignItems: 'center',
+        justifyContent: 'center',
         paddingVertical: 15,
         backgroundColor: '#FFFFFF',
         shadowColor: 'rgba(35, 35, 35, 0.5)',
@@ -480,9 +481,9 @@ const inStyles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         width: screenWidth('90%'),
-        height: '100%',
+        height: screenHeight('7%'),
         borderRadius: 30,
-        padding: 15,
+        padding: 10,
     },
 
     duration: {

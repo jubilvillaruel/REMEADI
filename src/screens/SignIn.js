@@ -96,10 +96,10 @@ export default function SignIn({ navigation, route }) {
               </TouchableOpacity>
             </Text>
 
-            <View style={inStyles.dividerContainer}>
-              <View style={inStyles.dividerLine}/>
-              <Text style={[inStyles.dividerText, { fontSize: RFPercentage(2) }]}>or</Text>
-              <View style={inStyles.dividerLine}/>
+            <View style={styles.dividerContainer}>
+              <View style={styles.dividerLine}/>
+              <Text style={[styles.dividerText, { fontSize: RFPercentage(2) }]}>or</Text>
+              <View style={styles.dividerLine}/>
             </View>
 
             <IconButton
@@ -131,39 +131,19 @@ export default function SignIn({ navigation, route }) {
     );
   }
 
-  const inStyles = StyleSheet.create({
-    appContainer: {
-      height: screenHeight('35%'),
-      width: screenWidth('100%'),
-    },
+const inStyles = StyleSheet.create({
+  appContainer: {
+    height: screenHeight('35%'),
+    width: screenWidth('100%'),
+  },
 
-    bodyContainer: {
-      height: screenHeight('40%'),
-      width: screenWidth('100%'),
-    },
+  bodyContainer: {
+    height: screenHeight('40%'),
+    width: screenWidth('100%'),
+  },
 
-    forgotPassword: {
-      marginTop: 15,
-      textAlign: 'center',
-    },
-
-    dividerContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      marginTop: 10,
-    },
-
-    dividerLine: {
-      flex: 1,
-      height: 2,
-      backgroundColor: '#FF9F1C',
-      zIndex: 1,
-    },
-    
-    dividerText: {
-      paddingHorizontal: 10,
-      fontSize: RFPercentage(2),
-      fontWeight: 'bold',
-      color: '#000',
-    },
-  });
+  forgotPassword: {
+    marginTop: 15,
+    textAlign: 'center',
+  },
+});

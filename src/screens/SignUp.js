@@ -166,7 +166,7 @@ export default function SignUp({ navigation }) {
   }
 
   return (
-    <SafeAreaView style={styles.screen}>
+    <SafeAreaView style={styles.screenCenter}>
       <View style={inStyles.signUpContainer}>
         <View style={styles.containerCentered}>
           <TextInput style={styles.inputContainer} placeholder="Last Name" selectionColor='transparent' value={lastName} onChangeText={setLastName}/>
@@ -181,7 +181,8 @@ export default function SignUp({ navigation }) {
             setOpen={setDropdown}
             setValue={setReligion}
             setItems={setItems}
-            containerStyle={{ width: screenWidth('80%'), marginTop: 10 }}
+            containerStyle={{ width: screenWidth('80%'), marginTop: 10, zIndex: 1 }}
+            dropDownContainerStyle={{ paddingHorizontal: 8, marginVertical: 10 }}
           />
 
           <View style={{ flexDirection: 'row' }}>
@@ -202,12 +203,12 @@ export default function SignUp({ navigation }) {
 
             <View style={[inStyles.inputGroup, { marginLeft: 5, width: screenWidth('20%') }]}>
               <TextInput
-              style={inStyles.input}
-              placeholder="Age"
-              selectionColor='transparent'
-              keyboardType="numeric"
-              value={age}
-              editable={false}/>
+                style={inStyles.input}
+                placeholder="Age"
+                selectionColor='transparent'
+                keyboardType="numeric"
+                value={age}
+                editable={false}/>
             </View>
           </View>
 
@@ -278,7 +279,7 @@ export default function SignUp({ navigation }) {
 
 const inStyles = StyleSheet.create({
   signUpContainer: {
-    height: screenHeight('70%'),
+    height: screenHeight('75%'),
     width: screenWidth('100%'),
   },
 
@@ -297,7 +298,7 @@ const inStyles = StyleSheet.create({
     borderColor: '#000000',
     borderWidth: 2,
     borderRadius: 30,
-    fontSize: RFPercentage(1.5),
+    fontSize: RFPercentage(1.8),
   },
 
   datePickerContainer: {
@@ -312,7 +313,7 @@ const inStyles = StyleSheet.create({
   datePickerInput: {
     flex: 1,
     height: 50,
-    fontSize: RFPercentage(1.5),
+    fontSize: RFPercentage(1.8),
   },
 
   ageInput: {
@@ -325,7 +326,7 @@ const inStyles = StyleSheet.create({
     borderColor: '#000000',
     borderWidth: 2,
     borderRadius: 20,
-    fontSize: RFPercentage(1.5),
+    fontSize: RFPercentage(1.8),
   },
 
   modalContent: {

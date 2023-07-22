@@ -37,6 +37,9 @@ const timeDB = {
     'Sufi Breathing' : 600000, //10 mins
     'Chakra' : 0,
     'Hitbodedut' : 0,
+    'Rosary' : 0,
+    'Hatha Yoga': 0,
+    'Kriya Yoga' : 0,
 }
 
 const timeDB2 = {

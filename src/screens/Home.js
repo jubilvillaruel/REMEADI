@@ -114,7 +114,7 @@ export default function Home({ navigation }) {
     }
 
     return (
-        <SafeAreaView style={[styles.screen, {marginTop:30}]}>
+        <SafeAreaView style={[styles.screen, { paddingTop: 35 }]}>
             <ScrollView showsVerticalScrollIndicator={false} style={{ paddingHorizontal: 15 }}>
                 <View style={inStyles.titleContainer}>
                     <Text style={[styles.colorSecondary, inStyles.title]}>Welcome, { firstName }</Text>
@@ -209,7 +209,7 @@ const inStyles = StyleSheet.create({
     titleContainer: {
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
-        paddingVertical: 15,
+        paddingVertical: 20,
         paddingRight: 15,
         width: screenWidth('90%'),
     },
@@ -217,7 +217,7 @@ const inStyles = StyleSheet.create({
     sec1Container: {
         flexDirection: 'row',
         borderWidth: 1,
-        borderRadius: 10,
+        borderRadius: 20,
         borderColor: '#2EC4B6',
         padding: 15,
         alignItems: 'center',
@@ -251,7 +251,9 @@ const inStyles = StyleSheet.create({
         width: screenWidth('90%'),
         height: screenHeight('40%'),
         backgroundColor: '#FFFFFF',
-        borderRadius: 10,
+        borderRadius: 20,
+        borderWidth: 2,
+        borderColor: '#2EC4B6',
         padding: 15,
         justifyContent: 'center',
         alignItems: 'center',
@@ -264,7 +266,7 @@ const inStyles = StyleSheet.create({
     },
 
     progressContent: {
-        borderRadius: 10,
+        borderRadius: 15,
         padding: 15,
     },
 
@@ -297,7 +299,7 @@ const inStyles = StyleSheet.create({
         height: screenHeight('30%'),
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 10,
+        borderRadius: 20,
     },
 
     btnSubFeature: {
@@ -306,7 +308,7 @@ const inStyles = StyleSheet.create({
         height: screenHeight('25%'),
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 10,
+        borderRadius: 20,
         borderWidth: 1,
         borderColor: '#2EC4B6',
         textAlign: 'center',
@@ -322,6 +324,6 @@ const inStyles = StyleSheet.create({
         fontSize: RFPercentage(2),
         marginTop: 5,
         alignItems:'center',
-        textAlign:'center'
+        textAlign:'center',
     }
 });

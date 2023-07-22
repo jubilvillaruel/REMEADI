@@ -111,8 +111,8 @@ const styles = StyleSheet.create({
 
     religionContainer: {
         paddingTop: 10,
-        alignItems: 'left',
-        justifyContent: 'left',
+        alignItems: 'center',
+        justifyContent: 'center',
         width: screenWidth('90%'),
     },
 
@@ -122,12 +122,33 @@ const styles = StyleSheet.create({
     },
 
     medContainer: {
-        flexDirection: 'row',
+        flex: 1,
         paddingHorizontal: 15,
         paddingTop: 5,
         alignItems: 'center',
         justifyContent: 'center',
         width: screenWidth('90%'),
+        height: screenHeight('40%'),
+    },
+
+    dividerContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 10,
+    },
+
+    dividerLine: {
+        width: screenWidth('35%'),
+        height: 4,
+        borderRadius: 10,
+        backgroundColor: '#FF9F1C',
+        zIndex: 1,
+    },
+    
+    dividerText: {
+        paddingHorizontal: 10,
+        fontSize: RFPercentage(2),
+        fontWeight: 'bold',
     },
 });
 

@@ -1,8 +1,9 @@
-import { Text, View, SafeAreaView, ScrollView, StyleSheet } from 'react-native';
+import { Text, View, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
 import { ImageCard } from '../components/Cards';
 
 import { styles } from '../../assets/css/Style';
 import { RFPercentage } from 'react-native-responsive-fontsize';
+import { timeDB2 } from '../Data/LocalDB';
 import { meditationImgDB } from '../Data/ImageDB';
 import { meditationReligionDB, meditationTypeDB } from '../Data/TypeDB';
 import { screenWidth, screenHeight } from '../components/Dimensions';
@@ -43,10 +44,11 @@ export default function ExpertResult({ navigation, route }) {
             <View key={practice} style={inStyles.practiceCard}>
               <ImageCard
                 title={practice}
+                type={getMeditationType(practice)}
+                titleSize={RFPercentage(1.6)}
+                typeSize={RFPercentage(1.2)}
                 image={meditationImgDB[practice]}
-                width={screenWidth('44%')}
-                height={screenHeight('17%')}
-                onPress={() => { goToGuide(practice, meditationImgDB[practice]) }}
+                onPress={() => { goToGuide(practice, meditationImgDB[practice], Object.keys(timeDB2).includes(practice)) }}
               />
             </View>
           ))}
@@ -82,10 +84,11 @@ export default function ExpertResult({ navigation, route }) {
             <View key={practice} style={inStyles.practiceCard}>
               <ImageCard
                 title={practice}
+                type={getMeditationType(practice)}
+                titleSize={RFPercentage(1.6)}
+                typeSize={RFPercentage(1.2)}
                 image={meditationImgDB[practice]}
-                width={screenWidth('44%')}
-                height={screenHeight('17%')}
-                onPress={() => { goToGuide(practice, meditationImgDB[practice]) }}
+                onPress={() => { goToGuide(practice, meditationImgDB[practice], Object.keys(timeDB2).includes(practice)) }}
               />
             </View>
           ))}
@@ -109,23 +112,25 @@ export default function ExpertResult({ navigation, route }) {
       <ScrollView showsVerticalScrollIndicator={false} style={[{ marginBottom: 15 }]}>
         <View style={[{ marginTop: 15 }]}>
           <View style={styles.medContainer}>
-            <ImageCard
-              title={data.title}
-              type={getMeditationType(data.title)}
-              titleSize={RFPercentage(2.5)}
-              typeSize={RFPercentage(2)}
-              image={data.guideImg}
-              width={screenWidth('90%')}
-              height={screenHeight('40%')}
-              onPress={() => {goToGuide(data.title, data.guideImg, data.bia)}}
-            />
+            <TouchableOpacity onPress={() => { goToGuide(data.title, data.guideImg, data.bia) }}> 
+              <View>
+                <ImageBackground style={inStyles.mainItem} 
+                  imageStyle={{ borderRadius: 15 }} 
+                  source={data.guideImg}>
+                  <View style={inStyles.mainContent}>
+                    <Text style={[styles.colorWhite, styles.bold, { fontSize: RFPercentage(3) }]}>{data.title}</Text>
+                    <Text style={[styles.colorWhite, { fontSize: RFPercentage(2.2) }]}>{getMeditationType(data.title)}</Text>
+                  </View>
+                </ImageBackground>
+              </View>
+            </TouchableOpacity>
           </View>
         </View>
 
         <View style={[{ marginTop: 15 }]}>
           <View style={styles.religionContainer}>
             <View style={styles.religionContent}>
-              <Text style={[styles.colorPrimary, { fontSize: RFPercentage(2.5), fontWeight: 'bold', marginBottom: 15 }]}>Other Practices from {getMeditationReligion(data.title)}</Text>
+              <Text style={[styles.colorPrimary, { fontSize: RFPercentage(2.5), fontWeight: 'bold', marginBottom: 15, textAlign: 'center' }]}>Other Practices under {getMeditationReligion(data.title)}</Text>
             </View>
           </View>
         </View>
@@ -137,7 +142,7 @@ export default function ExpertResult({ navigation, route }) {
         <View style={[{ marginTop: 15 }]}>
           <View style={styles.religionContainer}>
             <View style={styles.religionContent}>
-              <Text style={[styles.colorPrimary, { fontSize: RFPercentage(2.5), fontWeight: 'bold', marginBottom: 15 }]}>Other Practices of the same Meditation Type</Text>
+              <Text style={[styles.colorPrimary, { fontSize: RFPercentage(2.5), fontWeight: 'bold', marginBottom: 15, textAlign: 'center' }]}>{'Other Practices under '}{getMeditationType(data.title)}</Text>
             </View>
           </View>
         </View>
@@ -155,11 +160,25 @@ const inStyles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: screenWidth('90%'),
+    marginBottom: 10,
   },
 
   practiceCard: {
     flex: 1,
-    marginHorizontal: 2.5,
+    marginHorizontal: 8,
     marginBottom: 5,
+  },
+
+  mainItem: {
+    width: screenWidth('90%'),
+    height: screenHeight('40%'),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  mainContent: {
+    position: 'absolute',
+    left: 15,
+    bottom: 15,
   },
 });

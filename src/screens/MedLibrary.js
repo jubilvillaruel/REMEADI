@@ -342,7 +342,8 @@ const inStyles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 20,
     borderColor: '#2EC4B6',
-    padding: 15,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
     fontSize: RFPercentage(1.8),
   },
 });
