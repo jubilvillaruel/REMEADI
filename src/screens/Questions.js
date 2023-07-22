@@ -595,16 +595,7 @@ export default function Questions({ navigation, route }) {
     const [additionalQuestion, setAdditionalQuestion] = useState(null);
     const [secondOptions, setSecondOptions] = useState(null);
     const [thirdOptions, setThirdOptions] = useState(null);
-
-    // const goToGuide = (title, guideImg, bia) => {
-    //     const data = {
-    //         title: title, 
-    //         guideImg: guideImg,
-    //         bia: bia
-    //     };
-    //     navigation.navigate('Guide', {data});
-    // };
-
+    
     const goToResult = (title, guideImg, bia) => {
         const data = {
             title: title, 

@@ -114,7 +114,7 @@ export default function Home({ navigation }) {
     }
 
     return (
-        <SafeAreaView style={[styles.screen, { marginTop: 45 }]}>
+        <SafeAreaView style={[styles.screen, { paddingTop: 35 }]}>
             <ScrollView showsVerticalScrollIndicator={false} style={{ paddingHorizontal: 15 }}>
                 <View style={inStyles.titleContainer}>
                     <Text style={[styles.colorSecondary, inStyles.title]}>Welcome, { firstName }</Text>
@@ -209,7 +209,7 @@ const inStyles = StyleSheet.create({
     titleContainer: {
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
-        paddingVertical: 15,
+        paddingVertical: 20,
         paddingRight: 15,
         width: screenWidth('90%'),
     },

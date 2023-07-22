@@ -111,7 +111,7 @@ export default function ConcludeSession({ navigation, route }) {
 
     return (
         <View style={styles.screenCenter}>
-            <View style={[inStyles.summaryContainer, styles.dropShadow, { gap: 15 }]}>
+            <View style={[inStyles.summaryContainer, styles.dropShadow, { gap: 15, marginTop: 35 }]}>
                 <View style={inStyles.headerContainer}>
                     <Image style={{ margin: 15, height: screenHeight('22%'), width: screenWidth('60%') }} source={appLogo} />
                     <Text style={[styles.bold, styles.colorPrimary, { fontSize: RFPercentage(3.5) }]}>{practiceTitle}</Text>

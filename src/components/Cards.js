@@ -9,12 +9,12 @@ import { styles } from '../../assets/css/Style';
 import FlipCard from 'react-native-flip-card';
 
 // Cards
-export const ImageCard = ({ title, type, width, height, titleSize, typeSize, image, onPress }) => {
+export const ImageCard = ({ title, type, titleSize, typeSize, image, onPress }) => {
 
     return (
         <TouchableOpacity onPress={onPress}> 
             <View>
-              <ImageBackground style={[inStyles.libItem]} 
+              <ImageBackground style={inStyles.libItem} 
                 imageStyle={{ borderRadius: 15 }} 
                 source={image}
                 >
