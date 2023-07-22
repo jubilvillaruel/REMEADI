@@ -41,37 +41,28 @@ const VideoPlayer = () => {
     }
 
     return (
-        <View style={{ justifyContent: 'center', marginTop: 30 }}>
-            <Text style={[styles.colorSecondary, styles.bold, inStyles.title]}>Rosary of the Day</Text>
-            <Video
-                ref={video}
-                videoStyle={inStyles.video}
-                style={inStyles.videoContainer}
-                source={{ uri: videoUrl }}
-                useNativeControls={true}
-                resizeMode="contain"
-                onPlaybackStatusUpdate={setStatus}
-            />
-        </View>
+        <Video
+            ref={video}
+            videoStyle={inStyles.video}
+            style={inStyles.videoContainer}
+            source={{ uri: videoUrl }}
+            useNativeControls={true}
+            resizeMode="contain"
+            onPlaybackStatusUpdate={setStatus}
+        />
     );
 };
 
 const inStyles = StyleSheet.create({
-    title: {
-        alignSelf: 'center',
-        paddingTop: 15,
-        fontSize: RFPercentage(3),
-    },
-
     videoContainer: {
-        width: screenWidth('90%'),
+        width: screenWidth('100%'),
         height: screenHeight('50%'),
         justifyContent: 'center',
         alignItems: 'center',
     },
 
     placeholder: {
-        width: screenWidth('80%'),
+        width: screenWidth('90%'),
         height: screenHeight('50%'),
         alignItems: 'center',
         justifyContent: 'center',
@@ -79,7 +70,7 @@ const inStyles = StyleSheet.create({
 
     video: {
         width: screenWidth('90%'),
-        height: screenHeight('40%'),
+        height: screenHeight('50%'),
         alignSelf: 'center',
     },
 });
