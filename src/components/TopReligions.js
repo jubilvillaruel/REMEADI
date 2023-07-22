@@ -2,55 +2,43 @@ import { StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { screenHeight, screenWidth } from './Dimensions';
 import { styles } from '../../assets/css/Style';
-import { getTopReligionsBySession } from '../models/StatisticsModel';
 
-const TopReligions = () => {
-    const [ totalMeditationSessionPerReligion, setTotalMeditationSessionPerReligion ] = useState([])
-    const [ topReligionsBySession, setTopReligionsBySession] = useState([])
-    const [ topMeditationSessionPerReligion, setTopMeditationSessionPerReligion ] = useState([])
-
-    useEffect(() => {
-        console.log('attempting to fetch')
-        const fetchTotalMeditationSessionPerReligion = () => {
-            console.log('fetching total meditation session per religion')
-            // fetch from realtime db
-            setTotalMeditationSessionPerReligion([1,2,3,6,5])
-        }
-        fetchTotalMeditationSessionPerReligion();
-    }, [])
-
-    useEffect(()=>{
-        const fetchTopThreeReligionBySession = () => {
-            setTopReligionsBySession(getTopReligionsBySession(totalMeditationSessionPerReligion))
-            setTopMeditationSessionPerReligion(totalMeditationSessionPerReligion.sort())
-            console.log('sort:',totalMeditationSessionPerReligion.sort((a ,b) => b -a))
-        }
-        fetchTopThreeReligionBySession();
-    }, [totalMeditationSessionPerReligion])
-
+const TopReligions = ({series}) => {
     
+    const religions = ['Christianity', 'Islam', 'Hinduism', 'Buddhism', 'Judaism']
+    const [ getTopThreeReligions, setTopThreeReligions ] = useState()
 
+    // try {
+        // Create an array of objects where each object contains religion and its corresponding value
+        const religionValues = religions.map((religion, index) => ({
+            religion,
+            value: series[index],
+        }));   
+        
+        // Sort the array in descending order based on the value
+        religionValues.sort((a, b) => b.value - a.value);
 
-    const renderedReligions = topReligionsBySession.map((religion, index) => (
-        <>
-            <View style={inStyles.topContainer}>
-                <Text key={index}>{religion}</Text>
-                <Text>{topMeditationSessionPerReligion[index]}</Text>
-            </View>
-        </>
-    ));
+        // Get the top three elements from the sorted array
+        const topThreeReligions = religionValues.slice(0, 3);   
 
-    return (
-        <View style={{ width: screenWidth('90%'), height: screenHeight('27%') }}>
-            <View style={[styles.sectionContainer, styles.dropShadow]}>
-                <Text style={[styles.colorPrimary, styles.bold]}>Top 3 Religions</Text>
-                {/* sort religion by session count */}
-                {/* display the first 3 religion */}
+        setTopThreeReligions(topThreeReligions)
 
-                {renderedReligions}
-            </View>
-        </View>
-    )
+    // } catch (error) {
+    //     console.log(error.stack)
+    // }
+
+    // console.log(getTopThreeReligions)
+
+    // return (
+    //     <View>
+    //         {/* {getTopThreeReligions.map((item, index) => (
+    //             <View key={index}>
+    //             <Text>{item.religion}</Text>
+    //             <Text>{item.value}</Text>
+    //             </View>
+    //         ))} */}
+    //     </View>
+    // )
 }
 
 const inStyles = StyleSheet.create({
