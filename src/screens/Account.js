@@ -29,7 +29,7 @@ export default function Account({ navigation, route }) {
     };
 
     return (
-        <SafeAreaView style={{ top: 0, backgroundColor: '#FFFFFF' }}>
+        <SafeAreaView style={{ top: 0, backgroundColor: '#FFFFFF', paddingTop: 40 }}>
             <View style={[ styles.dropShadow, { padding: 20, width: '100%' }]}>
                 <Text style={[ inStyles.title, styles.colorPrimary]}>System</Text>
                 <View style={inStyles.optionContainer}>

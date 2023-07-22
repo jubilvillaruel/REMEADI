@@ -59,7 +59,7 @@ export const IconButton = ({ text, textColor, textSize, icon, width, height, bgC
 
 const inStyles = StyleSheet.create({
     btnContainer: {
-        padding: 20,
+        padding: 10,
         alignItems: 'center',
         justifyContent: 'center',
     },

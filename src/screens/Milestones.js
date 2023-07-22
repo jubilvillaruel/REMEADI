@@ -26,7 +26,7 @@ export default function Milestones() {
 
     return (
         <SafeAreaView style={inStyles.container}>
-            <View style={[styles.dropShadow, { zIndex: 1 }]}>
+            <View style={[styles.dropShadow, { zIndex: 1, marginTop: 40 }]}>
                 <View style={inStyles.titleContainer}>
                     <Text style={[styles.colorPrimary, inStyles.title]}>Milestones</Text>
                 </View>

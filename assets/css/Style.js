@@ -129,6 +129,26 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: screenWidth('90%'),
     },
+
+    dividerContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 10,
+    },
+
+    dividerLine: {
+        width: screenWidth('35%'),
+        height: 4,
+        borderRadius: 10,
+        backgroundColor: '#FF9F1C',
+        zIndex: 1,
+    },
+    
+    dividerText: {
+        paddingHorizontal: 10,
+        fontSize: RFPercentage(2),
+        fontWeight: 'bold',
+    },
 });
 
 export { styles }

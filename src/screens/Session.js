@@ -482,7 +482,7 @@ const inStyles = StyleSheet.create({
         width: screenWidth('90%'),
         height: '100%',
         borderRadius: 30,
-        padding: 15,
+        padding: 10,
     },
 
     duration: {

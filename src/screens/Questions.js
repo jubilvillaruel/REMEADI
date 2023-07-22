@@ -584,9 +584,6 @@ const followUpQuestions = {
                 },
             ],
         },
-
-
-
     },
 };
   
@@ -716,7 +713,7 @@ const inStyles = StyleSheet.create({
         padding: 15,
         borderRadius: 40,
         width: screenWidth('70%'),
-        height: screenHeight('10%'),
+        height: screenHeight('7%'),
         justifyContent: 'center',
         alignItems: 'center',
     },
