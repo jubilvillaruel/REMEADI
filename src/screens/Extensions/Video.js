@@ -53,21 +53,21 @@ const VideoPlayer = () => {
 
 const inStyles = StyleSheet.create({
     videoContainer: {
-        width: screenWidth('100%'),
+        width: screenWidth('90%'),
         height: screenHeight('50%'),
         justifyContent: 'center',
         backgroundColor: 'rgba(35, 35, 35, 0.5)',
     },
 
     placeholder: {
-        width: screenWidth('100%'),
+        width: screenWidth('90%'),
         height: screenHeight('50%'),
         alignItems: 'center',
         justifyContent: 'center',
     },
 
     video: {
-        width: screenWidth('100%'),
+        width: screenWidth('90%'),
         height: screenHeight('50%'),
         alignSelf: 'center',
     },
