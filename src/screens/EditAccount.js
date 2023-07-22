@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, Image, TextInput, TouchableOpacity, Modal, Picker } from 'react-native';
-import { PrimaryButton } from '../components/Buttons'; 
+import { StyleSheet, Text, View, SafeAreaView, Image, TextInput, TouchableOpacity, Modal } from 'react-native';
+import { PrimaryButton } from '../components/Buttons';
+import { screenWidth } from '../components/Dimensions';
 import DropDownPicker from 'react-native-dropdown-picker';
 
 import { styles } from './../../assets/css/Style';
@@ -117,7 +118,8 @@ export default function EditAccount({ navigation }) {
             setOpen={setDropdown}
             setValue={setReligion}
             setItems={setItems}
-            containerStyle={{ width: 280, marginTop: 10 }}
+            containerStyle={{ width: 282, marginTop: 10, zIndex: 1 }}
+            dropDownContainerStyle={{ paddingHorizontal: 8, marginVertical: 10 }}
           />
 
           <View style={inStyles.inputGroup}>
@@ -244,6 +246,7 @@ const inStyles = StyleSheet.create({
 
   editContainer: {
     alignItems: 'center',
+    marginTop: 75,
   },
 
   modalContainer: {

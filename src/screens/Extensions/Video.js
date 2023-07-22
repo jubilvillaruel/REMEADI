@@ -9,14 +9,31 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
 const VideoPlayer = () => {
     const video = React.useRef(null);
     const [status, setStatus] = React.useState({});
-  
+
     const fetchVideoUrl = async () => {
         try {
+            // Get the current day of the week (0-6/Sunday-Saturday)
+            const currentDayOfWeek = new Date().getDay();
+            const dayOfWeekMap = {
+                0: 'Glorious Mysteries of the Holy Rosary.mp4',
+                1: 'Joyful Mysteries of the Holy Rosary.mp4',
+                2: 'Sorrowful Mysteries of the Holy Rosary.mp4',
+                3: 'Glorious Mysteries of the Holy Rosary.mp4',
+                4: 'Luminous Mysteries of the Holy Rosary.mp4',
+                5: 'Sorrowful Mysteries of the Holy Rosary.mp4',
+                6: 'Joyful Mysteries of the Holy Rosary.mp4',
+            };
+
+            // Get the file name based on the current day of the week
+            const fileName = dayOfWeekMap[currentDayOfWeek];
+            const fullPath = `rosary/mysteries/${fileName}`;
+
             const storage = getStorage();
-            const videoRef = ref(storage, 'rosary/mysteries/Sorrowful Mysteries of the Holy Rosary.mp4');
+            const videoRef = ref(storage, fullPath);
             const videoDownloadURL = await getDownloadURL(videoRef);
             return videoDownloadURL;
-        } catch (error) {
+        } 
+        catch (error) {
             console.error("Error fetching video URL:", error);
             return null;
         }
