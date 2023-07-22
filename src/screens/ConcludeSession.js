@@ -139,10 +139,11 @@ export default function ConcludeSession({ navigation, route }) {
                         textColor= '#FFFFFF'
                         textSize={RFPercentage(2.2)}
                         width={screenWidth('65%')}
-                        height={screenHeight('5%')}
+                        height={screenHeight('7%')}
                         borderRad={30}
                         onPress={gotoHome}>
                     </PrimaryButton>
+
                 </View>
             </View>
         </View>

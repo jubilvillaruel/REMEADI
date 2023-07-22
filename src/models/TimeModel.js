@@ -11,7 +11,6 @@ const getTimeModel2 = (practiceTitle,bia) => {
 }
 
 const timeToMilliseconds = (timeString) => {
-    console.log(timeString)
     const [hours, minutes, seconds] = timeString.split(':').map(Number);
     return (hours * 3600 + minutes * 60 + seconds) * 1000;
 };

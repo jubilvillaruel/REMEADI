@@ -47,23 +47,25 @@ const Bible = () => {
           placeholder="Search for a Bible verse or passage"
           onChangeText={(text) => {getResults(text)}}/>
       </View>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {renderedItems}
-      </ScrollView>
+      {/* <View style={inStyles.bibleResultsContainer}>   */}
+        <ScrollView contentContainerStyle={inStyles.bibleResultsContainer} showsVerticalScrollIndicator={false}>
+          {renderedItems}
+        </ScrollView>
+      {/* </View> */}
     </View>
   );
 };
 
 const inStyles = StyleSheet.create({
   bibleContainer: {
-    width: screenWidth('100%'),
+    width: screenWidth('90%'),
     height: screenHeight('50%'),
     justifyContent: 'center',
     alignItems: 'center',
   },
 
   bibleSearchContainer:{
-    width: screenWidth('100%'),
+    width: screenWidth('85%'),
     height: screenHeight('10%'),
     justifyContent: 'center',
     alignItems: 'center',
@@ -72,7 +74,7 @@ const inStyles = StyleSheet.create({
   },
 
   bibleSearch:{
-    width: screenWidth('90%'),
+    width: screenWidth('85%'),
     height: screenHeight('5%'),
     alignSelf: 'center',
     borderWidth: 2,
@@ -81,6 +83,16 @@ const inStyles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     padding: 15,
     fontSize: RFPercentage(1.8),
+  },
+
+  bibleResultsContainer: {
+    width: screenWidth('85%'),
+    alignItems: 'center'
+    // height: screenHeight('15%'),
+    // padding: 15,
+    // borderWidth: 2,
+    // borderRadius: 20,
+    // borderColor: '#2EC4B6',
   },
 
   verseItem: {
@@ -94,6 +106,7 @@ const inStyles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     alignItems: 'center',
     justifyContent: 'center',
+    width: screenWidth('85%')
   },
 
   verseContent: {

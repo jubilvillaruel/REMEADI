@@ -114,13 +114,15 @@ export default function Session({ navigation, route }) {
 
     useEffect(()=>{
         try{
-            console.log(timeToMilliseconds(stopwatchTime),' == ', time, 'bia: ',bia)
-          if(timeToMilliseconds(stopwatchTime)==time && bia >= 0){
-            console.log('=====================\n\n\n\n\n           TRUE\n\n\n\n=====================')
-            // alert('it worked')
-            // handleDone()
-            concludeSession()
-          }
+            // console.log(timeToMilliseconds(stopwatchTime),' == ', time, 'bia: ',bia)
+            let tick = timeToMilliseconds(stopwatchTime)
+            console.log('Stopwatch:', tick)
+            if(tick == time && bia >= 0){
+                console.log('=====================\n\n\n\n\n           TRUE\n\n\n\n=====================')
+                // alert('it worked')
+                // handleDone()
+                concludeSession()
+            }
         } catch (error) {
           console.log(error)
         }
@@ -321,18 +323,21 @@ export default function Session({ navigation, route }) {
                                     <Image style={[{ width: 40, height: 40 }]} source={music}/>
                                 </TouchableOpacity>
 
-                                <FlipCard
-                                    flipHorizontal={true}
-                                    flipVertical={false}
-                                    flip={textFlipped}
-                                    clickable={false}>
-                                    <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia]} onPress={speak}>
-                                        <Image style={[{ width: 40, height: 40 }]} source={text}/>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia]} onPress={stopSpeech}>
-                                    <Image style={[{ width: 40, height: 40 }]} source={stop}/>
-                                    </TouchableOpacity>
-                                </FlipCard>
+                                <View>
+                                    <FlipCard
+                                        flipHorizontal={true}
+                                        flipVertical={false}
+                                        flip={textFlipped}
+                                        clickable={false}>
+                                        <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia]} onPress={speak}>
+                                            <Image style={[{ width: 40, height: 40 }]} source={text}/>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia]} onPress={stopSpeech}>
+                                        <Image style={[{ width: 40, height: 40 }]} source={stop}/>
+                                        </TouchableOpacity>
+                                    </FlipCard>
+                                </View>
+                                
 
                                 <TouchableOpacity
                                     style={[styles.dropShadow, inStyles.btnMedia, bibleDisabled && inStyles.disabledButtonContainer]}
@@ -425,7 +430,9 @@ const inStyles = StyleSheet.create({
 
     optionsContainer: {
         flexDirection: 'row',
-        gap: 15,
+        gap: 10,
+        position: 'relative',
+        right: -35
     },
 
     guideContainer: {
@@ -455,6 +462,7 @@ const inStyles = StyleSheet.create({
         borderColor: '#2EC4B6',
         borderWidth: 2,
         backgroundColor: '#FFFFFF',
+
     },
 
     btnMedia: {
@@ -478,11 +486,11 @@ const inStyles = StyleSheet.create({
     },
 
     duration: {
-        padding: 15,
         width: screenWidth('24%'),
     },
 
     durationText: {
+        justifyContent:'center',
         color: '#2EC4B6',
         fontSize: RFPercentage(1.5),
         fontWeight: 'bold',

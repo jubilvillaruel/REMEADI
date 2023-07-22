@@ -12,7 +12,7 @@ import close from '../../assets/images/close.png';
 import { getQuote, getQuoteID } from '../models/QuoteModel';
 import { screenHeight, screenWidth } from '../components/Dimensions';
 import { child, get, getDatabase, onValue, ref } from 'firebase/database';
-
+// import MedLibrary from './MedLibrary'
 
 
 export default function Home({ navigation }) {
@@ -169,6 +169,10 @@ export default function Home({ navigation }) {
                             <Text style={[styles.colorWhite, { fontSize: RFPercentage(1.8), marginTop: 5, textAlign:'center' }]}>{'Recommend a practice for you'}</Text>    
                         </View>
                     </TouchableOpacity>
+                </View> */}
+
+                {/* <View style={inStyles.sec2Container}>
+                    <MedLibrary></MedLibrary>
                 </View> */}
 
                 <Modal visible={quoteVisible} animationType='slide' transparent={true}>

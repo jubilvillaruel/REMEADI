@@ -28,7 +28,7 @@ export const ImageCard = ({ title, type, width, height, titleSize, typeSize, ima
     );
 };
 
-export const SearchCard = ({ title, type, width, height, titleSize, typeSize, image, onPress }) => {
+export const SearchCard = ({ title, type, titleSize, typeSize, image, onPress }) => {
   return (
       <TouchableOpacity onPress={onPress} style={{paddingBottom:10}}> 
           <View>
@@ -181,7 +181,7 @@ const inStyles = StyleSheet.create({
 
     stepsItemContainer: {
       padding: 15,
-      width: screenWidth('90%'),
+      width: screenWidth('85%'),
       marginVertical: 10,
       marginHorizontal: 5,
       gap: 5,
