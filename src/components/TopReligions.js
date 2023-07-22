@@ -14,7 +14,7 @@ const TopReligions = () => {
         const fetchTotalMeditationSessionPerReligion = () => {
             console.log('fetching total meditation session per religion')
             // fetch from realtime db
-            setTotalMeditationSessionPerReligion([1,2,3,6,5,])
+            setTotalMeditationSessionPerReligion([1,2,3,6,5])
         }
         fetchTotalMeditationSessionPerReligion();
     }, [])
