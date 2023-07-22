@@ -81,18 +81,13 @@ const inStyles = StyleSheet.create({
     borderRadius: 20,
     borderColor: '#FFBF69',
     backgroundColor: '#FFFFFF',
-    padding: 15,
+    paddingHorizontal: 20,
     fontSize: RFPercentage(1.8),
   },
 
   bibleResultsContainer: {
     width: screenWidth('85%'),
     alignItems: 'center'
-    // height: screenHeight('15%'),
-    // padding: 15,
-    // borderWidth: 2,
-    // borderRadius: 20,
-    // borderColor: '#2EC4B6',
   },
 
   verseItem: {

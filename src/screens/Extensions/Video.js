@@ -3,6 +3,8 @@ import { Video } from 'expo-av';
 import React, { useState, useEffect } from 'react';
 import { screenHeight, screenWidth } from '../../components/Dimensions';
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import { styles } from '../../../assets/css/Style';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 
 const VideoPlayer = () => {
     const video = React.useRef(null);
@@ -39,36 +41,45 @@ const VideoPlayer = () => {
     }
 
     return (
-        <Video
-            ref={video}
-            videoStyle={inStyles.video}
-            style={inStyles.videoContainer}
-            source={{ uri: videoUrl }}
-            useNativeControls={true}
-            resizeMode="contain"
-            onPlaybackStatusUpdate={setStatus}
-        />
+        <View style={{ justifyContent: 'center', marginTop: 30 }}>
+            <Text style={[styles.colorSecondary, styles.bold, inStyles.title]}>Rosary of the Day</Text>
+            <Video
+                ref={video}
+                videoStyle={inStyles.video}
+                style={inStyles.videoContainer}
+                source={{ uri: videoUrl }}
+                useNativeControls={true}
+                resizeMode="contain"
+                onPlaybackStatusUpdate={setStatus}
+            />
+        </View>
     );
 };
 
 const inStyles = StyleSheet.create({
+    title: {
+        alignSelf: 'center',
+        paddingTop: 15,
+        fontSize: RFPercentage(3),
+    },
+
     videoContainer: {
-        width: screenWidth('100%'),
+        width: screenWidth('90%'),
         height: screenHeight('50%'),
         justifyContent: 'center',
-        backgroundColor: 'rgba(35, 35, 35, 0.5)',
+        alignItems: 'center',
     },
 
     placeholder: {
-        width: screenWidth('100%'),
+        width: screenWidth('80%'),
         height: screenHeight('50%'),
         alignItems: 'center',
         justifyContent: 'center',
     },
 
     video: {
-        width: screenWidth('100%'),
-        height: screenHeight('50%'),
+        width: screenWidth('90%'),
+        height: screenHeight('40%'),
         alignSelf: 'center',
     },
 });
