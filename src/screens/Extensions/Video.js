@@ -72,7 +72,7 @@ const VideoPlayer = () => {
 
 const inStyles = StyleSheet.create({
     videoContainer: {
-        width: screenWidth('100%'),
+        width: screenWidth('90%'),
         height: screenHeight('50%'),
         justifyContent: 'center',
         alignItems: 'center',

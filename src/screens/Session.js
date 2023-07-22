@@ -305,7 +305,7 @@ export default function Session({ navigation, route }) {
 
     return (
         <SafeAreaView style={[styles.screen, styles.bgColorPrimary]}>
-            <ScrollView showsVerticalScrollIndicator={false}>
+            <View>
                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                     <View style={[inStyles.imageContainer, styles.dropShadow]}>
                         <Image style={[{ width: '100%', height: '100%' }]} source={imgGuide}></Image>
@@ -354,6 +354,18 @@ export default function Session({ navigation, route }) {
                             </View>
                         </View>
                     </View>        
+                    {/* <ScrollView showsVerticalScrollIndicator={false}>
+                                <Text>lorem</Text>
+                                <Text>lorem</Text>
+                                <Text>lorem</Text>
+                                <Text>lorem</Text>
+                                <Text>lorem</Text>
+                                <Text>lorem</Text>
+                                <Text>lorem</Text>
+                                <Text>lorem</Text>
+                                <Text>lorem</Text>
+                    </ScrollView> */}
+
                     <View style={inStyles.guideContainer}>
                         <FlipCard
                             friction={6}
@@ -362,6 +374,7 @@ export default function Session({ navigation, route }) {
                             flipVertical={false}
                             flip={guideFlipped}
                             clickable={false}>
+
                                 
                             {/* front */}
                             <ScrollView showsVerticalScrollIndicator={false}>
@@ -405,7 +418,7 @@ export default function Session({ navigation, route }) {
                         </View>
                     </Modal>
                 </View>
-            </ScrollView>
+            </View>
         </SafeAreaView>
     )
 }

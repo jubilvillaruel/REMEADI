@@ -1,73 +1,110 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, Image } from 'react-native';
 import PieChart from 'react-native-pie-chart';
-
 import { styles } from './../../assets/css/Style';
-
 import appLogo from './../../assets/images/app_logo.png';
+import { screenHeight, screenWidth } from '../components/Dimensions';
+import { getTopReligionsBySession, getTotalMeditationSession } from '../models/StatisticsModel';
+import TopReligions from '../components/TopReligions';
+import { getDatabase, ref} from 'firebase/database'
+import { auth } from '../../firebase';
 
 export default function Statistics() {
-    const widthAndHeight = 120
-    const series = [177, 121, 65, 43, 43]
+    const [ totalMeditationSession, setTotalMeditationSession ] = useState()
+    const [ totalMeditationDuration, setTotalMeditationDuration ] = useState()
+    const [ totalMeditationSessionPerReligion, setTotalMeditationSessionPerReligion ] = useState([ 65, 177, 43, 121, 43])
+    const [ topThreeReligionBySession, setTopThreeReligionBySession ] = useState(15)
+
+    const realtimeDB = getDatabase()
+    const dbRef = ref(realtimeDB);
+    const uid = auth.currentUser.uid
+
+    const widthAndHeight = 200
+    // const series = [177, 121, 65, 43, 43] // [CH, IS, HI, BU, JU]
     const sliceColor = ['#04BFDA', '#8FD3D2', '#F27F77', '#FF9F1C', '#FF0000']
 
+    useEffect(()=>{
+        console.log('fetching total meditation session')
+        const fetchTotalMeditationSession = () => {
+            try{
+                // console.log('getting total med ses:',getTotalMeditationSession(dbRef,uid))
+            } catch (error) {
+                console.log(error.stack)
+            }
+        }
+        fetchTotalMeditationSession()
+    })
+
+    useEffect(()=>{
+        const fetchTopThreeReligionBySession = () => {
+            // setTopThreeReligionBySession(getTopReligionsBySession(totalMeditationSessionPerReligion))
+        }
+        fetchTopThreeReligionBySession();
+    }, []) 
+
+
+
     return (
-        <SafeAreaView style={[styles.screen, { padding: 15 }]}>
+        <SafeAreaView style={[styles.screen, { padding: 15, marginTop:20 }]}>
             <View style={inStyles.titleContainer}>
                 <Text style={[styles.colorPrimary, inStyles.title]}>Statistics</Text>
             </View>
 
-            <View style={{ width: '100%', flex: 1, flexDirection: 'row' }}>
+            <View style={{ width: screenWidth('90%'), flexDirection: 'row', height: screenHeight('15%') }}>
                 <View style={[styles.sectionContainer, styles.dropShadow]}>
-                    <Text style={[styles.colorPrimary, styles.bold]}>Total Sessions</Text>
-                    <Text style={styles.bold}>466</Text>
+                    <Text style={[styles.colorPrimary, inStyles.header,styles.bold]}>Total Sessions</Text>
+                    <Text style={styles.bold}>{totalMeditationSession}</Text>
                 </View>
                 <View style={[styles.sectionContainer, styles.dropShadow]}>
-                    <Text style={[styles.colorPrimary, styles.bold]}>Meditation Duration</Text>
-                    <Text style={styles.bold}>1020 min</Text>
+                    <Text style={[styles.colorPrimary, inStyles.header, styles.bold]}>Meditation Duration</Text>
+                    <Text style={styles.bold}>{totalMeditationDuration} min</Text>
                 </View>
             </View>
 
-            <View style={{ width: '100%' }}>
+            <View style={{ width: screenWidth('90%'), height: screenHeight('40%') }}>
                 <View style={[styles.sectionContainer, styles.dropShadow, { gap: 5 }]}>
-                    <Text style={[styles.colorPrimary, styles.bold]}>Sessions per Religion</Text>
+                    <Text style={[styles.colorPrimary, inStyles.header, styles.bold]}>Sessions per Religion</Text>
                     <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                        <Image style={[{ width: 40, height: 30, position: 'absolute' }]} source={appLogo}/>
+                        <Image style={[{ width: 60, height: 45, position: 'absolute' }]} source={appLogo}/>
                         <PieChart
                             widthAndHeight={widthAndHeight}
-                            series={series}
+                            series={totalMeditationSessionPerReligion}
                             sliceColor={sliceColor}
                             coverRadius={0.60}
                         />
                     </View>
-                    <View style={inStyles.legendContainer}>
-                        <Text style={[styles.bold, { color: '#04BFDA' }]}>○ Christianity    </Text>
-                        <Text style={[styles.bold, { color: '#8FD3D2' }]}>○ Islam   </Text>
-                        <Text style={[styles.bold, { color: '#F27F77' }]}>○ Hinduism    </Text>
-                    </View>
-                    <View style={inStyles.legendContainer}>
-                        <Text style={[styles.bold, { color: '#FF9F1C' }]}>○ Buddhism    </Text>
-                        <Text style={[styles.bold, { color: '#FF0000' }]}>○ Judaism </Text>
+                    <View>
+                        <View style={inStyles.legendContainer}>
+                            <Text style={[styles.bold, { color: '#04BFDA' }]}>○ Christianity    </Text>
+                            <Text style={[styles.bold, { color: '#8FD3D2' }]}>○ Islam   </Text>
+                            <Text style={[styles.bold, { color: '#F27F77' }]}>○ Hinduism    </Text>
+                        </View>
+                        <View style={inStyles.legendContainer}>
+                            <Text style={[styles.bold, { color: '#FF9F1C' }]}>○ Buddhism    </Text>
+                            <Text style={[styles.bold, { color: '#FF0000' }]}>○ Judaism </Text>
+                        </View>
                     </View>
                 </View>
             </View>
 
-            <View style={{ width: '100%' }}>
-                <View style={[styles.sectionContainer, styles.dropShadow]}>
-                    <Text style={[styles.colorPrimary, styles.bold]}>Top 3 Religions</Text>
-                    <View style={inStyles.topContainer}>
-                        <Text>Christianity</Text>
-                        <Text>177</Text>
-                    </View>
-                    <View style={inStyles.topContainer}>
-                        <Text>Islam</Text>
-                        <Text>121</Text>
-                    </View>
-                    <View style={inStyles.topContainer}>
-                        <Text>Hinduism</Text>
-                        <Text>65</Text>
-                    </View>
+            <View style={{ width: screenWidth('90%'), height: screenHeight('27%') }}>
+            <View style={[styles.sectionContainer, styles.dropShadow]}>
+                <Text style={[styles.colorPrimary, styles.bold]}>Top 3 Religions</Text>
+                {/* sort religion by session count */}
+                {/* display the first 3 religion */}
+                <View style={inStyles.topContainer}>
+                    <Text>insert religion here</Text>
+                    <Text>session count</Text>
                 </View>
+                <View style={inStyles.topContainer}>
+                    <Text>insert religion here</Text>
+                    <Text>session count</Text>
+                </View>
+                <View style={inStyles.topContainer}>
+                    <Text>insert religion here</Text>
+                    <Text>session count</Text>
+                </View>
+            </View>
             </View>
         </SafeAreaView>
     );
@@ -85,12 +122,18 @@ const inStyles = StyleSheet.create({
         fontWeight: 'bold',
     },
 
+    header: {
+        fontSize: 18,
+        textAlign: 'center'
+    },
+
     legendContainer: {
-        width: '100%',
-        flex: 1,
+        // width: '100%',
+        // flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
-        margin: 5,
+        // height: 30,
+        margin: 2,
     },
 
     topContainer: {
