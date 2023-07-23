@@ -31,8 +31,7 @@ export default function LandingPage({ navigation }) {
 
         <View style={[styles.containerCentered, inStyles.optionsContainer]}>
           <View style={{ marginBottom: 50, alignItems: 'center' }}>
-            <Text style={[styles.colorWhite, styles.bold, { fontSize: RFPercentage(2.5) }]}>WHAT WE DO</Text>
-            <Text style={[styles.colorWhite, { fontSize: RFPercentage(2) }]}>Uplifting spirituality through meditation</Text>
+            <Text style={[styles.colorWhite, styles.bold, { fontSize: RFPercentage(2) }]}>Uplifting spirituality through meditation</Text>
           </View>
 
           <SecondaryButton

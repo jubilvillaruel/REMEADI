@@ -354,17 +354,6 @@ export default function Session({ navigation, route }) {
                             </View>
                         </View>
                     </View>        
-                    {/* <ScrollView showsVerticalScrollIndicator={false}>
-                                <Text>lorem</Text>
-                                <Text>lorem</Text>
-                                <Text>lorem</Text>
-                                <Text>lorem</Text>
-                                <Text>lorem</Text>
-                                <Text>lorem</Text>
-                                <Text>lorem</Text>
-                                <Text>lorem</Text>
-                                <Text>lorem</Text>
-                    </ScrollView> */}
 
                     <View style={inStyles.guideContainer}>
                         <FlipCard
@@ -546,10 +535,11 @@ const inStyles = StyleSheet.create({
     },
 
     itemText: {
-        fontSize: RFPercentage(2),
+        fontSize: RFPercentage(2.2),
         paddingVertical: 5,
         margin: 5,
         flex: 1,
+        textAlign: 'center',
     },
     
     selectedItemText: {

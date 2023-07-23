@@ -5,9 +5,14 @@ import { styles } from './../../assets/css/Style';
 import { TextCard, IconCard } from '../components/Cards';
 
 import locked from '../../assets/images/locked.png';
+import { screenHeight } from '../components/Dimensions';
+
+import { christianityMDB, islamMDB, hinduismMDB, buddhismMDB, judaismMDB } from '../Data/MilestonesDB';
+
 
 export default function Milestones() {
     const [selectedChips, setSelectedChips] = useState([]);
+    const [isLocked, setIsLocked] = useState(true);
 
     const handleChipPress = (chip) => {
         if (selectedChips.includes(chip)) {
@@ -72,23 +77,99 @@ export default function Milestones() {
             </View>
 
             <ScrollView showsVerticalScrollIndicator={false}>
-                <View style={inStyles.milestoneContainer}>
-                    <TextCard title='Milestone Title' desc='Description'></TextCard>
-                    <TextCard title='Milestone Title' desc='Description'></TextCard>
-                    <TextCard title='Milestone Title' desc='Description'></TextCard>
-                    <TextCard title='Milestone Title' desc='Description'></TextCard>
-                    <TextCard title='Milestone Title' desc='Description'></TextCard>
-                    <TextCard title='Milestone Title' desc='Description'></TextCard>
-                    <TextCard title='Milestone Title' desc='Description'></TextCard>
-                    <TextCard title='Milestone Title' desc='Description'></TextCard>
-                    <IconCard title='Milestone Title' desc='Description' icon={locked}></IconCard>
-                    <IconCard title='Milestone Title' desc='Description' icon={locked}></IconCard>
-                    <IconCard title='Milestone Title' desc='Description' icon={locked}></IconCard>
-                    <IconCard title='Milestone Title' desc='Description' icon={locked}></IconCard>
-                    <IconCard title='Milestone Title' desc='Description' icon={locked}></IconCard>
-                    <IconCard title='Milestone Title' desc='Description' icon={locked}></IconCard>
-                    <IconCard title='Milestone Title' desc='Description' icon={locked}></IconCard>
-                    <IconCard title='Milestone Title' desc='Description' icon={locked}></IconCard>
+            <View style={inStyles.milestoneContainer}>
+                    {selectedChips.length === 0 ? (
+                        // Render all Milestones when no filter is selected 
+                        <>
+                            {Object.entries(christianityMDB).map(([title, desc], index) => (
+                                isLocked ? (
+                                    <IconCard key={index} title={title} desc={desc} icon={locked} />
+                                ) : (
+                                    <TextCard key={index} title={title} desc={desc} />
+                                )
+                            ))}
+
+                            {Object.entries(islamMDB).map(([title, desc], index) => (
+                                isLocked ? (
+                                    <IconCard key={index} title={title} desc={desc} icon={locked} />
+                                ) : (
+                                    <TextCard key={index} title={title} desc={desc} />
+                                )
+                            ))}
+
+                            {Object.entries(hinduismMDB).map(([title, desc], index) => (
+                                isLocked ? (
+                                    <IconCard key={index} title={title} desc={desc} icon={locked} />
+                                ) : (
+                                    <TextCard key={index} title={title} desc={desc} />
+                                )
+                            ))}
+
+                            {Object.entries(buddhismMDB).map(([title, desc], index) => (
+                                isLocked ? (
+                                    <IconCard key={index} title={title} desc={desc} icon={locked} />
+                                ) : (
+                                    <TextCard key={index} title={title} desc={desc} />
+                                )
+                            ))}
+
+                            {Object.entries(judaismMDB).map(([title, desc], index) => (
+                                isLocked ? (
+                                    <IconCard key={index} title={title} desc={desc} icon={locked} />
+                                ) : (
+                                    <TextCard key={index} title={title} desc={desc} />
+                                )
+                            ))}
+                        </>
+                    ) : (
+                        // Render Milestones based on the selected filter
+                        <>
+                            {selectedChips.includes('Christianity') &&
+                                Object.entries(christianityMDB).map(([title, desc], index) => (
+                                    isLocked ? (
+                                        <IconCard key={index} title={title} desc={desc} icon={locked} />
+                                    ) : (
+                                        <TextCard key={index} title={title} desc={desc} />
+                                    )
+                                ))}
+
+                            {selectedChips.includes('Islam') &&
+                                Object.entries(islamMDB).map(([title, desc], index) => (
+                                    isLocked ? (
+                                        <IconCard key={index} title={title} desc={desc} icon={locked} />
+                                    ) : (
+                                        <TextCard key={index} title={title} desc={desc} />
+                                    )
+                                ))}
+
+                            {selectedChips.includes('Hinduism') &&
+                                Object.entries(hinduismMDB).map(([title, desc], index) => (
+                                    isLocked ? (
+                                        <IconCard key={index} title={title} desc={desc} icon={locked} />
+                                    ) : (
+                                        <TextCard key={index} title={title} desc={desc} />
+                                    )
+                                ))}
+
+                            {selectedChips.includes('Buddhism') &&
+                                Object.entries(buddhismMDB).map(([title, desc], index) => (
+                                    isLocked ? (
+                                        <IconCard key={index} title={title} desc={desc} icon={locked} />
+                                    ) : (
+                                        <TextCard key={index} title={title} desc={desc} />
+                                    )
+                                ))}
+
+                            {selectedChips.includes('Judaism') &&
+                                Object.entries(judaismMDB).map(([title, desc], index) => (
+                                    isLocked ? (
+                                        <IconCard key={index} title={title} desc={desc} icon={locked} />
+                                    ) : (
+                                        <TextCard key={index} title={title} desc={desc} />
+                                    )
+                                ))}
+                        </>
+                    )}
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -119,12 +200,11 @@ const inStyles = StyleSheet.create({
     },
 
     filterItem: {
-        padding: 15,
-        height: 35,
-        marginLeft: 5,
-        marginRight: 5,
+        height: screenHeight('5%'),
+        paddingHorizontal: 15,
+        marginHorizontal: 5,
         borderRadius: 20,
-        borderWidth: 1,
+        borderWidth: 2,
         borderColor: '#2EC4B6',
         justifyContent: 'center',
         alignItems: 'center',
