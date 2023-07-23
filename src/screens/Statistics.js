@@ -1,54 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, Image } from 'react-native';
 import PieChart from 'react-native-pie-chart';
+import { millisecondsToTime } from '../models/TimeModel';
+import { screenHeight, screenWidth } from '../components/Dimensions';
+
 import { styles } from './../../assets/css/Style';
 import appLogo from './../../assets/images/app_logo.png';
 
-import { screenHeight, screenWidth } from '../components/Dimensions';
-
-import { getDatabase, onValue, ref} from 'firebase/database'
+import { getDatabase, onValue, ref} from 'firebase/database';
 import { auth } from '../../firebase';
-
-import { millisecondsToTime } from '../models/TimeModel';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 
 export default function Statistics() {
-    const [ data, setData ] = useState()
-    const [ totalMeditationSession, setTotalMeditationSession ] = useState(0)
-    const [ totalMeditationDuration, setTotalMeditationDuration ] = useState(0)
-    const [ totalMeditationSessionPerReligion, setTotalMeditationSessionPerReligion ] = useState([ 1, 0, 0, 0, 0]) // series
-    const [ getTopThreeReligions, setTopThreeReligions ] = useState([
-        { "religion": "Christianity", "value": 65 },
-        { "religion": "Islam", "value": 177 },
-        { "religion": "Buddhism", "value": 121 }
-    ])
+    const widthAndHeight = 160;
+    const [ data, setData ] = useState();
+    const [ totalMeditationSession, setTotalMeditationSession ] = useState(0);
+    const [ totalMeditationDuration, setTotalMeditationDuration ] = useState(0);
+    
+    const religions = ['Christianity', 'Islam', 'Hinduism', 'Buddhism', 'Judaism'];
+    const [ totalMeditationSessionPerReligion, setTotalMeditationSessionPerReligion ] = useState([ 1, 1, 1, 1, 1]);
+    const colorMapping = { Christianity: '#04BFDA', Islam: '#8FD3D2', Hinduism: '#F27F77', Buddhism: '#FF9F1C', Judaism: '#FF0000'};
 
-    const [ ch, setCh ] = useState(Number)
-    const [ is, setIs ] = useState(Number)
-    const [ hi, setHi ] = useState(Number)
-    const [ bu, setBu ] = useState(Number)
-    const [ ju, setJu ] = useState(Number)
-
-
-    const realtimeDB = getDatabase()
-    const dbRef = ref(realtimeDB);
-    const uid = auth.currentUser.uid
-
-    const widthAndHeight = 200
-    // const series = [177, 121, 65, 43, 43] // [CH, IS, HI, BU, JU]
-    const sliceColor = ['#04BFDA', '#8FD3D2', '#F27F77', '#FF9F1C', '#FF0000']
+    const [topThreeReligions, setTopThreeReligions] = useState([]);
+    const firstThreeReligions = Object.keys(colorMapping).slice(0, 3);
+    const lastTwoReligions = Object.keys(colorMapping).slice(3);
     
 
-    // 
     useEffect(()=>{
-        console.log('========================\n\n\n\n\n\n\n\n\n\nfetching meditation session\n\n\n\n\n\n\n\n\n')
         const fetchMeditationSession = async () => {
             const historyRef = ref(getDatabase(), 'histories');
 
             onValue(historyRef, (snapshot) => {
                 const dataFromFirebase = snapshot.val();
-                const uid = auth.currentUser.uid
+                const uid = auth.currentUser.uid;
 
-                // Extracting session IDs and uids into an array of objects
                 const sessionData = Object.keys(dataFromFirebase)
                 .filter((sessionId) => dataFromFirebase[sessionId].uid === uid)
                 .map((sessionId) => ({
@@ -58,115 +43,62 @@ export default function Statistics() {
                     practiceTitle: dataFromFirebase[sessionId].practiceTitle,
                     duration: dataFromFirebase[sessionId].duration,
                 }));
-                setData(sessionData)
-                setTotalMeditationSession(sessionData.length)
-                console.log('Total Sessions:',totalMeditationSession)
+
+                setData(sessionData);
+                setTotalMeditationSession(sessionData.length);
+
+                // Calculate count of sessions per religion
+                const religionCount = {};
+                sessionData.forEach((session) => {
+                    religionCount[session.religion] = (religionCount[session.religion] || 0) + 1;
+                });
+
+                // Ensure the series has a length of 5
+                const religionCountArray = religions.map((religion) => religionCount[religion] || 0);
+                setTotalMeditationSessionPerReligion(religionCountArray);
+                console.log('Total Sessions:',religionCountArray);
+
+                // Set the top 3 religions
+                const topThree = getTopThreeReligions(religions, religionCountArray);
+                setTopThreeReligions(topThree);
             });
         }
-        fetchMeditationSession()
-    }, [])
+        fetchMeditationSession();
+    }, []);
 
     useEffect(()=>{
         const fetchTotalMeditationSession = () => {
-            let duration = 0
-            {data &&
-                data.map((item) => (
-                    duration = duration + item.duration
-                ))
-            }
+            let duration = 0;
+            {data && data.map((item) => (duration = duration + item.duration))};
             setTotalMeditationDuration(millisecondsToTime(duration))
-            // console.log('Meditation Duration:',totalMeditationDuration)
         }
         fetchTotalMeditationSession();
-    }, [data]) 
+    }, [data]);
 
-    useEffect(()=>{
-        const fetchSessionsPerReligion = () => {
-            let rel = ''
-            let series = [0,0,0,0,0]
-            {data &&
-                data.map((item) => {
-                    rel = item.religion
-                    switch (rel) {
-                        case 'Christianity':
-                            series[0] = series[0] + 1
-                            break;
-                        case 'Islam':
-                            series[1] = series[1] + 1
-                            break;
-                        case 'Hinduism':
-                            series[2] = series[2] + 1
-                            break;
-                        case 'Buddhism':
-                            series[3] = series[3] + 1
-                            break;
-                        case 'Judaism':
-                            series[4] = series[4] + 1
-                            break;
-                        default:
-                            console.log('ERROR')
-                            break;
-                    }
-                })
-            }
-            // console.log(series)
-            if (!series.includes(0)){
-                setTotalMeditationSessionPerReligion(series)
-            } else {
-                // console.log('ERROR: Invalid series: sum of series is zero')
-            }
-            console.log('=========================================================\ntotalMeditationSessionPerReligion:',totalMeditationSessionPerReligion)
-        }
-        fetchSessionsPerReligion();
-    }, [data]) 
-
-    useEffect(()=>{
-        const fetchTopThreeReligionBySession = () => {
-            const religions = ['Christianity', 'Islam', 'Hinduism', 'Buddhism', 'Judaism']
-            let topThreeReligions = []
-            try {
-                // Create an array of objects where each object contains religion and its corresponding value
-                const religionValues = religions.map((religion, index) => ({
-                    religion,
-                    value: totalMeditationSessionPerReligion[index],
-                }));   
-                
-                // Sort the array in descending order based on the value
-                religionValues.sort((a, b) => b.value - a.value);
-
-                // Get the top three elements from the sorted array
-                topThreeReligions = religionValues.slice(0, 3);   
-                console.log('===============================topthreereligions:',topThreeReligions)
-
-            } catch (error) {
-                console.log(error.stack)
-            }
-            if ((topThreeReligions) && topThreeReligions != undefined){
-                setTopThreeReligions(topThreeReligions)
-            }
-        }
-        fetchTopThreeReligionBySession();
-    }, [data]) 
-
-    const renderTopThree = () => {
-        console.log('RENDER ME BABY')
-        return getTopThreeReligions.map((religion, index) => (
-            <View key={index} style={inStyles.topContainer}>
-                <Text>{religion.religion}</Text>
-                <Text>{religion.value}</Text>
-            </View>
-        ))
-    }
+    const getTopThreeReligions = (religionsArray, sessionsArray) => {
+        // Combine the religions array and sessions array into an object
+        const religionSessions = religionsArray.reduce((obj, religion, index) => {
+            obj[religion] = sessionsArray[index];
+            return obj;
+        }, {});
+        // Sort the object by the number of sessions in descending order
+        const sortedReligions = Object.keys(religionSessions).sort((a, b) => religionSessions[b] - religionSessions[a]);
+        // Extract the top 3 religions
+        const topThree = sortedReligions.slice(0, 3);
+        // Sort the top 3 religions based on the order in the 'religions' array
+        const sortedTopThree = topThree.sort((a, b) => religionsArray.indexOf(a) - religionsArray.indexOf(b));
+        return sortedTopThree;
+    };
 
     return (
-        <SafeAreaView style={[styles.screen, { padding: 15, marginTop:20 }]}>
+        <SafeAreaView style={[styles.screen, { paddingTop: 45 }]}>
             <View style={inStyles.titleContainer}>
                 <Text style={[styles.colorPrimary, inStyles.title]}>Statistics</Text>
             </View>
 
             <View style={{ width: screenWidth('90%'), flexDirection: 'row', height: screenHeight('15%') }}>
                 <View style={[styles.sectionContainer, styles.dropShadow]}>
-                    <Text style={[styles.colorPrimary, inStyles.header,styles.bold]}>Total Sessions</Text>
+                    <Text style={[styles.colorPrimary, inStyles.header, styles.bold]}>Total Sessions</Text>
                     <Text style={styles.bold}>{totalMeditationSession}</Text>
                 </View>
                 <View style={[styles.sectionContainer, styles.dropShadow]}>
@@ -176,26 +108,27 @@ export default function Statistics() {
             </View>
 
             <View style={{ width: screenWidth('90%'), height: screenHeight('40%') }}>
-                <View style={[styles.sectionContainer, styles.dropShadow, { gap: 5 }]}>
+                <View style={[styles.sectionContainer, styles.dropShadow, { gap: 25 }]}>
                     <Text style={[styles.colorPrimary, inStyles.header, styles.bold]}>Sessions per Religion</Text>
                     <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                         <Image style={[{ width: 60, height: 45, position: 'absolute' }]} source={appLogo}/>
                         <PieChart
                             widthAndHeight={widthAndHeight}
                             series={totalMeditationSessionPerReligion}
-                            sliceColor={sliceColor}
+                            sliceColor={Object.values(colorMapping)}
                             coverRadius={0.60}
                         />
                     </View>
                     <View>
                         <View style={inStyles.legendContainer}>
-                            <Text style={[styles.bold, { color: '#04BFDA' }]}>○ Christianity    </Text>
-                            <Text style={[styles.bold, { color: '#8FD3D2' }]}>○ Islam   </Text>
-                            <Text style={[styles.bold, { color: '#F27F77' }]}>○ Hinduism    </Text>
+                            {firstThreeReligions.map((religion) => (
+                                <Text key={religion} style={[styles.bold, { color: colorMapping[religion] }]}>○ {religion}    </Text>
+                            ))}
                         </View>
                         <View style={inStyles.legendContainer}>
-                            <Text style={[styles.bold, { color: '#FF9F1C' }]}>○ Buddhism    </Text>
-                            <Text style={[styles.bold, { color: '#FF0000' }]}>○ Judaism </Text>
+                            {lastTwoReligions.map((religion) => (
+                                <Text key={religion} style={[styles.bold, { color: colorMapping[religion] }]}>○ {religion}    </Text>
+                            ))}
                         </View>
                     </View>
                 </View>
@@ -204,38 +137,41 @@ export default function Statistics() {
             <View style={{ width: screenWidth('90%'), height: screenHeight('27%') }}>
                 <View style={[styles.sectionContainer, styles.dropShadow]}>
                     <Text style={[styles.colorPrimary, styles.bold]}>Top 3 Religions</Text>
-
-                    {renderTopThree()}
-
+                    {topThreeReligions.map((religion, index) => (
+                        <View style={inStyles.topContainer} key={religion}>
+                            <Text style={[styles.bold, { color: colorMapping[religion] }]}>{religion}</Text>
+                            <Text style={[styles.bold, { color: colorMapping[religion] }]}>
+                                {totalMeditationSessionPerReligion[religions.indexOf(religion)]}
+                            </Text>
+                        </View>
+                    ))}
                 </View>
             </View>
+
         </SafeAreaView>
     );
 }
 
 const inStyles = StyleSheet.create({
     titleContainer: {
-        padding: 15,
         justifyContent: 'center',
         alignItems: 'center',
+        padding: 5,
     },
 
     title: {
-        fontSize: 24,
+        fontSize: RFPercentage(3),
         fontWeight: 'bold',
     },
 
     header: {
-        fontSize: 18,
-        textAlign: 'center'
+        fontSize: RFPercentage(1.8),
+        textAlign: 'center',
     },
 
     legendContainer: {
-        // width: '100%',
-        // flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
-        // height: 30,
         margin: 2,
     },
 
