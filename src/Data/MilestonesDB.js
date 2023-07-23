@@ -1,8 +1,24 @@
 const christianityMDB = {
-   'Rosary Devotee' : ' Successfully performing all the mystery of the Holy Rosary in the range of 1 week.',
-   'Man of Scriptures' : 'Achieve by having 31 consecutive session of Lectio Divina for 1 month (1 session per day).',
-   'Scripture Master' : 'Successfully perform all the Christian Meditation Practices.',
-   'Bible Meditation Expert' : 'Achieve by reaching a total of 100 hours of Bible Meditation.',
+   'Rosary Devotee' : 'Perform all the rosary mysteries in the range of 1 week.',
+   'Man of Scriptures' : 'Perform 31 consecutive Lectio Divina sessions for 1 month (1 session per day).',
+   'Scripture Master' : 'Perform all the meditation practices in Christianity.',
+   'Bible Meditation Expert' : 'Reach a total of 100 hours in Christian Meditation.',
 }
 
-export { christianityMDB };
+const islamMDB = {
+   'Islamic Knowledge' : 'Perform all meditation practices in Islam.',
+}
+
+const hinduismMDB = {
+   'Enlightened Explorer' : 'Perform all meditation practices in Hinduism.',
+}
+
+const buddhismMDB = {
+   'Buddhism Enthusiast' : 'Perform all meditation practices in Buddhism',
+}
+
+const judaismMDB = {
+   'Ethical Living' : 'Perform all meditation practices in Judaism.',
+}
+
+export { christianityMDB, islamMDB, hinduismMDB, buddhismMDB, judaismMDB };
