@@ -21,6 +21,7 @@ export default function ConcludeSession({ navigation, route }) {
     const practiceTitle = data?.practiceTitle;
     const duration = data?.stopwatchTime;
     const medType = meditationTypeDB[data?.practiceTitle];
+    const timesPracticed = data?.timesPracticed
     
     const [ uid, setUID ] = useState();
     const [ subPracticeTitle, setSubPracticeTitle ] = useState(null);
@@ -129,7 +130,7 @@ export default function ConcludeSession({ navigation, route }) {
                     </View>
                     <View style={inStyles.infoContainer}>
                         <Text style={[ styles.bold, { fontSize: RFPercentage(2) }]}>Times Practiced</Text>
-                        <Text style={[ styles.bold, styles.colorPrimary, { fontSize: RFPercentage(2) }]}>5</Text>
+                        <Text style={[ styles.bold, styles.colorPrimary, { fontSize: RFPercentage(2) }]}>{timesPracticed}</Text>
                     </View>
                 </View>
 

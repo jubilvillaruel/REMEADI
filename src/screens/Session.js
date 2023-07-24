@@ -17,10 +17,11 @@ import { Audio } from 'expo-av';
 import { styles } from '../../assets/css/Style';
 import { getGuide } from '../Data/Practices/GuideDB';
 import { getReligionByPractice, timeDB, timeDB2, timeDB3 } from '../Data/LocalDB';
-import { getTimeModel, getTimeModel2, timeToMilliseconds } from '../models/TimeModel';
+import { getTimeModel, getTimeModel2, getTimesPracticed, timeToMilliseconds } from '../models/TimeModel';
 import { StackActions } from '@react-navigation/native';
 import Bible from './Extensions/Bible';
 import VideoPlayer from './Extensions/Video';
+import Slider from '@react-native-community/slider';
 
 export default function Session({ navigation, route }) {
     const data = route.params
@@ -53,6 +54,7 @@ export default function Session({ navigation, route }) {
 
     const [bibleDisabled, setbibleDisabled] = useState(false);
     const [videoDisabled, setvideoDisabled] = useState(false);
+    const [ vol, setVol ] = useState()
 
 
     useEffect(() => {
@@ -93,7 +95,7 @@ export default function Session({ navigation, route }) {
                 // console.log('active: timeDB3')
                 setTime(0)
             }
-            console.log(time)
+            // console.log(time)
         };
         fetchGuide();
     }, [])
@@ -116,7 +118,7 @@ export default function Session({ navigation, route }) {
         try{
             // console.log(timeToMilliseconds(stopwatchTime),' == ', time, 'bia: ',bia)
             let tick = timeToMilliseconds(stopwatchTime)
-            console.log('Stopwatch:', tick)
+            // console.log('Stopwatch:', tick)
             if(tick == time && bia >= 0){
                 console.log('=====================\n\n\n\n\n           TRUE\n\n\n\n=====================')
                 // alert('it worked')
@@ -262,6 +264,7 @@ export default function Session({ navigation, route }) {
         const options = {
             voice: 'Microsoft Zira - English (United States)',
             rate: 0.9,
+            // volume: volume,
             onStart: () => setIsSpeaking(true),
             onDone: () => setIsSpeaking(false),
         }
@@ -289,15 +292,17 @@ export default function Session({ navigation, route }) {
         setBgmVisible(false);
     };
 
-    const concludeSession = () => {
+    const concludeSession = async () => {
         stopAllSounds();
         setTimerRunning(false);
         Speech.stop();
+        // console.log('getTimesPracticed:', getTimesPracticed(practiceTitle))
         const data = {
             practiceTitle: practiceTitle,
-            stopwatchTime: timeToMilliseconds(stopwatchTime)
+            stopwatchTime: timeToMilliseconds(stopwatchTime),
             // meditation type
             // times practiced
+            timesPracticed: await getTimesPracticed(practiceTitle)
         };
         navigation.dispatch(StackActions.popToTop());
         navigation.navigate('ConcludeSession', {data});
@@ -390,12 +395,21 @@ export default function Session({ navigation, route }) {
                                 <ScrollView style={inStyles.bgmListContainer} showsVerticalScrollIndicator={false}>
                                     {sounds.map((sound, index) => (
                                         <View key={index}>
-                                            <TouchableOpacity onPress={() => {
+                                            <TouchableOpacity style={inStyles.soundContainer} onPress={() => {
                                                 if (clickedIndexes.includes(index)) {handleStopSound(index);}
                                                 else {handlePlaySound(index);}}}>
                                                 <Text style={[inStyles.itemText, styles.bold, clickedIndexes.includes(index) && inStyles.selectedItemText]}>
                                                     {soundFilesName[index]}
                                                 </Text>
+                                                <Slider
+                                                    style={inStyles.volSlider}
+                                                    value={0.5}
+                                                    minimumValue={0}
+                                                    maximumValue={1}
+                                                    step={0.1}
+                                                    onValueChange={(value)=>sound.setVolumeAsync(value)}
+                                                    thumbTintColor='#2EC4B6'>
+                                                </Slider>
                                             </TouchableOpacity>
                                         </View>
                                     ))}
@@ -551,4 +565,19 @@ const inStyles = StyleSheet.create({
     disabledButtonContainer: {
         opacity: 0.5,
     },
+
+    volSlider: {
+        width: 150,
+        height: 50,
+        right: 10,
+        // position: 'absolute',
+        alignSelf:'center',
+    },
+
+    soundContainer: {
+        flex:1,
+        flexDirection: 'row',
+        justifyContent:'center'
+    }
+
 });
