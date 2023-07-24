@@ -302,7 +302,7 @@ export default function Session({ navigation, route }) {
             stopwatchTime: timeToMilliseconds(stopwatchTime),
             // meditation type
             // times practiced
-            timesPracticed: await getTimesPracticed(practiceTitle)
+            timesPracticed: await getTimesPracticed(practiceTitle) + 1
         };
         navigation.dispatch(StackActions.popToTop());
         navigation.navigate('ConcludeSession', {data});
