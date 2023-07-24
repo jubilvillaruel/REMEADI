@@ -149,10 +149,8 @@ export default function SignUp({ navigation }) {
         birthDate: selectedDate
       }).then(console.log('sign up successful'))
 
-      // ==========================================
       // create user's milestones in realtime db
-      // createMileStonesForUser(user.uid)
-      // ==========================================
+      initializMilestones()
       
       // Send email verification
       await user.sendEmailVerification({
@@ -179,15 +177,6 @@ export default function SignUp({ navigation }) {
     <SafeAreaView style={styles.screenCenter}>
       <View style={inStyles.signUpContainer}>
         <View style={styles.containerCentered}>
-            <PrimaryButton
-              text='Create milestone db for user'
-              textColor= '#FFFFFF'
-              textSize={RFPercentage(2.2)}
-              width={screenWidth('80%')}
-              height={screenHeight('7%')}
-              borderRad={30}
-              onPress={initializMilestones}>
-            </PrimaryButton>
           <TextInput style={styles.inputContainer} placeholder="Last Name" selectionColor='transparent' value={lastName} onChangeText={setLastName}/>
           <TextInput style={styles.inputContainer} placeholder="First Name" selectionColor='transparent' value={firstName} onChangeText={setFirstName}/>
           <TextInput style={styles.inputContainer} placeholder="Email" selectionColor='transparent' value={email} onChangeText={setEmail} keyboardType="email-address"/>
