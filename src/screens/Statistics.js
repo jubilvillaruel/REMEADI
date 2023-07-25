@@ -146,7 +146,7 @@ export default function Statistics() {
                                 sliceColor={Object.values(colorMapping)}
                                 coverRadius={0.6}
                             />
-                            <View style={{ position: 'absolute', top: '50%', left: '50%', marginLeft: -75, marginTop: -55 }}>
+                            <View style={{ position: 'absolute', top: '50%', marginLeft: -75, marginTop: -55 }}>
                                 <Image style={{ width: 60, height: 45 }} source={appLogo} />
                             </View>
                             <View style={{ marginTop: 15 }}>
