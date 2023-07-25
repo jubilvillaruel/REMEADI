@@ -12,6 +12,7 @@ import close from '../../assets/images/close.png';
 import { getQuote, getQuoteID } from '../models/QuoteModel';
 import { screenHeight, screenWidth } from '../components/Dimensions';
 import { child, get, getDatabase, onValue, ref } from 'firebase/database';
+import { Toast } from 'react-native-toast-message/lib/src/Toast';
 // import MedLibrary from './MedLibrary'
 
 
@@ -113,6 +114,15 @@ export default function Home({ navigation }) {
         console.log('Please verify your account')
     }
 
+    const callToast = () => {
+        // call toast here
+        Toast.show({
+            type: 'info',
+            text1: 'Hello',
+            text2: 'This is some something 👋'
+        });
+    }
+
     return (
         <SafeAreaView style={[styles.screen, { paddingTop: 35 }]}>
             <ScrollView showsVerticalScrollIndicator={false} style={{ paddingHorizontal: 15 }}>
@@ -129,7 +139,7 @@ export default function Home({ navigation }) {
                             <Text style={styles.colorWhite}>Meditation Streak: 6 days</Text>
                         </View>
                     </View>
-                    <TouchableOpacity style={[inStyles.btnAvatar, styles.bgColorPrimary]} onPress={showAvatarModal}>
+                    <TouchableOpacity style={[inStyles.btnAvatar, styles.bgColorPrimary]} onPress={callToast}>
                         <Text style={styles.colorWhite}>Avatar</Text>
                     </TouchableOpacity>
                 </View>
@@ -178,6 +188,7 @@ export default function Home({ navigation }) {
                     </View>
                 </Modal>
             </ScrollView>
+            <Toast />
         </SafeAreaView>
     );
 }

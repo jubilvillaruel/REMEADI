@@ -135,6 +135,8 @@ const checkAndUpdateMilestone = async (practiceTitle) => {
 
       if (allPracticesPresent) {
         updateMilestoneToTrue(milestoneTitle, religion)
+        console.log(`Congratulations! You have completed ${requiredPractices} as per your
+        chosen religion: "${religion}".`)
       } else {
         // throw new Error("Invalid All Practices Present:");
         console.log('All Practices are not Present')

@@ -87,6 +87,8 @@ export default function ConcludeSession({ navigation, route }) {
             uid: uid,
         }).then(checkAndUpdateMilestone(practiceTitle))
     }
+
+    
     
     // CALCULATE DATE DIFFERENCE
     // const [date1, setDate1] = useState(new Date());
