@@ -150,7 +150,7 @@ export default function SignUp({ navigation }) {
       }).then(console.log('sign up successful'))
 
       // create user's milestones in realtime db
-      initializMilestones()
+      initializMilestones(user.uid)
       
       // Send email verification
       await user.sendEmailVerification({
@@ -169,8 +169,8 @@ export default function SignUp({ navigation }) {
     }
   }
 
-  const initializMilestones = () => {
-    createMileStonesForUser('adam')
+  const initializMilestones = (uid) => {
+    createMileStonesForUser(uid)
   }
 
   return (

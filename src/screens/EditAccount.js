@@ -9,8 +9,6 @@ import showPass from '../../assets/images/closed_eye.png';
 import hidePass from '../../assets/images/open_eye.png';
 import { auth } from '../../firebase';
 
-
-
 export default function EditAccount({ navigation }) {
   const [lastName, setLastName] = useState('');
   const [firstName, setFirstName] = useState('');

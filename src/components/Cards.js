@@ -7,6 +7,9 @@ import text from '../../assets/images/text.png';
 import stop from '../../assets/images/stop.png';
 import { styles } from '../../assets/css/Style';
 import FlipCard from 'react-native-flip-card';
+import { getMilestoneStatus } from '../models/MilestonesModel';
+import { getDatabase, onValue, ref } from 'firebase/database';
+import { auth } from '../../firebase';
 
 // Cards
 export const ImageCard = ({ title, type, titleSize, typeSize, image, onPress }) => {
@@ -56,9 +59,40 @@ export const TextCard = ({ title, desc, onPress }) => {
 };
 
 export const IconCard = ({ title, desc, icon, onPress }) => {
+  const [milestones, setMilestones] = useState(null);
+  const [milestoneStatus, setMilestoneStatus] = useState(false)
+
+  useEffect(() => {
+    // Set up a listener for changes to the milestones data in the database
+    const uid = auth.currentUser.uid;
+    const historyRef = ref(getDatabase(), 'milestones/' + uid);
+
+    onValue(historyRef, (snapshot) => {
+      const dataFromFirebase = snapshot.val();
+      setMilestones(dataFromFirebase);
+    }, (error) => {
+      console.log(error.stack);
+    });
+  }, []);
+
+
+  useEffect( ()=>{
+    const fetchMilestoneStatus = async () => {
+      // console.log('fetching milestone status');
+      try {
+        const isAchieved = await getMilestoneStatus(title);
+        // console.log('finished fetching');
+        setMilestoneStatus(isAchieved); // Set the state based on the result
+      } catch (error) {
+        console.error(error);
+        setMilestoneStatus(false); // Set the state to false in case of an error
+      }
+    };  
+    fetchMilestoneStatus()
+  },[milestones])
 
   return (
-    <TouchableOpacity style={[inStyles.milestoneLockedItem, styles.dropShadow]} onPress={onPress}>
+    <TouchableOpacity style={[inStyles.milestoneLockedItem, styles.dropShadow, (milestoneStatus) && inStyles.milestoneUnlockedItem]} onPress={onPress}>
       <View style={inStyles.milestoneContent}>
         <Text style={[styles.colorWhite, styles.bold, { fontSize: 16 }]}>{title}</Text>
         <Text style={styles.colorWhite}>{desc}</Text>
@@ -173,6 +207,10 @@ const inStyles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: '#8FD3D2',
+    },
+
+    milestoneUnlockedItem: {
+      backgroundColor: '#2EC4B6',
     },
 
     milestoneContent: {

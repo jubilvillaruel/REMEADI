@@ -1,5 +1,50 @@
-import { push, set, child, getDatabase, update, ref } from "firebase/database";
-import { buddhismMDB, christianityMDB, hinduismMDB, islamMDB, judaismMDB } from "../Data/MilestonesDB"
+import { getDatabase, update, ref, get } from "firebase/database";
+import { buddhismMDB, christianityMDB, genMilestoneReligionDB, hinduismMDB, islamMDB, judaismMDB, milestoneReligionDB } from "../Data/MilestonesDB"
+import { auth } from "../../firebase";
+import { getReligionByPractice, religionDB } from "../Data/LocalDB";
+
+const getReligionByMilestone = (milestoneTitle) => {
+  try {
+    console.log('from getReligionByMilestone milestoneTitle:',milestoneTitle)
+    let religion = '';
+
+    if (christianityMDB.hasOwnProperty(milestoneTitle)) {
+        religion = 'christianity';
+    } else if (islamMDB.hasOwnProperty(milestoneTitle)) {
+        religion = 'islam';
+    } else if (hinduismMDB.hasOwnProperty(milestoneTitle)) {
+        religion = 'hinduism';
+    } else if (buddhismMDB.hasOwnProperty(milestoneTitle)) {
+        religion = 'buddhism';
+    } else if (judaismMDB.hasOwnProperty(milestoneTitle)) {
+        religion = 'judaism';
+    } else {
+      console.log(error.stack)
+        throw new Error("Invalid Religion for:",milestoneTitle);
+    }
+    return religion
+  } catch (error) {
+    console.log(error.stack)
+    throw new Error("Invalid Religion for:",milestoneTitle);
+  }
+  
+}
+
+const getMileStoneByPractice = (practiceTitle) => {
+  if (milestoneReligionDB.hasOwnProperty(practiceTitle)) {
+    return milestoneReligionDB[practiceTitle];    
+  } else {
+    throw new Error('Invalid Milestone')
+  }
+}
+
+const getGenMileStoneByReligion = (religion) => {
+  if (genMilestoneReligionDB.hasOwnProperty(religion)) {
+    return genMilestoneReligionDB[religion];    
+  } else {
+    throw new Error('Invalid Milestone')
+  }
+}
 
 const createMileStonesForUser = (uid) => {
     // get database reference
@@ -54,4 +99,118 @@ const createMileStonesForUser = (uid) => {
     console.log('milestones database: INITIALIZED')
 }
 
-export { createMileStonesForUser }
+const checkAndUpdateMilestone = async (practiceTitle) => {
+  console.log('\n\n\n======================\nentered function')
+  const uid = auth.currentUser.uid
+
+  const religion = getReligionByPractice(practiceTitle)['key']
+  console.log('religion from line 139:', religion)
+
+  try {
+    const historyRef = ref(getDatabase(), 'histories');
+    const snapshot = await get(historyRef);
+
+    if (snapshot.exists()) {
+      const dataFromFirebase = snapshot.val();
+
+      // filter the data to get only the relevant sessions based on religion only
+      const relevantSessionsByReligion = Object.values(dataFromFirebase).filter(
+        (session) => session.uid === uid && session.religion === religion 
+      );
+
+      // milestone checker for Finishing ALL Practices of a specific Religion
+      // const requiredPractices = ['Lectio Divina', 'Christian Meditation', 'Examen', 'Rosary']; // to be changed
+      const requiredPractices = religionDB[religion]
+      
+      // check if all practices are present in the session history
+      const allPracticesPresent = requiredPractices.every((practice) =>
+        relevantSessionsByReligion.some((session) => session.practiceTitle === practice)
+      );
+      console.log('allPracticesPresent',allPracticesPresent)
+      console.log('relevantSessionsByReligion',relevantSessionsByReligion)
+
+      // get corresponding milestone and update it if achieved
+      const milestoneTitle = getGenMileStoneByReligion(religion)
+      console.log(milestoneTitle)
+
+      if (allPracticesPresent) {
+        updateMilestoneToTrue(milestoneTitle, religion)
+      } else {
+        throw new Error("Invalid All Practices Present:");
+      }
+
+
+
+      // Filter the data to get only the relevant sessions based on religion and practice title ex. all lectio divina sessions
+      const relevantSessions = Object.values(dataFromFirebase).filter(
+        (session) => session.uid === uid && session.religion === religion && session.practiceTitle == practiceTitle
+      );
+
+      // const potentialMilestone = getMileStoneByPractice(practiceTitle) // not yet used
+      // console.log('potentialMilestone:',potentialMilestone)
+
+      // getMilestoneStatus(milestoneTitle)
+
+      // update if achieved
+
+      // check specific milestones
+
+      // update if achieved
+    }
+  } catch (error) {
+    console.log(error.stack)
+  }
+  // updateMilestoneToTrue('Bible Meditation Expert');
+}
+
+const getMilestoneStatus = async (milestoneTitle) => {
+  const religion = getReligionByMilestone(milestoneTitle)
+
+  const uid = auth.currentUser.uid;
+  
+  const milestoneRef = ref(getDatabase(), 'milestones/' + uid + '/' + religion);
+
+  try {
+    const snapshot = await get(milestoneRef);
+    if (snapshot.exists()) {
+      const milestoneData = snapshot.val();
+      if (milestoneData.hasOwnProperty(milestoneTitle)) {
+        const isAchieved = milestoneData[milestoneTitle];
+        // console.log('Milestone Title:', milestoneTitle);
+        // console.log('Is Achieved?', isAchieved);
+        return isAchieved;
+      } else {
+        // console.log('Milestone not found');
+        return false;
+      }
+    } else {
+      console.log("No data available");
+      return false;
+    }
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+}
+
+const updateMilestoneToTrue = async (milestoneTitle, rel) => {
+  console.log('milestoneTitle',milestoneTitle)
+  let religion = rel.toLowerCase()
+  console.log('religion',religion)
+  const uid = auth.currentUser.uid; // Replace with the user's UID
+  // const religion = 'christianity'; // Replace with the user's religion or obtain it from somewhere
+
+
+  try {
+    const milestoneRef = ref(getDatabase(), `milestones/${uid}/${religion}`);
+    await update(milestoneRef, { [milestoneTitle]: true });
+    console.log(`${milestoneTitle} has been updated to true.`);
+    return true; // Return true to indicate successful update
+  } catch (error) {
+    console.error(`Failed to update ${milestoneTitle}: ${error.message}`);
+    return false; // Return false to indicate update failure
+  }
+};
+
+
+export { createMileStonesForUser, getMilestoneStatus, updateMilestoneToTrue, checkAndUpdateMilestone}

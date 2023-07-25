@@ -14,6 +14,7 @@ import { getDatabase, push, ref, set } from 'firebase/database';
 
 import moment from "moment";
 import { millisecondsToTime } from '../models/TimeModel';
+import { checkAndUpdateMilestone, updateMilestoneToTrue } from '../models/MilestonesModel';
 
 
 export default function ConcludeSession({ navigation, route }) {
@@ -45,6 +46,9 @@ export default function ConcludeSession({ navigation, route }) {
             setCurrentDate(date)
         };
         retrieveAllData();
+
+        // check milestone for potential achievements and update achieved milestones to true
+        checkAndUpdateMilestone(practiceTitle)
     }, [])
 
     useEffect(() => {
