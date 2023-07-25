@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, ScrollView } from 'react-native';
 
 import { styles } from './../../assets/css/Style';
-import { TextCard, IconCard } from '../components/Cards';
+import { IconCard } from '../components/Cards';
 
 import locked from '../../assets/images/locked.png';
 import { screenHeight } from '../components/Dimensions';
@@ -82,43 +82,23 @@ export default function Milestones() {
                         // Render all Milestones when no filter is selected 
                         <>
                             {Object.entries(christianityMDB).map(([title, desc], index) => (
-                                isLocked ? (
-                                    <IconCard key={index} title={title} desc={desc} icon={locked} />
-                                ) : (
-                                    <TextCard key={index} title={title} desc={desc} />
-                                )
+                                <IconCard key={index} title={title} desc={desc} icon={locked} />
                             ))}
 
                             {Object.entries(islamMDB).map(([title, desc], index) => (
-                                isLocked ? (
-                                    <IconCard key={index} title={title} desc={desc} icon={locked} />
-                                ) : (
-                                    <TextCard key={index} title={title} desc={desc} />
-                                )
+                                <IconCard key={index} title={title} desc={desc} icon={locked} />
                             ))}
 
                             {Object.entries(hinduismMDB).map(([title, desc], index) => (
-                                isLocked ? (
-                                    <IconCard key={index} title={title} desc={desc} icon={locked} />
-                                ) : (
-                                    <TextCard key={index} title={title} desc={desc} />
-                                )
+                                <IconCard key={index} title={title} desc={desc} icon={locked} />
                             ))}
 
                             {Object.entries(buddhismMDB).map(([title, desc], index) => (
-                                isLocked ? (
-                                    <IconCard key={index} title={title} desc={desc} icon={locked} />
-                                ) : (
-                                    <TextCard key={index} title={title} desc={desc} />
-                                )
+                                <IconCard key={index} title={title} desc={desc} icon={locked} />
                             ))}
 
                             {Object.entries(judaismMDB).map(([title, desc], index) => (
-                                isLocked ? (
-                                    <IconCard key={index} title={title} desc={desc} icon={locked} />
-                                ) : (
-                                    <TextCard key={index} title={title} desc={desc} />
-                                )
+                                <IconCard key={index} title={title} desc={desc} icon={locked} />
                             ))}
                         </>
                     ) : (
@@ -126,47 +106,27 @@ export default function Milestones() {
                         <>
                             {selectedChips.includes('Christianity') &&
                                 Object.entries(christianityMDB).map(([title, desc], index) => (
-                                    isLocked ? (
-                                        <IconCard key={index} title={title} desc={desc} icon={locked} />
-                                    ) : (
-                                        <TextCard key={index} title={title} desc={desc} />
-                                    )
+                                    <IconCard key={index} title={title} desc={desc} icon={locked} />
                                 ))}
 
                             {selectedChips.includes('Islam') &&
                                 Object.entries(islamMDB).map(([title, desc], index) => (
-                                    isLocked ? (
-                                        <IconCard key={index} title={title} desc={desc} icon={locked} />
-                                    ) : (
-                                        <TextCard key={index} title={title} desc={desc} />
-                                    )
+                                    <IconCard key={index} title={title} desc={desc} icon={locked} />
                                 ))}
 
                             {selectedChips.includes('Hinduism') &&
                                 Object.entries(hinduismMDB).map(([title, desc], index) => (
-                                    isLocked ? (
-                                        <IconCard key={index} title={title} desc={desc} icon={locked} />
-                                    ) : (
-                                        <TextCard key={index} title={title} desc={desc} />
-                                    )
+                                    <IconCard key={index} title={title} desc={desc} icon={locked} />
                                 ))}
 
                             {selectedChips.includes('Buddhism') &&
                                 Object.entries(buddhismMDB).map(([title, desc], index) => (
-                                    isLocked ? (
-                                        <IconCard key={index} title={title} desc={desc} icon={locked} />
-                                    ) : (
-                                        <TextCard key={index} title={title} desc={desc} />
-                                    )
+                                    <IconCard key={index} title={title} desc={desc} icon={locked} />
                                 ))}
 
                             {selectedChips.includes('Judaism') &&
                                 Object.entries(judaismMDB).map(([title, desc], index) => (
-                                    isLocked ? (
-                                        <IconCard key={index} title={title} desc={desc} icon={locked} />
-                                    ) : (
-                                        <TextCard key={index} title={title} desc={desc} />
-                                    )
+                                    <IconCard key={index} title={title} desc={desc} icon={locked} />
                                 ))}
                         </>
                     )}

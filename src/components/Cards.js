@@ -10,6 +10,7 @@ import FlipCard from 'react-native-flip-card';
 import { getMilestoneStatus } from '../models/MilestonesModel';
 import { getDatabase, onValue, ref } from 'firebase/database';
 import { auth } from '../../firebase';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 
 // Cards
 export const ImageCard = ({ title, type, titleSize, typeSize, image, onPress }) => {
@@ -43,18 +44,6 @@ export const SearchCard = ({ title, type, titleSize, typeSize, image, onPress })
             </ImageBackground>
           </View>
       </TouchableOpacity>
-  );
-};
-
-export const TextCard = ({ title, desc, onPress }) => {
-
-  return (
-    <TouchableOpacity style={[inStyles.milestoneItem, styles.bgColorPrimary, styles.dropShadow]} onPress={onPress}>
-      <View style={inStyles.milestoneContent}>
-        <Text style={[styles.colorWhite, styles.bold, { fontSize: 16 }]}>{title}</Text>
-        <Text style={styles.colorWhite}>{desc}</Text>
-      </View>
-    </TouchableOpacity>
   );
 };
 
@@ -94,10 +83,10 @@ export const IconCard = ({ title, desc, icon, onPress }) => {
   return (
     <TouchableOpacity style={[inStyles.milestoneLockedItem, styles.dropShadow, (milestoneStatus) && inStyles.milestoneUnlockedItem]} onPress={onPress}>
       <View style={inStyles.milestoneContent}>
-        <Text style={[styles.colorWhite, styles.bold, { fontSize: 16 }]}>{title}</Text>
-        <Text style={styles.colorWhite}>{desc}</Text>
+        <Text style={[styles.colorWhite, styles.bold, (milestoneStatus) && inStyles.milestoneUnlockedItemText, { fontSize: RFPercentage(2.3) }]}>{title}</Text>
+        <Text style={[styles.colorWhite]}>{desc}</Text>
       </View>
-      <Image style={[{ width: 12, height: 16 }]} source={icon}/>
+      <Image style={[ (milestoneStatus) && inStyles.milestoneUnlockedItemIcon, { width: 15, height: 19, marginHorizontal: 10 }]} source={icon}/>
     </TouchableOpacity>
   );
 };
@@ -190,18 +179,9 @@ const inStyles = StyleSheet.create({
         bottom: 15,
     },
 
-    milestoneItem: {
-      flexDirection: 'row',
-      borderRadius: 10,
-      padding: 15,
-      margin: 5,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-
     milestoneLockedItem: {
       flexDirection: 'row',
-      borderRadius: 10,
+      borderRadius: 15,
       padding: 15,
       margin: 5,
       alignItems: 'center',
@@ -211,10 +191,20 @@ const inStyles = StyleSheet.create({
 
     milestoneUnlockedItem: {
       backgroundColor: '#2EC4B6',
+      borderColor: '#FFBF69'
+    },
+
+    milestoneUnlockedItemText: {
+      color: '#FFBF69',
+    },
+
+    milestoneUnlockedItemIcon: {
+      opacity: 0,
     },
 
     milestoneContent: {
       flex: 1,
+      padding: 5,
     },
 
     stepsItemContainer: {
