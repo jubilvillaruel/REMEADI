@@ -46,18 +46,6 @@ export const SearchCard = ({ title, type, titleSize, typeSize, image, onPress })
   );
 };
 
-export const TextCard = ({ title, desc, onPress }) => {
-
-  return (
-    <TouchableOpacity style={[inStyles.milestoneItem, styles.bgColorPrimary, styles.dropShadow]} onPress={onPress}>
-      <View style={inStyles.milestoneContent}>
-        <Text style={[styles.colorWhite, styles.bold, { fontSize: 16 }]}>{title}</Text>
-        <Text style={styles.colorWhite}>{desc}</Text>
-      </View>
-    </TouchableOpacity>
-  );
-};
-
 export const IconCard = ({ title, desc, icon, onPress }) => {
   const [milestones, setMilestones] = useState(null);
   const [milestoneStatus, setMilestoneStatus] = useState(false)
@@ -97,7 +85,7 @@ export const IconCard = ({ title, desc, icon, onPress }) => {
         <Text style={[styles.colorWhite, styles.bold, { fontSize: 16 }]}>{title}</Text>
         <Text style={styles.colorWhite}>{desc}</Text>
       </View>
-      <Image style={[{ width: 12, height: 16 }]} source={icon}/>
+      <Image style={[ (milestoneStatus) && inStyles.milestoneUnlockedItemIcon, { width: 15, height: 19, marginHorizontal: 10 }]} source={icon}/>
     </TouchableOpacity>
   );
 };
@@ -190,18 +178,9 @@ const inStyles = StyleSheet.create({
         bottom: 15,
     },
 
-    milestoneItem: {
-      flexDirection: 'row',
-      borderRadius: 10,
-      padding: 15,
-      margin: 5,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-
     milestoneLockedItem: {
       flexDirection: 'row',
-      borderRadius: 10,
+      borderRadius: 15,
       padding: 15,
       margin: 5,
       alignItems: 'center',
@@ -213,8 +192,13 @@ const inStyles = StyleSheet.create({
       backgroundColor: '#2EC4B6',
     },
 
+    milestoneUnlockedItemIcon: {
+      opacity: 0,
+    },
+
     milestoneContent: {
       flex: 1,
+      padding: 5,
     },
 
     stepsItemContainer: {
