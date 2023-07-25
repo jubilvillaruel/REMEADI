@@ -178,7 +178,7 @@ export default function Statistics() {
 
             <View style={{ width: screenWidth('90%'), height: screenHeight('27%') }}>
                 <View style={[styles.sectionContainer, styles.dropShadow]}>
-                    <Text style={[styles.colorPrimary, styles.bold, { position: 'absolute', top: 20 }]}>Top 3 Religions</Text>
+                    <Text style={[styles.colorPrimary, styles.bold, { top: 20, marginBottom: 25, marginTop: -10 }]}>Top 3 Religions</Text>
                     {totalMeditationSessionPerReligion.some((count) => count > 0) ? (
                         topThreeReligions.map((religion, index) => {
                         const religionIndex = religions.indexOf(religion);
