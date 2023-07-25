@@ -46,9 +46,6 @@ export default function ConcludeSession({ navigation, route }) {
             setCurrentDate(date)
         };
         retrieveAllData();
-
-        // check milestone for potential achievements and update achieved milestones to true
-        checkAndUpdateMilestone(practiceTitle)
     }, [])
 
     useEffect(() => {
@@ -88,7 +85,7 @@ export default function ConcludeSession({ navigation, route }) {
             religion: religion,
             subPracticeTitle: subPracticeTitle,
             uid: uid,
-        }).then(console.log('session history was saved successfully'))
+        }).then(checkAndUpdateMilestone(practiceTitle))
     }
     
     // CALCULATE DATE DIFFERENCE

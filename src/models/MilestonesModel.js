@@ -136,7 +136,8 @@ const checkAndUpdateMilestone = async (practiceTitle) => {
       if (allPracticesPresent) {
         updateMilestoneToTrue(milestoneTitle, religion)
       } else {
-        throw new Error("Invalid All Practices Present:");
+        // throw new Error("Invalid All Practices Present:");
+        console.log('All Practices are not Present')
       }
 
 
@@ -160,7 +161,6 @@ const checkAndUpdateMilestone = async (practiceTitle) => {
   } catch (error) {
     console.log(error.stack)
   }
-  // updateMilestoneToTrue('Bible Meditation Expert');
 }
 
 const getMilestoneStatus = async (milestoneTitle) => {
@@ -204,7 +204,7 @@ const updateMilestoneToTrue = async (milestoneTitle, rel) => {
   try {
     const milestoneRef = ref(getDatabase(), `milestones/${uid}/${religion}`);
     await update(milestoneRef, { [milestoneTitle]: true });
-    console.log(`${milestoneTitle} has been updated to true.`);
+    console.log(`==============================\n${milestoneTitle} has been updated to TRUE.\n==============================`);
     return true; // Return true to indicate successful update
   } catch (error) {
     console.error(`Failed to update ${milestoneTitle}: ${error.message}`);
