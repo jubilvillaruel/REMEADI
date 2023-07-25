@@ -139,7 +139,6 @@ export default function Statistics() {
                 ) : (
                     <View style={[styles.sectionContainer, styles.dropShadow, { gap: 25 }]}>
                         <Text style={[styles.colorPrimary, inStyles.header, styles.bold]}>Sessions per Religion</Text>
-                        <Image style={[{ width: 60, height: 45, position: 'absolute' }]} source={appLogo} />
                         <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                             <PieChart
                                 widthAndHeight={widthAndHeight}
@@ -147,7 +146,10 @@ export default function Statistics() {
                                 sliceColor={Object.values(colorMapping)}
                                 coverRadius={0.6}
                             />
-                            <View>
+                            <View style={{ position: 'absolute', top: '50%', left: '50%', marginLeft: -75, marginTop: -55 }}>
+                                <Image style={{ width: 60, height: 45 }} source={appLogo} />
+                            </View>
+                            <View style={{ marginTop: 15 }}>
                                 <View style={inStyles.legendContainer}>
                                     {firstThreeReligions.map((religion) => (
                                         <Text
