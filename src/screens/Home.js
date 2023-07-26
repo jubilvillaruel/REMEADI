@@ -115,6 +115,7 @@ export default function Home({ navigation }) {
     };
 
     const remindVerification = () => {
+        callToast('error','Oh no!','Verify your email address so we can start meditating')
         console.log('Please verify your account')
     }
 

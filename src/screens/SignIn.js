@@ -11,6 +11,7 @@ import hidePass from '../../assets/images/open_eye.png';
 import googleLogo from './../../assets/images/google_logo.png';
 import facebookLogo from './../../assets/images/facebook_logo.png';
 import { auth } from '../../firebase';
+import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
 export default function SignIn({ navigation, route }) {
     const { setUserToken } = route.params;
@@ -39,9 +40,11 @@ export default function SignIn({ navigation, route }) {
             setUser(userCredential.user.uid)
         })
         .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorCode, errorMessage);
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode, errorMessage);
+          callToast('error','Oh no!',errorMessage+'😥.')
+
         });
     };
   
@@ -56,6 +59,15 @@ export default function SignIn({ navigation, route }) {
     const handleForgotPassword = () => {
       // alert("Please enter your email address to reset password");
       navigation.navigate('ForgotPassword')
+    }
+
+    const callToast = (type, text1, text2) => {
+      // call toast here
+      Toast.show({
+          type: type,
+          text1: text1,
+          text2: text2,
+      });
     }
   
     return (
@@ -124,9 +136,14 @@ export default function SignIn({ navigation, route }) {
               borderRad={30}
               icon={facebookLogo}>
             </IconButton>
-
           </View>
         </View>
+        <Toast
+          position='top'
+          topOffset={10}
+          // bottomOffset={10}
+          // keyboardOffset={10}
+        />
       </SafeAreaView>
     );
   }
