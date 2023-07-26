@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, Image, TextInput, TouchableOpacity, Modal, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Image, TextInput, TouchableOpacity, Modal, ScrollView, ActivityIndicator } from 'react-native';
 import { screenWidth, screenHeight } from '../components/Dimensions';
 import { PrimaryButton } from '../components/Buttons';
 import { RFPercentage } from "react-native-responsive-fontsize";
@@ -13,6 +13,7 @@ import calendar from '../../assets/images/calendar.png';
 import { auth } from '../../firebase';
 import { getDatabase, ref, set } from 'firebase/database';
 import { createMileStonesForUser } from '../models/MilestonesModel';
+import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
 export default function SignUp({ navigation }) {
   const [lastName, setLastName] = useState('');
@@ -21,6 +22,7 @@ export default function SignUp({ navigation }) {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('')
 
+  const [showLoad, setShowLoad] = useState(false)
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
   const [calendarVisible, setCalendarVisible] = useState(false);
@@ -96,10 +98,13 @@ export default function SignUp({ navigation }) {
     setConfirmPasswordVisible(!confirmPasswordVisible);
   };
 
-  const handleForm = () => {
+  const handleForm = async () => {
+    setShowLoad(true)
+    // const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+    // await sleep(1000);
     const userDetails = {};
-    userDetails['First Name'] = firstName;
     userDetails['Last Name'] = lastName;
+    userDetails['First Name'] = firstName;
     userDetails['Email'] = email;
     userDetails['Birthdate'] = selectedDate;
     userDetails['Password'] = password;
@@ -108,23 +113,26 @@ export default function SignUp({ navigation }) {
 
     // loop through each item of the hashmap and check if empty or not
     Object.keys(userDetails).forEach((key)=>{
-      if ((userDetails[key] == null)||(userDetails[key]=='')){
-        alert(`Please provide ${key}`);
+      console.log('checking:',userDetails[key],'~')
+      if ( !userDetails[key] ) {
+        setShowLoad(false)
+        callToast('error','Invalid Input',`Please provide ${key}`)
         throw new Error(`${key} cannot be blank`);
       }
     });
-
     handleConfirmPassword();
   }
 
   const handleConfirmPassword = () => {
     console.log('Sign up button pressed!');
     if (!password ||!confirmPassword){
-      alert('Please enter both passwords');
+      setShowLoad(false)
+      callToast('error','Invalid Password',`Please enter both passwords`)
       // return false;
       } else {
         if (password!== confirmPassword) {
-          alert('The two entered passwords do not match.');
+          setShowLoad(false)
+          callToast('error','Invalid Password',`Passwords do not match`)
           // return false;
         } else {
           handleSignUp();
@@ -158,20 +166,36 @@ export default function SignUp({ navigation }) {
         url: 'https://remeadi.firebaseapp.com/'
       });
 
+      setShowLoad(false)
       // Show success message
       showMsgModal()
 
     } catch (error) {
+      setShowLoad(false)
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log(errorCode, errorMessage);
-      alert(errorMessage);
+      callToast('error','Invalid Input',errorMessage)
+      // alert(errorMessage);
     }
   }
 
   const initializMilestones = (uid) => {
     createMileStonesForUser(uid)
   }
+
+  const callToast = (type, text1, text2) => {
+    // call toast here
+    Toast.show({
+        type: type,
+        text1: text1,
+        text2: text2,
+        onPress: ()=>{
+            setAvatarVisible(true)
+        }
+        // position: 
+    });
+}
 
   return (
     <SafeAreaView style={styles.screenCenter}>
@@ -279,7 +303,11 @@ export default function SignUp({ navigation }) {
             onPress={handleForm}>
           </PrimaryButton>
         </View>
+        <Toast
+
+        />
       </ScrollView>
+      <ActivityIndicator style={[{marginTop:120, position:'absolute', display:'none', zIndex:99, backgroundColor: 'black', opacity: 0.5, width:screenWidth('100%'), height:screenHeight('100%')},(showLoad) && {display:'flex'}]} size="large"/>
     </SafeAreaView>
   );
 }

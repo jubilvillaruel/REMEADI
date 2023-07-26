@@ -80,7 +80,6 @@ function HomeScreen ( {route} ) {
       <Tab.Screen
         name='Home'
         component={Home}
-        // initialParams={{ setUserToken }}
         options={{
           title: 'Home',
           tabBarIcon: () => (
