@@ -13,6 +13,10 @@ import { getQuote, getQuoteID } from '../models/QuoteModel';
 import { screenHeight, screenWidth } from '../components/Dimensions';
 import { child, get, getDatabase, onValue, ref } from 'firebase/database';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
+import avatar from '../../assets/images/avatar/avatar1.png';
+import { ImageBackground } from 'react-native';
+
+
 // import MedLibrary from './MedLibrary'
 
 
@@ -114,12 +118,16 @@ export default function Home({ navigation }) {
         console.log('Please verify your account')
     }
 
-    const callToast = () => {
+    const callToast = (type, text1, text2) => {
         // call toast here
         Toast.show({
-            type: 'info',
-            text1: 'Hello',
-            text2: 'This is some something 👋'
+            type: type,
+            text1: text1,
+            text2: text2,
+            onPress: ()=>{
+                setAvatarVisible(true)
+            }
+            // position: 
         });
     }
 
@@ -139,8 +147,13 @@ export default function Home({ navigation }) {
                             <Text style={styles.colorWhite}>Meditation Streak: 6 days</Text>
                         </View>
                     </View>
-                    <TouchableOpacity style={[inStyles.btnAvatar, styles.bgColorPrimary]} onPress={callToast}>
-                        <Text style={styles.colorWhite}>Avatar</Text>
+                    <TouchableOpacity style={[inStyles.btnAvatar, styles.bgColorSecondary]} onPress={() =>callToast('info','Hi, '+firstName,'I\'m ready to meditate with you!')}>
+                        <ImageBackground style={[{ width: 100, height: 100 }]}
+                            imageStyle={{ borderRadius: 15 }} 
+                            source={avatar}
+                            >
+                            {/* <Text style={styles.colorWhite}>Avatar</Text> */}
+                        </ImageBackground>
                     </TouchableOpacity>
                 </View>
 
