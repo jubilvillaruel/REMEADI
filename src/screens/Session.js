@@ -54,8 +54,6 @@ export default function Session({ navigation, route }) {
 
     const [bibleDisabled, setbibleDisabled] = useState(false);
     const [videoDisabled, setvideoDisabled] = useState(false);
-    const [ vol, setVol ] = useState()
-
 
     useEffect(() => {
         const loadSounds = async () => {
@@ -75,7 +73,7 @@ export default function Session({ navigation, route }) {
     }, []);
 
     useEffect(() => {
-        const fetchGuide = () => {
+        const fetchGuideAndTime = () => {
             if (!timerRunning) {
                 // Timer finished, stop the useEffect
                 return;
@@ -97,7 +95,7 @@ export default function Session({ navigation, route }) {
             }
             // console.log(time)
         };
-        fetchGuide();
+        fetchGuideAndTime();
     }, [])
 
     useEffect(() => {
@@ -116,7 +114,6 @@ export default function Session({ navigation, route }) {
 
     useEffect(()=>{
         try{
-            // console.log(timeToMilliseconds(stopwatchTime),' == ', time, 'bia: ',bia)
             let tick = timeToMilliseconds(stopwatchTime)
             // console.log('Stopwatch:', tick)
             if(tick == time && bia >= 0){
@@ -256,19 +253,30 @@ export default function Session({ navigation, route }) {
     }, [isSpeaking]);
 
     const speak = () => {
-        flipText();
-        let thingToSay = []
+        let thingsToSay = []
         for (const property in guide){
-            thingToSay.push(guide[property])
+            thingsToSay.push(guide[property])
         }
         const options = {
             voice: 'Microsoft Zira - English (United States)',
             rate: 0.9,
-            // volume: volume,
             onStart: () => setIsSpeaking(true),
             onDone: () => setIsSpeaking(false),
         }
-        Speech.speak(thingToSay, options);
+        if (thingsToSay) {
+            // let thingToSay = ''
+            thingsToSay.forEach((item)=>{
+                Speech.speak(item, options);
+                // thingToSay = thingToSay + item + '                        \n'
+                // console.log('(loop is running) thingToSay:',thingToSay)    
+                // console.log('(loop is running) item:',item)    
+            })
+            flipText()
+            // console.log('\nthingToSay',thingToSay)
+            // if (thingToSay.length) {
+                // Speech.speak(thingToSay, options);
+            // }
+        }
     };
 
     const stopSpeech = () => {
