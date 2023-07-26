@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, Image, TextInput, TouchableOpacity, Modal } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Image, TextInput, TouchableOpacity, Modal, ScrollView } from 'react-native';
 import { screenWidth, screenHeight } from '../components/Dimensions';
 import { PrimaryButton } from '../components/Buttons';
 import { RFPercentage } from "react-native-responsive-fontsize";
@@ -13,7 +13,6 @@ import calendar from '../../assets/images/calendar.png';
 import { auth } from '../../firebase';
 import { getDatabase, ref, set } from 'firebase/database';
 import { createMileStonesForUser } from '../models/MilestonesModel';
-import { ScrollView } from 'react-native-web';
 
 export default function SignUp({ navigation }) {
   const [lastName, setLastName] = useState('');
@@ -176,113 +175,111 @@ export default function SignUp({ navigation }) {
 
   return (
     <SafeAreaView style={styles.screenCenter}>
-      {/* <ScrollView> */}
-        <View style={inStyles.signUpContainer}>
-          <View style={styles.containerCentered}>
-            <TextInput style={styles.inputContainer} placeholder="Last Name" selectionColor='transparent' value={lastName} onChangeText={setLastName}/>
-            <TextInput style={styles.inputContainer} placeholder="First Name" selectionColor='transparent' value={firstName} onChangeText={setFirstName}/>
-            <TextInput style={styles.inputContainer} placeholder="Email" selectionColor='transparent' value={email} onChangeText={setEmail} keyboardType="email-address"/>
-            
-            <DropDownPicker
-              style={[inStyles.input, { borderRadius: 30, paddingVertical: 15, paddingHorizontal: 15 }]}
-              open={dropdown}
-              value={religion}
-              items={items}
-              setOpen={setDropdown}
-              setValue={setReligion}
-              setItems={setItems}
-              containerStyle={{ width: screenWidth('80%'), marginTop: 10, zIndex: 1 }}
-              dropDownContainerStyle={{ paddingHorizontal: 8, marginVertical: 10 }}
-            />
+      <ScrollView showsVerticalScrollIndicator={false} style={[{ marginBottom: 15 }]}>
+        <View style={[styles.containerCentered, inStyles.signUpContainer]}>
+          <TextInput style={styles.inputContainer} placeholder="Last Name" selectionColor='transparent' value={lastName} onChangeText={setLastName}/>
+          <TextInput style={styles.inputContainer} placeholder="First Name" selectionColor='transparent' value={firstName} onChangeText={setFirstName}/>
+          <TextInput style={styles.inputContainer} placeholder="Email" selectionColor='transparent' value={email} onChangeText={setEmail} keyboardType="email-address"/>
+          
+          <DropDownPicker
+            style={[inStyles.input, { borderRadius: 30, paddingVertical: 15, paddingHorizontal: 15 }]}
+            open={dropdown}
+            value={religion}
+            items={items}
+            setOpen={setDropdown}
+            setValue={setReligion}
+            setItems={setItems}
+            containerStyle={{ width: screenWidth('80%'), marginTop: 10, zIndex: 1 }}
+            dropDownContainerStyle={{ paddingHorizontal: 8, marginVertical: 10 }}
+          />
 
-            <View style={{ flexDirection: 'row' }}>
-              <View style={[inStyles.inputGroup, { width: screenWidth('58%') }]}>
-                <View style={[inStyles.input, inStyles.datePickerContainer]}>
-                  <TextInput
-                  style={inStyles.datePickerInput}
-                  selectionColor='transparent'
-                  placeholder="Birthdate"
-                  value={selectedDate}
-                  editable={false}/>
-                  <TouchableOpacity style={[{ position: 'absolute', right: 15 }]} onPress={showCalendarModal}>
-                    <Image style={[{ width: 18, height: 18 }]} source={calendar} />
-                  </TouchableOpacity>
-                </View>
-              </View>
-
-
-              <View style={[inStyles.inputGroup, { marginLeft: 5, width: screenWidth('20%') }]}>
+          <View style={{ flexDirection: 'row' }}>
+            <View style={[inStyles.inputGroup, { width: screenWidth('58%') }]}>
+              <View style={[inStyles.input, inStyles.datePickerContainer]}>
                 <TextInput
-                  style={inStyles.input}
-                  placeholder="Age"
-                  selectionColor='transparent'
-                  keyboardType="numeric"
-                  value={age}
-                  editable={false}/>
+                style={inStyles.datePickerInput}
+                selectionColor='transparent'
+                placeholder="Birthdate"
+                value={selectedDate}
+                editable={false}/>
+                <TouchableOpacity style={[{ position: 'absolute', right: 15 }]} onPress={showCalendarModal}>
+                  <Image style={[{ width: 18, height: 18 }]} source={calendar} />
+                </TouchableOpacity>
               </View>
             </View>
 
-            <View style={styles.passwordInputContainer}>
-              <TextInput style={styles.passwordInput} placeholder="Password" secureTextEntry={!passwordVisible} selectionColor="transparent" onChangeText={text => setPassword(text)}/>
-              <TouchableOpacity style={styles.passwordVisibilityButton} onPress={togglePasswordVisibility}>
-                {passwordVisible ? (
-                  <Image style={[{ width: 19, height: 14 }]} source={hidePass}/>
-                ) : (
-                  <Image style={[{ width: 19, height: 18 }]} source={showPass}/>
-                )}
-              </TouchableOpacity>
-            </View>
 
-            <View style={styles.passwordInputContainer}>
-              <TextInput style={styles.passwordInput} placeholder="Confirm Password" secureTextEntry={!confirmPasswordVisible} selectionColor='transparent' onChangeText={setConfirmPassword}/>
-              <TouchableOpacity style={styles.passwordVisibilityButton} onPress={toggleConfirmPasswordVisibility}>
-                {confirmPasswordVisible ? (
-                  <Image style={[{ width: 19, height: 14 }]} source={hidePass} />
-                ) : (
-                  <Image style={[{ width: 19, height: 18 }]} source={showPass} />
-                )}
-              </TouchableOpacity>
+            <View style={[inStyles.inputGroup, { marginLeft: 5, width: screenWidth('20%') }]}>
+              <TextInput
+                style={inStyles.input}
+                placeholder="Age"
+                selectionColor='transparent'
+                keyboardType="numeric"
+                value={age}
+                editable={false}/>
             </View>
+          </View>
 
-            <TouchableOpacity onPress={hideCalendarModal}>
-              <Modal visible={calendarVisible} animationType="slide" transparent={true} onRequestClose={hideCalendarModal}>
-                <View style={inStyles.modalContainer}>
-                  <View style={{ width: 300, height: 300 }}>
-                    <DatePicker style={{ borderWidth: 2, borderColor: '#2EC4B6', borderRadius: 20 }} mode="calendar" onSelectedChange={handleDateSelect} />
-                  </View>
-                </View>
-              </Modal>
+          <View style={styles.passwordInputContainer}>
+            <TextInput style={styles.passwordInput} placeholder="Password" secureTextEntry={!passwordVisible} selectionColor="transparent" onChangeText={text => setPassword(text)}/>
+            <TouchableOpacity style={styles.passwordVisibilityButton} onPress={togglePasswordVisibility}>
+              {passwordVisible ? (
+                <Image style={[{ width: 19, height: 14 }]} source={hidePass}/>
+              ) : (
+                <Image style={[{ width: 19, height: 18 }]} source={showPass}/>
+              )}
             </TouchableOpacity>
+          </View>
 
-            <Modal visible={msgVisible} animationType='slide' transparent={true}>
+          <View style={styles.passwordInputContainer}>
+            <TextInput style={styles.passwordInput} placeholder="Confirm Password" secureTextEntry={!confirmPasswordVisible} selectionColor='transparent' onChangeText={setConfirmPassword}/>
+            <TouchableOpacity style={styles.passwordVisibilityButton} onPress={toggleConfirmPasswordVisibility}>
+              {confirmPasswordVisible ? (
+                <Image style={[{ width: 19, height: 14 }]} source={hidePass} />
+              ) : (
+                <Image style={[{ width: 19, height: 18 }]} source={showPass} />
+              )}
+            </TouchableOpacity>
+          </View>
+
+          <TouchableOpacity onPress={hideCalendarModal}>
+            <Modal visible={calendarVisible} animationType="slide" transparent={true} onRequestClose={hideCalendarModal}>
               <View style={inStyles.modalContainer}>
-                <View style={[inStyles.modalContent, styles.dropShadow]}>
-                  <Text style={{ textAlign: 'center' }}>A link has been sent to your email! Open to verify your account.</Text>
-                  <PrimaryButton
-                    text='Close'
-                    textColor= '#FFFFFF'
-                    textSize={RFPercentage(2.2)}
-                    width={screenWidth('80%')}
-                    height={screenHeight('7%')}
-                    borderRad={30}
-                    onPress={hideMsgModal}>
-                  </PrimaryButton>
+                <View style={{ width: 300, height: 300 }}>
+                  <DatePicker style={{ borderWidth: 2, borderColor: '#2EC4B6', borderRadius: 20 }} mode="calendar" onSelectedChange={handleDateSelect} />
                 </View>
               </View>
             </Modal>
+          </TouchableOpacity>
 
-            <PrimaryButton
-              text='Sign Up'
-              textColor= '#FFFFFF'
-              textSize={RFPercentage(2.2)}
-              width={screenWidth('80%')}
-              height={screenHeight('7%')}
-              borderRad={30}
-              onPress={handleForm}>
-            </PrimaryButton>
-          </View>
+          <Modal visible={msgVisible} animationType='slide' transparent={true}>
+            <View style={inStyles.modalContainer}>
+              <View style={[inStyles.modalContent, styles.dropShadow]}>
+                <Text style={{ textAlign: 'center' }}>A link has been sent to your email! Open to verify your account.</Text>
+                <PrimaryButton
+                  text='Close'
+                  textColor= '#FFFFFF'
+                  textSize={RFPercentage(2.2)}
+                  width={screenWidth('80%')}
+                  height={screenHeight('7%')}
+                  borderRad={30}
+                  onPress={hideMsgModal}>
+                </PrimaryButton>
+              </View>
+            </View>
+          </Modal>
+
+          <PrimaryButton
+            text='Sign Up'
+            textColor= '#FFFFFF'
+            textSize={RFPercentage(2.2)}
+            width={screenWidth('80%')}
+            height={screenHeight('7%')}
+            borderRad={30}
+            onPress={handleForm}>
+          </PrimaryButton>
         </View>
-      {/* </ScrollView> */}
+      </ScrollView>
     </SafeAreaView>
   );
 }
