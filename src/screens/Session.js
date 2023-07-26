@@ -3,7 +3,9 @@ import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, ScrollView, Ima
 import { StepCard } from '../components/Cards';
 import { screenWidth, screenHeight } from '../components/Dimensions';
 import { RFPercentage } from 'react-native-responsive-fontsize';
-import { Stopwatch, Timer } from 'react-native-stopwatch-timer';
+import { Stopwatch } from 'react-native-stopwatch-timer';
+import * as Speech from 'expo-speech';
+import { Audio } from 'expo-av';
 import FlipCard from 'react-native-flip-card';
 
 import music from '../../assets/images/music.png';
@@ -11,8 +13,7 @@ import text from '../../assets/images/text.png';
 import stop from '../../assets/images/stop.png';
 import videoImg from '../../assets/images/video.png';
 import bible from '../../assets/images/bible.png';
-import * as Speech from 'expo-speech';
-import { Audio } from 'expo-av';
+import close from '../../assets/images/close.png';
 
 import { styles } from '../../assets/css/Style';
 import { getGuide } from '../Data/Practices/GuideDB';
@@ -399,7 +400,7 @@ export default function Session({ navigation, route }) {
                     <Modal visible={bgmVisible} animationType='slide' transparent={true}>
                         <View style={inStyles.bgmContainer}>
                             <View style={[inStyles.bgmContent, { gap: 15 }]}>
-                                <Text style={[styles.bold, { fontSize: RFPercentage(2) }]}>Background Music</Text>
+                                <Text style={[styles.bold, { fontSize: RFPercentage(2.8) }]}>Ambient Sound</Text>
                                 <ScrollView style={inStyles.bgmListContainer} showsVerticalScrollIndicator={false}>
                                     {sounds.map((sound, index) => (
                                         <View key={index}>
@@ -423,7 +424,8 @@ export default function Session({ navigation, route }) {
                                     ))}
                                 </ScrollView>
                                 <TouchableOpacity onPress={hideBgmModal}>
-                                    <Text style={[styles.bold, { fontSize: RFPercentage(2) }]}>Close</Text>
+                                    <Image style={[{ width: 50, height: 50 }]} source={close}/>
+                                    {/* <Text style={[styles.bold, { fontSize: RFPercentage(2) }]}>Close</Text> */}
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -532,7 +534,7 @@ const inStyles = StyleSheet.create({
     bgmContent: {
         bottom: 0,
         width: screenWidth('100%'),
-        height: screenHeight('40%'),
+        height: screenHeight('45%'),
         padding: 15,
         backgroundColor: '#FFFFFF',
         borderRadius: 10,
@@ -549,7 +551,7 @@ const inStyles = StyleSheet.create({
 
     bgmListContainer: {
         width: screenWidth('90%'),
-        height: screenHeight('15%'),
+        height: screenHeight('5%'),
         padding: 15,
         borderWidth: 2,
         borderRadius: 20,
@@ -558,7 +560,8 @@ const inStyles = StyleSheet.create({
 
     itemText: {
         fontSize: RFPercentage(2.2),
-        paddingVertical: 5,
+        // justifyContent:'center',
+        paddingVertical: 10,
         margin: 5,
         flex: 1,
         textAlign: 'center',
@@ -585,7 +588,8 @@ const inStyles = StyleSheet.create({
     soundContainer: {
         flex:1,
         flexDirection: 'row',
-        justifyContent:'center'
+        justifyContent:'center',
+        alignItems: 'center'
     }
 
 });

@@ -18,7 +18,8 @@ export default function Statistics() {
     const [ totalMeditationDuration, setTotalMeditationDuration ] = useState(0);
     
     const religions = ['Christianity', 'Islam', 'Hinduism', 'Buddhism', 'Judaism'];
-    const [ totalMeditationSessionPerReligion, setTotalMeditationSessionPerReligion ] = useState([ 1, 1, 1, 1, 1]);
+    const [ totalMeditationSessionPerReligion, setTotalMeditationSessionPerReligion ] = useState([1,1,1,1,1]);
+    const [ totalMeditationSessionPerReligionBoolean, setTotalMeditationSessionPerReligionBoolean ] = useState(false);
     const colorMapping = { Christianity: '#04BFDA', Islam: '#8FD3D2', Hinduism: '#F27F77', Buddhism: '#FF9F1C', Judaism: '#FF0000'};
 
     const [topThreeReligions, setTopThreeReligions] = useState([]);
@@ -57,7 +58,14 @@ export default function Statistics() {
 
                     // Ensure the series has a length of 5
                     const religionCountArray = religions.map((religion) => religionCount[religion] || 0);
-                    setTotalMeditationSessionPerReligion(religionCountArray);
+                    if (religionCountArray.every((count) => count === 0)) {
+                        alert('invalid');
+                        setTotalMeditationSessionPerReligionBoolean(false);
+                    } else {
+                        setTotalMeditationSessionPerReligionBoolean(true);
+                        setTotalMeditationSessionPerReligion(religionCountArray);
+                    }
+
                     console.log('Total Sessions:', religionCountArray);
 
                     // Set the top 3 religions
@@ -70,7 +78,7 @@ export default function Statistics() {
                 // Handle the case when dataFromFirebase is null (no data available)
                     setDataLoaded(true);
                     setTotalMeditationSession(0);
-                    setTotalMeditationSessionPerReligion([0, 0, 0, 0, 0]);
+                    setTotalMeditationSessionPerReligion(false);
                     setTopThreeReligions([]);
                 }
             });
@@ -128,7 +136,7 @@ export default function Statistics() {
             </View>
 
             <View style={{ width: screenWidth('90%'), height: screenHeight('40%') }}>      
-                {dataLoaded && totalMeditationSessionPerReligion.reduce((acc, val) => acc + val, 0) === 0 ? (
+                {dataLoaded && !totalMeditationSessionPerReligionBoolean ? (
                     <View style={[styles.sectionContainer, styles.dropShadow, { gap: 25 }]}>
                         <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                             <Text style={[styles.colorPrimary, styles.bold, { fontSize: RFPercentage(1.8) }]}>
@@ -179,7 +187,7 @@ export default function Statistics() {
             <View style={{ width: screenWidth('90%'), height: screenHeight('27%') }}>
                 <View style={[styles.sectionContainer, styles.dropShadow]}>
                     <Text style={[styles.colorPrimary, styles.bold, { top: 20, marginBottom: 25, marginTop: -10 }]}>Top 3 Religions</Text>
-                    {totalMeditationSessionPerReligion.some((count) => count > 0) ? (
+                    {totalMeditationSessionPerReligionBoolean ? (
                         topThreeReligions.map((religion, index) => {
                         const religionIndex = religions.indexOf(religion);
                         const sessionCount = totalMeditationSessionPerReligion[religionIndex];

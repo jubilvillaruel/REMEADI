@@ -150,6 +150,17 @@ const styles = StyleSheet.create({
         fontSize: RFPercentage(2),
         fontWeight: 'bold',
     },
+
+    activityIndicator : {
+        marginTop:120, 
+        position:'absolute', 
+        display:'none', 
+        zIndex:99, 
+        backgroundColor: 'black', 
+        opacity: 0.5, 
+        width:screenWidth('100%'), 
+        height:screenHeight('100%')
+    },
 });
 
 export { styles }

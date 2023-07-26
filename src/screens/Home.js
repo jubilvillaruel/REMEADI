@@ -25,15 +25,38 @@ export default function Home({ navigation }) {
     const [ lastName, setLastName ] = useState('');
     const [ quote, setQuote ] = useState('')
     const [ source, setSource ] = useState('')
+    const [ isEmailVerified, setIsEmailVerified] = useState(true)
 
     const uid = auth.currentUser.uid
-    const emailVerified = auth.currentUser.emailVerified
+    // const emailVerified = auth.currentUser.emailVerified
 
     const currentDate = new Date().toLocaleDateString('en-US', {
         month: 'long',
         day: 'numeric',
         year: 'numeric',
     });
+
+    // fetch if user is verified
+    // useEffect(() => {
+        // Add an authentication state change listener
+    const unsubscribe = () => auth.onAuthStateChanged((user) => {
+        console.log("unsubscribe is called")
+        if (user) {
+            console.log(user)
+            // Check if the email is verified
+            if (isEmailVerified && !user.emailVerified) {
+                setIsEmailVerified(user.emailVerified);
+                // callToast('success','Email Verified!','Let\'s start meditating!🥳')
+            }
+            if (!isEmailVerified && user.emailVerified) {
+                setIsEmailVerified(user.emailVerified);
+                // callToast('success','Email Verified!','Let\'s start meditating!🥳')
+            }
+        }
+    });
+        // Clean up the listener when the component unmounts
+        // return () => unsubscribe();
+    // }, []);
     
     // fetch user data from realtime db
     useEffect(() => {
@@ -46,7 +69,7 @@ export default function Home({ navigation }) {
                 const dbRef = ref(realtimeDB);
                 get(child(dbRef, `users/${uid}`)).then((snapshot) => {
                     if (snapshot.exists()) {
-                      setFirstName(snapshot.val().firstName) // setFirstName("jubil reign")
+                      setFirstName(snapshot.val().firstName) 
                     } else {
                       console.log("No data available");
                     }
@@ -114,8 +137,15 @@ export default function Home({ navigation }) {
         navigation.navigate('SelectReligion');
     };
 
-    const remindVerification = () => {
-        callToast('error','Oh no!','Verify your email address so we can start meditating')
+    const remindVerification = async () => {
+        unsubscribe();
+        if (isEmailVerified){
+            callToast('success','Email Verified!','Let\'s start meditating!🥳')
+            const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+            await sleep(3000);
+            navigation.navigate('SelectReligion');
+        }
+        callToast('error','Unverified Email Address','Oh no! Verify your email address and re-login')
         console.log('Please verify your account')
     }
 
@@ -159,13 +189,13 @@ export default function Home({ navigation }) {
                 </View>
 
                 <View style={inStyles.sec2Container}>
-                    <TouchableOpacity style={[inStyles.btnFeature, styles.bgColorPrimary, styles.dropShadow]} onPress={() => {emailVerified == true ? goToSelectReligion() : remindVerification()}}>
+                    <TouchableOpacity style={[inStyles.btnFeature, styles.bgColorPrimary, styles.dropShadow]} onPress={() => {isEmailVerified == true ? goToSelectReligion() : remindVerification()}}>
                         <Image style={[{ width: 110, height: 120 }]} source={meditate}/>
                         <Text style={[styles.colorWhite, styles.bold, { fontSize: RFPercentage(2.5), marginTop: 5 }]}>Meditate</Text>
                         <Text style={[styles.colorWhite, { fontSize: RFPercentage(2.2) }]}>{'Recommend a practice for you'}</Text>
                     </TouchableOpacity>
                     <View style={inStyles.sec2SubContainer}>
-                        <TouchableOpacity style={[inStyles.btnSubFeature, styles.dropShadow]} onPress={() => {emailVerified == true ? goToLibrary() : remindVerification()}}>
+                        <TouchableOpacity style={[inStyles.btnSubFeature, styles.dropShadow]} onPress={() => {isEmailVerified == true ? goToLibrary() : remindVerification()}}>
                             <Image style={[{ width: 40, height: 40 }]} source={meditation_library}/>
                             <Text style={[styles.colorPrimary, styles.bold, inStyles.medlib]}>{'Meditation\nLibrary'}</Text>
                             <Text style={[styles.colorPrimary, { fontSize: RFPercentage(1.6), marginTop: 5, textAlign:'center' }]}>{'Explore practice from different religions'}</Text>

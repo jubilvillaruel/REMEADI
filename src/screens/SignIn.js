@@ -42,8 +42,9 @@ export default function SignIn({ navigation, route }) {
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          console.log(errorCode, errorMessage);
-          callToast('error','Oh no!',errorMessage+'😥.')
+          console.log(errorCode, errorMessage.split(': ')[1].split('.')[0]);
+          const errorMsg = errorMessage.split(': ')[1].split('.')[0]
+          callToast('error','Error Sign In',errorMsg+'😥.')
 
         });
     };

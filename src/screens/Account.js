@@ -52,18 +52,6 @@ export default function Account({ navigation, route }) {
                         value={vib}
                     />
                 </View>
-                <View style={inStyles.optionContainer}>
-                    <Text style={{ fontWeight: '500' }}>App Volume</Text>
-                    <Slider
-                        style={inStyles.volSlider}
-                        value={100}
-                        minimumValue={0}
-                        maximumValue={100}
-                        step={1}
-                        onValueChange={(value)=>setVol(value)}
-                        thumbTintColor='#2EC4B6'>
-                    </Slider>
-                </View>
             </View>
 
             <View style={[ styles.dropShadow, { padding: 20, width: '100%' }]}>
@@ -71,9 +59,9 @@ export default function Account({ navigation, route }) {
                 <TouchableOpacity style={inStyles.optionContainer} onPress={goToEditAccount}>
                     <Text style={{ fontWeight: '500' }}>Edit Account Details</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={inStyles.optionContainer}>
+                {/* <TouchableOpacity style={inStyles.optionContainer}>
                     <Text style={{ fontWeight: '500' }}>Switch Account</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                 <TouchableOpacity style={inStyles.optionContainer} onPress={handleLogout}>
                     <Text style={{ color: 'red', fontWeight: '500' }}>Sign Out</Text>
                 </TouchableOpacity>

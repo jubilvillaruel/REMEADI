@@ -48,7 +48,7 @@ const Bible = () => {
     <View style={[inStyles.bibleContainer2]}>
       <View style={[styles.dropShadow, styles.passwordInputContainer, {borderWidth:0, paddingHorizontal:2}, inStyles.bibleSearch]}>
         <TextInput
-          style={[styles.dropShadow, styles.passwordInput, {paddingHorizontal:0}]}
+          style={[styles.dropShadow, styles.passwordInput, {paddingHorizontal:0, marginLeft:6}]}
           placeholder="Search for a Bible verse or passage"
           onChangeText={(text) => {setSearch(text)}}
           />
@@ -94,7 +94,7 @@ const inStyles = StyleSheet.create({
     borderRadius: 20,
     borderColor: '#FFBF69',
     backgroundColor: '#FFFFFF',
-    paddingHorizontal: 20,
+    paddingHorizontal: 5,
     fontSize: RFPercentage(1.8),
     marginBottom:10,
   },

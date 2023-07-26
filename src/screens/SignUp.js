@@ -175,8 +175,8 @@ export default function SignUp({ navigation }) {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log(errorCode, errorMessage);
-      callToast('error','Invalid Input',errorMessage)
-      // alert(errorMessage);
+      const errorMsg = errorMessage.split(': ')[1].split('(')[0]
+      callToast('error','Invalid Input',errorMsg)
     }
   }
 
@@ -307,7 +307,7 @@ export default function SignUp({ navigation }) {
 
         />
       </ScrollView>
-      <ActivityIndicator style={[{marginTop:120, position:'absolute', display:'none', zIndex:99, backgroundColor: 'black', opacity: 0.5, width:screenWidth('100%'), height:screenHeight('100%')},(showLoad) && {display:'flex'}]} size="large"/>
+      <ActivityIndicator style={[styles.activityIndicator, (showLoad) && {display:'flex'}]} size="large"/>
     </SafeAreaView>
   );
 }
