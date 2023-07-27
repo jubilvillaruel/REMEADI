@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { StyleSheet, Text, View, TextInput, ScrollView, ActivityIndicator, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TextInput, ScrollView, ActivityIndicator, TouchableOpacity, Image } from 'react-native'
 import { screenHeight, screenWidth } from '../../components/Dimensions';
 import { styles } from '../../../assets/css/Style';
+import searchIcon from '../../../assets/images/search.png';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 
 const Bible = () => {
@@ -46,25 +47,27 @@ const Bible = () => {
   
   return (
     <View style={[inStyles.bibleContainer2]}>
-      <View style={[styles.dropShadow, styles.passwordInputContainer, {borderWidth:0, paddingHorizontal:2}, inStyles.bibleSearch]}>
+      <View style={[styles.dropShadow, styles.passwordInputContainer, { borderWidth: 0, paddingHorizontal: 2 }, inStyles.bibleSearch]}>
         <TextInput
-          style={[styles.dropShadow, styles.passwordInput, {paddingHorizontal:0, marginLeft:6}]}
+          style={[styles.dropShadow, styles.passwordInput, { paddingHorizontal: 3 }]}
           placeholder="Search for a Bible verse or passage"
           onChangeText={(text) => {setSearch(text)}}
           />
         <TouchableOpacity 
           onPress={getResults} 
           style={[styles.dropShadow, inStyles.bibleSearchBtn]}>
-          <Text style={{textAlign: 'center',}}>
-            Search
-          </Text>
+          <Image style={{ width: 15, height: 15 }} source={searchIcon}/>
         </TouchableOpacity>
       </View>
-      <ActivityIndicator style={[{marginTop:120, display:'none'},(showLoad) && {display:'flex'}]} size="large" />
 
-      <ScrollView contentContainerStyle={inStyles.bibleResultsContainer} showsVerticalScrollIndicator={false}>
-        {renderedItems}
-      </ScrollView>
+      
+
+      <View style={inStyles.bibleResultsContainer}>
+        <ActivityIndicator style={[{ marginVertical: 120, display: 'none' }, showLoad && { display: 'flex' }]} size="large" />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {renderedItems}
+        </ScrollView>
+      </View>
     </View>
   );
 };
@@ -94,16 +97,18 @@ const inStyles = StyleSheet.create({
     borderRadius: 20,
     borderColor: '#FFBF69',
     backgroundColor: '#FFFFFF',
-    paddingHorizontal: 5,
+    paddingHorizontal: 10,
     fontSize: RFPercentage(1.8),
     marginBottom:10,
   },
 
   bibleSearchBtn: {
-    backgroundColor: '#f2f2f2',
-    padding:7,
-    paddingHorizontal:15,
-    borderRadius: 50
+    backgroundColor: '#2EC4B6',
+    padding: 5,
+    paddingHorizontal: 10,
+    borderRadius: 50,
+    right: 8,
+    position: 'absolute',
   },
 
   bibleContainer2: {
@@ -112,19 +117,17 @@ const inStyles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor:'#ffffff',
     borderRadius: 20,
-    marginVertical:10,
+    marginVertical: 10,
     paddingVertical: 10,
-    // borderWidth: 2,
-    // borderColor: 'red',
   },
 
   bibleResultsContainer: {
     width: screenWidth('90%'),
     alignItems: 'center',
-    // backgroundColor:'#ffffff',
     borderRadius: 20,
-    marginTop:0,
+    marginTop: 0,
     paddingVertical: 10,
+    height: screenHeight('41%'),
   },
 
   verseItem: {
@@ -132,10 +135,10 @@ const inStyles = StyleSheet.create({
     padding: 15,
     marginHorizontal: 20,
     marginVertical: 5,
-    // borderWidth: 2,
     borderRadius: 20,
     borderColor: '#FFBF69',
-    backgroundColor: '#f7f7f7',
+    borderWidth: 2,
+    backgroundColor: '#F7F7F7',
     alignItems: 'center',
     justifyContent: 'center',
     width: screenWidth('80%')

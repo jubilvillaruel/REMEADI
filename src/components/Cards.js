@@ -5,6 +5,7 @@ import * as Speech from 'expo-speech';
 
 import text from '../../assets/images/text.png';
 import stop from '../../assets/images/stop.png';
+import unlocked from '../../assets/images/unlocked.png';
 import { styles } from '../../assets/css/Style';
 import FlipCard from 'react-native-flip-card';
 import { getMilestoneStatus } from '../models/MilestonesModel';
@@ -83,10 +84,10 @@ export const IconCard = ({ title, desc, icon, onPress }) => {
   return (
     <TouchableOpacity style={[inStyles.milestoneLockedItem, styles.dropShadow, (milestoneStatus) && inStyles.milestoneUnlockedItem]} onPress={onPress}>
       <View style={inStyles.milestoneContent}>
-        <Text style={[styles.colorWhite, styles.bold, (milestoneStatus) && inStyles.milestoneUnlockedItemText, { fontSize: RFPercentage(2.3) }]}>{title}</Text>
+        <Text style={[styles.colorWhite, styles.bold, { fontSize: RFPercentage(2.3) }]}>{title}</Text>
         <Text style={[styles.colorWhite]}>{desc}</Text>
       </View>
-      <Image style={[ (milestoneStatus) && inStyles.milestoneUnlockedItemIcon, { width: 15, height: 19, marginHorizontal: 10 }]} source={icon}/>
+      <Image style={[{ width: milestoneStatus ? 25: 20, height: milestoneStatus ? 25 : 26, marginHorizontal: 10 }]} source={milestoneStatus ? unlocked : icon}/>
     </TouchableOpacity>
   );
 };
@@ -196,10 +197,6 @@ const inStyles = StyleSheet.create({
 
     milestoneUnlockedItemText: {
       color: '#FFBF69',
-    },
-
-    milestoneUnlockedItemIcon: {
-      opacity: 0,
     },
 
     milestoneContent: {
