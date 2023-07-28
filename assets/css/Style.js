@@ -152,10 +152,10 @@ const styles = StyleSheet.create({
     },
 
     activityIndicator : {
-        marginTop:120, 
+        // marginTop:120, 
         position:'absolute', 
         display:'none', 
-        zIndex:99, 
+        zIndex:999, 
         backgroundColor: 'black', 
         opacity: 0.5, 
         width:screenWidth('100%'), 

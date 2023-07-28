@@ -1,4 +1,4 @@
-import { StyleSheet, Text, SafeAreaView, View, Image, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, SafeAreaView, View, Image, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
 import React, { useState, useEffect }  from 'react'
 import { screenWidth, screenHeight } from '../components/Dimensions';
 import { RFPercentage } from "react-native-responsive-fontsize";
@@ -15,15 +15,19 @@ import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
 export default function SignIn({ navigation, route }) {
     const { setUserToken } = route.params;
+    // const { setUserToken } = route.params?.setUserToken;
+
     const [getUsername, setUsername] = useState("")
     const [getPassword, setPassword] = useState("")
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [user, setUser] = useState();
+    const [showLoad, setShowLoad] = useState(false)
   
     useEffect(() => {
       const isUserExist = () => {
         const userExist = auth?.currentUser
         if (userExist) {
+          setShowLoad(false)
           setUserToken(userExist.uid)
         }
       }
@@ -32,6 +36,7 @@ export default function SignIn({ navigation, route }) {
     
     const handleSignIn = () => {
       console.log("sign in pressed")
+      setShowLoad(true)
       auth
         .signInWithEmailAndPassword(getUsername, getPassword)
         .then((userCredential) => {
@@ -40,6 +45,7 @@ export default function SignIn({ navigation, route }) {
             setUser(userCredential.user.uid)
         })
         .catch((error) => {
+          setShowLoad(false)
           const errorCode = error.code;
           const errorMessage = error.message;
           console.log(errorCode, errorMessage.split(': ')[1].split('.')[0]);
@@ -73,6 +79,7 @@ export default function SignIn({ navigation, route }) {
   
     return (
       <SafeAreaView style={styles.screen}>
+        <ActivityIndicator style={[styles.activityIndicator, (showLoad) && {display:'flex'}]} size="large"/>  
         <View style={[styles.containerCentered, inStyles.appContainer]}>
           <Image style={styles.app_logo} source={appLogo}/>
           <Text style={[styles.colorPrimary, styles.bold, { fontSize: RFPercentage(4)}]}>REMEADI</Text>
@@ -146,6 +153,7 @@ export default function SignIn({ navigation, route }) {
           // keyboardOffset={10}
         />
       </SafeAreaView>
+      
     );
   }
 
