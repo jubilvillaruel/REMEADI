@@ -265,18 +265,17 @@ export default function Session({ navigation, route }) {
             onDone: () => setIsSpeaking(false),
         }
         if (thingsToSay) {
-            // let thingToSay = ''
+            let thingToSay = ''
             thingsToSay.forEach((item)=>{
-                Speech.speak(item, options);
-                // thingToSay = thingToSay + item + '                        \n'
+                thingToSay = thingToSay + item + '\n '
                 // console.log('(loop is running) thingToSay:',thingToSay)    
                 // console.log('(loop is running) item:',item)    
             })
             flipText()
             // console.log('\nthingToSay',thingToSay)
-            // if (thingToSay.length) {
-                // Speech.speak(thingToSay, options);
-            // }
+            if (thingToSay.length) {
+                Speech.speak(thingToSay, options);
+            }
         }
     };
 
