@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Image } from 'react-native';
+import { Image, Text } from 'react-native';
 import { screenHeight } from './src/components/Dimensions';
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { NavigationContainer } from '@react-navigation/native';
@@ -52,6 +52,18 @@ import ConcludeSession from './src/screens/ConcludeSession';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
+function TabBarLabel({ label, focused }) {
+  return (
+    <Text style={{
+      fontWeight: focused ? 'bold' : 'normal',
+      fontSize: RFPercentage(1.5),
+      position: 'absolute',
+      color: focused ? '#FFBF69' : '#757575' }}>
+      {label}
+    </Text>
+  );
+}
+
 function HomeScreen ( {route} ) {
   const { setUserToken } = route.params;
 
@@ -73,7 +85,6 @@ function HomeScreen ( {route} ) {
       tabBarActiveTintColor: '#FFBF69',
       tabBarLabelPosition: 'below-icon',
       tabBarLabelStyle: {
-        fontWeight: 'bold',
         position: 'absolute'
       }
     }}>
@@ -81,7 +92,7 @@ function HomeScreen ( {route} ) {
         name='Home'
         component={Home}
         options={{
-          title: 'Home',
+          title: ({ focused }) => <TabBarLabel label="Home" focused={focused} />,
           tabBarIcon: () => (
             <Image source={appLogo} style={{ width: 45, height: 45, resizeMode: 'contain' }}/>
           ),
@@ -92,7 +103,7 @@ function HomeScreen ( {route} ) {
         name='Statistics'
         component={Statistics}
         options={{
-          title: 'Statistics',
+          title: ({ focused }) => <TabBarLabel label="Statistics" focused={focused} />,
           tabBarIcon: () => (
             <Image source={statisticsLogo} style={{ width: 28, height: 28 }}/>
           ),
@@ -103,7 +114,7 @@ function HomeScreen ( {route} ) {
         name='Milestones'
         component={Milestones}
         options={{
-          title: 'Milestones',
+          title: ({ focused }) => <TabBarLabel label="Milestones" focused={focused} />,
           tabBarIcon: () => (
             <Image source={milestonesLogo} style={{ width: 28, height: 28 }}/>
           ),
@@ -115,7 +126,7 @@ function HomeScreen ( {route} ) {
         component={Account}
         initialParams={ {setUserToken} }
         options={{
-          title: 'Account',
+          title: ({ focused }) => <TabBarLabel label="Account" focused={focused} />,
           tabBarIcon: () => (
             <Image source={accountLogo} style={{ width: 28, height: 28 }}/>
           ),
