@@ -59,7 +59,6 @@ export default function Statistics() {
                     // Ensure the series has a length of 5
                     const religionCountArray = religions.map((religion) => religionCount[religion] || 0);
                     if (religionCountArray.every((count) => count === 0)) {
-                        alert('invalid');
                         setTotalMeditationSessionPerReligionBoolean(false);
                     } else {
                         setTotalMeditationSessionPerReligionBoolean(true);
