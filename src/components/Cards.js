@@ -87,7 +87,7 @@ export const IconCard = ({ title, desc, icon, onPress }) => {
         <Text style={[styles.colorWhite, styles.bold, { fontSize: RFPercentage(2.3) }]}>{title}</Text>
         <Text style={[styles.colorWhite]}>{desc}</Text>
       </View>
-      <Image style={[{ width: milestoneStatus ? 25: 20, height: milestoneStatus ? 25 : 26, marginHorizontal: 10 }]} source={milestoneStatus ? unlocked : icon}/>
+      <Image style={[{ width: milestoneStatus ? 21: 20, height: milestoneStatus ? 30 : 26, marginHorizontal: 10 }]} source={milestoneStatus ? unlocked : icon}/>
     </TouchableOpacity>
   );
 };

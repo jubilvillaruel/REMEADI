@@ -4,6 +4,7 @@ import { screenHeight, screenWidth } from '../../components/Dimensions';
 import { styles } from '../../../assets/css/Style';
 import searchIcon from '../../../assets/images/search.png';
 import { RFPercentage } from 'react-native-responsive-fontsize';
+import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
 const Bible = () => {
   const API_KEY = 'eff4aca3a4849507b3543eb77a152e1a';
@@ -12,7 +13,23 @@ const Bible = () => {
   const [search, setSearch] = useState('')
   const [showLoad, setShowLoad] = useState(false)
 
+  const callToast = (type, text1, text2) => {
+    // call toast here
+    Toast.show({
+        type: type,
+        text1: text1,
+        text2: text2,
+        onPress: ()=>{
+            setAvatarVisible(true)
+        }
+        // position: 
+  })};
+
   const getResults = async () => {
+    if (!search) {
+      callToast('error','Invalid Input',`no results`)
+      return
+    }
     setResults([])
     console.log('fetching data...');
     setShowLoad(true)
@@ -34,6 +51,7 @@ const Bible = () => {
   }
 };
 
+
   const renderedItems = results.map((verse) => (
     <>
       <View style={[inStyles.verseItem, styles.dropShadow]}>
@@ -44,6 +62,8 @@ const Bible = () => {
       </View>
     </>
   ));
+
+  
   
   return (
     <View style={[inStyles.bibleContainer2]}>
@@ -60,14 +80,14 @@ const Bible = () => {
         </TouchableOpacity>
       </View>
 
-      
-
       <View style={inStyles.bibleResultsContainer}>
         <ActivityIndicator style={[{ marginVertical: 120, display: 'none' }, showLoad && { display: 'flex' }]} size="large" />
         <ScrollView showsVerticalScrollIndicator={false}>
           {renderedItems}
         </ScrollView>
       </View>
+
+      <Toast topOffset={80}/>
     </View>
   );
 };
@@ -136,8 +156,6 @@ const inStyles = StyleSheet.create({
     marginHorizontal: 20,
     marginVertical: 5,
     borderRadius: 20,
-    borderColor: '#FFBF69',
-    borderWidth: 2,
     backgroundColor: '#F7F7F7',
     alignItems: 'center',
     justifyContent: 'center',
