@@ -38,14 +38,14 @@ export default function Statistics() {
                 if (dataFromFirebase) {
                     const uid = auth.currentUser.uid;
                     const sessionData = Object.keys(dataFromFirebase)
-                    .filter((sessionId) => dataFromFirebase[sessionId].uid === uid)
-                    .map((sessionId) => ({
-                        sessionId,
-                        uid: dataFromFirebase[sessionId].uid,
-                        religion: dataFromFirebase[sessionId].religion,
-                        practiceTitle: dataFromFirebase[sessionId].practiceTitle,
-                        duration: dataFromFirebase[sessionId].duration,
-                    }));
+                        .filter((sessionId) => dataFromFirebase[sessionId].uid === uid)
+                        .map((sessionId) => ({
+                            sessionId,
+                            uid: dataFromFirebase[sessionId].uid,
+                            religion: dataFromFirebase[sessionId].religion,
+                            practiceTitle: dataFromFirebase[sessionId].practiceTitle,
+                            duration: dataFromFirebase[sessionId].duration,
+                        }));
 
                     setData(sessionData);
                     setTotalMeditationSession(sessionData.length);
