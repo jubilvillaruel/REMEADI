@@ -17,7 +17,7 @@ import close from '../../assets/images/close.png';
 
 import { styles } from '../../assets/css/Style';
 import { getGuide } from '../Data/Practices/GuideDB';
-import { getReligionByPractice, timeDB, timeDB2, timeDB3 } from '../Data/LocalDB';
+import { getCategoryByPractice, timeDB, timeDB2, timeDB3 } from '../Data/LocalDB';
 import { getTimeModel, getTimeModel2, getTimesPracticed, timeToMilliseconds } from '../models/TimeModel';
 import { StackActions } from '@react-navigation/native';
 import Bible from './Extensions/Bible';
@@ -31,7 +31,7 @@ export default function Session({ navigation, route }) {
     const bia = data?.bia
     const imgGuide = data.img
 
-    const religion = getReligionByPractice(practiceTitle)
+    const religion = getCategoryByPractice(practiceTitle)
 
     // Modals for Summary and BGM Selection
     const [bgmVisible, setBgmVisible] = useState(false);
@@ -100,7 +100,7 @@ export default function Session({ navigation, route }) {
     }, [])
 
     useEffect(() => {
-        const religion = getReligionByPractice(practiceTitle);
+        const religion = getCategoryByPractice(practiceTitle);
         if (religion && religion.key === 'Christianity') {
             if (practiceTitle === 'Rosary') {
                 setbibleDisabled(true);
@@ -235,16 +235,21 @@ export default function Session({ navigation, route }) {
     }
 
     const callBibleOrVideoPlayer = () => {
-        const religion = getReligionByPractice(practiceTitle);
-        if (religion && religion.key === 'Christianity') {
-            if (practiceTitle === 'Rosary') {
-                return <VideoPlayer />;
+        try {
+            const religion = getCategoryByPractice(practiceTitle);
+            if (religion && religion.key === 'Christianity') {
+                if (practiceTitle === 'Rosary') {
+                    return <VideoPlayer />;
+                } else {
+                    return <Bible />;
+                }
             } else {
-                return <Bible />;
+                return <VideoPlayer />;
             }
-        } else {
-            return <VideoPlayer />;
+        } catch (error) {
+            console.log(error.stack)
         }
+        
     };
 
     useEffect(() => {
