@@ -129,13 +129,14 @@ export default function Session({ navigation, route }) {
     },[stopwatchTime])
 
     const showGuide = () => {
+        console.log('from line 132')
         const steps = [];
         let stepCount = 1
         let count = ''
         for (const property in guide){
             count = ('Step ' + stepCount)
             steps.push(
-                <StepCard count={count} desc={property} detailedDesc={guide[property]}></StepCard>
+                <StepCard key={property} count={count} desc={property} detailedDesc={guide[property]}></StepCard>
             );
             stepCount++
         }
@@ -248,8 +249,7 @@ export default function Session({ navigation, route }) {
             }
         } catch (error) {
             console.log(error.stack)
-        }
-        
+        }  
     };
 
     useEffect(() => {
