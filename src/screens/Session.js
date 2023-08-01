@@ -399,7 +399,7 @@ export default function Session({ navigation, route }) {
                     <Modal visible={bgmVisible} animationType='slide' transparent={true}>
                         <View style={inStyles.bgmContainer}>
                             <View style={[inStyles.bgmContent, { gap: 15 }]}>
-                                <Text style={[styles.bold, { fontSize: RFPercentage(2.8) }]}>Ambient Sound</Text>
+                                <Text style={[styles.bold, { fontSize: RFPercentage(2.5) }]}>Ambient Sound</Text>
                                 <ScrollView style={inStyles.bgmListContainer} showsVerticalScrollIndicator={false}>
                                     {sounds.map((sound, index) => (
                                         <View key={index}>
@@ -422,8 +422,8 @@ export default function Session({ navigation, route }) {
                                         </View>
                                     ))}
                                 </ScrollView>
-                                <TouchableOpacity onPress={hideBgmModal}>
-                                    <Image style={[{ width: 50, height: 50 }]} source={close}/>
+                                <TouchableOpacity onPress={hideBgmModal} style={{ top: 15, right: 15, position: 'absolute' }}>
+                                    <Image style={[{ width: 25, height: 25 }]} source={close}/>
                                     {/* <Text style={[styles.bold, { fontSize: RFPercentage(2) }]}>Close</Text> */}
                                 </TouchableOpacity>
                             </View>
