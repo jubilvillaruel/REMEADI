@@ -9,8 +9,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // Images
 import appLogo from './assets/images/app_logo.png';
 import statisticsLogo from './assets/images/navigation/statistics.png';
+import statisticsActive from './assets/images/navigation/statisticsActive.png';
 import milestonesLogo from './assets/images/navigation/milestones.png';
+import milestonesActive from './assets/images/navigation/milestonesActive.png';
 import accountLogo from './assets/images/navigation/account.png';
+import accountActive from './assets/images/navigation/accountActive.png';
 
 // Starting Screens
 import Landing from './src/screens/LandingPage';
@@ -104,8 +107,8 @@ function HomeScreen ( {route} ) {
         component={Statistics}
         options={{
           title: ({ focused }) => <TabBarLabel label="Statistics" focused={focused} />,
-          tabBarIcon: () => (
-            <Image source={statisticsLogo} style={{ width: 28, height: 28 }}/>
+          tabBarIcon: ({ focused }) => (
+            <Image source={focused ? statisticsActive : statisticsLogo} style={{ width: 28, height: 28 }}/>
           ),
         }}>
       </Tab.Screen>
@@ -115,8 +118,8 @@ function HomeScreen ( {route} ) {
         component={Milestones}
         options={{
           title: ({ focused }) => <TabBarLabel label="Milestones" focused={focused} />,
-          tabBarIcon: () => (
-            <Image source={milestonesLogo} style={{ width: 28, height: 28 }}/>
+          tabBarIcon: ({ focused }) => (
+            <Image source={focused ? milestonesActive : milestonesLogo} style={{ width: 20, height: 28 }}/>
           ),
         }}>
       </Tab.Screen>
@@ -124,11 +127,11 @@ function HomeScreen ( {route} ) {
       <Tab.Screen
         name='Account'
         component={Account}
-        initialParams={ {setUserToken} }
+        initialParams={{setUserToken}}
         options={{
           title: ({ focused }) => <TabBarLabel label="Account" focused={focused} />,
-          tabBarIcon: () => (
-            <Image source={accountLogo} style={{ width: 28, height: 28 }}/>
+          tabBarIcon: ({ focused }) => (
+            <Image source={focused ? accountActive : accountLogo} style={{ width: 26, height: 24 }}/>
           ),
         }}>
       </Tab.Screen>
