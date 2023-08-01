@@ -62,7 +62,7 @@ const timeDB3 = {
 
 
 
-const getReligionByPractice = (title) => {
+const getCategoryByPractice = (title) => {
     // loop through religionDB and return key if value matched with title
     for(let [key,value] of Object.entries(religionDB))
     {
@@ -78,7 +78,7 @@ const getReligionByPractice = (title) => {
         }
         if(matchFound== true )return  {key};
     };
-    return null ;
+    return 'General' ;
 }
 
-export { meditationDescDB, religionDB, getReligionByPractice, timeDB, timeDB2, timeDB3 } 
+export { meditationDescDB, religionDB, getCategoryByPractice, timeDB, timeDB2, timeDB3 } 

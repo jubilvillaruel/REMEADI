@@ -1,4 +1,4 @@
-import React, { useState, useEffect }from 'react'
+import React, { useState, useEffect, useRef }from 'react'
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, ScrollView, Image, Modal } from 'react-native';
 import { StepCard } from '../components/Cards';
 import { screenWidth, screenHeight } from '../components/Dimensions';
@@ -23,6 +23,7 @@ import { StackActions } from '@react-navigation/native';
 import Bible from './Extensions/Bible';
 import VideoPlayer from './Extensions/Video';
 import Slider from '@react-native-community/slider';
+import { Button } from 'react-native';
 
 export default function Session({ navigation, route }) {
     const data = route.params
@@ -99,6 +100,8 @@ export default function Session({ navigation, route }) {
         fetchGuideAndTime();
     }, [])
 
+    const [prevStopwatchTime, setPrevStopwatchTime] = useState(null);
+
     useEffect(() => {
         const religion = getCategoryByPractice(practiceTitle);
         if (religion && religion.key === 'Christianity') {
@@ -113,23 +116,42 @@ export default function Session({ navigation, route }) {
         }
     }, [practiceTitle]);
 
-    useEffect(()=>{
-        try{
-            let tick = timeToMilliseconds(stopwatchTime)
-            // console.log('Stopwatch:', tick)
-            if(tick == time && bia >= 0){
-                console.log('=====================\n\n\n\n\n           TRUE\n\n\n\n=====================')
+    useEffect(() => {
+        const checkElapsedTime = () => {
+          try {
+            const currentStopwatchTime = stopwatchRef.current.formatTime();
+            if (currentStopwatchTime !== prevStopwatchTime) {
+              // Update the previous stopwatch time
+              setPrevStopwatchTime(currentStopwatchTime);
+    
+              // Convert time to milliseconds for comparison
+              const tick = timeToMilliseconds(currentStopwatchTime);
+    
+              // Replace 'time' with your desired time in milliseconds
+              if (tick === time && bia >= 0) {
+                console.log(
+                  '=====================\n\n\n\n\n           TRUE\n\n\n\n====================='
+                );
                 // alert('it worked')
                 // handleDone()
-                concludeSession()
+                concludeSession();
+              }
             }
-        } catch (error) {
-          console.log(error)
-        }
-    },[stopwatchTime])
+          } catch (error) {
+            console.log(error);
+          }
+        };
+    
+        const interval = setInterval(checkElapsedTime, 1000);
+    
+        return () => {
+            clearInterval(interval);
+        };
+    }, [prevStopwatchTime]);
+
+
 
     const showGuide = () => {
-        console.log('from line 132')
         const steps = [];
         let stepCount = 1
         let count = ''
@@ -217,23 +239,28 @@ export default function Session({ navigation, route }) {
         stopSound(index);
     };
 
+    // Create a ref for accessing the stopwatch time value
+    const stopwatchRef = useRef();
+
     const callStopwatch = () => {
-        const clock = [];
-        clock.push(
+        const clocks = [];
+        clocks.push(
             <Stopwatch
+                ref={stopwatchRef} // Assign the ref to the StopWatch component
+                key={0} // Add a unique key prop here
                 start={timerRunning}
                 startTime={0}
                 options= {{
                     container: inStyles.duration,
                     text: inStyles.durationText,
                 }}
-                getTime={(time) => {
-                    setStopwatchTime(time)
-                }}
+                // getTime={(time) => {
+                //     setStopwatchTime(time)
+                // }}
             />
         )
-        return clock
-    }
+        return clocks
+    }   
 
     const callBibleOrVideoPlayer = () => {
         try {
@@ -306,13 +333,14 @@ export default function Session({ navigation, route }) {
     };
 
     const concludeSession = async () => {
+        const time = stopwatchRef.current.formatTime();
         stopAllSounds();
         setTimerRunning(false);
         Speech.stop();
         // console.log('getTimesPracticed:', getTimesPracticed(practiceTitle))
         const data = {
             practiceTitle: practiceTitle,
-            stopwatchTime: timeToMilliseconds(stopwatchTime),
+            stopwatchTime: timeToMilliseconds(time),
             // meditation type
             // times practiced
             timesPracticed: await getTimesPracticed(practiceTitle) + 1
@@ -395,7 +423,7 @@ export default function Session({ navigation, route }) {
                         </FlipCard>
                     </View>
 
-                    <View style={inStyles.bottomContainer}>      
+                    <View style={inStyles.bottomContainer}>    
                         <TouchableOpacity style={[styles.dropShadow, styles.bgColorPrimary, inStyles.btnEnd]} onPress={() => {concludeSession()}}>
                             <Text style={[{ fontSize: RFPercentage(3) }, styles.colorWhite, styles.bold]}>Conclude Session</Text>
                         </TouchableOpacity>

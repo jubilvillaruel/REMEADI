@@ -7,7 +7,7 @@ import { screenHeight, screenWidth } from '../components/Dimensions';
 import { styles } from '../../assets/css/Style';
 import appLogo from '../../assets/images/app_logo.png';
 import { meditationTypeDB } from '../Data/TypeDB';
-import { getReligionByPractice } from '../Data/LocalDB';
+import { getCategoryByPractice } from '../Data/LocalDB';
 
 import { auth } from '../../firebase';
 import { getDatabase, push, ref, set } from 'firebase/database';
@@ -35,15 +35,21 @@ export default function ConcludeSession({ navigation, route }) {
             const id = auth.currentUser.uid
             setUID(id)
 
-            // setReligion based on practice title with meditationReligionDB
-            let rel = getReligionByPractice(practiceTitle)
-            setReligion(rel.key)
+            try {
+                // setReligion based on practice title with meditationReligionDB
+                let rel = getCategoryByPractice(practiceTitle)
+                setReligion(rel.key)
 
-            // missing [set practice title]
-            // ... code here
+                // missing [set practice title]
+                // ... code here
 
-            const date = new Date().toISOString()
-            setCurrentDate(date)
+                const date = new Date().toISOString()
+                setCurrentDate(date)
+            } catch (error) {
+                console.log(error.message)
+                console.log(error.stack)
+            }
+            
         };
         retrieveAllData();
     }, [])
@@ -78,14 +84,19 @@ export default function ConcludeSession({ navigation, route }) {
         const realtimeDB = getDatabase()
         const historyId = push(ref(realtimeDB, 'histories')).key;
 
-        set(ref(realtimeDB, 'histories/' + historyId), {
-            currentDate: currentDate,
-            duration: duration,
-            practiceTitle: practiceTitle,
-            religion: religion,
-            subPracticeTitle: subPracticeTitle,
-            uid: uid,
-        }).then(checkAndUpdateMilestone(practiceTitle))
+        try {
+            set(ref(realtimeDB, 'histories/' + historyId), {
+                currentDate: currentDate,
+                duration: duration,
+                practiceTitle: practiceTitle,
+                religion: religion,
+                subPracticeTitle: subPracticeTitle,
+                uid: uid,
+            }).then(checkAndUpdateMilestone(practiceTitle))            
+        } catch (error) {
+            console.log(error.message)
+            console.log(error.stack)
+        }
     }
 
     

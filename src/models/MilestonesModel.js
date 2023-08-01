@@ -1,15 +1,17 @@
 import { getDatabase, update, ref, get } from "firebase/database";
-import { buddhismMDB, christianityMDB, genMilestoneReligionDB, hinduismMDB, islamMDB, judaismMDB, milestoneReligionDB } from "../Data/MilestonesDB"
+import { buddhismMDB, christianityMDB, genMilestoneReligionDB, generalMDB, hinduismMDB, islamMDB, judaismMDB, milestoneReligionDB } from "../Data/MilestonesDB"
 import { auth } from "../../firebase";
-import { getReligionByPractice, religionDB } from "../Data/LocalDB";
+import { getCategoryByPractice, religionDB } from "../Data/LocalDB";
 
 const getReligionByMilestone = (milestoneTitle) => {
+  console.log('from getReligionByMilestone milestoneTitle:',milestoneTitle)
   try {
-    console.log('from getReligionByMilestone milestoneTitle:',milestoneTitle)
     let religion = '';
 
-    if (christianityMDB.hasOwnProperty(milestoneTitle)) {
-        religion = 'christianity';
+    if (generalMDB.hasOwnProperty(milestoneTitle)) {
+        religion = 'general';
+    } else if (christianityMDB.hasOwnProperty(milestoneTitle)) {
+      religion = 'christianity';
     } else if (islamMDB.hasOwnProperty(milestoneTitle)) {
         religion = 'islam';
     } else if (hinduismMDB.hasOwnProperty(milestoneTitle)) {
@@ -19,8 +21,8 @@ const getReligionByMilestone = (milestoneTitle) => {
     } else if (judaismMDB.hasOwnProperty(milestoneTitle)) {
         religion = 'judaism';
     } else {
-      console.log(error.stack)
-        throw new Error("Invalid Religion for:",milestoneTitle);
+      // console.log(error.stack)
+      throw new Error("Invalid Religion for:",milestoneTitle);
     }
     return religion
   } catch (error) {
@@ -49,11 +51,20 @@ const getGenMileStoneByReligion = (religion) => {
 const createMileStonesForUser = (uid) => {
     // get database reference
     const realtimeDB = getDatabase()
+    const geRef = ref(realtimeDB, 'milestones/' + uid + '/general')
     const chRef = ref(realtimeDB, 'milestones/' + uid + '/christianity')
     const isRef = ref(realtimeDB, 'milestones/' + uid + '/islam')
     const hiRef = ref(realtimeDB, 'milestones/' + uid + '/hinduism')
     const buRef = ref(realtimeDB, 'milestones/' + uid + '/buddhism')
     const juRef = ref(realtimeDB, 'milestones/' + uid + '/judaism')
+
+    // set general database
+    const initMilestonesGe = Object.keys(generalMDB).reduce((acc, milestoneName) => {
+      acc[milestoneName] = false;
+      return acc;
+    }, {});
+
+    update(geRef, initMilestonesGe);
 
     // set christianity database
     const initMilestonesCh = Object.keys(christianityMDB).reduce((acc, milestoneName) => {
@@ -100,14 +111,20 @@ const createMileStonesForUser = (uid) => {
 }
 
 const checkAndUpdateMilestone = async (practiceTitle) => {
+  // milestone: meditate for the first time
+  updateMilestoneToTrue('The Meditator', 'general')
+
   console.log('\n\n\n======================\nentered function')
   const uid = auth.currentUser.uid
 
-  const religion = getReligionByPractice(practiceTitle)['key']
+  const religion = getCategoryByPractice(practiceTitle)['key']
   console.log('religion from line 139:', religion)
+
+  const milestonesRef = ref(getDatabase(), 'milestones/'+uid)
 
   try {
     const historyRef = ref(getDatabase(), 'histories');
+    // const historyRef = ref(getDatabase(), 'histories/'+uid);
     const snapshot = await get(historyRef);
 
     if (snapshot.exists()) {

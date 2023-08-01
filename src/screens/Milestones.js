@@ -7,7 +7,7 @@ import { IconCard } from '../components/Cards';
 import locked from '../../assets/images/locked.png';
 import { screenHeight } from '../components/Dimensions';
 
-import { christianityMDB, islamMDB, hinduismMDB, buddhismMDB, judaismMDB } from '../Data/MilestonesDB';
+import { generalMDB, christianityMDB, islamMDB, hinduismMDB, buddhismMDB, judaismMDB } from '../Data/MilestonesDB';
 
 
 export default function Milestones() {
@@ -37,6 +37,13 @@ export default function Milestones() {
                 </View>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                     <View style={inStyles.filterContainer}>
+                        <TouchableOpacity
+                            style={[inStyles.filterItem, isChipSelected('General') && inStyles.selectedFilterItem]}
+                            onPress={() => handleChipPress('General')}>
+                            <Text style={[inStyles.filterItemText, isChipSelected('General') && inStyles.selectedFilterItemText]}>
+                                General
+                            </Text>
+                        </TouchableOpacity>
                         <TouchableOpacity
                             style={[inStyles.filterItem, isChipSelected('Christianity') && inStyles.selectedFilterItem]}
                             onPress={() => handleChipPress('Christianity')}>
@@ -81,6 +88,10 @@ export default function Milestones() {
                     {selectedChips.length === 0 ? (
                         // Render all Milestones when no filter is selected 
                         <>
+                            {Object.entries(generalMDB).map(([title, desc], index) => (
+                                <IconCard key={index} title={title} desc={desc} icon={locked} />
+                            ))}
+
                             {Object.entries(christianityMDB).map(([title, desc], index) => (
                                 <IconCard key={index} title={title} desc={desc} icon={locked} />
                             ))}
@@ -104,6 +115,11 @@ export default function Milestones() {
                     ) : (
                         // Render Milestones based on the selected filter
                         <>
+                            {selectedChips.includes('General') &&
+                                Object.entries(generalMDB).map(([title, desc], index) => (
+                                    <IconCard key={index} title={title} desc={desc} icon={locked} />
+                                ))}
+
                             {selectedChips.includes('Christianity') &&
                                 Object.entries(christianityMDB).map(([title, desc], index) => (
                                     <IconCard key={index} title={title} desc={desc} icon={locked} />
