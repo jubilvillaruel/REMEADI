@@ -25,10 +25,10 @@ export default function Home({ navigation }) {
     const [ lastName, setLastName ] = useState('');
     const [ quote, setQuote ] = useState('')
     const [ source, setSource ] = useState('')
-    const [ isEmailVerified, setIsEmailVerified] = useState(true)
+    const [ isEmailVerified, setIsEmailVerified] = useState(false)
 
     const uid = auth.currentUser.uid
-    // const emailVerified = auth.currentUser.emailVerified
+    const emailVerified = auth.currentUser.emailVerified
 
     const currentDate = new Date().toLocaleDateString('en-US', {
         month: 'long',
@@ -38,30 +38,36 @@ export default function Home({ navigation }) {
 
     // fetch if user is verified
     // useEffect(() => {
-        // Add an authentication state change listener
-    const unsubscribe = () => auth.onAuthStateChanged((user) => {
-        console.log("unsubscribe is called")
-        if (user) {
-            console.log(user)
-            // Check if the email is verified
-            if (isEmailVerified && !user.emailVerified) {
-                setIsEmailVerified(user.emailVerified);
-                // callToast('success','Email Verified!','Let\'s start meditating!🥳')
-            }
-            if (!isEmailVerified && user.emailVerified) {
-                setIsEmailVerified(user.emailVerified);
-                // callToast('success','Email Verified!','Let\'s start meditating!🥳')
-            }
-        }
-    });
-        // Clean up the listener when the component unmounts
-        // return () => unsubscribe();
+    //     // Add an authentication state change listener
+    //     const unsubscribe = () => auth.onAuthStateChanged((user) => {
+    //         console.log('email verified? : ',user.emailVerified())
+    //         setIsEmailVerified(user.emailVerified())
+    //         // console.log("unsubscribe is called")
+    //         // if (user) {
+    //         //     console.log(user)
+    //         //     // Check if the email is verified
+    //         //     if (isEmailVerified && !user.emailVerified) {
+    //         //         setIsEmailVerified(user.emailVerified);
+    //         //         // callToast('success','Email Verified!','Let\'s start meditating!🥳')
+    //         //     }
+    //         //     if (!isEmailVerified && user.emailVerified) {
+    //         //         setIsEmailVerified(user.emailVerified);
+    //         //         // callToast('success','Email Verified!','Let\'s start meditating!🥳')
+    //         //     }
+    //         // }
+    //     });
+    //     // Clean up the listener when the component unmounts
+    //     unsubscribe();
     // }, []);
     
     // fetch user data from realtime db
     useEffect(() => {
         const fetchUserData = async () => {
+            console.log('EMAIL MO:',emailVerified)
             try {
+                if (emailVerified) {
+                    setIsEmailVerified(true)
+                }   
                 console.log('fetching user data\nuser id: ',uid)
 
                 // set user first name and last name
@@ -138,13 +144,6 @@ export default function Home({ navigation }) {
     };
 
     const remindVerification = async () => {
-        unsubscribe();
-        if (isEmailVerified){
-            callToast('success','Email Verified!','Let\'s start meditating!🥳')
-            const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-            await sleep(3000);
-            navigation.navigate('SelectReligion');
-        }
         callToast('error','Unverified Email Address','Oh no! Verify your email address and re-login')
         console.log('Please verify your account')
     }

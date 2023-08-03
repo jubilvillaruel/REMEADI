@@ -24,8 +24,8 @@ export default function Account({ navigation, route }) {
         navigation.navigate('EditAccount');
     };
 
-    const goToSignIn = () => {
-        navigation.navigate('SignIn');
+    const goToManageQuote = () => {
+        navigation.navigate('ManageQuote');
     };
 
     return (

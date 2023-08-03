@@ -1,6 +1,7 @@
-import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View, Picker } from 'react-native'
+import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useId, useState } from 'react'
 import { TextInput } from 'react-native'
+import { Picker } from '@react-native-picker/picker'
 import { styles } from '../../assets/css/Style'
 import { getQuoteID} from '../models/QuoteModel'
 import { getDatabase, ref, set, push } from 'firebase/database'
@@ -26,8 +27,15 @@ export default function ManageQuote() {
         source: source
       });
 
+      clearInput();
+
       console.log('QUOTE SUCCESSFULLY ADDED')
       console.log("documentId:", religionMotivationId),"\n-----------------------";
+    }
+
+    const clearInput= () => {
+      setQuote('')
+      setSource('')
     }
     
 
