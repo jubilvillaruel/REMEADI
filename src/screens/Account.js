@@ -11,8 +11,10 @@ export default function Account({ navigation, route }) {
     const [vol, setVol] = useState(0);
     const [notif, notifToggle] = useState(true);
     const [vib, vibToggle] = useState(true);
+    const [faithFocused, faithFocusedToggle] = useState(true);
     const toggleNotif = () => notifToggle(previousState => !previousState);
     const toggleVib = () => vibToggle(previousState => !previousState);
+    const toggleFaithFocused = () => faithFocusedToggle(previousState => !previousState);
 
     const handleLogout = () => {
         console.log('logout pressed')
@@ -50,6 +52,20 @@ export default function Account({ navigation, route }) {
                         ios_backgroundColor="#3e3e3e"
                         onValueChange={toggleVib}
                         value={vib}
+                    />
+                </View>
+            </View>
+
+            <View style={[ styles.dropShadow, { padding: 20, width: '100%' }]}>
+                <Text style={[ inStyles.title, styles.colorPrimary]}>Daily Motivation</Text>
+                <View style={inStyles.optionContainer}>
+                    <Text style={{ fontWeight: '500' }}>Faith-Focused</Text>
+                    <Switch
+                        style={inStyles.toggle}
+                        thumbColor={faithFocused ? '#000000' : '#f4f3f4'}
+                        ios_backgroundColor="#3e3e3e"
+                        onValueChange={toggleFaithFocused}
+                        value={faithFocused}
                     />
                 </View>
             </View>
