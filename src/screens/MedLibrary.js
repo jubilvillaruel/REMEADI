@@ -14,6 +14,11 @@ import judaism_logo from '../../assets/images/religion/judaism_logo.png';
 
 import { meditationImgDB } from '../Data/ImageDB';
 import { meditationTypeDB } from '../Data/TypeDB';
+import { ChristianityDB } from '../Data/Practices/ChristianityDB';
+import { IslamDB } from '../Data/Practices/IslamDB';
+import { HinduismDB } from '../Data/Practices/HinduismDB';
+import { BuddhismDB } from '../Data/Practices/BuddhismDB';
+import { JudaismDB } from '../Data/Practices/JudaismDB';
 
 export default function MedLibrary({ navigation }) {
   const [searchInput, setSearchInput] = useState('');
@@ -35,24 +40,28 @@ export default function MedLibrary({ navigation }) {
       type: meditationTypeDB['Lectio Divina'],
       image: meditationImgDB['Lectio Divina'],
       bia: '',
+      desc: ChristianityDB['Lectio Divina'],
     },
     {
       title: 'Christian Meditation',
       type: meditationTypeDB['Christian Meditation'],
       image: meditationImgDB['Christian Meditation'],
       bia: '',
+      desc: ChristianityDB['Christian Meditation']
     },
     {
       title: 'Examen',
       type: meditationTypeDB['Examen'],
       image: meditationImgDB['Examen'],
       bia: '',
+      desc: ChristianityDB['Examen']
     },
     {
       title: 'Rosary',
       type: meditationTypeDB['Rosary'],
       image: meditationImgDB['Rosary'],
       bia: '',
+      desc: ChristianityDB['Rosary']
     },
 
     // Islam
@@ -61,24 +70,28 @@ export default function MedLibrary({ navigation }) {
       type: meditationTypeDB['Taffakur'],
       image: meditationImgDB['Taffakur'],
       bia: '',
+      desc: IslamDB['Taffakur']
     },
     {
       title: 'Dhikr',
       type: meditationTypeDB['Dhikr'],
       image: meditationImgDB['Dhikr'],
       bia: true,
+      desc: IslamDB['Dhikr']
     },
     {
       title: 'Muraqaba',
       type: meditationTypeDB['Muraqaba'],
       image: meditationImgDB['Muraqaba'],
       bia: true,
+      desc: IslamDB['Muraqaba']
     },
     {
       title: 'Sufi Breathing',
       type: meditationTypeDB['Sufi Breathing'],
       image: meditationImgDB['Sufi Breathing'],
       bia: '',
+      desc: IslamDB['Sufi Breathing']
     },
 
     // Hinduism
@@ -87,18 +100,21 @@ export default function MedLibrary({ navigation }) {
       type: meditationTypeDB['Hatha Yoga'],
       image: meditationImgDB['Hatha Yoga'],
       bia: '',
+      desc: HinduismDB['Hatha Yoga']
     },
     {
       title: 'Kriya Yoga',
       type: meditationTypeDB['Kriya Yoga'],
       image: meditationImgDB['Kriya Yoga'],
       bia: '',
+      desc: HinduismDB['Kriya Yoga']
     },
     {
       title: 'Chakra',
       type: meditationTypeDB['Chakra'],
       image: meditationImgDB['Chakra'],
       bia: '',
+      desc: HinduismDB['Chakra']
     },
 
     // Buddhism
@@ -107,30 +123,35 @@ export default function MedLibrary({ navigation }) {
       type: meditationTypeDB['Breath'],
       image: meditationImgDB['Breath'],
       bia: true,
+      desc: BuddhismDB['Breath']
     },
     {
       title: 'Walk',
       type: meditationTypeDB['Walk'],
       image: meditationImgDB['Walk'],
       bia: true,
+      desc: BuddhismDB['Walk']
     },
     {
       title: 'Tonglen',
       type: meditationTypeDB['Tonglen'],
       image: meditationImgDB['Tonglen'],
       bia: true,
+      desc: BuddhismDB['Tonglen']
     },
     {
       title: 'Metta',
       type: meditationTypeDB['Metta'],
       image: meditationImgDB['Metta'],
       bia: true,
+      desc: BuddhismDB['Metta']
     },
     {
       title: 'Body Scan',
       type: meditationTypeDB['Body Scan'],
       image: meditationImgDB['Body Scan'],
       bia: true,
+      desc: BuddhismDB['Body Scan']
     },
 
     // Judaism
@@ -139,28 +160,43 @@ export default function MedLibrary({ navigation }) {
       type: meditationTypeDB['Hitbodedut'],
       image: meditationImgDB['Hitbodedut'],
       bia: '',
+      desc: JudaismDB['Hitbodedut']
     },
     {
       title: 'Kabbalistic/Chassidic',
       type: meditationTypeDB['Kabbalistic/Chassidic'],
       image: meditationImgDB['Kabbalistic/Chassidic'],
       bia: true,
+      desc: JudaismDB['Kabbalistic/Chassidic']
     },
     {
       title: 'Shema',
       type: meditationTypeDB['Shema'],
       image: meditationImgDB['Shema'],
       bia: true,
+      desc: JudaismDB['Shema']
     },
   ];
 
   const handleSearchInputChange = (text) => {
     setSearchInput(text);
-    // Filter the cards based on the search input
-    const filtered = allCards.filter((card) =>
-      card.title.toLowerCase().includes(text.toLowerCase())
-    );
-    setFilteredCards(filtered);
+    try {
+      // Filter the cards based on the search input
+      const filtered = allCards.filter((card) =>{
+        const titleMatch = card.title.toLowerCase().includes(text.toLowerCase());
+        const descMatch = Object.values(card.desc).some((sentence) =>
+          sentence.toLowerCase().includes(text.toLowerCase())
+        );
+        return titleMatch || descMatch;
+      }
+        // card.title.toLowerCase().includes(text.toLowerCase()) ||
+        // card.desc.map((sentence) => (sentence.toLowerCase().includes(text.toLowerCase()))) 
+      );
+      console.log(filtered)
+      setFilteredCards(filtered);
+    } catch (error) {
+      console.log(error.stack)
+    }
   };
 
   return (
