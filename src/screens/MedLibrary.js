@@ -188,10 +188,7 @@ export default function MedLibrary({ navigation }) {
           sentence.toLowerCase().includes(text.toLowerCase())
         );
         return titleMatch || descMatch;
-      }
-        // card.title.toLowerCase().includes(text.toLowerCase()) ||
-        // card.desc.map((sentence) => (sentence.toLowerCase().includes(text.toLowerCase()))) 
-      );
+      });
       console.log(filtered)
       setFilteredCards(filtered);
     } catch (error) {
