@@ -65,10 +65,6 @@ export default function ConcludeSession({ navigation, route }) {
                     '\nduration:', duration,
                     '\ndate:', currentDate
                 )
-                
-                // TESTING: ADDING TIME
-                const result = addTimes('00:00:50', '00:00:10'); // incorrect
-                console.log(result); // Output: '00:01:00'
 
                 // store data to history
                 storeSessionToHistory();
@@ -82,16 +78,16 @@ export default function ConcludeSession({ navigation, route }) {
     const storeSessionToHistory = () => {
         console.log('=====storeSessionToHistory=====')
         const realtimeDB = getDatabase()
-        const historyId = push(ref(realtimeDB, 'histories')).key;
+        const historyId = push(ref(realtimeDB, 'histories/'+uid)).key;
 
         try {
-            set(ref(realtimeDB, 'histories/' + historyId), {
+            set(ref(realtimeDB, 'histories/' + uid + '/' + historyId), {
                 currentDate: currentDate,
                 duration: duration,
                 practiceTitle: practiceTitle,
                 religion: religion,
                 subPracticeTitle: subPracticeTitle,
-                uid: uid,
+                // uid: uid,
             }).then(checkAndUpdateMilestone(practiceTitle))            
         } catch (error) {
             console.log(error.message)

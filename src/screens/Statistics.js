@@ -46,6 +46,8 @@ export default function Statistics() {
                             duration: dataFromFirebase[sessionId].duration,
                         }));
 
+                    // console.log('===sessionData===\n'+sessionData.map((item)=>{return item}))
+
                     setData(sessionData);
                     setTotalMeditationSession(sessionData.length);
 

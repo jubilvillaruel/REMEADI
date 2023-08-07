@@ -123,7 +123,7 @@ const checkAndUpdateMilestone = async (practiceTitle) => {
   const milestonesRef = ref(getDatabase(), 'milestones/'+uid)
 
   try {
-    const historyRef = ref(getDatabase(), 'histories');
+    const historyRef = ref(getDatabase(), 'histories/'+uid);
     // const historyRef = ref(getDatabase(), 'histories/'+uid);
     const snapshot = await get(historyRef);
 
@@ -132,7 +132,8 @@ const checkAndUpdateMilestone = async (practiceTitle) => {
 
       // filter the data to get only the relevant sessions based on religion only
       const relevantSessionsByReligion = Object.values(dataFromFirebase).filter(
-        (session) => session.uid === uid && session.religion === religion 
+        // (session) => session.uid === uid && session.religion === religion 
+        (session) => session.religion === religion 
       );
 
       // milestone checker for Finishing ALL Practices of a specific Religion
