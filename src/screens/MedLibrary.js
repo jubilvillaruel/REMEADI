@@ -13,7 +13,7 @@ import buddhism_logo from '../../assets/images/religion/buddhism_logo.png';
 import judaism_logo from '../../assets/images/religion/judaism_logo.png';
 
 import { meditationImgDB } from '../Data/ImageDB';
-import { meditationTypeDB } from '../Data/TypeDB';
+import { meditationReligionDB, meditationTypeDB } from '../Data/TypeDB';
 import { ChristianityDB } from '../Data/Practices/ChristianityDB';
 import { IslamDB } from '../Data/Practices/IslamDB';
 import { HinduismDB } from '../Data/Practices/HinduismDB';
@@ -187,7 +187,10 @@ export default function MedLibrary({ navigation }) {
         const descMatch = Object.values(card.desc).some((sentence) =>
           sentence.toLowerCase().includes(text.toLowerCase())
         );
-        return titleMatch || descMatch;
+        const typeMatch = meditationTypeDB[card.title].toLowerCase().includes(text.toLowerCase());
+        const typeReligion = meditationReligionDB[card.title].toLowerCase().includes(text.toLowerCase());
+
+        return titleMatch || descMatch || typeMatch || typeReligion;
       });
       console.log(filtered)
       setFilteredCards(filtered);
