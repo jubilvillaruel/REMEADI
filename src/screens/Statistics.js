@@ -30,15 +30,14 @@ export default function Statistics() {
 
     useEffect(() => {
         const fetchMeditationSession = async () => {
-            const historyRef = ref(getDatabase(), 'histories');
+            const uid = auth.currentUser.uid
+            const historyRef = ref(getDatabase(), 'histories/'+uid);
 
             onValue(historyRef, (snapshot) => {
                 const dataFromFirebase = snapshot.val();
                 // Check if dataFromFirebase is not null before proceeding
                 if (dataFromFirebase) {
-                    const uid = auth.currentUser.uid;
                     const sessionData = Object.keys(dataFromFirebase)
-                        .filter((sessionId) => dataFromFirebase[sessionId].uid === uid)
                         .map((sessionId) => ({
                             sessionId,
                             uid: dataFromFirebase[sessionId].uid,

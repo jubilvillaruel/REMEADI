@@ -5,34 +5,53 @@ import { styles } from '../../assets/css/Style'
 import { screenHeight, screenWidth } from '../components/Dimensions'
 import { RFPercentage } from 'react-native-responsive-fontsize'
 import { auth } from '../../firebase'
+import { Toast } from 'react-native-toast-message/lib/src/Toast'
 
-export default function ForgotPassword() {
-    const [getUsername, setUsername] = useState("")
+export default function ForgotPassword({navigation}) {
+    const [getEmail, setEmail] = useState("")
 
     const handlePasswordReset = () => {
-        console.log("username: " + getUsername)
+        console.log("email: " + getEmail)
         // handle input if empty or not
-        (getUsername === '' || getUsername === null ? alert('invalid Email') : sendPasswordResetLink())
+        getEmail == '' || getEmail == null ? alert('invalid Email') : sendPasswordResetLink()
     }
 
-    const sendPasswordResetLink = () => {
+    const sendPasswordResetLink = async () => {
+      console.log('entered sendPasswordResetLink function')
       try {
         // handle Change Password
-        auth.sendPasswordResetEmail(getUsername)
-        .then(() => {
-          alert('Password Reset Email Sent');
-        }) 
+        auth.sendPasswordResetEmail(getEmail)
+
+      //   .then(() => {
+          // alert('Password Reset Email Sent');
+          callToast('success','Password Reset link Sent!','A link has been sent to your email')
+          const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+          await sleep(3000);
+          navigation.navigate('SignIn')
+      //   }) 
       }catch(error) {
-        console.log(error)
-      }
-      navigation.navigate('SignIn')
+        console.log(error.stack)
+      } 
+    }
+
+    const callToast = (type, text1, text2) => {
+      // call toast here
+      Toast.show({
+          type: type,
+          text1: text1,
+          text2: text2,
+          onPress: ()=>{
+              setAvatarVisible(true)
+          }
+          // position: 
+      });
     }
 
     return (
         <SafeAreaView style={styles.screen}>
             <View style={inStyles.bodyContainer}>
                 <View style={styles.containerCentered}>
-                    <TextInput style={styles.inputContainer} placeholder="Email" selectionColor="transparent" onChangeText={text => setUsername(text)} keyboardType="email-address"/>
+                    <TextInput keyboardType={'email-address'} style={styles.inputContainer} placeholder="Email" selectionColor="transparent" onChangeText={text => setEmail(text)}/>
                     <PrimaryButton
                         text='Send Password Reset Link'
                         textColor= '#FFFFFF'
@@ -45,6 +64,7 @@ export default function ForgotPassword() {
                     </PrimaryButton>
                 </View>
             </View>
+            <Toast/>
         </SafeAreaView>
     )
 }

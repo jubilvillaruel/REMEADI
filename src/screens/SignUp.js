@@ -195,7 +195,7 @@ export default function SignUp({ navigation }) {
         }
         // position: 
     });
-}
+  }
 
   return (
     <SafeAreaView style={styles.screenCenter}>

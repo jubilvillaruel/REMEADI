@@ -87,7 +87,7 @@ export default function SignIn({ navigation, route }) {
 
         <View style={inStyles.bodyContainer}>
           <View style={styles.containerCentered}>
-            <TextInput style={styles.inputContainer} placeholder="Email" selectionColor="transparent" onChangeText={text => setUsername(text)}/>
+            <TextInput keyboardType={'email-address'} style={styles.inputContainer} placeholder="Email" selectionColor="transparent" onChangeText={text => setUsername(text)}/>
             <View style={styles.passwordInputContainer}>
               <TextInput style={styles.passwordInput} placeholder="Password" secureTextEntry={!passwordVisible} selectionColor="transparent" onChangeText={text => setPassword(text)}/>
               <TouchableOpacity style={styles.passwordVisibilityButton} onPress={togglePasswordVisibility}>
