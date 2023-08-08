@@ -229,7 +229,7 @@ export default function App() {
             <Stack.Screen name='SelectReligion' component={SelectReligion} options={{title: 'Religion'}}/>
             <Stack.Screen name='SelectRelBranch' component={SelectRelBranch} options={{title: 'Religion'}}/>
             <Stack.Screen name='SelectMedType' component={SelectMedType} options={{title: 'Meditation Type'}}/>
-            <Stack.Screen name='Questions' component={Questions} options={{headerShown: false}}/>
+            <Stack.Screen name='Questions' component={Questions} options={{title: 'Questions'}}/>
             <Stack.Screen name='ExpertResult' component={ExpertResult} options={{title: 'Recommended'}}/>
             <Stack.Screen name='Guide' component={Guide} options={{headerTransparent: true, title: '',}}/>
             <Stack.Screen name='GuideOptions' component={GuideOptions} options={{title: 'Guide Options'}}/>

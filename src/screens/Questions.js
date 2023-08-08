@@ -4,7 +4,6 @@ import { screenWidth, screenHeight } from '../components/Dimensions';
 import { styles } from '../../assets/css/Style';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { meditationImgDB } from '../Data/ImageDB';
-import { StackActions } from '@react-navigation/native';
 
 const followUpQuestions = {
     C1: {
@@ -551,7 +550,7 @@ const followUpQuestions = {
                     question: 'What meditation approach do you prefer?',
                     options: [
                         {
-                            label: 'Incorporates teachings of Kabbalahand Chassidic philosophy',
+                            label: 'Incorporates teachings of Kabbalah and Chassidic philosophy',
                             title: 'Kabbalistic/Chassidic',
                             guideImg: meditationImgDB['Kabbalistic/Chassidic'],
                             bia: true,
@@ -602,12 +601,12 @@ export default function Questions({ navigation, route }) {
             guideImg: guideImg,
             bia: bia
         };
-        navigation.dispatch(StackActions.popToTop());
         navigation.navigate('ExpertResult', {data});
     };
 
     useEffect(() => {
         if (!questionData.options) {
+            navigation.pop();
             goToResult(questionData.title, questionData.guideImg, questionData.bia);
         }
     }, [questionData.options]);
@@ -635,7 +634,7 @@ export default function Questions({ navigation, route }) {
                     <Text style={[styles.colorPrimary, styles.bold, { fontSize: RFPercentage(3), textAlign: 'center' }]}>
                         {questionData.question}
                     </Text>
-
+    
                     {questionData.options && (
                         <View style={inStyles.optionsContainer}>
                             {questionData.options.map((option) => (
@@ -643,14 +642,21 @@ export default function Questions({ navigation, route }) {
                                     key={option.label}
                                     style={[inStyles.optionButton, styles.bgColorPrimary]}
                                     onPress={() => handleOptionSelect(option)}>
-                                    <Text style={[styles.colorWhite, inStyles.optionText, styles.bold, { fontSize: RFPercentage(2.2) }]}>{option.label}</Text>
+                                    <Text style={[
+                                        styles.colorWhite,
+                                        inStyles.optionText,
+                                        styles.bold,
+                                        {
+                                            fontSize: option.label.length > 10 ? RFPercentage(1.8) : RFPercentage(2.5)
+                                        }
+                                    ]}>{option.label}</Text>
                                 </TouchableOpacity>
                             ))}
                         </View>
                     )}
                 </>
                 )}
-
+    
                 {secondOptions && (
                 <>
                 <View style={inStyles.optionsContainer}>
@@ -659,13 +665,20 @@ export default function Questions({ navigation, route }) {
                             key={option.label}
                             style={[inStyles.optionButton, styles.bgColorPrimary]}
                             onPress={() => handleOptionSelect(option)}>
-                            <Text style={[styles.colorWhite, inStyles.optionText, styles.bold, { fontSize: RFPercentage(2.2) }]}>{option.label}</Text>
+                            <Text style={[
+                                styles.colorWhite,
+                                inStyles.optionText,
+                                styles.bold,
+                                {
+                                    fontSize: option.label.length > 10 ? RFPercentage(1.8) : RFPercentage(2.5)
+                                }
+                            ]}>{option.label}</Text>
                         </TouchableOpacity>
                     ))}
                 </View>
                 </>
                 )}
-
+    
                 {thirdOptions && (
                 <>
                     <View style={inStyles.optionsContainer}>
@@ -674,7 +687,14 @@ export default function Questions({ navigation, route }) {
                                 key={option.label}
                                 style={[inStyles.optionButton, styles.bgColorPrimary]}
                                 onPress={() => handleOptionSelect(option)}>
-                                <Text style={[styles.colorWhite, inStyles.optionText, styles.bold, { fontSize: RFPercentage(2.2) }]}>{option.label}</Text>
+                                <Text style={[
+                                    styles.colorWhite,
+                                    inStyles.optionText,
+                                    styles.bold,
+                                    {
+                                        fontSize: option.label.length > 10 ? RFPercentage(1.8) : RFPercentage(2.5)
+                                    }
+                                ]}>{option.label}</Text>
                             </TouchableOpacity>
                         ))}
                     </View>
@@ -683,6 +703,7 @@ export default function Questions({ navigation, route }) {
             </View>
         </SafeAreaView>
     );
+    
 }
 
 const inStyles = StyleSheet.create({
@@ -704,7 +725,7 @@ const inStyles = StyleSheet.create({
         padding: 15,
         borderRadius: 40,
         width: screenWidth('70%'),
-        height: screenHeight('7%'),
+        height: screenHeight('10%'),
         justifyContent: 'center',
         alignItems: 'center',
     },
