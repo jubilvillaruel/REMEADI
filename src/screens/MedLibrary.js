@@ -225,14 +225,14 @@ export default function MedLibrary({ navigation }) {
                       </View>
           
                       <View style={inStyles.medContainer}>
-                        <ImageCard title='Lectio Divina' type={meditationTypeDB['Lectio Divina']} titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={meditationImgDB['Lectio Divina']} onPress={() => {
+                        <ImageCard title='Lectio Divina' type={meditationTypeDB['Lectio Divina']} titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1)} image={meditationImgDB['Lectio Divina']} onPress={() => {
                           goToGuide('Lectio Divina', meditationImgDB['Lectio Divina'])}}></ImageCard>
-                        <ImageCard title='Christian Meditation' type={meditationTypeDB['Christian Meditation']} titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={meditationImgDB['Christian Meditation']} onPress={() => {goToGuide('Christian Meditation',meditationImgDB['Christian Meditation'])}}></ImageCard>
+                        <ImageCard title='Christian Meditation' type={meditationTypeDB['Christian Meditation']} titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1)} image={meditationImgDB['Christian Meditation']} onPress={() => {goToGuide('Christian Meditation',meditationImgDB['Christian Meditation'])}}></ImageCard>
                       </View>
           
                       <View style={inStyles.medContainer}>
-                        <ImageCard title='Examen' type={meditationTypeDB['Examen']} titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={meditationImgDB['Examen']} onPress={() => {goToGuide('Examen',meditationImgDB['Examen'])}}></ImageCard>
-                        <ImageCard title='Rosary' type={meditationTypeDB['Rosary']} titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={meditationImgDB['Rosary']} onPress={() => {goToGuide('Rosary',meditationImgDB['Rosary'])}}></ImageCard>
+                        <ImageCard title='Examen' type={meditationTypeDB['Examen']} titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1)} image={meditationImgDB['Examen']} onPress={() => {goToGuide('Examen',meditationImgDB['Examen'])}}></ImageCard>
+                        <ImageCard title='Rosary' type={meditationTypeDB['Rosary']} titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1)} image={meditationImgDB['Rosary']} onPress={() => {goToGuide('Rosary',meditationImgDB['Rosary'])}}></ImageCard>
                       </View>
                     </View>
           
@@ -245,13 +245,13 @@ export default function MedLibrary({ navigation }) {
                       </View>
           
                       <View style={inStyles.medContainer}>
-                        <ImageCard title='Taffakur' type={meditationTypeDB['Taffakur']} titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={meditationImgDB['Taffakur']} onPress={() => {goToGuide('Taffakur',meditationImgDB['Taffakur'],false)}}></ImageCard>
-                        <ImageCard title='Dhikr' type={meditationTypeDB['Dhikr']} titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={meditationImgDB['Dhikr']} onPress={() => {goToGuide('Dhikr',meditationImgDB['Dhikr'],true)}}></ImageCard>
+                        <ImageCard title='Taffakur' type={meditationTypeDB['Taffakur']} titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1)} image={meditationImgDB['Taffakur']} onPress={() => {goToGuide('Taffakur',meditationImgDB['Taffakur'],false)}}></ImageCard>
+                        <ImageCard title='Dhikr' type={meditationTypeDB['Dhikr']} titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1)} image={meditationImgDB['Dhikr']} onPress={() => {goToGuide('Dhikr',meditationImgDB['Dhikr'],true)}}></ImageCard>
                       </View>
           
                       <View style={inStyles.medContainer}>
-                        <ImageCard title='Muraqaba' type={meditationTypeDB['Muraqaba']} titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={meditationImgDB['Muraqaba']} onPress={() => {goToGuide('Muraqaba',meditationImgDB['Muraqaba'],true)}}></ImageCard>
-                        <ImageCard title='Sufi Breathing' type={meditationTypeDB['Sufi Breathing']} titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={meditationImgDB['Sufi Breathing']} onPress={() => {goToGuide('Sufi Breathing',meditationImgDB['Sufi Breathing'])}}></ImageCard>
+                        <ImageCard title='Muraqaba' type={meditationTypeDB['Muraqaba']} titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1)} image={meditationImgDB['Muraqaba']} onPress={() => {goToGuide('Muraqaba',meditationImgDB['Muraqaba'],true)}}></ImageCard>
+                        <ImageCard title='Sufi Breathing' type={meditationTypeDB['Sufi Breathing']} titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1)} image={meditationImgDB['Sufi Breathing']} onPress={() => {goToGuide('Sufi Breathing',meditationImgDB['Sufi Breathing'])}}></ImageCard>
                       </View>
                     </View>
           
@@ -264,12 +264,12 @@ export default function MedLibrary({ navigation }) {
                       </View>
           
                       <View style={inStyles.medContainer}>
-                        <ImageCard title='Hatha Yoga' type={meditationTypeDB['Hatha Yoga']} titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.1)} image={meditationImgDB['Hatha Yoga']} onPress={() => {goToGuide('Hatha Yoga',meditationImgDB['Hatha Yoga'])}}></ImageCard>
-                        <ImageCard title='Kriya Yoga' type={meditationTypeDB['Kriya Yoga']} titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={meditationImgDB['Kriya Yoga']} onPress={() => {goToGuide('Kriya Yoga',meditationImgDB['Kriya Yoga'])}}></ImageCard>
+                        <ImageCard title='Hatha Yoga' type={meditationTypeDB['Hatha Yoga']} titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1)} image={meditationImgDB['Hatha Yoga']} onPress={() => {goToGuide('Hatha Yoga',meditationImgDB['Hatha Yoga'])}}></ImageCard>
+                        <ImageCard title='Kriya Yoga' type={meditationTypeDB['Kriya Yoga']} titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1)} image={meditationImgDB['Kriya Yoga']} onPress={() => {goToGuide('Kriya Yoga',meditationImgDB['Kriya Yoga'])}}></ImageCard>
                       </View>
           
                       <View style={{ marginTop: 5, paddingHorizontal: 13.5, width: screenWidth('90%') }}>
-                        <ImageCard title='Chakra' type={meditationTypeDB['Chakra']} titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={meditationImgDB['Chakra']} onPress={() => {goToGuide('Chakra',meditationImgDB['Chakra'])}}></ImageCard>
+                        <ImageCard title='Chakra' type={meditationTypeDB['Chakra']} titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1)} image={meditationImgDB['Chakra']} onPress={() => {goToGuide('Chakra',meditationImgDB['Chakra'])}}></ImageCard>
                       </View>
                     </View>
           
@@ -282,17 +282,17 @@ export default function MedLibrary({ navigation }) {
                       </View>
           
                       <View style={inStyles.medContainer}>
-                        <ImageCard title='Breath' type={meditationTypeDB['Breath']} titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={meditationImgDB['Breath']} onPress={() => {goToGuide('Breath',meditationImgDB['Breath'],true)}}></ImageCard>
-                        <ImageCard title='Walk' type={meditationTypeDB['Walk']} titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={meditationImgDB['Walk']} onPress={() => {goToGuide('Walk',meditationImgDB['Walk'],true)}}></ImageCard>
+                        <ImageCard title='Breath' type={meditationTypeDB['Breath']} titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1)} image={meditationImgDB['Breath']} onPress={() => {goToGuide('Breath',meditationImgDB['Breath'],true)}}></ImageCard>
+                        <ImageCard title='Walk' type={meditationTypeDB['Walk']} titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1)} image={meditationImgDB['Walk']} onPress={() => {goToGuide('Walk',meditationImgDB['Walk'],true)}}></ImageCard>
                       </View>
           
                       <View style={inStyles.medContainer}>
-                        <ImageCard title='Tonglen' type={meditationTypeDB['Tonglen']} titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={meditationImgDB['Tonglen']} onPress={() => {goToGuide('Tonglen',meditationImgDB['Tonglen'],true)}}></ImageCard>
-                        <ImageCard title='Metta' type={meditationTypeDB['Metta']} titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={meditationImgDB['Metta']} onPress={() => {goToGuide('Metta',meditationImgDB['Metta'],true)}}></ImageCard>
+                        <ImageCard title='Tonglen' type={meditationTypeDB['Tonglen']} titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1)} image={meditationImgDB['Tonglen']} onPress={() => {goToGuide('Tonglen',meditationImgDB['Tonglen'],true)}}></ImageCard>
+                        <ImageCard title='Metta' type={meditationTypeDB['Metta']} titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1)} image={meditationImgDB['Metta']} onPress={() => {goToGuide('Metta',meditationImgDB['Metta'],true)}}></ImageCard>
                       </View>
           
                       <View style={{ marginTop: 5, paddingHorizontal: 13.5, width: screenWidth('90%') }}>
-                        <ImageCard title='Body Scan' type={meditationTypeDB['Body Scan']} titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={meditationImgDB['Body Scan']} onPress={() => {goToGuide('Body Scan',meditationImgDB['Body Scan'],true)}}></ImageCard>
+                        <ImageCard title='Body Scan' type={meditationTypeDB['Body Scan']} titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1)} image={meditationImgDB['Body Scan']} onPress={() => {goToGuide('Body Scan',meditationImgDB['Body Scan'],true)}}></ImageCard>
                       </View>
                     </View>
           
@@ -305,12 +305,12 @@ export default function MedLibrary({ navigation }) {
                       </View>
           
                       <View style={inStyles.medContainer}>
-                        <ImageCard title='Hitbodedut' type={meditationTypeDB['Hitbodedut']} titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={meditationImgDB['Hitbodedut']} onPress={() => {goToGuide('Hitbodedut',meditationImgDB['Hitbodedut'])}}></ImageCard>
-                        <ImageCard title='Kabbalistic/Chassidic' type={meditationTypeDB['Kabbalistic/Chassidic']} titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={meditationImgDB['Kabbalistic/Chassidic']} onPress={() => {goToGuide('Kabbalistic/Chassidic',meditationImgDB['Kabbalistic/Chassidic'],true)}}></ImageCard>
+                        <ImageCard title='Hitbodedut' type={meditationTypeDB['Hitbodedut']} titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1)} image={meditationImgDB['Hitbodedut']} onPress={() => {goToGuide('Hitbodedut',meditationImgDB['Hitbodedut'])}}></ImageCard>
+                        <ImageCard title='Kabbalistic/Chassidic' type={meditationTypeDB['Kabbalistic/Chassidic']} titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1)} image={meditationImgDB['Kabbalistic/Chassidic']} onPress={() => {goToGuide('Kabbalistic/Chassidic',meditationImgDB['Kabbalistic/Chassidic'],true)}}></ImageCard>
                       </View>
           
                       <View style={{ marginTop: 5, paddingHorizontal: 13.5, width: screenWidth('90%') }}>
-                        <ImageCard title='Shema' type={meditationTypeDB['Shema']} titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1.2)} image={meditationImgDB['Shema']} onPress={() => {goToGuide('Shema',meditationImgDB['Shema'],true)}}></ImageCard>
+                        <ImageCard title='Shema' type={meditationTypeDB['Shema']} titleSize={RFPercentage(1.6)} typeSize={RFPercentage(1)} image={meditationImgDB['Shema']} onPress={() => {goToGuide('Shema',meditationImgDB['Shema'],true)}}></ImageCard>
                       </View>
                     </View>
                   </View>

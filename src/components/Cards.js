@@ -176,8 +176,9 @@ const inStyles = StyleSheet.create({
 
     libContent: {
         position: 'absolute',
-        left: 15,
+        left: 5,
         bottom: 15,
+        paddingHorizontal: 5,
     },
 
     milestoneLockedItem: {

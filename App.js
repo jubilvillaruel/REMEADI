@@ -34,6 +34,8 @@ import SelectRelBranch from './src/screens/SelectRelBranch';
 import SelectMedType from './src/screens/SelectMedType';
 import Questions from './src/screens/Questions';
 import ExpertResult from './src/screens/ExpertResult';
+import ExpertReligion from './src/screens/ExpertReligion';
+import ExpertType from './src/screens/ExpertType';
 import Guide from './src/screens/Guide';
 import GuideOptions from './src/screens/GuideOptions';
 import Session from './src/screens/Session';
@@ -231,6 +233,8 @@ export default function App() {
             <Stack.Screen name='SelectMedType' component={SelectMedType} options={{title: 'Meditation Type'}}/>
             <Stack.Screen name='Questions' component={Questions} options={{title: 'Questions'}}/>
             <Stack.Screen name='ExpertResult' component={ExpertResult} options={{title: 'Recommended'}}/>
+            <Stack.Screen name='ExpertReligion' component={ExpertReligion} options={{title: 'More Practices'}}/>
+            <Stack.Screen name='ExpertType' component={ExpertType} options={{title: 'More Practices'}}/>
             <Stack.Screen name='Guide' component={Guide} options={{headerTransparent: true, title: '',}}/>
             <Stack.Screen name='GuideOptions' component={GuideOptions} options={{title: 'Guide Options'}}/>
             <Stack.Screen name="Session" component={Session} options={{headerShown: false}}/>
