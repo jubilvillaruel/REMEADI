@@ -152,7 +152,6 @@ const styles = StyleSheet.create({
     },
 
     activityIndicator : {
-        // marginTop:120, 
         position:'absolute', 
         display:'none', 
         zIndex:999, 
