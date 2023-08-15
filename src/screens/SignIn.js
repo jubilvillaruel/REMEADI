@@ -146,11 +146,10 @@ export default function SignIn({ navigation, route }) {
             </IconButton>
           </View>
         </View>
+        
         <Toast
           position='top'
           topOffset={10}
-          // bottomOffset={10}
-          // keyboardOffset={10}
         />
       </SafeAreaView>
       
