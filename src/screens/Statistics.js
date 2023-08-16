@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, Image } from 'react-native';
-import PieChart from 'react-native-pie-chart';
+import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity } from 'react-native';
 import { millisecondsToTime } from '../models/TimeModel';
+import { religionDB } from '../Data/LocalDB';
 import { screenHeight, screenWidth } from '../components/Dimensions';
 
 import { styles } from './../../assets/css/Style';
 import appLogo from './../../assets/images/app_logo.png';
+
+import PieChart from 'react-native-pie-chart';
+import FlipCard from 'react-native-flip-card';
 
 import { getDatabase, onValue, ref} from 'firebase/database';
 import { auth } from '../../firebase';
@@ -22,11 +25,19 @@ export default function Statistics() {
     const [ totalMeditationSessionPerReligionBoolean, setTotalMeditationSessionPerReligionBoolean ] = useState(false);
     const colorMapping = { Christianity: '#04BFDA', Islam: '#8FD3D2', Hinduism: '#F27F77', Buddhism: '#FF9F1C', Judaism: '#FF0000'};
 
+    const [selectedLegend, setSelectedLegend] = useState(null);
+    const [chartFlipped, setChartFlipped] = useState(false);
+    const [practiceCounts, setPracticeCounts] = useState({});
+
     const [topThreeReligions, setTopThreeReligions] = useState([]);
     const firstThreeReligions = Object.keys(colorMapping).slice(0, 3);
     const lastTwoReligions = Object.keys(colorMapping).slice(3);
     const [dataLoaded, setDataLoaded] = useState(false);
     
+    const flipChart = (religion) => {
+        setSelectedLegend(religion);
+        setChartFlipped(!chartFlipped);
+    };
 
     useEffect(() => {
         const fetchMeditationSession = async () => {
@@ -96,6 +107,32 @@ export default function Statistics() {
         fetchTotalMeditationSession();
     }, [data]);
 
+    useEffect(() => {
+        // Fetch practice counts from the database and update state
+        const fetchPracticeCounts = async () => {
+            const uid = auth.currentUser.uid;
+            const historyRef = ref(getDatabase(), 'histories/' + uid);
+
+            onValue(historyRef, (snapshot) => {
+                const dataFromFirebase = snapshot.val();
+                if (dataFromFirebase) {
+                    const counts = {};
+
+                    // Count instances of each practice
+                    Object.values(dataFromFirebase).forEach((session) => {
+                        const practice = session.practiceTitle;
+                        counts[practice] = (counts[practice] || 0) + 1;
+                    });
+
+                    // Update state with practice counts
+                    setPracticeCounts(counts);
+                }
+            });
+        };
+
+        fetchPracticeCounts();
+    }, []);
+
     const getTopThreeReligions = (religionsArray, sessionsArray) => {
         // Combine the religions array and sessions array into an object
         const religionSessions = religionsArray.reduce((obj, religion, index) => {
@@ -135,56 +172,85 @@ export default function Statistics() {
                 </View>
             </View>
 
-            <View style={{ width: screenWidth('90%'), height: screenHeight('40%') }}>      
-                {dataLoaded && !totalMeditationSessionPerReligionBoolean ? (
-                    <View style={[styles.sectionContainer, styles.dropShadow, { gap: 25 }]}>
-                        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                            <Text style={[styles.colorPrimary, styles.bold, { fontSize: RFPercentage(1.8) }]}>
-                                No meditation data available
-                            </Text>
-                        </View>
-                    </View>
-                ) : (
-                    <View style={[styles.sectionContainer, styles.dropShadow, { gap: 25 }]}>
-                        <Text style={[styles.colorPrimary, inStyles.header, styles.bold]}>Sessions per Religion</Text>
-                        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                            <PieChart
-                                widthAndHeight={widthAndHeight}
-                                series={totalMeditationSessionPerReligion}
-                                sliceColor={Object.values(colorMapping)}
-                                coverRadius={0.6}
-                            />
-                            <View style={{ position: 'absolute', top: '50%', marginLeft: -75, marginTop: -55 }}>
-                                <Image style={{ width: 60, height: 45 }} source={appLogo} />
-                            </View>
-                            <View style={{ marginTop: 15 }}>
-                                <View style={inStyles.legendContainer}>
-                                    {firstThreeReligions.map((religion) => (
-                                        <Text
-                                            key={religion}
-                                            style={[styles.bold, { color: colorMapping[religion] }]}
-                                        >
-                                            ○ {religion}{' '}
-                                        </Text>
-                                    ))}
-                                </View>
-                                <View style={inStyles.legendContainer}>
-                                    {lastTwoReligions.map((religion) => (
-                                        <Text
-                                            key={religion}
-                                            style={[styles.bold, { color: colorMapping[religion] }]}
-                                        >
-                                            ○ {religion}{' '}
-                                        </Text>
-                                    ))}
-                                </View>
+            <FlipCard
+                flipHorizontal={true}
+                flipVertical={false}
+                flip={chartFlipped}
+                clickable={true}>
+                <View style={{ width: screenWidth('90%'), height: screenHeight('40%') }}>      
+                    {dataLoaded && !totalMeditationSessionPerReligionBoolean ? (
+                        <View style={[styles.sectionContainer, styles.dropShadow, { gap: 25 }]}>
+                            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                                <Text style={[styles.colorPrimary, styles.bold, { fontSize: RFPercentage(1.8) }]}>
+                                    No meditation data available
+                                </Text>
                             </View>
                         </View>
+                    ) : (
+                        <View style={[styles.sectionContainer, styles.dropShadow, { gap: 25 }]}>
+                            <Text style={[styles.colorPrimary, inStyles.header, styles.bold]}>Sessions per Religion</Text>
+                            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                                <PieChart
+                                    widthAndHeight={widthAndHeight}
+                                    series={totalMeditationSessionPerReligion}
+                                    sliceColor={Object.values(colorMapping)}
+                                    coverRadius={0.6}
+                                />
+                                <View style={{ position: 'absolute', top: '50%', marginLeft: -75, marginTop: -55 }}>
+                                    <Image style={{ width: 60, height: 45 }} source={appLogo} />
+                                </View>
+                                <View style={{ marginTop: 15 }}>
+                                    <View style={inStyles.legendContainer}>
+                                        {firstThreeReligions.map((religion) => (
+                                            <TouchableOpacity onPress={() => flipChart(religion)}>
+                                                <Text
+                                                    key={religion}
+                                                    style={[styles.bold, { color: colorMapping[religion] }]}
+                                                >
+                                                    ○ {religion}{' '}
+                                                </Text>
+                                            </TouchableOpacity>
+                                        ))}
+                                    </View>
+                                    <View style={inStyles.legendContainer}>
+                                        {lastTwoReligions.map((religion) => (
+                                            <TouchableOpacity onPress={() => flipChart(religion)}>
+                                                <Text
+                                                    key={religion}
+                                                    style={[styles.bold, { color: colorMapping[religion] }]}
+                                                >
+                                                    ○ {religion}{' '}
+                                                </Text>
+                                            </TouchableOpacity>
+                                        ))}
+                                    </View>
+                                </View>
+                            </View>
+                        </View>
+                    )}
+                </View>
+                {selectedLegend && (
+                <View style={{ width: screenWidth('90%'), height: screenHeight('40%') }}>
+                    <View style={[styles.sectionContainer, styles.dropShadow, { gap: 15 }]}>
+                        <Text style={[styles.bold, { fontSize: RFPercentage(2.2), color: colorMapping[selectedLegend] }]}>{selectedLegend}</Text>
+                        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                            {religionDB[selectedLegend] && religionDB[selectedLegend].map((practice, index) => (
+                                <View style={[inStyles.topContainer, { width: screenWidth('70%') }]} key={index}>
+                                    <Text style={[styles.bold, { color: colorMapping[selectedLegend] }]}>
+                                        {practice}
+                                    </Text>
+                                    <Text style={[styles.bold, { color: colorMapping[selectedLegend] }]}>
+                                        {practiceCounts[practice] || 0} {/* Display practice count */}
+                                    </Text>
+                                </View>
+                            ))}
+                        </View>
                     </View>
-                )}
-            </View>
+                </View>
+            )}
+            </FlipCard>
 
-            <View style={{ width: screenWidth('90%'), height: screenHeight('27%') }}>
+            <View style={{ width: screenWidth('90%'), height: screenHeight('28.5%') }}>
                 <View style={[styles.sectionContainer, styles.dropShadow]}>
                     <Text style={[styles.colorPrimary, styles.bold, { top: 20, marginBottom: 25, marginTop: -10 }]}>Top 3 Religions</Text>
                     {totalMeditationSessionPerReligionBoolean ? (
@@ -197,7 +263,7 @@ export default function Statistics() {
                                 <View style={inStyles.topContainer} key={religion}>
                                     <Text style={[styles.bold, { color: colorMapping[religion] }]}>{religion}</Text>
                                     <Text style={[styles.bold, { color: colorMapping[religion] }]}>
-                                    {sessionCount}
+                                        {sessionCount}
                                     </Text>
                                 </View>
                             );
