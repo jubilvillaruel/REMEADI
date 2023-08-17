@@ -283,6 +283,7 @@ const genMilestoneChecker = (milestones, historiesObject) => {
   milestones.forEach(milestone => {
     console.log('-'+milestone)
   })
+  console.log('\n\n')
 
   milestones.forEach(milestone => {
     switch (milestone) {
@@ -325,7 +326,7 @@ const genMilestoneChecker = (milestones, historiesObject) => {
         let maxCount = consecutiveDays
         
         for (let i = 0; i < historiesObject.length; i++) {
-          // console.log('!)@*&#)%*@#$)!@*#&')
+          console.log('!)@*&#)%*@#$)!@*#&')
           const currentDate = new Date(historiesObject[i].currentDate).getTime();
           console.log(historiesObject[i].currentDate)
 
@@ -336,10 +337,10 @@ const genMilestoneChecker = (milestones, historiesObject) => {
             // console.log(('currentDate:',currentDate,'vs prevDate:',prevDate)
             const oneDay = 24 * 60 * 60 * 1000; // Number of milliseconds in a day
             const differenceInDays = (currentDate - prevDate) / oneDay;
-            console.log('prev date:',datetime.datetime.utcfromtimestamp(prevDate),'| current date:',datetime.datetime.utcfromtimestamp(currentDate) )
+            // console.log('prev date:',datetime.datetime.utcfromtimestamp(prevDate),'| current date:',datetime.datetime.utcfromtimestamp(currentDate) )
             console.log('difference In Days:',differenceInDays)
 
-            if (differenceInDays >= 1 && differenceInDays < 2) {
+            if (differenceInDays >= 1 && differenceInDays < 2) { // 1 to 1.9999
               consecutiveDays++;
               if (maxCount < consecutiveDays) {
                 maxCount = consecutiveDays
@@ -349,8 +350,8 @@ const genMilestoneChecker = (milestones, historiesObject) => {
                   console.log('===Spiritual Commitment Qualified!===')
                   break;
               }
-            } else if (differenceInDays == 0) {
-                consecutiveDays = 1; // Reset count if not consecutive
+            } else if (differenceInDays >= 2) { // 2 to infinity
+                consecutiveDays = 1; // Reset count if difference in Days is more than or equal to 2
             } 
             console.log('consecutive days meditated count:',consecutiveDays)
             console.log()
