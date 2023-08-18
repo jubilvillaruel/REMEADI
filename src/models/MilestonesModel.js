@@ -136,8 +136,6 @@ const retrieveHistories = async (id) => {
   }
 }
 
-
-
 const checkAndUpdateMilestone = async (practiceTitle) => {
   console.log('\n\n\n\n\n\n\n\n\n========================================================================================\nCommencing General Milestone Evaluation')
   const id = auth.currentUser.uid
@@ -146,7 +144,6 @@ const checkAndUpdateMilestone = async (practiceTitle) => {
   const genMilestonesRef = ref(getDatabase(), 'milestones/'+id+'/general')
   const genSnapshot = await get(genMilestonesRef);
   if (genSnapshot.exists()) {
-    // console.log('!!!!genSnapshot!!!!\n'+genSnapshot.val())
     const dataFromGenMilestones = genSnapshot.val()
 
     let genMilestonesToCheck = []
@@ -155,10 +152,7 @@ const checkAndUpdateMilestone = async (practiceTitle) => {
       if (dataFromGenMilestones[key] == false) {
         genMilestonesToCheck.push(key)
       }
-      // console.log(key, dataFromGenMilestones[key])
     }
-    // console.log(genMilestonesToCheck)
-
     const historiesObj = await retrieveHistories(id)
 
     // evaluate if milestone is achieved - this is where the magic happens
@@ -176,7 +170,6 @@ const checkAndUpdateMilestone = async (practiceTitle) => {
 
   // retrieve ALL SPECIFIC milestones that are NOT ACHIEVED yet in THE SAME RELIGION then store in milestonesToCheck []
   const milestonesRef = ref(getDatabase(), 'milestones/'+id+'/'+religion.toLowerCase())
-  console.log(milestonesRef)
   const snapshot = await get(milestonesRef);
   if (snapshot.exists()) {
     const dataFromMilestones = snapshot.val()
@@ -193,8 +186,6 @@ const checkAndUpdateMilestone = async (practiceTitle) => {
     const historiesObj = await retrieveHistories(id)
 
     const histories = historiesObj.filter((session)=>session.religion == religion)
-
-    // console.log(histories)
 
     // evaluate if milestone is achieved - this is where the magic happens
     milestoneChecker(milestonesToCheck, histories, religion)
@@ -296,11 +287,8 @@ const genMilestoneChecker = (milestones, historiesObject) => {
 
         // retrieve all practices in an array for checking
         const allPractices = Object.keys(meditationReligionDB)
-        // console.log('var allPractices: '+allPractices)
 
         // prepare histories of the user
-        // console.log('var historiesObject: '+historiesObject)
-
         historiesObject.forEach(item => {
           console.log(item.practiceTitle)
         });
@@ -309,8 +297,6 @@ const genMilestoneChecker = (milestones, historiesObject) => {
         const allPracticesPresent = allPractices.every((practice) =>
           historiesObject.some((session) => session.practiceTitle === practice)
         );
-
-        // console.log('var allPracticesPresent: '+allPracticesPresent)
 
         if (allPracticesPresent == true) {
           updateMilestoneToTrue(Object.keys(generalMDB)[1], 'general')
@@ -342,6 +328,7 @@ const milestoneChecker = (milestones, historiesObject, religion) => {
   console.log('\n\n\n===========================\nMilestone Evaluation begins\n===========================\n')
   switch (religion) {
     case 'Christianity':
+      console.log('religion: Christianity')
       christianityMilestoneChecker(milestones, historiesObject)
       break;
 
