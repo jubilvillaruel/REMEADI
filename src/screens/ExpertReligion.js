@@ -12,12 +12,22 @@ export default function ExpertReligion({ navigation, route }) {
     const { data } = route.params;
 
     const goToGuide = (title, guideImg, bia) => {
-        const data = {
-            title: title, 
-            guideImg: guideImg,
-            bia: bia
-        };
-        navigation.navigate('Guide', {data});
+        if (title == 'Hatha Yoga') {
+            const data = {
+                title: title, 
+                guideImg: guideImg,
+                bia: true
+            };
+            navigation.navigate('Guide', {data});
+        }
+        else {
+            const data = {
+                title: title, 
+                guideImg: guideImg,
+                bia: bia
+            };
+            navigation.navigate('Guide', {data});
+        }
     };
 
     const getMeditationType = (title) => {

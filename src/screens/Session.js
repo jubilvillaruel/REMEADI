@@ -17,20 +17,33 @@ import close from '../../assets/images/close.png';
 
 import { styles } from '../../assets/css/Style';
 import { getGuide } from '../Data/Practices/GuideDB';
+import { HinduismDB } from '../Data/Practices/HinduismDB';
 import { getCategoryByPractice, timeDB, timeDB2, timeDB3 } from '../Data/LocalDB';
 import { getTimeModel, getTimeModel2, getTimesPracticed, timeToMilliseconds } from '../models/TimeModel';
 import { StackActions } from '@react-navigation/native';
 import Bible from './Extensions/Bible';
 import VideoPlayer from './Extensions/Video';
 import Slider from '@react-native-community/slider';
-import { Button } from 'react-native';
 
 export default function Session({ navigation, route }) {
     const data = route.params
 
     const practiceTitle = data.title
     const bia = data?.bia
+
+    let biaLevel = '';
+    if (practiceTitle === 'Hatha Yoga') {
+        if (bia === 0) {
+            biaLevel = 'Beginner';
+        } else if (bia === 1) {
+            biaLevel = 'Intermediate';
+        } else if (bia === 2) {
+            biaLevel = 'Advanced';
+        }
+    }
+
     const imgGuide = data.img
+    const selectedSteps = biaLevel ? HinduismDB[practiceTitle][biaLevel] : null
 
     const religion = getCategoryByPractice(practiceTitle)
 
@@ -153,15 +166,19 @@ export default function Session({ navigation, route }) {
 
     const showGuide = () => {
         const steps = [];
-        let stepCount = 1
-        let count = ''
-        for (const property in guide){
-            count = ('Step ' + stepCount)
+        let stepCount = 1;
+        let count = '';
+    
+        const stepsToRender = selectedSteps || guide;
+        
+        for (const property in stepsToRender) {
+            count = ('Step ' + stepCount);
             steps.push(
-                <StepCard key={property} count={count} desc={property} detailedDesc={guide[property]}></StepCard>
+                <StepCard key={property} count={count} desc={property} detailedDesc={stepsToRender[property]}></StepCard>
             );
-            stepCount++
+            stepCount++;
         }
+        
         return steps;
     }
 
@@ -409,7 +426,6 @@ export default function Session({ navigation, route }) {
                             flipVertical={false}
                             flip={guideFlipped}
                             clickable={false}>
-
                                 
                             {/* front */}
                             <ScrollView showsVerticalScrollIndicator={false}>
