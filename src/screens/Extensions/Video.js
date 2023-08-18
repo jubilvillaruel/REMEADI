@@ -5,6 +5,7 @@ import { screenHeight, screenWidth } from '../../components/Dimensions';
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { styles } from '../../../assets/css/Style';
 import { RFPercentage } from 'react-native-responsive-fontsize';
+import { dayOfWeekMap } from '../../Data/LocalDB';
 
 const VideoPlayer = () => {
     const video = React.useRef(null);
@@ -14,15 +15,6 @@ const VideoPlayer = () => {
         try {
             // Get the current day of the week (0-6/Sunday-Saturday)
             const currentDayOfWeek = new Date().getDay();
-            const dayOfWeekMap = {
-                0: 'Glorious Mysteries of the Holy Rosary.mp4',
-                1: 'Joyful Mysteries of the Holy Rosary.mp4',
-                2: 'Sorrowful Mysteries of the Holy Rosary.mp4',
-                3: 'Glorious Mysteries of the Holy Rosary.mp4',
-                4: 'Luminous Mysteries of the Holy Rosary.mp4',
-                5: 'Sorrowful Mysteries of the Holy Rosary.mp4',
-                6: 'Joyful Mysteries of the Holy Rosary.mp4',
-            };
 
             // Get the file name based on the current day of the week
             const fileName = dayOfWeekMap[currentDayOfWeek];
