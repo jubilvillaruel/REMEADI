@@ -298,7 +298,7 @@ const followUpQuestions = {
         'Mindfulness': {
             title: 'Hatha Yoga',
             guideImg: meditationImgDB['Hatha Yoga'],
-            bia: '',
+            bia: true,
         },
 
         Spiritual: {
@@ -314,7 +314,7 @@ const followUpQuestions = {
                     label: 'Incorporating movement as a way to improve overall well-being',
                     title: 'Hatha Yoga',
                     guideImg: meditationImgDB['Hatha Yoga'],
-                    bia: '',
+                    bia: true,
                 },
             ],
         },
@@ -326,7 +326,7 @@ const followUpQuestions = {
                     label: 'Yes',
                     title: 'Hatha Yoga',
                     guideImg: meditationImgDB['Hatha Yoga'],
-                    bia: '',
+                    bia: true,
                 },
                 {
                     label: 'No',
@@ -352,7 +352,7 @@ const followUpQuestions = {
         'Movement': {
             title: 'Hatha Yoga',
             guideImg: meditationImgDB['Hatha Yoga'],
-            bia: '',
+            bia: true,
         },
 
         'Visualization': {
