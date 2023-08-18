@@ -327,7 +327,7 @@ const genMilestoneChecker = (milestones, historiesObject) => {
         
         for (let i = 0; i < historiesObject.length; i++) {
           console.log('!)@*&#)%*@#$)!@*#&')
-          const currentDate = new Date(historiesObject[i].currentDate).getTime();
+          const currentDate = new Date(historiesObject[i].currentDate);
           console.log(historiesObject[i].currentDate)
 
           if (prevDate === null) {
@@ -336,11 +336,12 @@ const genMilestoneChecker = (milestones, historiesObject) => {
           } else {
             // console.log(('currentDate:',currentDate,'vs prevDate:',prevDate)
             const oneDay = 24 * 60 * 60 * 1000; // Number of milliseconds in a day
-            const differenceInDays = (currentDate - prevDate) / oneDay;
+            const differenceInDays = Math.round((currentDate - prevDate) / oneDay);
             // console.log('prev date:',datetime.datetime.utcfromtimestamp(prevDate),'| current date:',datetime.datetime.utcfromtimestamp(currentDate) )
             console.log('difference In Days:',differenceInDays)
+            console.log('difference In Days(round):', Math.round(differenceInDays))
 
-            if (differenceInDays >= 1 && differenceInDays < 2) { // 1 to 1.9999
+            if (differenceInDays == 1) { // 1: increment
               consecutiveDays++;
               if (maxCount < consecutiveDays) {
                 maxCount = consecutiveDays
@@ -350,9 +351,10 @@ const genMilestoneChecker = (milestones, historiesObject) => {
                   console.log('===Spiritual Commitment Qualified!===')
                   break;
               }
-            } else if (differenceInDays >= 2) { // 2 to infinity
+            } else if (differenceInDays >= 2) { // 2 to infinity: reset
                 consecutiveDays = 1; // Reset count if difference in Days is more than or equal to 2
-            } 
+            } // 0: retain
+
             console.log('consecutive days meditated count:',consecutiveDays)
             console.log()
             prevDate = currentDate;
@@ -362,7 +364,7 @@ const genMilestoneChecker = (milestones, historiesObject) => {
         if (achieved) {
           updateMilestoneToTrue(Object.keys(generalMDB)[2], 'general')
         } else {
-          console.log('!!',Object.keys(generalMDB)[2],'not yet achieved, you only meditated for', maxCount, 'day/s only')
+          console.log('!!',Object.keys(generalMDB)[2],'not yet achieved, you only meditated for', maxCount, 'day/s only and your current progress is', consecutiveDays, 'day/s only')
         }
         break;
   
