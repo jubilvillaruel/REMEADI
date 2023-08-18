@@ -3,6 +3,7 @@ import { buddhismMDB, christianityMDB, genMilestoneReligionDB, generalMDB, hindu
 import { auth } from "../../firebase";
 import { getCategoryByPractice, religionDB } from "../Data/LocalDB";
 import { meditationReligionDB } from "../Data/TypeDB";
+import { ChristianityDB } from "../Data/Practices/ChristianityDB";
 
 const getReligionByMilestone = (milestoneTitle) => {
   // console.log('from getReligionByMilestone milestoneTitle:',milestoneTitle)
@@ -361,10 +362,37 @@ const christianityMilestoneChecker = (milestones, historiesObject) => {
     switch (milestone) {
       case Object.keys(christianityMDB)[0]: // Scripture Master
         console.log(Object.keys(christianityMDB)[0])
+        console.log('\n===historiesObject===\n',historiesObject)
+        const histories = historiesObject.filter((session)=>session.religion == 'Christianity')
+
+        const allChPractices = Object.keys(ChristianityDB)
+
+        // check if all practices are present in the session history
+        const allChPracticesPresent = allChPractices.every((practice) =>
+          histories.some((session) => session.practiceTitle === practice)
+        );
+
+        if (allChPracticesPresent == true) {
+          updateMilestoneToTrue(Object.keys(christianityMDB)[0], 'christianity')
+        } else {
+          console.log('!!',Object.keys(christianityMDB)[1],'all practices are not present')
+        }
         break;
   
       case Object.keys(christianityMDB)[1]: // Dual Deliberation
         console.log(Object.keys(christianityMDB)[1])
+
+        const histories2 = historiesObject.filter((session)=>session.practiceTitle == 'Examen')
+        console.log(histories2)
+        const threshold = 2
+        const streak = streakChecker(histories2, threshold)
+
+        if (streak >= threshold) {
+          console.log('==='+Object.keys(christianityMDB)[1]+' Qualified!===')
+          updateMilestoneToTrue(Object.keys(christianityMDB)[1], 'Christianity')
+        } else {
+          console.log('!!',Object.keys(christianityMDB)[1],'not yet achieved, you only meditated for', streak ,'day/s only')
+        }
         break;
   
       case Object.keys(christianityMDB)[2]: // Rosary Devotee
@@ -373,6 +401,18 @@ const christianityMilestoneChecker = (milestones, historiesObject) => {
 
       case Object.keys(christianityMDB)[3]: // Man of Scriptures
         console.log(Object.keys(christianityMDB)[3])
+
+        const histories4 = historiesObject.filter((session)=>session.practiceTitle == 'Lectio Divina')
+        console.log(histories4)
+        const threshold4 = 31
+        const streak4 = streakChecker(histories4, threshold4)
+
+        if (streak4 >= threshold4) {
+          console.log('==='+Object.keys(christianityMDB)[3]+' Qualified!===')
+          updateMilestoneToTrue(Object.keys(christianityMDB)[3], 'Christianity')
+        } else {
+          console.log('!!',Object.keys(christianityMDB)[3],'not yet achieved, you only meditated for', streak4 ,'day/s only')
+        }
         break;
 
       case Object.keys(christianityMDB)[4]: // Bible Meditation Expert
