@@ -320,51 +320,14 @@ const genMilestoneChecker = (milestones, historiesObject) => {
         break;
   
       case Object.keys(generalMDB)[2]: // Spiritual Commitment
-        let consecutiveDays = 1; // Start with 1 to count the first day of meditation
-        let prevDate = null; // To keep track of the previous date
-        let achieved = false; // Flag to indicate if milestone is achieved
-        let maxCount = consecutiveDays
-        
-        for (let i = 0; i < historiesObject.length; i++) {
-          console.log('!)@*&#)%*@#$)!@*#&')
-          const currentDate = new Date(historiesObject[i].currentDate);
-          console.log(historiesObject[i].currentDate)
+        const threshold = 50
+        const record = streakChecker(historiesObject, threshold)
 
-          if (prevDate === null) {
-            prevDate = currentDate;
-            continue; // Skip the first iteration
-          } else {
-            // console.log(('currentDate:',currentDate,'vs prevDate:',prevDate)
-            const oneDay = 24 * 60 * 60 * 1000; // Number of milliseconds in a day
-            const differenceInDays = Math.round((currentDate - prevDate) / oneDay);
-            // console.log('prev date:',datetime.datetime.utcfromtimestamp(prevDate),'| current date:',datetime.datetime.utcfromtimestamp(currentDate) )
-            console.log('difference In Days:',differenceInDays)
-            console.log('difference In Days(round):', Math.round(differenceInDays))
-
-            if (differenceInDays == 1) { // 1: increment
-              consecutiveDays++;
-              if (maxCount < consecutiveDays) {
-                maxCount = consecutiveDays
-              }
-              if (consecutiveDays >= 50) {
-                  achieved = true;
-                  console.log('===Spiritual Commitment Qualified!===')
-                  break;
-              }
-            } else if (differenceInDays >= 2) { // 2 to infinity: reset
-                consecutiveDays = 1; // Reset count if difference in Days is more than or equal to 2
-            } // 0: retain
-
-            console.log('consecutive days meditated count:',consecutiveDays)
-            console.log()
-            prevDate = currentDate;
-          }
-        };
-
-        if (achieved) {
+        if (record == threshold) {
+          console.log('==='+Object.keys(generalMDB)[2]+' Qualified!===')
           updateMilestoneToTrue(Object.keys(generalMDB)[2], 'general')
         } else {
-          console.log('!!',Object.keys(generalMDB)[2],'not yet achieved, you only meditated for', maxCount, 'day/s only and your current progress is', consecutiveDays, 'day/s only')
+          console.log('!!',Object.keys(generalMDB)[2],'not yet achieved, you only meditated for', record ,'day/s only')
         }
         break;
   
@@ -570,6 +533,51 @@ const getMilestoneStatus = async (milestoneTitle) => {
     console.error(error);
     return false;
   }
+}
+
+const streakChecker = (historiesObject, threshold) => {
+  let consecutiveDays = 1; // Start with 1 to count the first day of meditation
+  let prevDate = null; // To keep track of the previous date
+  let achieved = false; // Flag to indicate if milestone is achieved
+  let maxCount = consecutiveDays
+
+  for (let i = 0; i < historiesObject.length; i++) {
+    console.log('!)@*&#)%*@#$)!@*#&')
+    const currentDate = new Date(historiesObject[i].currentDate);
+    console.log(historiesObject[i].currentDate)
+
+    if (prevDate === null) {
+      prevDate = currentDate;
+      continue; // Skip the first iteration
+    } else {
+      // console.log(('currentDate:',currentDate,'vs prevDate:',prevDate)
+      const oneDay = 24 * 60 * 60 * 1000; // Number of milliseconds in a day
+      const differenceInDays = Math.round((currentDate - prevDate) / oneDay);
+      // console.log('prev date:',datetime.datetime.utcfromtimestamp(prevDate),'| current date:',datetime.datetime.utcfromtimestamp(currentDate) )
+      console.log('difference In Days:',differenceInDays)
+      console.log('difference In Days(round):', Math.round(differenceInDays))
+
+      if (differenceInDays == 1) { // 1: increment
+        consecutiveDays++;
+        if (maxCount < consecutiveDays) {
+          maxCount = consecutiveDays
+        }
+        if (consecutiveDays >= threshold) {
+            achieved = true;
+            return consecutiveDays
+            // break;
+        }
+      } else if (differenceInDays >= 2) { // 2 to infinity: reset
+          consecutiveDays = 1; // Reset count if difference in Days is more than or equal to 2
+      } // 0: retain
+
+      console.log('consecutive days meditated count:',consecutiveDays)
+      console.log()
+      prevDate = currentDate;
+    }
+  };
+  
+  return consecutiveDays
 }
 
 const updateMilestoneToTrue = async (milestoneTitle, rel) => {
