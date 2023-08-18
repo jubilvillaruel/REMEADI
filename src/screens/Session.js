@@ -304,8 +304,10 @@ export default function Session({ navigation, route }) {
 
     const speak = () => {
         let thingsToSay = []
-        for (const property in guide){
-            thingsToSay.push(guide[property])
+        const stepsToRender = selectedSteps || guide;
+
+        for (const property in stepsToRender){
+            thingsToSay.push(stepsToRender[property])
         }
         const options = {
             voice: 'Microsoft Zira - English (United States)',
