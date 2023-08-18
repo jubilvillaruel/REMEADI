@@ -321,13 +321,13 @@ const genMilestoneChecker = (milestones, historiesObject) => {
   
       case Object.keys(generalMDB)[2]: // Spiritual Commitment
         const threshold = 50
-        const record = streakChecker(historiesObject, threshold)
+        const streak = streakChecker(historiesObject, threshold)
 
-        if (record == threshold) {
+        if (streak == threshold) {
           console.log('==='+Object.keys(generalMDB)[2]+' Qualified!===')
           updateMilestoneToTrue(Object.keys(generalMDB)[2], 'general')
         } else {
-          console.log('!!',Object.keys(generalMDB)[2],'not yet achieved, you only meditated for', record ,'day/s only')
+          console.log('!!',Object.keys(generalMDB)[2],'not yet achieved, you only meditated for', streak ,'day/s only')
         }
         break;
   
