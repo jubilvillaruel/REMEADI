@@ -37,7 +37,6 @@ import ExpertResult from './src/screens/ExpertResult';
 import ExpertReligion from './src/screens/ExpertReligion';
 import ExpertType from './src/screens/ExpertType';
 import Guide from './src/screens/Guide';
-import GuideOptions from './src/screens/GuideOptions';
 import Session from './src/screens/Session';
 import Splash from './src/screens/Splash';
 import { auth } from './firebase';
@@ -236,7 +235,6 @@ export default function App() {
             <Stack.Screen name='ExpertReligion' component={ExpertReligion} options={{title: 'More Practices'}}/>
             <Stack.Screen name='ExpertType' component={ExpertType} options={{title: 'More Practices'}}/>
             <Stack.Screen name='Guide' component={Guide} options={{headerTransparent: true, title: '',}}/>
-            <Stack.Screen name='GuideOptions' component={GuideOptions} options={{title: 'Guide Options'}}/>
             <Stack.Screen name="Session" component={Session} options={{headerShown: false}}/>
             <Stack.Screen name="ConcludeSession" component={ConcludeSession} options={{headerShown: false}}/>
             <Stack.Screen name="ManageQuote" component={ManageQuote} options={{headerShown: false}}/>

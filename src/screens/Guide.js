@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, SafeAreaView, Image } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView } from 'react-native';
 import { screenWidth, screenHeight } from '../components/Dimensions';
 import { PrimaryButton } from '../components/Buttons';
 import { meditationDescDB } from '../Data/LocalDB';
@@ -21,7 +21,7 @@ export default function Guide({ navigation, route }) {
   return (
     <SafeAreaView style={styles.screen}>
       <Image style={inStyles.imgGuide} source={data.guideImg}></Image>
-      {(data.bia) ?
+      {(data.title === 'Kriya Yoga') ? (
         <View style={inStyles.contentContainer}>
           <View style={inStyles.textContainer}>
             <Text style={[styles.colorPrimary, inStyles.title]}>{data.title}</Text>
@@ -33,9 +33,9 @@ export default function Guide({ navigation, route }) {
               <Text style={[styles.dividerText, { fontSize: RFPercentage(2) }]}>Guides</Text>
               <View style={styles.dividerLine}/>
           </View>
-          <View style={inStyles.btnContainer}>
+          <ScrollView showsVerticalScrollIndicator={false} style={inStyles.btnContainer}>
             <PrimaryButton
-              text='Beginner'
+              text='Level 1'
               textColor='#FFFFFF'
               textSize={RFPercentage(2.2)}
               width={screenWidth('80%')}
@@ -44,7 +44,7 @@ export default function Guide({ navigation, route }) {
               onPress={() => goToSession2(0)}>
             </PrimaryButton>
             <PrimaryButton
-              text='Intermediate'
+              text='Level 2'
               textColor='#FFFFFF'
               textSize={RFPercentage(2.2)}
               width={screenWidth('80%')}
@@ -53,7 +53,7 @@ export default function Guide({ navigation, route }) {
               onPress={() => goToSession2(1)}>
             </PrimaryButton>
             <PrimaryButton
-              text='Advanced'
+              text='Level 3'
               textColor='#FFFFFF'
               textSize={RFPercentage(2.2)}
               width={screenWidth('80%')}
@@ -61,26 +61,97 @@ export default function Guide({ navigation, route }) {
               borderRad={30}
               onPress={() => goToSession2(2)}>
             </PrimaryButton>
-          </View>
-        </View>
-      : <View style={inStyles.contentContainer}>
-          <View style={inStyles.textContainer}>
-            <Text style={[styles.colorPrimary, inStyles.title]}>{data.title}</Text>
-            <Text style={[styles.colorSecondary, inStyles.subTitle]}>{meditationTypeDB[data.title]}</Text>
-            <Text style={inStyles.content}>{desc}</Text>
-          </View>
-          <View style={[inStyles.btnContainer, { bottom: -180 }]}>
             <PrimaryButton
-              text='Start'
+              text='Level 4'
               textColor='#FFFFFF'
               textSize={RFPercentage(2.2)}
               width={screenWidth('80%')}
               height={screenHeight('7%')}
               borderRad={30}
-              onPress={goToSession}>
+              onPress={() => goToSession2(3)}>
             </PrimaryButton>
+            <PrimaryButton
+              text='Level 5'
+              textColor='#FFFFFF'
+              textSize={RFPercentage(2.2)}
+              width={screenWidth('80%')}
+              height={screenHeight('7%')}
+              borderRad={30}
+              onPress={() => goToSession2(4)}>
+            </PrimaryButton>
+            <PrimaryButton
+              text='Level 6'
+              textColor='#FFFFFF'
+              textSize={RFPercentage(2.2)}
+              width={screenWidth('80%')}
+              height={screenHeight('7%')}
+              borderRad={30}
+              onPress={() => goToSession2(5)}>
+            </PrimaryButton>
+          </ScrollView>
+        </View>
+      ) : (
+        (data.bia) ?
+          <View style={inStyles.contentContainer}>
+            <View style={inStyles.textContainer}>
+              <Text style={[styles.colorPrimary, inStyles.title]}>{data.title}</Text>
+              <Text style={[styles.colorSecondary, inStyles.subTitle]}>{meditationTypeDB[data.title]}</Text>
+              <Text style={inStyles.content}>{desc}</Text>
+            </View>
+            <View style={styles.dividerContainer}>
+                <View style={styles.dividerLine}/>
+                <Text style={[styles.dividerText, { fontSize: RFPercentage(2) }]}>Guides</Text>
+                <View style={styles.dividerLine}/>
+            </View>
+            <View style={inStyles.btnContainer}>
+              <PrimaryButton
+                text='Beginner'
+                textColor='#FFFFFF'
+                textSize={RFPercentage(2.2)}
+                width={screenWidth('80%')}
+                height={screenHeight('7%')}
+                borderRad={30}
+                onPress={() => goToSession2(0)}>
+              </PrimaryButton>
+              <PrimaryButton
+                text='Intermediate'
+                textColor='#FFFFFF'
+                textSize={RFPercentage(2.2)}
+                width={screenWidth('80%')}
+                height={screenHeight('7%')}
+                borderRad={30}
+                onPress={() => goToSession2(1)}>
+              </PrimaryButton>
+              <PrimaryButton
+                text='Advanced'
+                textColor='#FFFFFF'
+                textSize={RFPercentage(2.2)}
+                width={screenWidth('80%')}
+                height={screenHeight('7%')}
+                borderRad={30}
+                onPress={() => goToSession2(2)}>
+              </PrimaryButton>
+            </View>
           </View>
-        </View>}
+        : <View style={inStyles.contentContainer}>
+            <View style={inStyles.textContainer}>
+              <Text style={[styles.colorPrimary, inStyles.title]}>{data.title}</Text>
+              <Text style={[styles.colorSecondary, inStyles.subTitle]}>{meditationTypeDB[data.title]}</Text>
+              <Text style={inStyles.content}>{desc}</Text>
+            </View>
+            <View style={[inStyles.btnContainer, { bottom: -180 }]}>
+              <PrimaryButton
+                text='Start'
+                textColor='#FFFFFF'
+                textSize={RFPercentage(2.2)}
+                width={screenWidth('80%')}
+                height={screenHeight('7%')}
+                borderRad={30}
+                onPress={goToSession}>
+              </PrimaryButton>
+            </View>
+          </View>
+        )}
     </SafeAreaView>
   );
 }
@@ -131,7 +202,7 @@ const inStyles = StyleSheet.create({
   },
 
   btnContainer: {
-    padding: 15,
+    margin: 15,
     height: screenHeight('25%'),
   },
 });

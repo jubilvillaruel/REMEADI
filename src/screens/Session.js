@@ -41,9 +41,24 @@ export default function Session({ navigation, route }) {
             biaLevel = 'Advanced';
         }
     }
+    else if (practiceTitle === 'Kriya Yoga') {
+        if (bia === 0) {
+            biaLevel = 'Level1';
+        } else if (bia === 1) {
+            biaLevel = 'Level2';
+        } else if (bia === 2) {
+            biaLevel = 'Level3';
+        } else if (bia === 3) {
+            biaLevel = 'Level4';
+        } else if (bia === 4) {
+            biaLevel = 'Level5';
+        } else if (bia === 5) {
+            biaLevel = 'Level6';
+        }
+    }
 
     const imgGuide = data.img
-    const selectedSteps = biaLevel ? HinduismDB[practiceTitle][biaLevel] : null
+    const selectedSteps = biaLevel ? HinduismDB[practiceTitle][biaLevel] : null;
 
     const religion = getCategoryByPractice(practiceTitle)
 
@@ -304,8 +319,11 @@ export default function Session({ navigation, route }) {
 
     const speak = () => {
         let thingsToSay = []
-        for (const property in guide){
-            thingsToSay.push(guide[property])
+
+        const stepsToRender = selectedSteps || guide;
+
+        for (const property in stepsToRender){
+            thingsToSay.push(stepsToRender[property])
         }
         const options = {
             voice: 'Microsoft Zira - English (United States)',
