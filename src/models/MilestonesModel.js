@@ -1,7 +1,7 @@
 import { getDatabase, update, ref, get } from "firebase/database";
 import { buddhismMDB, christianityMDB, genMilestoneReligionDB, generalMDB, hinduismMDB, islamMDB, judaismMDB, milestoneReligionDB } from "../Data/MilestonesDB"
 import { auth } from "../../firebase";
-import { getCategoryByPractice, religionDB } from "../Data/LocalDB";
+import { dayOfWeekMap, getCategoryByPractice, religionDB } from "../Data/LocalDB";
 import { meditationReligionDB } from "../Data/TypeDB";
 import { ChristianityDB } from "../Data/Practices/ChristianityDB";
 
@@ -137,6 +137,15 @@ const retrieveHistories = async (id) => {
   }
 }
 
+const getTotalDurationByPractice = (histories) => {
+  let totalDuration = 0
+  histories.forEach(session => {
+    // console.log('duration', session.duration)
+    totalDuration += session.duration
+  })
+  return totalDuration/1000
+}
+
 const checkAndUpdateMilestone = async (practiceTitle) => {
   console.log('\n\n\n\n\n\n\n\n\n========================================================================================\nCommencing General Milestone Evaluation')
   const id = auth.currentUser.uid
@@ -165,7 +174,7 @@ const checkAndUpdateMilestone = async (practiceTitle) => {
 
 
   console.log('\n\n\n\n\n\n\n\n\n========================================================================================\nCommencing Religion-Specific Milestone Evaluation')
-  
+  console.log('\n===========================\nMilestone Evaluation begins\n===========================\n')
   // identify religion
   const religion = getCategoryByPractice(practiceTitle)['key']
 
@@ -181,8 +190,12 @@ const checkAndUpdateMilestone = async (practiceTitle) => {
       if (dataFromMilestones[key] == false) {
         milestonesToCheck.push(key)
       }
-      console.log(key, dataFromMilestones[key])
     }
+
+    console.log('Milestones to check:')
+    milestonesToCheck.forEach((milestone) => {
+      console.log('-',milestone)
+    })
 
     const historiesObj = await retrieveHistories(id)
 
@@ -326,7 +339,6 @@ const genMilestoneChecker = (milestones, historiesObject) => {
 }
 
 const milestoneChecker = (milestones, historiesObject, religion) => {
-  console.log('\n\n\n===========================\nMilestone Evaluation begins\n===========================\n')
   switch (religion) {
     case 'Christianity':
       console.log('religion: Christianity')
@@ -357,33 +369,18 @@ const milestoneChecker = (milestones, historiesObject, religion) => {
 
 const christianityMilestoneChecker = (milestones, historiesObject) => {
   milestones.forEach(milestone => {
-    console.log('var milestone: '+milestone)
-
     switch (milestone) {
       case Object.keys(christianityMDB)[0]: // Scripture Master
         console.log(Object.keys(christianityMDB)[0])
-        console.log('\n===historiesObject===\n',historiesObject)
-        const histories = historiesObject.filter((session)=>session.religion == 'Christianity')
-
-        const allChPractices = Object.keys(ChristianityDB)
-
-        // check if all practices are present in the session history
-        const allChPracticesPresent = allChPractices.every((practice) =>
-          histories.some((session) => session.practiceTitle === practice)
-        );
-
-        if (allChPracticesPresent == true) {
-          updateMilestoneToTrue(Object.keys(christianityMDB)[0], 'christianity')
-        } else {
-          console.log('!!',Object.keys(christianityMDB)[1],'all practices are not present')
-        }
+        // presentChecker
+        presentChecker(Object.keys(christianityMDB)[0],historiesObject)
         break;
   
       case Object.keys(christianityMDB)[1]: // Dual Deliberation
         console.log(Object.keys(christianityMDB)[1])
 
         const histories2 = historiesObject.filter((session)=>session.practiceTitle == 'Examen')
-        console.log(histories2)
+        // console.log(histories2)
         const threshold = 2
         const streak = streakChecker(histories2, threshold)
 
@@ -397,13 +394,39 @@ const christianityMilestoneChecker = (milestones, historiesObject) => {
   
       case Object.keys(christianityMDB)[2]: // Rosary Devotee
         console.log(Object.keys(christianityMDB)[2])
+        const histories3 = historiesObject.filter((session)=>session.practiceTitle == 'Rosary')
+
+        histories3.forEach((session)=>{
+          console.log(session.subPracticeTitle)
+        })
+        
+        const mysteryTitles = []
+        console.log()
+
+        for (let index = 0; index < 7; index++) {
+          let mysteryDetails = Object.entries(dayOfWeekMap)[index][1]
+          console.log(mysteryDetails)
+          let mysteryTitle = mysteryDetails.split(" ").slice(0,2).join(" ")
+          console.log(mysteryTitle)
+          mysteryTitles.push(mysteryTitle)
+        }
+
+        // check if all practices are present in the session history
+        const allMysteriesPresent = mysteryTitles.every((mystery) =>
+        histories3.some((session) => session.subPracticeTitle === mystery)
+        );
+
+        if (allMysteriesPresent == true) {
+          updateMilestoneToTrue(Object.keys(christianityMDB)[2], 'Christianity')
+        } else {
+          console.log('!!',Object.keys(christianityMDB)[2],'not yet achieved, all mysteries are not present')
+        }
         break;
 
       case Object.keys(christianityMDB)[3]: // Man of Scriptures
         console.log(Object.keys(christianityMDB)[3])
 
         const histories4 = historiesObject.filter((session)=>session.practiceTitle == 'Lectio Divina')
-        console.log(histories4)
         const threshold4 = 31
         const streak4 = streakChecker(histories4, threshold4)
 
@@ -417,6 +440,18 @@ const christianityMilestoneChecker = (milestones, historiesObject) => {
 
       case Object.keys(christianityMDB)[4]: // Bible Meditation Expert
         console.log(Object.keys(christianityMDB)[4])
+        const thresholdHours = 0.025
+        const histories5 = historiesObject.filter((session)=>session.practiceTitle == 'Christian Meditation')
+        const totalDuration = getTotalDurationByPractice(histories5)
+        console.log('===totalDuration(seconds)===' + totalDuration)
+        let totalDurationInHours = (totalDuration / 60 / 60)
+        console.log('===totalDuration(hours)===' + totalDurationInHours)
+        if (totalDurationInHours >= thresholdHours ){
+          updateMilestoneToTrue(Object.keys(christianityMDB)[4], 'Christianity')
+        } else {
+          console.log('!!',Object.keys(christianityMDB)[4],'not yet achieved, you only meditated for', totalDurationInHours ,'hour/s only')
+        }
+        
         break;
   
       default:
@@ -433,8 +468,9 @@ const islamMilestoneChecker = (milestones, historiesObject) => {
     switch (milestone) {
       case Object.keys(islamMDB)[0]: // Islamic Knowledge
         console.log(Object.keys(islamMDB)[0])
+        presentChecker(Object.keys(islamMDB)[0],historiesObject)
         break;
-  
+      
       case Object.keys(islamMDB)[1]: // Dhikr Devotee
         console.log(Object.keys(islamMDB)[1])
         break;
@@ -445,6 +481,7 @@ const islamMilestoneChecker = (milestones, historiesObject) => {
 
       case Object.keys(islamMDB)[3]: // Taffakur Insight
         console.log(Object.keys(islamMDB)[3])
+        
         break;
 
       case Object.keys(islamMDB)[4]: // Sufi Breathing Prowess
@@ -569,9 +606,9 @@ const streakChecker = (historiesObject, threshold) => {
   let maxCount = consecutiveDays
 
   for (let i = 0; i < historiesObject.length; i++) {
-    console.log('!)@*&#)%*@#$)!@*#&')
+    // console.log('!)@*&#)%*@#$)!@*#&')
     const currentDate = new Date(historiesObject[i].currentDate);
-    console.log(historiesObject[i].currentDate)
+    // console.log(historiesObject[i].currentDate)
 
     if (prevDate === null) {
       prevDate = currentDate;
@@ -581,8 +618,8 @@ const streakChecker = (historiesObject, threshold) => {
       const oneDay = 24 * 60 * 60 * 1000; // Number of milliseconds in a day
       const differenceInDays = Math.round((currentDate - prevDate) / oneDay);
       // console.log('prev date:',datetime.datetime.utcfromtimestamp(prevDate),'| current date:',datetime.datetime.utcfromtimestamp(currentDate) )
-      console.log('difference In Days:',differenceInDays)
-      console.log('difference In Days(round):', Math.round(differenceInDays))
+      // console.log('difference In Days:',differenceInDays)
+      // console.log('difference In Days(round):', Math.round(differenceInDays))
 
       if (differenceInDays == 1) { // 1: increment
         consecutiveDays++;
@@ -598,8 +635,8 @@ const streakChecker = (historiesObject, threshold) => {
           consecutiveDays = 1; // Reset count if difference in Days is more than or equal to 2
       } // 0: retain
 
-      console.log('consecutive days meditated count:',consecutiveDays)
-      console.log()
+      // console.log('consecutive days meditated count:',consecutiveDays)
+      // console.log()
       prevDate = currentDate;
     }
   };
@@ -607,10 +644,27 @@ const streakChecker = (historiesObject, threshold) => {
   return consecutiveDays
 }
 
+const presentChecker = (milestone, historiesObject) => {
+  // console.log('\n===historiesObject===\n',historiesObject)
+  const histories = historiesObject.filter((session)=>session.religion == 'Christianity')
+  const allPractices = Object.keys(ChristianityDB)
+
+  // check if all practices are present in the session history
+  const allPracticesPresent = allPractices.every((practice) =>
+    histories.some((session) => session.practiceTitle === practice)
+  );
+
+  if (allPracticesPresent == true) {
+    updateMilestoneToTrue(milestone, 'christianity')
+  } else {
+    console.log('!!',milestone,'not yet achieved. All practices are not present')
+  }
+}
+
 const updateMilestoneToTrue = async (milestoneTitle, rel) => {
-  console.log('milestoneTitle',milestoneTitle)
+  // console.log('milestoneTitle',milestoneTitle)
   let religion = rel.toLowerCase()
-  console.log('religion',religion)
+  // console.log('religion',religion)
   const uid = auth.currentUser.uid; // Replace with the user's UID
   // const religion = 'christianity'; // Replace with the user's religion or obtain it from somewhere
 

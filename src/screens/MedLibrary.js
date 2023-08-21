@@ -190,7 +190,8 @@ export default function MedLibrary({ navigation }) {
         const typeMatch = meditationTypeDB[card.title].toLowerCase().includes(text.toLowerCase());
         const typeReligion = meditationReligionDB[card.title].toLowerCase().includes(text.toLowerCase());
 
-        return titleMatch || descMatch || typeMatch || typeReligion;
+        // return titleMatch || descMatch || typeMatch || typeReligion;
+        return titleMatch || typeMatch || typeReligion;
       });
       console.log(filtered)
       setFilteredCards(filtered);
