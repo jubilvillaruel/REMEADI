@@ -26,6 +26,7 @@ export default function Home({ navigation }) {
     const [ quote, setQuote ] = useState('')
     const [ source, setSource ] = useState('')
     const [ isEmailVerified, setIsEmailVerified] = useState(false)
+    const [ faithFocusedValue, setFaithFocusedValue] = useState(Boolean)
 
     const uid = auth.currentUser.uid
     const emailVerified = auth.currentUser.emailVerified
@@ -63,12 +64,11 @@ export default function Home({ navigation }) {
     // fetch user data from realtime db
     useEffect(() => {
         const fetchUserData = async () => {
-            console.log('EMAIL MO:',emailVerified)
             try {
                 if (emailVerified) {
                     setIsEmailVerified(true)
                 }   
-                console.log('fetching user data\nuser id: ',uid)
+                // console.log('fetching user data\nuser id: ',uid)
 
                 // set user first name and last name
                 const realtimeDB = getDatabase()
@@ -89,11 +89,27 @@ export default function Home({ navigation }) {
         fetchUserData();
     }, [uid]);
 
+    // faithFocused listener
+    useEffect(() => {
+        // Set up a listener for changes to the faithFocused data in the database
+        const faithFocusedRef = ref(getDatabase(), 'users/'+auth.currentUser.uid+'/faithFocused');
+        
+        // const historyRef = ref(getDatabase(), 'milestones/' + uid);
+    
+        onValue(faithFocusedRef, (snapshot) => {
+            const dataFromFirebase = snapshot.val();
+            setFaithFocusedValue(dataFromFirebase)
+            // setMilestones(dataFromFirebase);
+        }, (error) => {
+            console.log(error.stack);
+        });
+    }, []);
+
     // fetch daily motivation - on going
     useEffect(() => {
         const fetchMotivationData = async () => {
             try {
-                let quoteID = await getQuoteID()
+                let quoteID = await getQuoteID(faithFocusedValue)
                 console.log('quoteID: ',quoteID)
 
                 // fetch quote 
@@ -114,7 +130,7 @@ export default function Home({ navigation }) {
             }
         };
         fetchMotivationData();
-    }, [uid]);
+    }, [uid, faithFocusedValue]);
 
     const [quoteVisible, setQuoteVisible] = useState(false);
     const [avatarVisible, setAvatarVisible] = useState(false);

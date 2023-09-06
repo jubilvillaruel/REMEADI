@@ -1,8 +1,8 @@
 import { get, ref } from 'firebase/database';
-import { realtimeDB } from '../../firebase';
+import { auth, realtimeDB } from '../../firebase';
 import * as Crypto from 'expo-crypto';
 
-const getQuoteID = async () => {
+const getQuoteID = async (faithFocusedValue) => {
   try {
     // Reference to the "motivation" node in the Realtime Database
     const collectionRef = ref(realtimeDB, 'motivation');
@@ -10,8 +10,25 @@ const getQuoteID = async () => {
     // Fetch the data snapshot at the specified location
     const snapshot = await get(collectionRef);
 
-    // Extract the data from the snapshot
-    const data = snapshot.val();
+    let data = snapshot.val();
+
+    if (faithFocusedValue) {
+      // Fetch the user's religion
+      const faithFocusedRef = ref(realtimeDB, 'users/'+auth.currentUser.uid+'/religion');
+
+      const ffSnapshot = await get(faithFocusedRef);
+      const religion = ffSnapshot.val()
+
+      const filteredData = {};
+
+      for (const key in data) {
+        if (data[key].religion === religion) {
+          filteredData[key] = data[key];
+        }
+      }
+      data = filteredData;
+    } 
+   
     const quotes = Object.keys(data);
 
     // Get a random index
@@ -21,6 +38,7 @@ const getQuoteID = async () => {
     return docId;
   } catch (error) {
     console.log('Error:', error);
+    console.log('Stack:', error.stack);
     return Promise.reject(error); // Reject the promise in case of an error
   }
 };

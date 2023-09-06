@@ -769,7 +769,7 @@ const getMilestoneStatus = async (milestoneTitle) => {
       return false;
     }
   } catch (error) {
-    console.error(error);
+    console.log(error);
     return false;
   }
 }
@@ -847,7 +847,7 @@ const updateMilestoneToTrue = async (milestoneTitle, rel) => {
     console.log(`==============================\n${milestoneTitle} has been updated to TRUE.\n==============================`);
     return true; // Return true to indicate successful update
   } catch (error) {
-    console.error(`Failed to update ${milestoneTitle}: ${error.message}`);
+    console.log(`Failed to update ${milestoneTitle}: ${error.message}`);
     return false; // Return false to indicate update failure
   }
 };

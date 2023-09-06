@@ -154,7 +154,8 @@ export default function SignUp({ navigation }) {
         firstName: firstName,
         lastName: lastName,
         religion: religion,
-        birthDate: selectedDate
+        birthDate: selectedDate,
+        faithFocused: false
       }).then(console.log('sign up successful'))
 
       // create user's milestones in realtime db

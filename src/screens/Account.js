@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, Switch, TouchableOpacity } from 'react-native';
-import Slider from '@react-native-community/slider';
 
 import { styles } from './../../assets/css/Style';
 import { auth } from '../../firebase';
+import updateFaithFocused from '../models/UserSettingsModel';
+import { get, getDatabase, ref } from 'firebase/database';
 
 export default function Account({ navigation, route }) {
     const { setUserToken } = route.params;
 
-    const [vol, setVol] = useState(0);
     const [notif, notifToggle] = useState(true);
     const [vib, vibToggle] = useState(true);
     const [faithFocused, faithFocusedToggle] = useState(true);
@@ -25,6 +25,20 @@ export default function Account({ navigation, route }) {
     const goToEditAccount = () => {
         navigation.navigate('EditAccount');
     };
+
+    useEffect(()=>{
+        const retrieveFaithFocusedValue = async () => {
+            const faithFocusedRef = ref(getDatabase(), 'users/'+auth.currentUser.uid+'/faithFocused');
+            const snapshot = await get(faithFocusedRef)
+            const faithFocused = snapshot.val()
+            faithFocusedToggle(faithFocused)
+        }
+        retrieveFaithFocusedValue()
+    }, [])
+
+    useEffect(()=>{
+        updateFaithFocused(faithFocused)
+    }, [faithFocused])
 
     const goToManageQuote = () => {
         navigation.navigate('ManageQuote');
