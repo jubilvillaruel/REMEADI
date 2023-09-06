@@ -185,7 +185,7 @@ export default function MedLibrary({ navigation }) {
       const filtered = allCards.filter((card) =>{
         const titleMatch = card.title.toLowerCase().includes(text.toLowerCase());
         let descMatch = false
-        if (card.title == "Hatha Yoga") {    
+        if (card.title == "Hatha Yoga" || card.title == "Kriya Yoga") {    
           let filter = Object.values(card.desc).flatMap((level) => {
             return Object.values(level).filter((sentence) =>
               sentence.toLowerCase().includes(text.toLowerCase())
@@ -193,14 +193,6 @@ export default function MedLibrary({ navigation }) {
           });
           descMatch = filter.length > 0;
           console.log('DESCMATCH',descMatch)
-          // descMatch = Object.values(card.desc).includes((sentence) => {
-          //   for (const value of sentence.values()) {
-          //     if (value.toLowerCase().includes(text.toLowerCase())) {
-          //       return true;
-          //     }
-          //   }
-          //   return false;
-          // });        
         } 
         else {
           descMatch = Object.values(card.desc).some((sentence) =>
