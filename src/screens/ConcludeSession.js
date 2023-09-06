@@ -23,9 +23,9 @@ export default function ConcludeSession({ navigation, route }) {
     const duration = data?.stopwatchTime;
     const medType = meditationTypeDB[data?.practiceTitle];
     const timesPracticed = data?.timesPracticed
+    const subPracticeTitle = data?.subCategory
     
     const [ uid, setUID ] = useState();
-    const [ subPracticeTitle, setSubPracticeTitle ] = useState(null);
     const [ religion, setReligion ] = useState();
     const [ currentDate, setCurrentDate ] = useState();
     

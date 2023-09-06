@@ -5,6 +5,7 @@ import { screenHeight, screenWidth } from '../../components/Dimensions';
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { styles } from '../../../assets/css/Style';
 import { RFPercentage } from 'react-native-responsive-fontsize';
+import { dayOfWeekMap } from '../../Data/LocalDB';
 
 const VideoPlayer = ({ title }) => {
     const video = React.useRef(null);
@@ -31,7 +32,6 @@ const VideoPlayer = ({ title }) => {
                 const fileName = dayOfWeekMap[currentDayOfWeek];
                 fullPath = (`rosary/mysteries/${fileName}`);
             }
-
             else {
                 fullPath = (`${practiceTitle}.mp4`);
             }

@@ -18,7 +18,7 @@ import close from '../../assets/images/close.png';
 import { styles } from '../../assets/css/Style';
 import { getGuide } from '../Data/Practices/GuideDB';
 import { HinduismDB } from '../Data/Practices/HinduismDB';
-import { getCategoryByPractice, timeDB, timeDB2, timeDB3 } from '../Data/LocalDB';
+import { dayOfWeekMap, getCategoryByPractice, timeDB, timeDB2, timeDB3 } from '../Data/LocalDB';
 import { getTimeModel, getTimeModel2, getTimesPracticed, timeToMilliseconds } from '../models/TimeModel';
 import { StackActions } from '@react-navigation/native';
 import Bible from './Extensions/Bible';
@@ -323,7 +323,6 @@ export default function Session({ navigation, route }) {
 
     const speak = () => {
         let thingsToSay = []
-
         const stepsToRender = selectedSteps || guide;
 
         for (const property in stepsToRender){
@@ -377,9 +376,21 @@ export default function Session({ navigation, route }) {
         setTimerRunning(false);
         Speech.stop();
         // console.log('getTimesPracticed:', getTimesPracticed(practiceTitle))
+
+        // subCategory
+        let subCategory = null
+        if (practiceTitle == 'Rosary') {
+            const currentDayOfWeek = new Date().getDay();
+            let mysteryDetails = dayOfWeekMap[currentDayOfWeek];
+            let mystery = mysteryDetails.split(" ").slice(0,2).join(" ")
+            subCategory = mystery
+        }
+        
         const data = {
             practiceTitle: practiceTitle,
             stopwatchTime: timeToMilliseconds(time),
+            // subTitle
+            subCategory: subCategory,
             // meditation type
             // times practiced
             timesPracticed: await getTimesPracticed(practiceTitle) + 1

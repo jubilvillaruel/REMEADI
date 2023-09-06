@@ -60,7 +60,15 @@ const timeDB3 = {
     'Kriya Yoga' : null,
 }
 
-
+const dayOfWeekMap = {
+    0: 'Glorious Mysteries of the Holy Rosary.mp4',
+    1: 'Joyful Mysteries of the Holy Rosary.mp4',
+    2: 'Sorrowful Mysteries of the Holy Rosary.mp4',
+    3: 'Glorious Mysteries of the Holy Rosary.mp4',
+    4: 'Luminous Mysteries of the Holy Rosary.mp4',
+    5: 'Sorrowful Mysteries of the Holy Rosary.mp4',
+    6: 'Joyful Mysteries of the Holy Rosary.mp4',
+};
 
 const getCategoryByPractice = (title) => {
     // loop through religionDB and return key if value matched with title
@@ -81,4 +89,6 @@ const getCategoryByPractice = (title) => {
     return 'General' ;
 }
 
-export { meditationDescDB, religionDB, getCategoryByPractice, timeDB, timeDB2, timeDB3 } 
+
+
+export { meditationDescDB, religionDB, getCategoryByPractice, timeDB, timeDB2, timeDB3, dayOfWeekMap } 
