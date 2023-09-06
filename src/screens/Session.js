@@ -138,6 +138,10 @@ export default function Session({ navigation, route }) {
             } else {
                 setvideoDisabled(true);
             }
+        }
+        else if (religion && religion.key === 'Buddhism') {
+            setbibleDisabled(true);
+            setvideoDisabled(false);
         } else {
             setbibleDisabled(true);
             setvideoDisabled(true);
@@ -299,12 +303,12 @@ export default function Session({ navigation, route }) {
             const religion = getCategoryByPractice(practiceTitle);
             if (religion && religion.key === 'Christianity') {
                 if (practiceTitle === 'Rosary') {
-                    return <VideoPlayer />;
+                    return <VideoPlayer title={practiceTitle}></VideoPlayer>;
                 } else {
                     return <Bible />;
                 }
             } else {
-                return <VideoPlayer />;
+                return <VideoPlayer title={practiceTitle}></VideoPlayer>;
             }
         } catch (error) {
             console.log(error.stack)

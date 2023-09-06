@@ -6,28 +6,36 @@ import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { styles } from '../../../assets/css/Style';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 
-const VideoPlayer = () => {
+const VideoPlayer = ({ title }) => {
     const video = React.useRef(null);
+    const practiceTitle = title;
     const [status, setStatus] = React.useState({});
-
+    let fullPath = '';
+    
     const fetchVideoUrl = async () => {
         try {
-            // Get the current day of the week (0-6/Sunday-Saturday)
-            const currentDayOfWeek = new Date().getDay();
-            const dayOfWeekMap = {
-                0: 'Glorious Mysteries of the Holy Rosary.mp4',
-                1: 'Joyful Mysteries of the Holy Rosary.mp4',
-                2: 'Sorrowful Mysteries of the Holy Rosary.mp4',
-                3: 'Glorious Mysteries of the Holy Rosary.mp4',
-                4: 'Luminous Mysteries of the Holy Rosary.mp4',
-                5: 'Sorrowful Mysteries of the Holy Rosary.mp4',
-                6: 'Joyful Mysteries of the Holy Rosary.mp4',
-            };
+            if (practiceTitle == 'Rosary') {
+                // Get the current day of the week (0-6/Sunday-Saturday)
+                const currentDayOfWeek = new Date().getDay();
+                const dayOfWeekMap = {
+                    0: 'Glorious Mysteries of the Holy Rosary.mp4',
+                    1: 'Joyful Mysteries of the Holy Rosary.mp4',
+                    2: 'Sorrowful Mysteries of the Holy Rosary.mp4',
+                    3: 'Glorious Mysteries of the Holy Rosary.mp4',
+                    4: 'Luminous Mysteries of the Holy Rosary.mp4',
+                    5: 'Sorrowful Mysteries of the Holy Rosary.mp4',
+                    6: 'Joyful Mysteries of the Holy Rosary.mp4',
+                };
 
-            // Get the file name based on the current day of the week
-            const fileName = dayOfWeekMap[currentDayOfWeek];
-            const fullPath = `rosary/mysteries/${fileName}`;
+                // Get the file name based on the current day of the week
+                const fileName = dayOfWeekMap[currentDayOfWeek];
+                fullPath = (`rosary/mysteries/${fileName}`);
+            }
 
+            else {
+                fullPath = (`${practiceTitle}.mp4`);
+            }
+            
             const storage = getStorage();
             const videoRef = ref(storage, fullPath);
             const videoDownloadURL = await getDownloadURL(videoRef);
@@ -52,7 +60,7 @@ const VideoPlayer = () => {
     if (!videoUrl) {
         return (
             <View style={inStyles.placeholder}>
-                <Text>Fetching Rosary of the Day...</Text>
+                <Text>Fetching Video...</Text>
             </View>
         );
     }
