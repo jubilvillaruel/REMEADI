@@ -48,8 +48,8 @@ const buddhismMDB = {
 const judaismMDB = {
    'Ethical Living' : 'Perform all meditation practices in Judaism.',
    'Mystical Reflector': 'Perform Kabbalistic/Chassidic Meditation for 2 consecutive weeks',
-   'Shema Contemplator': 'Achieve by performing Shema Meditation 3 times in one day.',
-   'Hitbodedut Dedication': 'Achieve by performing 30 min Hitbodedut sessions for 3 times.',
+   'Shema Contemplator': 'Achieve by performing Shema Meditation in 3 days.',
+   'Hitbodedut Dedication': 'Achieve by Accumulating 100 minutes of Hitbodedut session.',
 }
 
 const milestoneReligionDB = {
