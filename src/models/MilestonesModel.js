@@ -481,11 +481,30 @@ const islamMilestoneChecker = (milestones, historiesObject) => {
 
       case Object.keys(islamMDB)[3]: // Taffakur Insight
         console.log(Object.keys(islamMDB)[3])
-        
+        let histories3 = historiesObject.filter((session)=>session.practiceTitle == 'Taffakur')
+        let threshold3 = 5
+        let streak3 = streakChecker(histories3, threshold3)
+
+        if (streak3 >= threshold3) {
+          console.log('==='+Object.keys(islamMDB)[3]+' Qualified!===')
+          updateMilestoneToTrue(Object.keys(islamMDB)[3], 'Islam')
+        } else {
+          console.log('!!',Object.keys(islamMDB)[3],'not yet achieved, you only meditated for', streak3 ,'day/s only')
+        }
         break;
 
       case Object.keys(islamMDB)[4]: // Sufi Breathing Prowess
         console.log(Object.keys(islamMDB)[4])
+        // let histories4 = historiesObject.filter((session)=>session.practiceTitle == 'Taffakur')
+        // let threshold4 = 30
+        // let streak4 = streakChecker(histories4, threshold4)
+
+        // if (streak4 >= threshold4) {
+        //   console.log('==='+Object.keys(islamMDB)[4]+' Qualified!===')
+        //   updateMilestoneToTrue(Object.keys(islamMDB)[4], 'Islam')
+        // } else {
+        //   console.log('!!',Object.keys(islamMDB)[4],'not yet achieved, you only meditated for', streak4 ,'day/s only')
+        // }
         break;
   
       default:
@@ -560,11 +579,167 @@ const hindusimMilestoneChecker = (milestones, historiesObject) => {
 }
 
 const buddhismMilestoneChecker = (milestones, historiesObject) => {
+  milestones.forEach(milestone => {
+    console.log('var milestone: '+milestone)
 
+    switch (milestone) {
+      case Object.keys(buddhismMDB)[0]: // Way of the Buddha  
+        console.log(Object.keys(buddhismMDB)[0])
+        presentChecker(Object.keys(buddhismMDB)[0],historiesObject)
+        break;
+      
+      case Object.keys(buddhismMDB)[1]: // 30 Minutes of Stillness  
+        console.log(Object.keys(buddhismMDB)[1])
+        let histories1 = historiesObject.filter((session)=>session.practiceTitle == 'Breath')
+        let isAchieved1 = false
+        histories1.forEach(session=>{session.duration >= 1800000 ? isAchieved1 = true : isAchieved1 = false})
+
+        // get maximum duration of a breath meditation
+        let maxDuration = 0
+        histories1.forEach(session=>{session.duration >= maxDuration ? maxDuration = session.duration : maxDuration = maxDuration})
+        maxDuration = (maxDuration / 1000)
+        
+        if (isAchieved1) {
+          updateMilestoneToTrue(Object.keys(buddhismMDB)[1], 'Buddhism')
+        } else {
+          console.log('!!',Object.keys(buddhismMDB)[1],'not yet achieved, you only meditated for', maxDuration ,'second/s only')
+        }
+        break;
+
+      case Object.keys(buddhismMDB)[2]: // Mindful Steps  
+        console.log(Object.keys(buddhismMDB)[2])
+        let histories2 = historiesObject.filter((session)=>session.practiceTitle == 'Walk')
+        let isAchieved2 = false
+        histories2.forEach(session=>{session.duration >= 1800000 ? isAchieved2 = true : isAchieved2 = false})
+
+        // get maximum duration of a breath meditation
+        let maxDuration2 = 0
+        histories2.forEach(session=>{session.duration >= maxDuration2 ? maxDuration2 = session.duration : maxDuration2 = maxDuration2})
+        maxDuration2 = (maxDuration2 / 1000)
+        
+        if (isAchieved2) {
+          updateMilestoneToTrue(Object.keys(buddhismMDB)[2], 'Buddhism')
+        } else {
+          console.log('!!',Object.keys(buddhismMDB)[2],'not yet achieved, you only meditated for', maxDuration2 ,'second/s only')
+        }
+        break;
+
+      case Object.keys(buddhismMDB)[3]: // Hundred Acts of Compassion  
+        console.log(Object.keys(buddhismMDB)[3])
+        let histories3 = historiesObject.filter((session)=>session.practiceTitle == 'Breath')
+        let isAchieved3 = false
+        histories3.forEach(session=>{session.duration >= 6000000 ? isAchieved3 = true : isAchieved3 = false})
+
+        // get maximum duration of a breath meditation
+        let maxDuration3 = 0
+        histories3.forEach(session=>{session.duration >= maxDuration3 ? maxDuration3 = session.duration : maxDuration3 = maxDuration3})
+        maxDuration3 = (maxDuration3 / 1000)
+        
+        if (isAchieved3) {
+          updateMilestoneToTrue(Object.keys(buddhismMDB)[3], 'Buddhism')
+        } else {
+          console.log('!!',Object.keys(buddhismMDB)[3],'not yet achieved, you only meditated for', maxDuration3 ,'second/s only')
+        }
+        break;
+
+      case Object.keys(buddhismMDB)[4]: // Month-long Body Scan Mastery  
+        console.log(Object.keys(buddhismMDB)[4])
+        let histories4 = historiesObject.filter((session)=>session.practiceTitle == 'Body Scan')
+        let threshold4 = 30
+        let streak4 = streakChecker(histories4, threshold4)
+
+        if (streak4 >= threshold4) {
+          console.log('==='+Object.keys(buddhismMDB)[4]+' Qualified!===')
+          updateMilestoneToTrue(Object.keys(buddhismMDB)[4], 'Buddhism')
+        } else {
+          console.log('!!',Object.keys(buddhismMDB)[4],'not yet achieved, you only meditated for', streak4 ,'day/s only')
+        }
+        break;
+
+      case Object.keys(buddhismMDB)[5]: // Boundless Heart  
+        console.log(Object.keys(buddhismMDB)[5])
+        let histories5 = historiesObject.filter((session)=>session.practiceTitle == 'Metta')
+        let isAchieved5 = false
+        histories5.forEach(session=>{session.duration >= 30000000 ? isAchieved5 = true : isAchieved5 = false})
+
+        // get maximum duration of a breath meditation
+        let maxDuration5 = 0
+        histories5.forEach(session=>{session.duration >= maxDuration5 ? maxDuration5 = session.duration : maxDuration5 = maxDuration5})
+        maxDuration5 = (maxDuration5 / 1000)
+        
+        if (isAchieved5) {
+          updateMilestoneToTrue(Object.keys(buddhismMDB)[5], 'Buddhism')
+        } else {
+          console.log('!!',Object.keys(buddhismMDB)[5],'not yet achieved, you only meditated for', maxDuration5 ,'second/s only')
+        }
+        break;
+
+      default:
+        break;
+    }
+  })
 }
 
 const judaismMilestoneChecker = (milestones, historiesObject) => {
+  milestones.forEach(milestone => {
+    console.log('var milestone: '+milestone)
 
+    switch (milestone) {
+      case Object.keys(judaismMDB)[0]: // Ethical Living  
+        console.log(Object.keys(judaismMDB)[0])
+        presentChecker(Object.keys(judaismMDB)[0],historiesObject)
+        break;
+
+      case Object.keys(judaismMDB)[1]: // Mystical Reflector
+        console.log(Object.keys(judaismMDB)[1])
+        let histories1 = historiesObject.filter((session)=>session.practiceTitle == 'Kabbalistic/Chassidic')
+        let threshold1 = 14
+        let streak1 = streakChecker(histories1, threshold1)
+
+        if (streak1 >= threshold1) {
+          console.log('==='+Object.keys(judaismMDB)[1]+' Qualified!===')
+          updateMilestoneToTrue(Object.keys(judaismMDB)[1], 'Buddhism')
+        } else {
+          console.log('!!',Object.keys(judaismMDB)[1],'not yet achieved, you only meditated for', streak1 ,'day/s only')
+        }
+        break;
+
+      case Object.keys(judaismMDB)[2]: // Shema Contemplator
+        console.log(Object.keys(judaismMDB)[2])
+        let histories2 = historiesObject.filter((session)=>session.practiceTitle == 'Shema')
+        let threshold2 = 14
+        let streak2 = streakChecker(histories2, threshold2)
+
+        if (streak2 >= threshold2) {
+          console.log('==='+Object.keys(judaismMDB)[2]+' Qualified!===')
+          updateMilestoneToTrue(Object.keys(judaismMDB)[2], 'Buddhism')
+        } else {
+          console.log('!!',Object.keys(judaismMDB)[2],'not yet achieved, you only meditated for', streak2 ,'day/s only')
+        }
+        break;
+
+      case Object.keys(judaismMDB)[3]: // Hitbodedut Dedication
+        console.log(Object.keys(judaismMDB)[3])
+        let histories3 = historiesObject.filter((session)=>session.practiceTitle == 'Hitbodedut')
+        let isAchieved3 = false
+        histories3.forEach(session=>{session.duration >= 6000000 ? isAchieved3 = true : isAchieved3 = false})
+
+        // get maximum duration of a breath meditation
+        let maxDuration3 = 0
+        histories3.forEach(session=>{session.duration >= maxDuration3 ? maxDuration3 = session.duration : maxDuration3 = maxDuration3})
+        maxDuration3 = (maxDuration3 / 1000)
+        
+        if (isAchieved3) {
+          updateMilestoneToTrue(Object.keys(judaismMDB)[3], 'Juddaism')
+        } else {
+          console.log('!!',Object.keys(judaismMDB)[3],'not yet achieved, you only meditated for', maxDuration3 ,'second/s only')
+        }
+        break;
+
+      default:
+        break;
+    }
+  })
 }
 
 
@@ -600,7 +775,7 @@ const getMilestoneStatus = async (milestoneTitle) => {
 }
 
 const streakChecker = (historiesObject, threshold) => {
-  let consecutiveDays = 1; // Start with 1 to count the first day of meditation
+  let consecutiveDays = 1; // Start with 0 to count the first day of meditation
   let prevDate = null; // To keep track of the previous date
   let achieved = false; // Flag to indicate if milestone is achieved
   let maxCount = consecutiveDays
@@ -645,8 +820,9 @@ const streakChecker = (historiesObject, threshold) => {
 }
 
 const presentChecker = (milestone, historiesObject) => {
+  const religion = getReligionByMilestone(milestone)
   // console.log('\n===historiesObject===\n',historiesObject)
-  const histories = historiesObject.filter((session)=>session.religion == 'Christianity')
+  const histories = historiesObject.filter((session)=>session.religion == religion)
   const allPractices = Object.keys(ChristianityDB)
 
   // check if all practices are present in the session history
@@ -655,19 +831,15 @@ const presentChecker = (milestone, historiesObject) => {
   );
 
   if (allPracticesPresent == true) {
-    updateMilestoneToTrue(milestone, 'christianity')
+    updateMilestoneToTrue(milestone, religion)
   } else {
     console.log('!!',milestone,'not yet achieved. All practices are not present')
   }
 }
 
 const updateMilestoneToTrue = async (milestoneTitle, rel) => {
-  // console.log('milestoneTitle',milestoneTitle)
   let religion = rel.toLowerCase()
-  // console.log('religion',religion)
   const uid = auth.currentUser.uid; // Replace with the user's UID
-  // const religion = 'christianity'; // Replace with the user's religion or obtain it from somewhere
-
 
   try {
     const milestoneRef = ref(getDatabase(), `milestones/${uid}/${religion}`);
