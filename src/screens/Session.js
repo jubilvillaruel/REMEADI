@@ -41,9 +41,24 @@ export default function Session({ navigation, route }) {
             biaLevel = 'Advanced';
         }
     }
+    else if (practiceTitle === 'Kriya Yoga') {
+        if (bia === 0) {
+            biaLevel = 'Level1';
+        } else if (bia === 1) {
+            biaLevel = 'Level2';
+        } else if (bia === 2) {
+            biaLevel = 'Level3';
+        } else if (bia === 3) {
+            biaLevel = 'Level4';
+        } else if (bia === 4) {
+            biaLevel = 'Level5';
+        } else if (bia === 5) {
+            biaLevel = 'Level6';
+        }
+    }
 
     const imgGuide = data.img
-    const selectedSteps = biaLevel ? HinduismDB[practiceTitle][biaLevel] : null
+    const selectedSteps = biaLevel ? HinduismDB[practiceTitle][biaLevel] : null;
 
     const religion = getCategoryByPractice(practiceTitle)
 
@@ -123,6 +138,10 @@ export default function Session({ navigation, route }) {
             } else {
                 setvideoDisabled(true);
             }
+        }
+        else if (religion && religion.key === 'Buddhism') {
+            setbibleDisabled(true);
+            setvideoDisabled(false);
         } else {
             setbibleDisabled(true);
             setvideoDisabled(true);
@@ -284,12 +303,12 @@ export default function Session({ navigation, route }) {
             const religion = getCategoryByPractice(practiceTitle);
             if (religion && religion.key === 'Christianity') {
                 if (practiceTitle === 'Rosary') {
-                    return <VideoPlayer />;
+                    return <VideoPlayer title={practiceTitle}></VideoPlayer>;
                 } else {
                     return <Bible />;
                 }
             } else {
-                return <VideoPlayer />;
+                return <VideoPlayer title={practiceTitle}></VideoPlayer>;
             }
         } catch (error) {
             console.log(error.stack)

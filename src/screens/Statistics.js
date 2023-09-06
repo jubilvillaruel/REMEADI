@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity, Modal, TouchableOpacityBase } from 'react-native';
 import { millisecondsToTime } from '../models/TimeModel';
 import { religionDB } from '../Data/LocalDB';
 import { screenHeight, screenWidth } from '../components/Dimensions';
 
 import { styles } from './../../assets/css/Style';
 import appLogo from './../../assets/images/app_logo.png';
-
 import PieChart from 'react-native-pie-chart';
-import FlipCard from 'react-native-flip-card';
 
 import { getDatabase, onValue, ref} from 'firebase/database';
 import { auth } from '../../firebase';
@@ -26,17 +24,24 @@ export default function Statistics() {
     const colorMapping = { Christianity: '#04BFDA', Islam: '#8FD3D2', Hinduism: '#F27F77', Buddhism: '#FF9F1C', Judaism: '#FF0000'};
 
     const [selectedLegend, setSelectedLegend] = useState(null);
-    const [chartFlipped, setChartFlipped] = useState(false);
     const [practiceCounts, setPracticeCounts] = useState({});
 
     const [topThreeReligions, setTopThreeReligions] = useState([]);
-    const firstThreeReligions = Object.keys(colorMapping).slice(0, 3);
-    const lastTwoReligions = Object.keys(colorMapping).slice(3);
+    const btnReligions = Object.keys(colorMapping);
     const [dataLoaded, setDataLoaded] = useState(false);
-    
-    const flipChart = (religion) => {
+
+    const [selectedReligionVisible, setSelectedReligionVisible] = useState(false);
+    const [pieChartVisible, setPieChartVisible] = useState(true);
+
+    const openSelectedReligion = (religion) => {
         setSelectedLegend(religion);
-        setChartFlipped(!chartFlipped);
+        setSelectedReligionVisible(!selectedReligionVisible);
+        setPieChartVisible(!pieChartVisible);
+    };
+
+    const closeSelectedReligion = () => {
+        setSelectedReligionVisible(!selectedReligionVisible);
+        setPieChartVisible(!pieChartVisible);
     };
 
     useEffect(() => {
@@ -172,12 +177,8 @@ export default function Statistics() {
                 </View>
             </View>
 
-            <FlipCard
-                flipHorizontal={true}
-                flipVertical={false}
-                flip={chartFlipped}
-                clickable={true}>
-                <View style={{ width: screenWidth('90%'), height: screenHeight('40%') }}>      
+            <View style={{ width: screenWidth('90%'), height: screenHeight('40%'), }}>
+                <View style={{ width: screenWidth('90%'), height: screenHeight('40%') }}>
                     {dataLoaded && !totalMeditationSessionPerReligionBoolean ? (
                         <View style={[styles.sectionContainer, styles.dropShadow, { gap: 25 }]}>
                             <View style={{ alignItems: 'center', justifyContent: 'center' }}>
@@ -188,67 +189,57 @@ export default function Statistics() {
                         </View>
                     ) : (
                         <View style={[styles.sectionContainer, styles.dropShadow, { gap: 25 }]}>
-                            <Text style={[styles.colorPrimary, inStyles.header, styles.bold]}>Sessions per Religion</Text>
-                            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                            <Text style={[styles.colorPrimary, inStyles.header, styles.bold, { fontSize: RFPercentage(2.2) }]}>Sessions per Religion</Text>
+                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 35 }}>
                                 <PieChart
                                     widthAndHeight={widthAndHeight}
                                     series={totalMeditationSessionPerReligion}
                                     sliceColor={Object.values(colorMapping)}
                                     coverRadius={0.6}
                                 />
-                                <View style={{ position: 'absolute', top: '50%', marginLeft: -75, marginTop: -55 }}>
-                                    <Image style={{ width: 60, height: 45 }} source={appLogo} />
-                                </View>
-                                <View style={{ marginTop: 15 }}>
-                                    <View style={inStyles.legendContainer}>
-                                        {firstThreeReligions.map((religion) => (
-                                            <TouchableOpacity onPress={() => flipChart(religion)}>
-                                                <Text
-                                                    key={religion}
-                                                    style={[styles.bold, { color: colorMapping[religion] }]}
-                                                >
-                                                    ○ {religion}{' '}
-                                                </Text>
-                                            </TouchableOpacity>
-                                        ))}
-                                    </View>
-                                    <View style={inStyles.legendContainer}>
-                                        {lastTwoReligions.map((religion) => (
-                                            <TouchableOpacity onPress={() => flipChart(religion)}>
-                                                <Text
-                                                    key={religion}
-                                                    style={[styles.bold, { color: colorMapping[religion] }]}
-                                                >
-                                                    ○ {religion}{' '}
-                                                </Text>
-                                            </TouchableOpacity>
-                                        ))}
-                                    </View>
+                                <View style={inStyles.legendContainer}>
+                                    {btnReligions.map((religion) => (
+                                        <TouchableOpacity style={[inStyles.legendBtn, { backgroundColor: colorMapping[religion] }]} onPress={() => openSelectedReligion(religion)}>
+                                            <Text key={religion} style={[styles.bold, { color: 'white', textAlign: 'center' }]}>
+                                                {religion}
+                                            </Text>
+                                        </TouchableOpacity>
+                                    ))}
                                 </View>
                             </View>
                         </View>
                     )}
                 </View>
-                {selectedLegend && (
-                <View style={{ width: screenWidth('90%'), height: screenHeight('40%') }}>
-                    <View style={[styles.sectionContainer, styles.dropShadow, { gap: 15 }]}>
-                        <Text style={[styles.bold, { fontSize: RFPercentage(2.2), color: colorMapping[selectedLegend] }]}>{selectedLegend}</Text>
-                        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                            {religionDB[selectedLegend] && religionDB[selectedLegend].map((practice, index) => (
-                                <View style={[inStyles.topContainer, { width: screenWidth('70%') }]} key={index}>
-                                    <Text style={[styles.bold, { color: colorMapping[selectedLegend] }]}>
-                                        {practice}
-                                    </Text>
-                                    <Text style={[styles.bold, { color: colorMapping[selectedLegend] }]}>
-                                        {practiceCounts[practice] || 0} {/* Display practice count */}
-                                    </Text>
+            
+                <Modal
+                    animationType="fade"
+                    transparent={true}
+                    visible={selectedReligionVisible}
+                    onRequestClose={closeSelectedReligion}>
+
+                    <TouchableOpacity onPress={closeSelectedReligion}>
+                        {selectedLegend && (
+                            <View style={{ width: screenWidth('90%'), height: screenHeight('40%'), alignSelf: 'center', marginVertical: screenHeight('21.7%'), backgroundColor: 'white' }}>
+                                <View style={[styles.sectionContainer, styles.dropShadow, { gap: 15 }]}>
+                                    <Text style={[styles.bold, { fontSize: RFPercentage(2.2), color: colorMapping[selectedLegend] }]}>{selectedLegend}</Text>
+                                    <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                                        {religionDB[selectedLegend] && religionDB[selectedLegend].map((practice, index) => (
+                                            <View style={[inStyles.topContainer, { width: screenWidth('70%') }]} key={index}>
+                                                <Text style={[styles.bold, { color: colorMapping[selectedLegend] }]}>
+                                                    {practice}
+                                                </Text>
+                                                <Text style={[styles.bold, { color: colorMapping[selectedLegend] }]}>
+                                                    {practiceCounts[practice] || 0} {/* Display practice count */}
+                                                </Text>
+                                            </View>
+                                        ))}
+                                    </View>
                                 </View>
-                            ))}
-                        </View>
-                    </View>
-                </View>
-            )}
-            </FlipCard>
+                            </View>
+                        )}
+                    </TouchableOpacity>
+                </Modal>
+            </View>
 
             <View style={{ width: screenWidth('90%'), height: screenHeight('28.5%') }}>
                 <View style={[styles.sectionContainer, styles.dropShadow]}>
@@ -302,9 +293,17 @@ const inStyles = StyleSheet.create({
     },
 
     legendContainer: {
-        flexDirection: 'row',
+        flexDirection: 'column',
         justifyContent: 'center',
-        margin: 2,
+        gap: 8,
+    },
+
+    legendBtn: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingHorizontal: 8,
+        paddingVertical: 2,
+        borderRadius: 30,
     },
 
     topContainer: {
