@@ -88,11 +88,55 @@ const KriyaDB = {
 }
 
 const ChakraDB = {
-    'Find a quiet place.' : 'Find a quiet place where you will not be disturbed by outside noises. It\'s best to keep your phone away from you and sit in a place where you won\'t be interrupted by someone. ',
-    'Choose either standing up, sitting down with your legs crossed, or lying down.' : 'You can choose to do this meditation standing up, sitting down with your legs crossed, or lying down. Just make sure you feel comfortable and relaxed. Start taking a few deep breaths and focusing on your breathing, continue to breathe deeply, and allow yourself to relax. ',
-    'Focus on each chakra from the bottom up.' : 'now focus on each chakra from the bottom up. Always start with the root chakra and finish with the crown chakra. It may be obvious what blocked chakras are affecting you, or you may learn as you go through it. ',
-    'Imagine each chakra as discs or lotus flowers.' : 'as you go through the seven chakras, imagine each as discs or lotus flowers. As you breathe in, visualize light glowing from the chakra you\'re focusing on. And as you breathe out, imagine all the stress flowing out of that chakra. If necessary, repeat this step on a chakra that still feels blocked; if not, move on to the next chakra. ',
-    'Align all seven chakras.' : 'once you finish relieving the stress from each chakra, it\'s time to focus on aligning all seven of them. All your chakras should be spinning clockwise. To realign your chakras, it\'s important to meditate and visualize each chakra rotating clockwise. '
+    Root: {
+        'Find a quiet place.' : 'Find a quiet place where you will not be disturbed by outside noises. It\'s best to keep your phone away from you and sit in a place where you won\'t be interrupted by someone. ',
+        'Choose either standing up, sitting down with your legs crossed, or lying down.' : 'You can choose to do this meditation standing up, sitting down with your legs crossed, or lying down. Just make sure you feel comfortable and relaxed. Start taking a few deep breaths and focusing on your breathing, continue to breathe deeply, and allow yourself to relax. ',
+        'Focus on root chakra.' : 'The root chakra at the base of the spine represents your basic physical needs. Root chakra meditations focus on restoring certainty and stability.',
+        'Imagine each chakra as discs or lotus flowers.' : 'as you go through the seven chakras, imagine each as discs or lotus flowers. As you breathe in, visualize light glowing from the chakra you\'re focusing on. And as you breathe out, imagine all the stress flowing out of that chakra. If necessary, repeat this step on a chakra that still feels blocked; if not, move on to the next chakra. ',
+        'Align all seven chakras.' : 'once you finish relieving the stress from each chakra, it\'s time to focus on aligning all seven of them. All your chakras should be spinning clockwise. To realign your chakras, it\'s important to meditate and visualize each chakra rotating clockwise. '
+    },
+    Sacral: {
+        'Find a quiet place.' : 'Find a quiet place where you will not be disturbed by outside noises. It\'s best to keep your phone away from you and sit in a place where you won\'t be interrupted by someone. ',
+        'Choose either standing up, sitting down with your legs crossed, or lying down.' : 'You can choose to do this meditation standing up, sitting down with your legs crossed, or lying down. Just make sure you feel comfortable and relaxed. Start taking a few deep breaths and focusing on your breathing, continue to breathe deeply, and allow yourself to relax. ',
+        'Focus on sacral chakra.' : 'The sacral chakra is below the navel and governs emotional intelligence and creativity. Meditate here to connect to emotions and welcome new experiences.',
+        'Imagine each chakra as discs or lotus flowers.' : 'as you go through the seven chakras, imagine each as discs or lotus flowers. As you breathe in, visualize light glowing from the chakra you\'re focusing on. And as you breathe out, imagine all the stress flowing out of that chakra. If necessary, repeat this step on a chakra that still feels blocked; if not, move on to the next chakra. ',
+        'Align all seven chakras.' : 'once you finish relieving the stress from each chakra, it\'s time to focus on aligning all seven of them. All your chakras should be spinning clockwise. To realign your chakras, it\'s important to meditate and visualize each chakra rotating clockwise. '
+    },
+    SolarPlexus: {
+        'Find a quiet place.' : 'Find a quiet place where you will not be disturbed by outside noises. It\'s best to keep your phone away from you and sit in a place where you won\'t be interrupted by someone. ',
+        'Choose either standing up, sitting down with your legs crossed, or lying down.' : 'You can choose to do this meditation standing up, sitting down with your legs crossed, or lying down. Just make sure you feel comfortable and relaxed. Start taking a few deep breaths and focusing on your breathing, continue to breathe deeply, and allow yourself to relax. ',
+        'Focus on solar plexus chakra.' : 'The solar plexus chakra in your stomach represents empowerment and self-esteem. Focus here when you are feeling powerless or lacking confidence.',
+        'Imagine each chakra as discs or lotus flowers.' : 'as you go through the seven chakras, imagine each as discs or lotus flowers. As you breathe in, visualize light glowing from the chakra you\'re focusing on. And as you breathe out, imagine all the stress flowing out of that chakra. If necessary, repeat this step on a chakra that still feels blocked; if not, move on to the next chakra. ',
+        'Align all seven chakras.' : 'once you finish relieving the stress from each chakra, it\'s time to focus on aligning all seven of them. All your chakras should be spinning clockwise. To realign your chakras, it\'s important to meditate and visualize each chakra rotating clockwise. '
+    },
+    Heart: {
+        'Find a quiet place.' : 'Find a quiet place where you will not be disturbed by outside noises. It\'s best to keep your phone away from you and sit in a place where you won\'t be interrupted by someone. ',
+        'Choose either standing up, sitting down with your legs crossed, or lying down.' : 'You can choose to do this meditation standing up, sitting down with your legs crossed, or lying down. Just make sure you feel comfortable and relaxed. Start taking a few deep breaths and focusing on your breathing, continue to breathe deeply, and allow yourself to relax. ',
+        'Focus on heart chakra.' : 'The heart chakra helps you connect with others and love yourself. Meditate on this chakra when you feel disconnected or need to build empathy and compassion.',
+        'Imagine each chakra as discs or lotus flowers.' : 'as you go through the seven chakras, imagine each as discs or lotus flowers. As you breathe in, visualize light glowing from the chakra you\'re focusing on. And as you breathe out, imagine all the stress flowing out of that chakra. If necessary, repeat this step on a chakra that still feels blocked; if not, move on to the next chakra. ',
+        'Align all seven chakras.' : 'once you finish relieving the stress from each chakra, it\'s time to focus on aligning all seven of them. All your chakras should be spinning clockwise. To realign your chakras, it\'s important to meditate and visualize each chakra rotating clockwise. '
+    },
+    Throat: {
+        'Find a quiet place.' : 'Find a quiet place where you will not be disturbed by outside noises. It\'s best to keep your phone away from you and sit in a place where you won\'t be interrupted by someone. ',
+        'Choose either standing up, sitting down with your legs crossed, or lying down.' : 'You can choose to do this meditation standing up, sitting down with your legs crossed, or lying down. Just make sure you feel comfortable and relaxed. Start taking a few deep breaths and focusing on your breathing, continue to breathe deeply, and allow yourself to relax. ',
+        'Focus on throat chakra.' : 'The throat chakra is responsible for communication and self-expression. Meditations on this chakra help you express yourself and live more authentically.',
+        'Imagine each chakra as discs or lotus flowers.' : 'as you go through the seven chakras, imagine each as discs or lotus flowers. As you breathe in, visualize light glowing from the chakra you\'re focusing on. And as you breathe out, imagine all the stress flowing out of that chakra. If necessary, repeat this step on a chakra that still feels blocked; if not, move on to the next chakra. ',
+        'Align all seven chakras.' : 'once you finish relieving the stress from each chakra, it\'s time to focus on aligning all seven of them. All your chakras should be spinning clockwise. To realign your chakras, it\'s important to meditate and visualize each chakra rotating clockwise. '
+    },
+    ThirdEye: {
+        'Find a quiet place.' : 'Find a quiet place where you will not be disturbed by outside noises. It\'s best to keep your phone away from you and sit in a place where you won\'t be interrupted by someone. ',
+        'Choose either standing up, sitting down with your legs crossed, or lying down.' : 'You can choose to do this meditation standing up, sitting down with your legs crossed, or lying down. Just make sure you feel comfortable and relaxed. Start taking a few deep breaths and focusing on your breathing, continue to breathe deeply, and allow yourself to relax. ',
+        'Focus on third eye chakra.' : 'The third eye chakra is in your forehead and represents insight and intuition. A meditation on the third eye clarifies your thoughts and helps you see where you belong in the world.',
+        'Imagine each chakra as discs or lotus flowers.' : 'as you go through the seven chakras, imagine each as discs or lotus flowers. As you breathe in, visualize light glowing from the chakra you\'re focusing on. And as you breathe out, imagine all the stress flowing out of that chakra. If necessary, repeat this step on a chakra that still feels blocked; if not, move on to the next chakra. ',
+        'Align all seven chakras.' : 'once you finish relieving the stress from each chakra, it\'s time to focus on aligning all seven of them. All your chakras should be spinning clockwise. To realign your chakras, it\'s important to meditate and visualize each chakra rotating clockwise. '
+    },
+    Crown: {
+        'Find a quiet place.' : 'Find a quiet place where you will not be disturbed by outside noises. It\'s best to keep your phone away from you and sit in a place where you won\'t be interrupted by someone. ',
+        'Choose either standing up, sitting down with your legs crossed, or lying down.' : 'You can choose to do this meditation standing up, sitting down with your legs crossed, or lying down. Just make sure you feel comfortable and relaxed. Start taking a few deep breaths and focusing on your breathing, continue to breathe deeply, and allow yourself to relax. ',
+        'Focus on crown chakra.' : 'The crown chakra is your source of spirituality. Meditate on it to connect to a higher power and feel one with the universe.',
+        'Imagine each chakra as discs or lotus flowers.' : 'as you go through the seven chakras, imagine each as discs or lotus flowers. As you breathe in, visualize light glowing from the chakra you\'re focusing on. And as you breathe out, imagine all the stress flowing out of that chakra. If necessary, repeat this step on a chakra that still feels blocked; if not, move on to the next chakra. ',
+        'Align all seven chakras.' : 'once you finish relieving the stress from each chakra, it\'s time to focus on aligning all seven of them. All your chakras should be spinning clockwise. To realign your chakras, it\'s important to meditate and visualize each chakra rotating clockwise. '
+    },
 }
 
 const HinduismDB = {

@@ -90,6 +90,84 @@ export default function Guide({ navigation, route }) {
             </PrimaryButton>
           </ScrollView>
         </View>
+      ) : (data.title === 'Chakra') ? (
+        <View style={inStyles.contentContainer}>
+          <View style={inStyles.textContainer}>
+            <Text style={[styles.colorPrimary, inStyles.title]}>{data.title}</Text>
+            <Text style={[styles.colorSecondary, inStyles.subTitle]}>{meditationTypeDB[data.title]}</Text>
+            <Text style={inStyles.content}>{desc}</Text>
+          </View>
+          <View style={styles.dividerContainer}>
+              <View style={styles.dividerLine}/>
+              <Text style={[styles.dividerText, { fontSize: RFPercentage(2) }]}>Guides</Text>
+              <View style={styles.dividerLine}/>
+          </View>
+          <ScrollView showsVerticalScrollIndicator={false} style={inStyles.btnContainer}>
+            <PrimaryButton
+              text='Root Chakra'
+              textColor='#FFFFFF'
+              textSize={RFPercentage(2.2)}
+              width={screenWidth('80%')}
+              height={screenHeight('7%')}
+              borderRad={30}
+              onPress={() => goToSession2(0)}>
+            </PrimaryButton>
+            <PrimaryButton
+              text='Sacral Chakra'
+              textColor='#FFFFFF'
+              textSize={RFPercentage(2.2)}
+              width={screenWidth('80%')}
+              height={screenHeight('7%')}
+              borderRad={30}
+              onPress={() => goToSession2(1)}>
+            </PrimaryButton>
+            <PrimaryButton
+              text='Solar Plexus Chakra'
+              textColor='#FFFFFF'
+              textSize={RFPercentage(2.2)}
+              width={screenWidth('80%')}
+              height={screenHeight('7%')}
+              borderRad={30}
+              onPress={() => goToSession2(2)}>
+            </PrimaryButton>
+            <PrimaryButton
+              text='Heart Chakra'
+              textColor='#FFFFFF'
+              textSize={RFPercentage(2.2)}
+              width={screenWidth('80%')}
+              height={screenHeight('7%')}
+              borderRad={30}
+              onPress={() => goToSession2(3)}>
+            </PrimaryButton>
+            <PrimaryButton
+              text='Throat Chakra'
+              textColor='#FFFFFF'
+              textSize={RFPercentage(2.2)}
+              width={screenWidth('80%')}
+              height={screenHeight('7%')}
+              borderRad={30}
+              onPress={() => goToSession2(4)}>
+            </PrimaryButton>
+            <PrimaryButton
+              text='Third Eye Chakra'
+              textColor='#FFFFFF'
+              textSize={RFPercentage(2.2)}
+              width={screenWidth('80%')}
+              height={screenHeight('7%')}
+              borderRad={30}
+              onPress={() => goToSession2(5)}>
+            </PrimaryButton>
+            <PrimaryButton
+              text='Crown Chakra'
+              textColor='#FFFFFF'
+              textSize={RFPercentage(2.2)}
+              width={screenWidth('80%')}
+              height={screenHeight('7%')}
+              borderRad={30}
+              onPress={() => goToSession2(6)}>
+            </PrimaryButton>
+          </ScrollView>
+        </View>
       ) : (
         (data.bia) ?
           <View style={inStyles.contentContainer}>

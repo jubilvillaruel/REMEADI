@@ -56,6 +56,23 @@ export default function Session({ navigation, route }) {
             biaLevel = 'Level6';
         }
     }
+    else if (practiceTitle === 'Chakra') {
+        if (bia === 0) {
+            biaLevel = 'Root';
+        } else if (bia === 1) {
+            biaLevel = 'Sacral';
+        } else if (bia === 2) {
+            biaLevel = 'SolarPlexus';
+        } else if (bia === 3) {
+            biaLevel = 'Heart';
+        } else if (bia === 4) {
+            biaLevel = 'Throat';
+        } else if (bia === 5) {
+            biaLevel = 'ThirdEye';
+        } else if (bia === 6) {
+            biaLevel = 'Crown';
+        }
+    }
 
     const imgGuide = data.img
     const selectedSteps = biaLevel ? HinduismDB[practiceTitle][biaLevel] : null;
@@ -138,6 +155,10 @@ export default function Session({ navigation, route }) {
             } else {
                 setvideoDisabled(true);
             }
+        }
+        else if (practiceTitle === 'Chakra') {
+            setbibleDisabled(true);
+            setvideoDisabled(false);
         }
         else if (religion && religion.key === 'Buddhism') {
             setbibleDisabled(true);
@@ -307,6 +328,8 @@ export default function Session({ navigation, route }) {
                 } else {
                     return <Bible />;
                 }
+            } else if (practiceTitle === 'Chakra') {
+                return <VideoPlayer title={biaLevel}></VideoPlayer>;
             } else {
                 return <VideoPlayer title={practiceTitle}></VideoPlayer>;
             }
