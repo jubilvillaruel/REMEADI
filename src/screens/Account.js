@@ -26,6 +26,10 @@ export default function Account({ navigation, route }) {
         navigation.navigate('EditAccount');
     };
 
+    const goToEditNotify = () => {
+        navigation.navigate('Notify')
+    }
+
     useEffect(()=>{
         const retrieveFaithFocusedValue = async () => {
             const faithFocusedRef = ref(getDatabase(), 'users/'+auth.currentUser.uid+'/faithFocused');
@@ -94,6 +98,13 @@ export default function Account({ navigation, route }) {
                 </TouchableOpacity> */}
                 <TouchableOpacity style={inStyles.optionContainer} onPress={handleLogout}>
                     <Text style={{ color: 'red', fontWeight: '500' }}>Sign Out</Text>
+                </TouchableOpacity>
+            </View>
+
+            <View style={[ styles.dropShadow, { padding: 20, width: '100%' }]}>
+                <Text style={[ inStyles.title, styles.colorPrimary]}>Notification</Text>
+                <TouchableOpacity style={inStyles.optionContainer} onPress={goToEditNotify}>
+                    <Text style={{ fontWeight: '500' }}>Set up Notification</Text>
                 </TouchableOpacity>
             </View>
         </SafeAreaView>
