@@ -185,7 +185,7 @@ export default function MedLibrary({ navigation }) {
       const filtered = allCards.filter((card) =>{
         const titleMatch = card.title.toLowerCase().includes(text.toLowerCase());
         let descMatch = false
-        if (card.title == "Hatha Yoga" || card.title == "Kriya Yoga") {    
+        if (card.title == "Hatha Yoga" || card.title == "Kriya Yoga" || card.title == "Chakra") {    
           let filter = Object.values(card.desc).flatMap((level) => {
             return Object.values(level).filter((sentence) =>
               sentence.toLowerCase().includes(text.toLowerCase())
