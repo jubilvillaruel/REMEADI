@@ -54,14 +54,14 @@ export default function ExpertType({ navigation, route }) {
             const rows = chunkArray(otherPractices, 2);
 
             return rows.map((row, index) => (
-                <View key={index} style={inStyles.practiceRow}>
+                <View key={index}>
                     {row.map((practice) => (
                         <View key={practice} style={inStyles.practiceCard}>
                             <ImageCard
                                 title={practice}
                                 type={getMeditationType(practice)}
-                                titleSize={RFPercentage(1.6)}
-                                typeSize={RFPercentage(1)}
+                                titleSize={RFPercentage(2)}
+                                typeSize={RFPercentage(1.8)}
                                 image={meditationImgDB[practice]}
                                 onPress={() => { goToGuide(practice, meditationImgDB[practice], Object.keys(timeDB2).includes(practice)) }}/>
                         </View>
@@ -93,13 +93,6 @@ export default function ExpertType({ navigation, route }) {
 }
 
 const inStyles = StyleSheet.create({
-    practiceRow: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        width: screenWidth('90%'),
-        marginBottom: 10,
-    },
-
     practiceCard: {
         flex: 1,
         marginHorizontal: 8,
