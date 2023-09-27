@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { screenWidth, screenHeight } from '../components/Dimensions';
 import { styles } from '../../assets/css/Style';
 import { RFPercentage } from 'react-native-responsive-fontsize';
@@ -12,7 +12,7 @@ export const MedTypes = ({ meditationTypes, religion, navigation }) => {
   const createRows = () => {
     if (meditationTypes && meditationTypes.length > 0) {
       return meditationTypes.map((types, index) => (
-        <View key={index} style={inStyles.row}>
+        <View key={index}>
           {types.map((medType) => (
             <TouchableOpacity key={medType.id} style={[inStyles.typeCard, styles.bgColorPrimary]} onPress={() => {goToQuestions(medType.name)}}>
               <Text style={[styles.bold, styles.colorWhite, { fontSize: RFPercentage(2) }]}>
@@ -30,7 +30,14 @@ export const MedTypes = ({ meditationTypes, religion, navigation }) => {
 
   return (
     <View style={styles.screenCenter}>
-      <View style={inStyles.typeContainer}>{createRows()}</View>
+      <View style={inStyles.typeContainer}>
+        <View style={{ padding: 15, marginBottom: 10 }}>
+          <Text style={[styles.bold, styles.colorPrimary, { fontSize: RFPercentage(3.2), textAlign: 'center' }]}>Please choose from the meditation types.</Text>
+        </View>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {createRows()}
+        </ScrollView>
+      </View>
     </View>
   );
 };
@@ -125,13 +132,13 @@ export default function SelectMedType({ navigation, route }) {
 const inStyles = StyleSheet.create({
   typeCard: {
     padding: 15,
-    width: screenWidth('40%'),
-    height: screenHeight('18%'),
+    width: screenWidth('82%'),
+    height: screenHeight('9%'),
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
     textAlign: 'center',
-    gap: 5,
+    marginBottom: 15,
   },
 
   typeContainer: {
@@ -140,14 +147,5 @@ const inStyles = StyleSheet.create({
     height: screenHeight('90%'),
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
-    gap: 15,
-  },
-
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 15,
   },
 });

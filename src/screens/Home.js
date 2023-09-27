@@ -146,8 +146,8 @@ export default function Home({ navigation }) {
 
                 <View style={[styles.dividerLine, { alignSelf: 'center', width: screenWidth('75%'), height: 1, backgroundColor: 'lightgray', marginBottom: 10 }]}/>
 
-                <FeatureCard title={"Meditate"} desc={"Recommend a practice for you"} image={meditate} onPress={() => {isEmailVerified == true ? goToSelectReligion() : remindVerification()}}/>
-                <FeatureCard title={"Meditation Library"} desc={"Explore practice from different religions"} image={meditation_library} onPress={() => {isEmailVerified == true ? goToLibrary() : remindVerification()}}/>
+                <FeatureCard title={"Meditation"} desc={"Recommend a practice for you"} image={meditate} onPress={() => {isEmailVerified == true ? goToSelectReligion() : remindVerification()}}/>
+                <FeatureCard title={"Library"} desc={"Explore practice from different religions"} image={meditation_library} onPress={() => {isEmailVerified == true ? goToLibrary() : remindVerification()}}/>
             </ScrollView>
             <Toast />
         </SafeAreaView>
