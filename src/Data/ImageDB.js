@@ -49,4 +49,15 @@ const meditationImgDB = {
     'Shema' : judaism_3,
 }
 
-export { meditationImgDB }
+const meditationTypeDB = {
+    'Mindfulness' : christianity_1,
+    'Spiritual': christianity_2,
+    'Focused' : christianity_3,
+    'Mantra' : christianity_4,
+    'Visualization' : islam_1,
+    'Movement' : islam_2,
+    'Loving-Kindness' : islam_3,
+    'Progressive Relaxation' : islam_4,
+}
+
+export { meditationImgDB, meditationTypeDB }
