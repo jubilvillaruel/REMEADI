@@ -227,11 +227,11 @@ export default function App() {
             
             {/* Other Screens */}
             <Stack.Screen name='EditAccount' component={EditAccount} options={{title: 'Edit Account Details'}}/>
-            <Stack.Screen name='MedLibrary' component={MedLibrary} options={{title: 'Meditation Library'}}/>
-            <Stack.Screen name='SelectReligion' component={SelectReligion} options={{title: 'Religion'}}/>
-            <Stack.Screen name='SelectRelBranch' component={SelectRelBranch} options={{title: 'Religion'}}/>
-            <Stack.Screen name='SelectMedType' component={SelectMedType} options={{title: 'Meditation Type'}}/>
-            <Stack.Screen name='Questions' component={Questions} options={{title: 'Questions'}}/>
+            <Stack.Screen name='MedLibrary' component={MedLibrary} options={{title: 'Library'}}/>
+            <Stack.Screen name='SelectReligion' component={SelectReligion} options={{title: 'Meditation'}}/>
+            <Stack.Screen name='SelectRelBranch' component={SelectRelBranch} options={{title: 'Meditation'}}/>
+            <Stack.Screen name='SelectMedType' component={SelectMedType} options={{title: 'Meditation'}}/>
+            <Stack.Screen name='Questions' component={Questions} options={{title: 'Meditation'}}/>
             <Stack.Screen name='ExpertResult' component={ExpertResult} options={{title: 'Recommended'}}/>
             <Stack.Screen name='ExpertReligion' component={ExpertReligion} options={{title: 'More Practices'}}/>
             <Stack.Screen name='ExpertType' component={ExpertType} options={{title: 'More Practices'}}/>

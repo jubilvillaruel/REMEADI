@@ -42,4 +42,15 @@ const meditationTypeDB = {
     'Shema' : 'Focused, Mindfulness, Visualization',
 }
 
-export { meditationReligionDB, meditationTypeDB }
+const meditationTypeDescDB = {
+    'Mindfulness' : 'Pay attention to your thoughts',
+    'Spiritual': 'Understand spiritual meaning and connection',
+    'Focused' : 'Concentrate using any of the five senses',
+    'Mantra' : 'Use a repetitive word, phrase, or sound to clear the mind',
+    'Visualization' : 'Feel relaxed through positive scenes or figures',
+    'Movement' : 'Connect with your body and the present moment',
+    'Loving-Kindness' : "Promote kindness and acceptance to one's self and others",
+    'Progressive Relaxation' : 'Reduce the tension in your body',
+}
+
+export { meditationReligionDB, meditationTypeDB, meditationTypeDescDB }

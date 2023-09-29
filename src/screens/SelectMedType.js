@@ -1,8 +1,12 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { screenWidth, screenHeight } from '../components/Dimensions';
 import { styles } from '../../assets/css/Style';
 import { RFPercentage } from 'react-native-responsive-fontsize';
+
+import { meditationTypeDescDB } from '../Data/TypeDB';
+import { meditationTypeDB } from '../Data/ImageDB';
+import { ImageCard } from '../components/Cards';
 
 export const MedTypes = ({ meditationTypes, religion, navigation }) => {
   const goToQuestions = (type) => {
@@ -12,13 +16,9 @@ export const MedTypes = ({ meditationTypes, religion, navigation }) => {
   const createRows = () => {
     if (meditationTypes && meditationTypes.length > 0) {
       return meditationTypes.map((types, index) => (
-        <View key={index} style={inStyles.row}>
+        <View key={index} style={{ marginBottom: 10, gap: 10 }}>
           {types.map((medType) => (
-            <TouchableOpacity key={medType.id} style={[inStyles.typeCard, styles.bgColorPrimary]} onPress={() => {goToQuestions(medType.name)}}>
-              <Text style={[styles.bold, styles.colorWhite, { fontSize: RFPercentage(2) }]}>
-                {medType.name}
-              </Text>
-            </TouchableOpacity>
+            <ImageCard key={medType.id} title={medType.name} type={meditationTypeDescDB[medType.name]} titleSize={RFPercentage(2.2)} typeSize={RFPercentage(1.5)} image={meditationTypeDB[medType.name]} onPress={() => {goToQuestions(medType.name)}}></ImageCard>
           ))}
         </View>
       ));
@@ -30,7 +30,14 @@ export const MedTypes = ({ meditationTypes, religion, navigation }) => {
 
   return (
     <View style={styles.screenCenter}>
-      <View style={inStyles.typeContainer}>{createRows()}</View>
+      <View style={inStyles.typeContainer}>
+        <View style={{ padding: 15, marginBottom: 10 }}>
+          <Text style={[styles.bold, styles.colorPrimary, { fontSize: RFPercentage(3.2), textAlign: 'center' }]}>Please choose from the meditation types.</Text>
+        </View>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {createRows()}
+        </ScrollView>
+      </View>
     </View>
   );
 };
@@ -123,31 +130,11 @@ export default function SelectMedType({ navigation, route }) {
 }
 
 const inStyles = StyleSheet.create({
-  typeCard: {
-    padding: 15,
-    width: screenWidth('40%'),
-    height: screenHeight('18%'),
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 10,
-    textAlign: 'center',
-    gap: 5,
-  },
-
   typeContainer: {
     padding: 15,
     width: screenWidth('100%'),
     height: screenHeight('90%'),
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
-    gap: 15,
-  },
-
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 15,
   },
 });
