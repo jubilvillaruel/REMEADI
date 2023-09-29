@@ -14,6 +14,7 @@ import { Toast } from 'react-native-toast-message/lib/src/Toast';
 import avatar from '../../assets/images/avatar/avatar1.png';
 import { ImageBackground } from 'react-native';
 import { FeatureCard } from '../components/Cards';
+import { retrieveHistories, streakChecker } from '../models/MilestonesModel';
 
 export default function Home({ navigation }) {
     const [ firstName, setFirstName ] = useState('');
@@ -21,12 +22,19 @@ export default function Home({ navigation }) {
     const [ source, setSource ] = useState('')
     const [ isEmailVerified, setIsEmailVerified] = useState(false)
     const [ faithFocusedValue, setFaithFocusedValue] = useState(Boolean)
+    const [ streak, setStreak ] = useState(Number)
 
     const uid = auth.currentUser.uid
     const emailVerified = auth.currentUser.emailVerified
 
     useEffect(() => {
         const fetchUserData = async () => {
+
+            // retrieve meditation streak days
+            const historiesObj = await retrieveHistories(uid)
+            setStreak(streakChecker(historiesObj,9999))
+
+            // check if email is verified
             try {
                 if (emailVerified) {
                     setIsEmailVerified(true)
@@ -48,6 +56,14 @@ export default function Home({ navigation }) {
             } catch (error) {
                 console.log(error);
             }
+
+            console.log("===USER DETAILS===")
+            console.log("uid:\t\t" + uid)
+            console.log("email:\t\t" + auth.currentUser.email)
+            console.log("email verified:\t" + emailVerified)
+            console.log("first name:\t" + firstName)
+            console.log("------------------\n")
+
         };
         fetchUserData();
     }, [uid]);
@@ -73,7 +89,7 @@ export default function Home({ navigation }) {
         const fetchMotivationData = async () => {
             try {
                 let quoteID = await getQuoteID(faithFocusedValue)
-                console.log('quoteID: ',quoteID)
+                console.log('quoteID: \t\t' + quoteID)
 
                 // fetch quote 
                 const realtimeDB = getDatabase()
@@ -130,7 +146,7 @@ export default function Home({ navigation }) {
                     </TouchableOpacity>
                     <View style={inStyles.titleContainer}>
                         <Text style={[styles.colorSecondary, inStyles.title]}>Welcome, { firstName }!</Text>
-                        <Text style={[styles.colorPrimary, inStyles.subtitle]}>Meditation Streak: 6 days</Text>
+                        <Text style={[styles.colorPrimary, inStyles.subtitle]}>Meditation Streak: {streak} days</Text>
                     </View>
                 </View>
                 
