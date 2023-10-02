@@ -37,7 +37,7 @@ export const SearchCard = ({ title, type, titleSize, typeSize, image, onPress })
   return (
       <TouchableOpacity onPress={onPress} style={{paddingBottom:10}}> 
           <View>
-            <ImageBackground style={[inStyles.searchItem]} imageStyle={{ borderRadius: 10 }} source={image}>
+            <ImageBackground style={[inStyles.libItem]} imageStyle={{ borderRadius: 10 }} source={image}>
               <View style={inStyles.libContent}>
                 <Text style={[styles.colorWhite, styles.bold, { fontSize: titleSize }]}>{title}</Text>
                 <Text style={[styles.colorWhite, { fontSize: typeSize }]}>{type}</Text>
@@ -45,6 +45,18 @@ export const SearchCard = ({ title, type, titleSize, typeSize, image, onPress })
             </ImageBackground>
           </View>
       </TouchableOpacity>
+  );
+};
+
+export const FeatureCard = ({ title, desc, image, onPress }) => {
+  return (
+    <TouchableOpacity style={[styles.bgColorPrimary, { borderRadius: 50, marginVertical: 5, padding: 10, flexDirection: 'row' }]} onPress={onPress}>
+      <Image style={[{ width: 28, height: 28, left: 25, top: 24, position: 'absolute' }]} source={image}/>
+      <View style={[inStyles.milestoneContent, { marginLeft: 55 }]}>
+        <Text style={[styles.colorWhite, styles.bold, { fontSize: RFPercentage(2.5) }]}>{title}</Text>
+        <Text style={[styles.colorWhite]}>{desc}</Text>
+      </View>
+    </TouchableOpacity>
   );
 };
 
@@ -161,13 +173,6 @@ export const StepCard = ({ count, desc, detailedDesc }) => {
 
 const inStyles = StyleSheet.create({
     libItem: {
-        width: screenWidth('41%'),
-        height: screenHeight('18%'),
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-
-    searchItem: {
       width: screenWidth('82%'),
       height: screenHeight('9%'),
       justifyContent: 'center',

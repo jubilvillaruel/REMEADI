@@ -43,7 +43,7 @@ import { auth } from './firebase';
 import ManageQuote from './src/screens/ManageQuote';
 import ForgotPassword from './src/screens/ForgotPassword';
 import ConcludeSession from './src/screens/ConcludeSession';
-import Notifications from './src/screens/Extensions/Notifications'
+import Notify from './src/screens/Notify';
 
 // Google Sign in
 // import {
@@ -225,11 +225,11 @@ export default function App() {
             
             {/* Other Screens */}
             <Stack.Screen name='EditAccount' component={EditAccount} options={{title: 'Edit Account Details'}}/>
-            <Stack.Screen name='MedLibrary' component={MedLibrary} options={{title: 'Meditation Library'}}/>
-            <Stack.Screen name='SelectReligion' component={SelectReligion} options={{title: 'Religion'}}/>
-            <Stack.Screen name='SelectRelBranch' component={SelectRelBranch} options={{title: 'Religion'}}/>
-            <Stack.Screen name='SelectMedType' component={SelectMedType} options={{title: 'Meditation Type'}}/>
-            <Stack.Screen name='Questions' component={Questions} options={{title: 'Questions'}}/>
+            <Stack.Screen name='MedLibrary' component={MedLibrary} options={{title: 'Library'}}/>
+            <Stack.Screen name='SelectReligion' component={SelectReligion} options={{title: 'Meditation'}}/>
+            <Stack.Screen name='SelectRelBranch' component={SelectRelBranch} options={{title: 'Meditation'}}/>
+            <Stack.Screen name='SelectMedType' component={SelectMedType} options={{title: 'Meditation'}}/>
+            <Stack.Screen name='Questions' component={Questions} options={{title: 'Meditation'}}/>
             <Stack.Screen name='ExpertResult' component={ExpertResult} options={{title: 'Recommended'}}/>
             <Stack.Screen name='ExpertReligion' component={ExpertReligion} options={{title: 'More Practices'}}/>
             <Stack.Screen name='ExpertType' component={ExpertType} options={{title: 'More Practices'}}/>
@@ -237,7 +237,7 @@ export default function App() {
             <Stack.Screen name="Session" component={Session} options={{headerShown: false}}/>
             <Stack.Screen name="ConcludeSession" component={ConcludeSession} options={{headerShown: false}}/>
             <Stack.Screen name="ManageQuote" component={ManageQuote} options={{headerShown: false}}/>
-            <Stack.Screen name="Notifications" component={Notifications} options={{headerShown: false}}/>
+            <Stack.Screen name="Notify" component={Notify} options={{headerShown: false}}/>
         </Stack.Navigator>
         )}
     </NavigationContainer>

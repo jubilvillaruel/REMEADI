@@ -59,8 +59,8 @@ const getRandomNumberPerDay = async (max) => {
 
   // Convert the hash to a number
   const randomNumber = parseInt(hash, 16) % max;
-
-  console.log("randomNumber: ",randomNumber)
+  console.log("\n===MOTIVATION DETAILS===")
+  console.log("random number: \t" + randomNumber)
 
   //   Return the random number
   return randomNumber;

@@ -25,35 +25,33 @@ export default function SelectRelBranch({ navigation }) {
     return (
         <View style={styles.screenCenter}>
             <View style={inStyles.religionContainer}>
-                <View style={inStyles.row}>
-                    <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary]} onPress={() => goToSelectMedType('C1')}>
-                        <Text style={[styles.bold, styles.colorWhite, { fontSize: RFPercentage(2) }]}>Roman Catholic</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary]} onPress={() => goToSelectMedType('C1')}>
-                        <Text style={[styles.bold, styles.colorWhite, { fontSize: RFPercentage(2) }]}>Aglipayan</Text>
-                    </TouchableOpacity>
-                </View>
-                
-                <View style={inStyles.row}>
-                    <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary]} onPress={() => {goToResult('Christian Meditation',christianity_2)}}>
-                        <Text style={[styles.bold, styles.colorWhite, { fontSize: RFPercentage(2) }]}>Iglesia ni Cristo</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary]} onPress={() => {goToResult('Christian Meditation',christianity_2)}}>
-                        <Text style={[styles.bold, styles.colorWhite, { fontSize: RFPercentage(2) }]}>Baptist</Text>
-                    </TouchableOpacity>
+                <View style={{ padding: 15, marginBottom: 10 }}>
+                    <Text style={[styles.bold, styles.colorPrimary, { fontSize: RFPercentage(3.2), textAlign: 'center' }]}>Please choose from the branches of Christianity.</Text>
                 </View>
 
-                <View style={inStyles.row}>
-                    <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary]} onPress={() => goToSelectMedType('C2')}>
-                        <Text style={[styles.bold, styles.colorWhite, { fontSize: RFPercentage(2) }]}>Seventh-Day Adventist</Text>
-                    </TouchableOpacity>
+                <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary]} onPress={() => goToSelectMedType('C1')}>
+                    <Text style={[styles.bold, styles.colorWhite, { fontSize: RFPercentage(2.5) }]}>Roman Catholic</Text>
+                </TouchableOpacity>
 
-                    <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary]} onPress={() => {goToResult('Lectio Divina',christianity_1)}}>
-                        <Text style={[styles.bold, styles.colorWhite, { fontSize: RFPercentage(2) }]}>Evangelical</Text>
-                    </TouchableOpacity>
-                </View>
+                <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary]} onPress={() => goToSelectMedType('C1')}>
+                    <Text style={[styles.bold, styles.colorWhite, { fontSize: RFPercentage(2.5) }]}>Aglipayan</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary]} onPress={() => {goToResult('Christian Meditation',christianity_2)}}>
+                    <Text style={[styles.bold, styles.colorWhite, { fontSize: RFPercentage(2.5) }]}>Iglesia ni Cristo</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary]} onPress={() => {goToResult('Christian Meditation',christianity_2)}}>
+                    <Text style={[styles.bold, styles.colorWhite, { fontSize: RFPercentage(2.5) }]}>Baptist</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary]} onPress={() => goToSelectMedType('C2')}>
+                    <Text style={[styles.bold, styles.colorWhite, { fontSize: RFPercentage(2.5) }]}>Seventh-Day Adventist</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary]} onPress={() => {goToResult('Lectio Divina',christianity_1)}}>
+                    <Text style={[styles.bold, styles.colorWhite, { fontSize: RFPercentage(2.5) }]}>Evangelical</Text>
+                </TouchableOpacity>
             </View>
         </View>
     );
@@ -62,9 +60,10 @@ export default function SelectRelBranch({ navigation }) {
 const inStyles = StyleSheet.create({
     religionCard: {
         padding: 15,
-        width: screenWidth('40%'),
-        height: screenHeight('18%'),
-        justifyContent: 'center',
+        flexDirection: 'row',
+        width: screenWidth('82%'),
+        height: screenHeight('9%'),
+        justifyContent: 'flex-start',
         alignItems: 'center',
         borderRadius: 10,
         textAlign: 'center',
@@ -77,15 +76,6 @@ const inStyles = StyleSheet.create({
         height: screenHeight('90%'),
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
         gap: 15,
     },
-
-    row: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: 15,
-    },
-
 });

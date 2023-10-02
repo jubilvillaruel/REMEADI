@@ -853,4 +853,4 @@ const updateMilestoneToTrue = async (milestoneTitle, rel) => {
 };
 
 
-export { createMileStonesForUser, getMilestoneStatus, updateMilestoneToTrue, checkAndUpdateMilestone}
+export { createMileStonesForUser, getMilestoneStatus, updateMilestoneToTrue, checkAndUpdateMilestone, retrieveHistories, streakChecker}
