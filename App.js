@@ -43,6 +43,7 @@ import { auth } from './firebase';
 import ManageQuote from './src/screens/ManageQuote';
 import ForgotPassword from './src/screens/ForgotPassword';
 import ConcludeSession from './src/screens/ConcludeSession';
+import Notifications from './src/screens/Extensions/Notifications'
 
 // Google Sign in
 // import {
@@ -165,8 +166,6 @@ export default function App() {
       setIsLoading(false);
     }
   };
-  
-  
 
   useEffect(() => {
     getUserToken();
@@ -238,6 +237,7 @@ export default function App() {
             <Stack.Screen name="Session" component={Session} options={{headerShown: false}}/>
             <Stack.Screen name="ConcludeSession" component={ConcludeSession} options={{headerShown: false}}/>
             <Stack.Screen name="ManageQuote" component={ManageQuote} options={{headerShown: false}}/>
+            <Stack.Screen name="Notifications" component={Notifications} options={{headerShown: false}}/>
         </Stack.Navigator>
         )}
     </NavigationContainer>
