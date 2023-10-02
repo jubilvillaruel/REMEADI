@@ -5,7 +5,211 @@ import { styles } from '../../assets/css/Style';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { meditationImgDB } from '../Data/ImageDB';
 
-const followUpQuestions = {
+const followUpQuestions1 = {
+    'Stillness-based': {
+        'Stress Reduction': {
+            question: 'Are you looking for a meditation practice that focuses on breath?',
+            options: [
+                {
+                    label: 'Yes',
+                    title: 'Breath',
+                    guideImg: meditationImgDB['Breath'],
+                    bia: true,
+                },
+                {
+                    label: 'No',
+                    question: 'Do you want a meditation practice that promotes relaxation of the body?',
+                    options: [
+                        {
+                            label: 'Yes',
+                            title: 'Body Scan',
+                            guideImg: meditationImgDB['Body Scan'],
+                            bia: true,
+                        },
+                        {
+                            label: 'No',
+                            question: 'Do you want a meditation practice that cultivates love, kindness, and goodwill?',
+                            options: [
+                                {
+                                    label: 'Yes',
+                                    title: 'Metta',
+                                    guideImg: meditationImgDB['Metta'],
+                                    bia: true,
+                                },
+                                {
+                                    label: 'No',
+                                    question: 'Do you want a meditation practice that visualizes and works with energy centers?',
+                                    options: [
+                                        {
+                                            label: 'Yes',
+                                            title: 'Chakra',
+                                            guideImg: meditationImgDB['Chakra'],
+                                            bia: '',
+                                        },
+                                        {
+                                            label: 'No',
+                                            title: 'Sufi Breathing',
+                                            guideImg: meditationImgDB['Sufi Breathing'],
+                                            bia: '',
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ],
+        },
+        'Spiritual Growth': {
+            question: 'Do you want to meditate around reading and reflecting on biblical texts?',
+            options: [
+                {
+                    label: 'Yes',
+                    title: 'Lectio Divina',
+                    guideImg: meditationImgDB['Lectio Divina'],
+                    bia: '',
+                },
+                {
+                    label: 'No',
+                    question: 'Do you want a meditation practice that focuses on Christianity?',
+                    options: [
+                        {
+                            label: 'Yes',
+                            title: 'Christian Meditation',
+                            guideImg: meditationImgDB['Christian Meditation'],
+                            bia: '',
+                        },
+                        {
+                            label: 'No',
+                            question: 'Do you want to reflect on the events of the day?',
+                            options: [
+                                {
+                                    label: 'Yes',
+                                    title: 'Examen',
+                                    guideImg: meditationImgDB['Examen'],
+                                    bia: '',
+                                },
+                                {
+                                    label: 'No',
+                                    question: 'Do you want contemplative reflection and a pondering meditation session?',
+                                    options: [
+                                        {
+                                            label: 'Yes',
+                                            title: 'Taffakur',
+                                            guideImg: meditationImgDB['Taffakur'],
+                                            bia: '',
+                                        },
+                                        {
+                                            label: 'No',
+                                            question: 'Do you want a deep contemplation and reflection of inner self?',
+                                            options: [
+                                                {
+                                                    label: 'Yes',
+                                                    title: 'Muraqaba',
+                                                    guideImg: meditationImgDB['Muraqaba'],
+                                                    bia: true,
+                                                },
+                                                {
+                                                    label: 'No',
+                                                    question: 'Do you want to incorporate teachings of Kabbalah and Chassidic philosophy?',
+                                                    options: [
+                                                        {
+                                                            label: 'Yes',
+                                                            title: 'Kabbalistic/Chassidic',
+                                                            guideImg: meditationImgDB['Kabbalistic/Chassidic'],
+                                                            bia: true,
+                                                        },
+                                                        {
+                                                            label: 'No',
+                                                            title: 'Shema',
+                                                            guideImg: meditationImgDB['Shema'],
+                                                            bia: true,
+                                                        },
+                                                    ],
+                                                },
+                                            ],
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ],
+        },
+        'Physical Health': {
+            question: 'Do you want a meditation practice that promotes relaxation of the body?',
+            options: [
+                {
+                    label: 'Yes',
+                    title: 'Body Scan',
+                    guideImg: meditationImgDB['Body Scan'],
+                    bia: true,
+                },
+                {
+                    label: 'No',
+                    title: 'Chakra',
+                    guideImg: meditationImgDB['Chakra'],
+                    bia: '',
+                },
+            ],
+        },
+        'Mental Health': {
+            title: 'Breath',
+            guideImg: meditationImgDB['Breath'],
+            bia: true,
+        },
+    },
+
+    'Movement-based': {
+        'Stress Reduction': {
+            question: 'Are you looking for a meditation practice that brings attention to your feet, body, and the ground?',
+            options: [
+                {
+                    label: 'Yes',
+                    title: 'Walk',
+                    guideImg: meditationImgDB['Walk'],
+                    bia: true,
+                },
+                {
+                    label: 'No',
+                    title: 'Dhikr',
+                    guideImg: meditationImgDB['Dhikr'],
+                    bia: true,
+                },
+            ],
+        },
+        'Spiritual Growth': {
+            question: 'What meditation approach do you prefer?',
+            options: [
+                {
+                    label: 'Deepen your connection to something beyond the physical realm',
+                    title: 'Kriya Yoga',
+                    guideImg: meditationImgDB['Kriya Yoga'],
+                    bia: '',
+                },
+                {
+                    label: 'Incorporating movement as a way to improve overall well-being',
+                    title: 'Hatha Yoga',
+                    guideImg: meditationImgDB['Hatha Yoga'],
+                    bia: true,
+                },
+            ],
+        },
+        'Physical Health': {
+            title: 'Hatha Yoga',
+            guideImg: meditationImgDB['Hatha Yoga'],
+            bia: true,
+        },
+        'Mental Health': {
+            title: 'Walk',
+            guideImg: meditationImgDB['Walk'],
+            bia: true,
+        },
+    },
+};
+
+const followUpQuestions2 = {
     C1: {
         Mindfulness: {
             question: 'Do you want to follow specific steps during your meditation session?',
@@ -589,11 +793,24 @@ const followUpQuestions = {
   
 export default function Questions({ navigation, route }) {
     const { religion, type } = route.params;
-    const questionData = followUpQuestions[religion][type];
+    console.log(religion, type);
+    let questionData = '';
+
+    if (religion == 'Stillness-based' || religion == 'Movement-based') {
+        questionData = followUpQuestions1[religion][type];
+    }
+    else {
+        questionData = followUpQuestions2[religion][type];
+    }
+
     const [selectedOption, setSelectedOption] = useState(null);
     const [additionalQuestion, setAdditionalQuestion] = useState(null);
     const [secondOptions, setSecondOptions] = useState(null);
     const [thirdOptions, setThirdOptions] = useState(null);
+    const [fourthOptions, setFourthOptions] = useState(null);
+    const [fifthOptions, setFifthOptions] = useState(null);
+    const [sixthOptions, setSixthOptions] = useState(null);
+    const [seventhOptions, setSeventhOptions] = useState(null);
     
     const goToResult = (title, guideImg, bia) => {
         const data = {
@@ -616,6 +833,10 @@ export default function Questions({ navigation, route }) {
         setAdditionalQuestion(option.question || null);
         setSecondOptions(option.options || null);
         setThirdOptions(null);
+        setFourthOptions(null);
+        setFifthOptions(null);
+        setSixthOptions(null);
+        setSeventhOptions(null);
 
         if (option.title) {
             goToResult(option.title, option.guideImg, option.bia);
@@ -700,10 +921,97 @@ export default function Questions({ navigation, route }) {
                     </View>
                 </>
                 )}
+
+                {fourthOptions && (
+                <>
+                    <View style={inStyles.optionsContainer}>
+                        {fourthOptions.map((option) => (
+                            <TouchableOpacity
+                                key={option.label}
+                                style={[inStyles.optionButton, styles.bgColorPrimary]}
+                                onPress={() => handleOptionSelect(option)}>
+                                <Text style={[
+                                    styles.colorWhite,
+                                    inStyles.optionText,
+                                    styles.bold,
+                                    {
+                                        fontSize: option.label.length > 10 ? RFPercentage(1.8) : RFPercentage(2.5)
+                                    }
+                                ]}>{option.label}</Text>
+                            </TouchableOpacity>
+                        ))}
+                    </View>
+                </>
+                )}
+
+                {fifthOptions && (
+                <>
+                    <View style={inStyles.optionsContainer}>
+                        {fifthOptions.map((option) => (
+                            <TouchableOpacity
+                                key={option.label}
+                                style={[inStyles.optionButton, styles.bgColorPrimary]}
+                                onPress={() => handleOptionSelect(option)}>
+                                <Text style={[
+                                    styles.colorWhite,
+                                    inStyles.optionText,
+                                    styles.bold,
+                                    {
+                                        fontSize: option.label.length > 10 ? RFPercentage(1.8) : RFPercentage(2.5)
+                                    }
+                                ]}>{option.label}</Text>
+                            </TouchableOpacity>
+                        ))}
+                    </View>
+                </>
+                )}
+
+                {sixthOptions && (
+                <>
+                    <View style={inStyles.optionsContainer}>
+                        {sixthOptions.map((option) => (
+                            <TouchableOpacity
+                                key={option.label}
+                                style={[inStyles.optionButton, styles.bgColorPrimary]}
+                                onPress={() => handleOptionSelect(option)}>
+                                <Text style={[
+                                    styles.colorWhite,
+                                    inStyles.optionText,
+                                    styles.bold,
+                                    {
+                                        fontSize: option.label.length > 10 ? RFPercentage(1.8) : RFPercentage(2.5)
+                                    }
+                                ]}>{option.label}</Text>
+                            </TouchableOpacity>
+                        ))}
+                    </View>
+                </>
+                )}
+
+                {seventhOptions && (
+                <>
+                    <View style={inStyles.optionsContainer}>
+                        {seventhOptions.map((option) => (
+                            <TouchableOpacity
+                                key={option.label}
+                                style={[inStyles.optionButton, styles.bgColorPrimary]}
+                                onPress={() => handleOptionSelect(option)}>
+                                <Text style={[
+                                    styles.colorWhite,
+                                    inStyles.optionText,
+                                    styles.bold,
+                                    {
+                                        fontSize: option.label.length > 10 ? RFPercentage(1.8) : RFPercentage(2.5)
+                                    }
+                                ]}>{option.label}</Text>
+                            </TouchableOpacity>
+                        ))}
+                    </View>
+                </>
+                )}
             </View>
         </SafeAreaView>
     );
-    
 }
 
 const inStyles = StyleSheet.create({
