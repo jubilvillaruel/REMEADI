@@ -67,6 +67,7 @@ const Bible = () => {
   
   return (
     <View style={[inStyles.bibleContainer2]}>
+    {/* <View> */}
       <View style={[styles.dropShadow, styles.passwordInputContainer, { borderWidth: 0, paddingHorizontal: 2 }, inStyles.bibleSearch]}>
         <TextInput
           style={[styles.dropShadow, styles.passwordInput, { paddingHorizontal: 3 }]}
@@ -110,7 +111,7 @@ const inStyles = StyleSheet.create({
   },
 
   bibleSearch:{
-    width: screenWidth('80%'),
+    width: screenWidth('85%'),
     height: screenHeight('5%'),
     alignSelf: 'center',
     borderWidth: 2,
@@ -135,7 +136,7 @@ const inStyles = StyleSheet.create({
     width: screenWidth('90%'),
     minHeight: screenHeight('51%'),
     alignItems: 'center',
-    backgroundColor:'#ffffff',
+    // backgroundColor:'#ffffff',
     borderRadius: 20,
     marginVertical: 10,
     paddingVertical: 10,
@@ -146,8 +147,8 @@ const inStyles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 20,
     marginTop: 0,
-    paddingVertical: 10,
-    height: screenHeight('41%'),
+    // paddingVertical: 10,
+    height: screenHeight('80%'),
   },
 
   verseItem: {
@@ -156,7 +157,7 @@ const inStyles = StyleSheet.create({
     marginHorizontal: 20,
     marginVertical: 5,
     borderRadius: 20,
-    backgroundColor: '#F7F7F7',
+    backgroundColor: '#ffffff',
     alignItems: 'center',
     justifyContent: 'center',
     width: screenWidth('80%')
