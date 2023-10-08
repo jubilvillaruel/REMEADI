@@ -469,7 +469,6 @@ export default function Session({ navigation, route }) {
                                 </Text>
                                 <View style={inStyles.timerContainer}>
                                     {callStopwatch()}
-                                    {/* <Text style={[inStyles.duration, inStyles.durationText, {color:'#5e5e5e'}]}>00:01:23</Text> */}
                                 </View>
                             </View>
                             
@@ -531,35 +530,10 @@ export default function Session({ navigation, route }) {
                             </TouchableOpacity>
                         </View>
                     </View> 
-                    {/* <View style={inStyles.optionsContainer}>
-                                <TouchableOpacity
-                                    style={[styles.dropShadow, inStyles.btnMedia, bibleDisabled && inStyles.disabledButtonContainer]}
-                                    onPress={flipGuide}
-                                    disabled={bibleDisabled}>
-                                    <Image style={[{ width: 35, height: 35 }]} source={bible}/>
-                                </TouchableOpacity>
-                                <TouchableOpacity
-                                    style={[styles.dropShadow, inStyles.btnMedia, videoDisabled && inStyles.disabledButtonContainer]}
-                                    onPress={flipGuide}
-                                    disabled={videoDisabled}>
-                                    <Image style={[{ width: 40, height: 40 }]} source={videoImg}/>
-                                </TouchableOpacity>
-                    </View>        */}
-
-
 
                     <Modal visible={guideVisible} animationType='slide' transparent={true}>
                         <View style={inStyles.guideBg}>
                             <View style={inStyles.guideContainer}>
-                                {/* <FlipCard
-                                    friction={6}
-                                    perspective={1000}
-                                    flipHorizontal={true}
-                                    flipVertical={false}
-                                    flip={guideFlipped}
-                                    clickable={false}> */}
-                                        
-                                    {/* front */}
                                     <TouchableOpacity onPress={hideGuideModal} style={[{ top: 15, right: 5, position: 'absolute' }]}>
                                         <Image style={[{ width: 40, height: 40}]} source={close}/>
                                     </TouchableOpacity>
@@ -601,7 +575,6 @@ export default function Session({ navigation, route }) {
                                 </ScrollView>
                                 <TouchableOpacity onPress={hideBgmModal} style={{ top: 15, right: 15, position: 'absolute' }}>
                                     <Image style={[{ width: 40, height: 40 }]} source={close}/>
-                                    {/* <Text style={[styles.bold, { fontSize: RFPercentage(2) }]}>Close</Text> */}
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -625,15 +598,10 @@ export default function Session({ navigation, route }) {
                     {/* Video */}
                     <Modal visible={videoVisible} animationType='slide' transparent={true}>
                         <View style={[inStyles.guideBg, {felx:1, justifyContent: 'center',backgroundColor: 'rgba(0, 0, 0, 0.9)'}]}>
-                            {/* <View style={[inStyles.guideContainer, {backgroundColor:'#1c1c1c'}]}> */}
-                                {/* <Text style={{marginTop:20, fontSize: RFPercentage(3), fontWeight:'bold'}}>
-                                    Video
-                                </Text> */}
                                 {callVideoPlayer()}
                                 <TouchableOpacity onPress={hideVideoModal} style={[{marginTop:30, borderWidth:2, borderColor:'#2EC4B6', borderRadius:50}]}>
                                     <Image style={[{ width: 40, height: 40 }]} source={close}/>
                                 </TouchableOpacity>
-                            {/* </View> */}
                         </View>
                     </Modal>
                 </View>
@@ -665,27 +633,18 @@ const inStyles = StyleSheet.create({
         height: screenHeight('16%'),
         padding: 15,
         marginTop:30,
-        // flexDirection: 'row',
-        // justifyContent: 'space-between',
         alignItems: 'center',
-        // position: 'absolute',
     },
 
     bottomContainer: {
         width: screenWidth('100%'),
         height: screenHeight('20%'),
-        // flex:1,
         alignItems: 'center',
         justifyContent: 'center',
         paddingVertical: 15,
-        // backgroundColor: '#FFFFFF',
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
         borderWidth:0.5,
         borderTopColor:'#b0b0b0',
-        // shadowColor: 'rgba(35, 35, 35, 0.5)',
-        // shadowOpacity: 3,
-        // shadowRadius: 4,
-        // shadowOffset: { width: 0, height: -3 },
         zIndex: 1,
     },
 
@@ -717,22 +676,14 @@ const inStyles = StyleSheet.create({
     guideBg:{
         backgroundColor: 'rgba(0, 0, 0, 0.6)',
         alignItems: 'center',
-        // justifyContent: 'flex-end',
-        // textAlign: 'center',
         width: screenWidth('100%'),
         height: screenHeight('100%'),
-        // position:'absolute',
-        // bottom:0
     },
 
     guideContainer: {
         alignItems: 'center',
         height: screenHeight('90%'),
         width: screenWidth('100%'),
-        // justifyContent: 'flex-end',
-        // textAlign: 'center',
-        // width: screenWidth('100%'),
-        // height: screenHeight('80%'),
         position:'absolute',
         bottom:0,
         backgroundColor:'#e8e8e8',
@@ -744,11 +695,6 @@ const inStyles = StyleSheet.create({
         alignItems: 'center',
         width: screenWidth('25%'),
         height: screenHeight('4%'),
-        // borderRadius: 20,
-        // borderColor: '#2EC4B6',
-        // borderWidth: 2,
-        // backgroundColor: '#FFFFFF',
-
     },
 
     btnMedia: {
@@ -760,7 +706,6 @@ const inStyles = StyleSheet.create({
         borderWidth: 2,
         borderColor: '#2EC4B6',
         elevation: 20
-        // backgroundColor: '#FFFFFF',
     },
 
     btnHeader: {
@@ -776,7 +721,6 @@ const inStyles = StyleSheet.create({
         borderRadius: 50,
         borderWidth: 2,
         borderColor: '#2EC4B6',
-        // backgroundColor: '#FFFFFF',
     },
 
     btnBig: {
@@ -787,7 +731,6 @@ const inStyles = StyleSheet.create({
         borderRadius: 50,
         borderWidth: 2,
         borderColor: '#2EC4B6',
-        // backgroundColor: '#FFFFFF',
     },
 
     btnEnd: {
@@ -797,8 +740,6 @@ const inStyles = StyleSheet.create({
         height: screenHeight('6%'),
         borderRadius: 30,
         padding: 10,
-        // marginHorizontal:40
-        // marginTop:30
     },
 
     duration: {
@@ -842,17 +783,13 @@ const inStyles = StyleSheet.create({
 
     bgmListContainer: {
         width: screenWidth('90%'),
-        // height: screenHeight('5%'),
         padding: 15,
-        // borderWidth: 2,
         borderRadius: 20,
-        // borderColor: '#2EC4B6',
         backgroundColor:'white'
     },
 
     itemText: {
         fontSize: RFPercentage(2.2),
-        // justifyContent:'center',
         paddingVertical: 10,
         margin: 5,
         flex: 1,
@@ -873,7 +810,6 @@ const inStyles = StyleSheet.create({
         width: 150,
         height: 50,
         right: 10,
-        // position: 'absolute',
         alignSelf:'center',
     },
 
