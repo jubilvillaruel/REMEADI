@@ -29,9 +29,11 @@ import Account from './src/screens/Account';
 // Other Screens
 import EditAccount from './src/screens/EditAccount';
 import MedLibrary from './src/screens/MedLibrary';
-import SelectReligion from './src/screens/SelectReligion';
+import SelectExpertPath from './src/screens/SelectExpertPath';
+import SelectExpertPath2 from './src/screens/SelectExpertPath2';
 import SelectRelBranch from './src/screens/SelectRelBranch';
 import SelectMedType from './src/screens/SelectMedType';
+import SelectMethod from './src/screens/SelectMethod';
 import Questions from './src/screens/Questions';
 import ExpertResult from './src/screens/ExpertResult';
 import ExpertReligion from './src/screens/ExpertReligion';
@@ -226,9 +228,11 @@ export default function App() {
             {/* Other Screens */}
             <Stack.Screen name='EditAccount' component={EditAccount} options={{title: 'Edit Account Details'}}/>
             <Stack.Screen name='MedLibrary' component={MedLibrary} options={{title: 'Library'}}/>
-            <Stack.Screen name='SelectReligion' component={SelectReligion} options={{title: 'Meditation'}}/>
+            <Stack.Screen name='SelectExpertPath' component={SelectExpertPath} options={{title: 'Meditation'}}/>
+            <Stack.Screen name='SelectExpertPath2' component={SelectExpertPath2} options={{title: 'Meditation'}}/>
             <Stack.Screen name='SelectRelBranch' component={SelectRelBranch} options={{title: 'Meditation'}}/>
             <Stack.Screen name='SelectMedType' component={SelectMedType} options={{title: 'Meditation'}}/>
+            <Stack.Screen name='SelectMethod' component={SelectMethod} options={{title: 'Meditation'}}/>
             <Stack.Screen name='Questions' component={Questions} options={{title: 'Meditation'}}/>
             <Stack.Screen name='ExpertResult' component={ExpertResult} options={{title: 'Recommended'}}/>
             <Stack.Screen name='ExpertReligion' component={ExpertReligion} options={{title: 'More Practices'}}/>
