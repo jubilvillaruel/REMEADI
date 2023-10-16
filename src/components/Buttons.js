@@ -3,6 +3,7 @@ import { Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
 import { styles } from '../../assets/css/Style';
 
+
 // Clickables
 export const PrimaryButton = ({ text, textColor, textSize, width, height, borderRad, borderW, onPress }) => {
     const buttonStyle = {
@@ -50,7 +51,7 @@ export const IconButton = ({ text, textColor, textSize, icon, width, height, bgC
 
     return (
         <TouchableOpacity style={[inStyles.btnContainer, styles.dropShadow, buttonStyle]} onPress={onPress}>
-            <Image source={icon} style={{ width: 20, height: 20, marginRight: 8 }} />
+            {/* <Image source={icon} style={{ width: 30, height: 30, marginRight: 8 }} /> */}
             <Text style={[{ color: textColor, fontSize: textSize }, styles.bold]}>{text}</Text>
         </TouchableOpacity>
     );

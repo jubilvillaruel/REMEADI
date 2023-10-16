@@ -11,6 +11,7 @@ import PieChart from 'react-native-pie-chart';
 import { getDatabase, onValue, ref} from 'firebase/database';
 import { auth } from '../../firebase';
 import { RFPercentage } from 'react-native-responsive-fontsize';
+import { StatisticsHeader } from '../components/StatisticsComponents';
 
 export default function Statistics() {
     const widthAndHeight = 160;
@@ -107,7 +108,7 @@ export default function Statistics() {
         const fetchTotalMeditationSession = () => {
             let duration = 0;
             {data && data.map((item) => (duration = duration + item.duration))};
-            setTotalMeditationDuration(millisecondsToTime(duration))
+            setTotalMeditationDuration(Math.floor(duration/1000/60))
         }
         fetchTotalMeditationSession();
     }, [data]);
@@ -160,13 +161,27 @@ export default function Statistics() {
         return topThree;
     };
 
+    function hexToRGBA(hex, alpha) {
+        // Remove the hash (#) if it exists in the hex string
+        hex = hex.replace(/^#/, '');
+      
+        // Parse the hex string into red, green, and blue values
+        const r = parseInt(hex.substring(0, 2), 16);
+        const g = parseInt(hex.substring(2, 4), 16);
+        const b = parseInt(hex.substring(4, 6), 16);
+      
+        // Return the RGBA color value
+        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+      }
+      
+
     return (
         <SafeAreaView style={[styles.screen, { paddingTop: 45 }]}>
             <View style={inStyles.titleContainer}>
                 <Text style={[styles.colorPrimary, inStyles.title]}>Statistics</Text>
             </View>
 
-            <View style={{ width: screenWidth('90%'), flexDirection: 'row', height: screenHeight('15%') }}>
+            {/* <View style={{ width: screenWidth('90%'), flexDirection: 'row', height: screenHeight('15%') }}>
                 <View style={[styles.sectionContainer, styles.dropShadow]}>
                     <Text style={[styles.colorPrimary, inStyles.header, styles.bold]}>Total Sessions</Text>
                     <Text style={styles.bold}>{totalMeditationSession}</Text>
@@ -175,6 +190,12 @@ export default function Statistics() {
                     <Text style={[styles.colorPrimary, inStyles.header, styles.bold]}>Meditation Duration</Text>
                     <Text style={styles.bold}>{(totalMeditationDuration)}</Text>
                 </View>
+            </View> */}
+
+            <View style={{ width: screenWidth('90%'), flexDirection: 'row', height: screenHeight('15%') }}>
+                <StatisticsHeader int={totalMeditationSession} label="" descs="Total Sessions" />
+                <StatisticsHeader int={totalMeditationDuration} label="mins" descs="Total Duration" />
+                {/* <StatisticsHeader int={streak} label="mins" descs="Total Duration" /> */}
             </View>
 
             <View style={{ width: screenWidth('90%'), height: screenHeight('40%'), }}>
@@ -243,7 +264,7 @@ export default function Statistics() {
 
             <View style={{ width: screenWidth('90%'), height: screenHeight('28.5%') }}>
                 <View style={[styles.sectionContainer, styles.dropShadow]}>
-                    <Text style={[styles.colorPrimary, styles.bold, { top: 20, marginBottom: 25, marginTop: -10 }]}>Top 3 Religions</Text>
+                    <Text style={[styles.colorPrimary, styles.bold, { top: 20, marginBottom: 25, marginTop: -10, fontSize: RFPercentage(2.2) }]}>Top 3 Religions</Text>
                     {totalMeditationSessionPerReligionBoolean ? (
                         topThreeReligions.map((religion, index) => {
                         const religionIndex = religions.indexOf(religion);
@@ -251,11 +272,9 @@ export default function Statistics() {
                         // Check if the session count for the religion is greater than or equal to 1
                         if (sessionCount >= 1) {
                             return (
-                                <View style={inStyles.topContainer} key={religion}>
-                                    <Text style={[styles.bold, { color: colorMapping[religion] }]}>{religion}</Text>
-                                    <Text style={[styles.bold, { color: colorMapping[religion] }]}>
-                                        {sessionCount}
-                                    </Text>
+                                <View style={[inStyles.topContainer, { backgroundColor: hexToRGBA(colorMapping[religion], 0.7), color: 'white', borderRadius:15, marginTop:5 }]} key={religion}>
+                                    <Text style={[styles.bold, { color: 'white' }]}>{religion}</Text>
+                                    <Text style={[styles.bold, { color: 'white' }]}>{sessionCount}</Text>
                                 </View>
                             );
                         }

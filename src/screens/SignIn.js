@@ -2,10 +2,11 @@ import { StyleSheet, Text, SafeAreaView, View, Image, TextInput, TouchableOpacit
 import React, { useState, useEffect }  from 'react'
 import { screenWidth, screenHeight } from '../components/Dimensions';
 import { RFPercentage } from "react-native-responsive-fontsize";
-import { IconButton, PrimaryButton } from '../components/Buttons';
+import { IconButton, PrimaryButton, SecondaryButton } from '../components/Buttons';
 
 import { styles } from '../../assets/css/Style';
 import appLogo from '../../assets/images/app_logo.png';
+import appIcon from '../../assets/icon.png';
 import showPass from '../../assets/images/closed_eye.png';
 import hidePass from '../../assets/images/open_eye.png';
 import googleLogo from './../../assets/images/google_logo.png';
@@ -68,6 +69,10 @@ export default function SignIn({ navigation, route }) {
       navigation.navigate('ForgotPassword')
     }
 
+    const handleSignUpNavigation = () => {
+      navigation.navigate('SignUp')
+    }
+
     const callToast = (type, text1, text2) => {
       // call toast here
       Toast.show({
@@ -122,7 +127,38 @@ export default function SignIn({ navigation, route }) {
               <View style={styles.dividerLine}/>
             </View>
 
+           
+
+            {/* <SecondaryButton
+              text='Sign Up'  
+              textColor= '#FFFFFF'  
+              textSize={RFPercentage(2.2)}  
+              width={screenWidth('80%')}  
+              height={screenHeight('7%')}  
+              borderRad={30}  
+              borderW={0}  
+              onPress={() => handleSignIn()}>  
+            </SecondaryButton> */} 
+
             <IconButton
+              text='Sign Up'
+              textColor='#FF9F1C'
+              textSize={RFPercentage(2.2)}
+              width={screenWidth('80%')}
+              height={screenHeight('7%')}
+              borderRad={30}
+              borderC='#FF9F1C'
+              borderW={2}
+              onPress={() => handleSignUpNavigation()}>
+            </IconButton>
+
+            {/* <Text style={[styles.bold, inStyles.forgotPassword]}>
+              <TouchableOpacity onPress={handleSignUpNavigation}>
+                <Text style={{ fontSize: RFPercentage(2) }}>Don't have an Account yet? Sign Up Here</Text>
+              </TouchableOpacity>
+            </Text> */}
+            
+            {/* <IconButton
               text='Continue with Google'
               textColor='#000000'
               textSize={RFPercentage(2.2)}
@@ -132,9 +168,9 @@ export default function SignIn({ navigation, route }) {
               icon={googleLogo}
               borderC='#000000'
               borderW={2}>
-            </IconButton>
+            </IconButton> */}
 
-            <IconButton
+            {/* <IconButton
               text='Continue with Facebook'
               textColor='#FFFFFF'
               bgColor='#1877F2'
@@ -143,7 +179,7 @@ export default function SignIn({ navigation, route }) {
               height={screenHeight('7%')}
               borderRad={30}
               icon={facebookLogo}>
-            </IconButton>
+            </IconButton> */}
           </View>
         </View>
         

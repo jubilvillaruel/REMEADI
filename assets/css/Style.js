@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     sectionContainer: {
         flex: 1,
         borderWidth: 1,
-        borderRadius: 10,
+        borderRadius: 20,
         borderColor: '#2EC4B6',
         padding: 15,
         margin: 5,
@@ -159,6 +159,11 @@ const styles = StyleSheet.create({
         opacity: 0.5, 
         width:screenWidth('100%'), 
         height:screenHeight('100%')
+    },
+
+    header: {
+        fontSize: RFPercentage(1.8),
+        textAlign: 'center',
     },
 });
 
