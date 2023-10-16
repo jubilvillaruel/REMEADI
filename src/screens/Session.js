@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef }from 'react'
-import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, ScrollView, Image, Modal } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, ScrollView, Image, Modal, ImageBackground } from 'react-native';
 import { StepCard } from '../components/Cards';
 import { screenWidth, screenHeight } from '../components/Dimensions';
 import { RFPercentage } from 'react-native-responsive-fontsize';
@@ -8,12 +8,13 @@ import * as Speech from 'expo-speech';
 import { Audio } from 'expo-av';
 import FlipCard from 'react-native-flip-card';
 
-import music from '../../assets/images/music.png';
-import text from '../../assets/images/text.png';
+import steps from '../../assets/images/question.png';
+import music from '../../assets/images/headphones.png';
+import text from '../../assets/images/speak.png';
 import stop from '../../assets/images/stop.png';
-import videoImg from '../../assets/images/video.png';
-import bible from '../../assets/images/bible.png';
-import close from '../../assets/images/close.png';
+import videoImg from '../../assets/images/play.png';
+import bible from '../../assets/images/book.png';
+import close from '../../assets/images/down.png';
 
 import { styles } from '../../assets/css/Style';
 import { getGuide } from '../Data/Practices/GuideDB';
@@ -82,6 +83,15 @@ export default function Session({ navigation, route }) {
     // Modals for Summary and BGM Selection
     const [bgmVisible, setBgmVisible] = useState(false);
 
+    // Modals for Guide Display
+    const [guideVisible, setGuideVisible] = useState(false);
+
+    // Modals for Verse Search
+    const [verserVisible, setVerserVisible] = useState(false);
+
+    // Modals for Video
+    const [videoVisible, setVideoVisible] = useState(false);
+
     // Set Value for guide content and time
     const [ guide, setGuide ] = useState();
     const [ time, setTime ] = useState(999);
@@ -123,7 +133,7 @@ export default function Session({ navigation, route }) {
         const fetchGuideAndTime = () => {
             if (!timerRunning) {
                 // Timer finished, stop the useEffect
-                return;
+                // return;
             }
             setGuide(getGuide(practiceTitle, religion))
             // evaluate if practice 
@@ -319,15 +329,11 @@ export default function Session({ navigation, route }) {
         return clocks
     }   
 
-    const callBibleOrVideoPlayer = () => {
+    const callVideoPlayer = () => {
         try {
             const religion = getCategoryByPractice(practiceTitle);
-            if (religion && religion.key === 'Christianity') {
-                if (practiceTitle === 'Rosary') {
-                    return <VideoPlayer title={practiceTitle}></VideoPlayer>;
-                } else {
-                    return <Bible />;
-                }
+            if (practiceTitle === 'Rosary') {
+                return <VideoPlayer title={practiceTitle}></VideoPlayer>;
             } else if (practiceTitle === 'Chakra') {
                 return <VideoPlayer title={biaLevel}></VideoPlayer>;
             } else {
@@ -393,6 +399,30 @@ export default function Session({ navigation, route }) {
         setBgmVisible(false);
     };
 
+    const showGuideModal = () => {
+        setGuideVisible(true);
+    };
+    
+    const hideGuideModal = () => {
+        setGuideVisible(false);
+    };
+
+    const showVerseModal = () => {
+        setVerserVisible(true);
+    };
+    
+    const hideVerseModal = () => {
+        setVerserVisible(false);
+    };
+
+    const showVideoModal = () => {
+        setVideoVisible(true);
+    };
+    
+    const hideVideoModal = () => {
+        setVideoVisible(false);
+    };
+
     const concludeSession = async () => {
         const time = stopwatchRef.current.formatTime();
         stopAllSounds();
@@ -423,95 +453,111 @@ export default function Session({ navigation, route }) {
     };
 
     return (
-        <SafeAreaView style={[styles.screen, styles.bgColorPrimary]}>
-            <View>
-                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+        <SafeAreaView style={[styles.screen, styles.bgColorPrimary, {backgroundColor:'#ffffff'}]}>
+            <ImageBackground
+                source={imgGuide}
+                style={inStyles.backgroundImage}
+                blurRadius={5} 
+            >
+                <View style={inStyles.backgroundBody}>
                     <View style={[inStyles.imageContainer, styles.dropShadow]}>
-                        <Image style={[{ width: '100%', height: '100%' }]} source={imgGuide}></Image>
                     
                         <View style={inStyles.headerContainer}>
-                            <View style={{ gap: 5 }}>
-                                <Text style={[styles.bold, styles.colorWhite, { fontSize: RFPercentage(1.5), alignSelf: 'center' }]}>{practiceTitle}</Text>
+                            <View style={{ gap: 5, alignItems: 'center', marginBottom:15}}>
+                                <Text style={[styles.bold, { fontSize: RFPercentage(4), alignSelf: 'center', color:'#2EC4B6' }]}>
+                                    {practiceTitle}
+                                </Text>
                                 <View style={inStyles.timerContainer}>
                                     {callStopwatch()}
                                 </View>
                             </View>
                             
                             <View style={inStyles.optionsContainer}>
-                                <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia]} onPress={showBgmModal}>
-                                    <Image style={[{ width: 40, height: 40 }]} source={music}/>
+                                <TouchableOpacity
+                                    style={[{flexDirection: 'row', justifyContent: 'center', gap:10}, styles.dropShadow, inStyles.btnMedia, videoDisabled && inStyles.disabledButtonContainer]}
+                                    onPress={showVideoModal}
+                                    disabled={videoDisabled}>
+                                        <Text style={inStyles.btnHeader}>Video</Text>
+                                        <Image style={[{ width: 30, height: 30 }]} source={videoImg}/>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    style={[{flexDirection: 'row', justifyContent: 'center', gap:10}, styles.dropShadow, inStyles.btnMedia, bibleDisabled && inStyles.disabledButtonContainer]}
+                                    onPress={showVerseModal}
+                                    disabled={bibleDisabled}>
+                                        <Text style={inStyles.btnHeader}>Verse</Text>
+                                        <Image style={[{ width: 30, height: 30 }]} source={bible}/>
+                                </TouchableOpacity>
+                            </View> 
+                        </View>
+
+                        <View style={inStyles.bodyContainer}>
+                            <Image style={inStyles.img} source={imgGuide}></Image>
+                        </View>
+
+                        <View style={inStyles.bottomContainer}>   
+                            
+                            <View style={inStyles.optionsContainer}>
+                                {/* Ambient Sound */}
+                                <TouchableOpacity style={[styles.dropShadow, inStyles.btn]} onPress={showBgmModal}>
+                                    <Image style={[{ width: 25, height: 25 }]} source={music}/>
                                 </TouchableOpacity>
 
+                                {/* Text-to-Speech */}
                                 <View>
                                     <FlipCard
                                         flipHorizontal={true}
                                         flipVertical={false}
                                         flip={textFlipped}
                                         clickable={false}>
-                                        <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia]} onPress={speak}>
+                                        <TouchableOpacity style={[inStyles.btn, inStyles.btnBig]} onPress={speak}>
                                             <Image style={[{ width: 40, height: 40 }]} source={text}/>
                                         </TouchableOpacity>
-                                        <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia]} onPress={stopSpeech}>
+                                        <TouchableOpacity style={[styles.dropShadow, inStyles.btn, inStyles.btnBig]} onPress={stopSpeech}>
                                         <Image style={[{ width: 40, height: 40 }]} source={stop}/>
                                         </TouchableOpacity>
                                     </FlipCard>
                                 </View>
-                                
 
-                                <TouchableOpacity
-                                    style={[styles.dropShadow, inStyles.btnMedia, bibleDisabled && inStyles.disabledButtonContainer]}
-                                    onPress={flipGuide}
-                                    disabled={bibleDisabled}>
-                                    <Image style={[{ width: 35, height: 35 }]} source={bible}/>
+                                {/* Text Guide */}
+                                <TouchableOpacity style={[styles.dropShadow, inStyles.btn]} onPress={showGuideModal}>
+                                    <Image style={[{ width: 25, height: 25 }]} source={steps}/>
                                 </TouchableOpacity>
-                                <TouchableOpacity
-                                    style={[styles.dropShadow, inStyles.btnMedia, videoDisabled && inStyles.disabledButtonContainer]}
-                                    onPress={flipGuide}
-                                    disabled={videoDisabled}>
-                                    <Image style={[{ width: 40, height: 40 }]} source={videoImg}/>
-                                </TouchableOpacity>
+
+                            </View> 
+                            {/* --------------------  */}
+                            <TouchableOpacity style={[styles.dropShadow, styles.bgColorPrimary, inStyles.btnEnd]} onPress={() => {concludeSession()}}>
+                                <Text style={[{ fontSize: RFPercentage(3) }, styles.colorWhite, styles.bold]}>Conclude</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View> 
+
+                    <Modal visible={guideVisible} animationType='slide' transparent={true}>
+                        <View style={inStyles.guideBg}>
+                            <View style={inStyles.guideContainer}>
+                                    <TouchableOpacity onPress={hideGuideModal} style={[{ top: 15, right: 5, position: 'absolute' }]}>
+                                        <Image style={[{ width: 40, height: 40}]} source={close}/>
+                                    </TouchableOpacity>
+                                        <Text style={{textAlign:'left', marginBottom:20, marginTop:20, fontSize: RFPercentage(3), fontWeight:'bold'}}>
+                                            {practiceTitle} Guide
+                                        </Text>
+                                    <ScrollView showsVerticalScrollIndicator={false}>
+                                        {showGuide()}
+                                    </ScrollView>
                             </View>
                         </View>
-                    </View>        
-
-                    <View style={inStyles.guideContainer}>
-                        <FlipCard
-                            friction={6}
-                            perspective={1000}
-                            flipHorizontal={true}
-                            flipVertical={false}
-                            flip={guideFlipped}
-                            clickable={false}>
-                                
-                            {/* front */}
-                            <ScrollView showsVerticalScrollIndicator={false}>
-                                {showGuide()}
-                            </ScrollView>
-
-                            {/* back */}
-                            <ScrollView showsVerticalScrollIndicator={false}>
-                                {callBibleOrVideoPlayer()}
-                            </ScrollView>
-                        </FlipCard>
-                    </View>
-
-                    <View style={inStyles.bottomContainer}>    
-                        <TouchableOpacity style={[styles.dropShadow, styles.bgColorPrimary, inStyles.btnEnd]} onPress={() => {concludeSession()}}>
-                            <Text style={[{ fontSize: RFPercentage(3) }, styles.colorWhite, styles.bold]}>Conclude Session</Text>
-                        </TouchableOpacity>
-                    </View>
+                    </Modal>
 
                     <Modal visible={bgmVisible} animationType='slide' transparent={true}>
                         <View style={inStyles.bgmContainer}>
                             <View style={[inStyles.bgmContent, { gap: 15 }]}>
-                                <Text style={[styles.bold, { fontSize: RFPercentage(2.5) }]}>Ambient Sound</Text>
+                                <Text style={[styles.bold, {marginBottom:10, marginTop:5, fontSize: RFPercentage(3) }]}>Ambient Sound</Text>
                                 <ScrollView style={inStyles.bgmListContainer} showsVerticalScrollIndicator={false}>
                                     {sounds.map((sound, index) => (
                                         <View key={index}>
                                             <TouchableOpacity style={inStyles.soundContainer} onPress={() => {
                                                 if (clickedIndexes.includes(index)) {handleStopSound(index);}
                                                 else {handlePlaySound(index);}}}>
-                                                <Text style={[inStyles.itemText, styles.bold, clickedIndexes.includes(index) && inStyles.selectedItemText]}>
+                                                <Text style={[inStyles.itemText, styles.bold, clickedIndexes.includes(index) && inStyles.selectedItemText,{borderWidth:1, borderColor: '#FFBF69', borderRadius:20}]}>
                                                     {soundFilesName[index]}
                                                 </Text>
                                                 <Slider
@@ -528,75 +574,146 @@ export default function Session({ navigation, route }) {
                                     ))}
                                 </ScrollView>
                                 <TouchableOpacity onPress={hideBgmModal} style={{ top: 15, right: 15, position: 'absolute' }}>
-                                    <Image style={[{ width: 25, height: 25 }]} source={close}/>
-                                    {/* <Text style={[styles.bold, { fontSize: RFPercentage(2) }]}>Close</Text> */}
+                                    <Image style={[{ width: 40, height: 40 }]} source={close}/>
                                 </TouchableOpacity>
                             </View>
                         </View>
                     </Modal>
+
+                    {/* Verse Search */}
+                    <Modal visible={verserVisible} animationType='slide' transparent={true}>
+                        <View style={inStyles.guideBg}>
+                            <View style={inStyles.guideContainer}>
+                                <Text style={{marginTop:20, fontSize: RFPercentage(3), fontWeight:'bold'}}>
+                                    Verse Search
+                                </Text>
+                                <Bible />
+                                <TouchableOpacity onPress={hideVerseModal} style={[{ top: 15, right: 5, position: 'absolute' }]}>
+                                    <Image style={[{ width: 40, height: 40 }]} source={close}/>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </Modal>
+
+                    {/* Video */}
+                    <Modal visible={videoVisible} animationType='slide' transparent={true}>
+                        <View style={[inStyles.guideBg, {felx:1, justifyContent: 'center',backgroundColor: 'rgba(0, 0, 0, 0.9)'}]}>
+                                {callVideoPlayer()}
+                                <TouchableOpacity onPress={hideVideoModal} style={[{marginTop:30, borderWidth:2, borderColor:'#2EC4B6', borderRadius:50}]}>
+                                    <Image style={[{ width: 40, height: 40 }]} source={close}/>
+                                </TouchableOpacity>
+                        </View>
+                    </Modal>
                 </View>
-            </View>
+            </ImageBackground>
         </SafeAreaView>
     )
 }
 
 const inStyles = StyleSheet.create({
+    backgroundImage: {
+        flex: 1,
+        resizeMode: 'cover', // Adjust as needed (contain, stretch, etc.)
+    },
+
+    backgroundBody: {
+        alignItems: 'center', 
+        justifyContent: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.4)'
+    },
+    
     imageContainer: {
         width: screenWidth('100%'),
-        height: screenHeight('40%'),
+        height: screenHeight('100%'),
         zIndex: 1,
     },
 
     headerContainer: {
-        width: screenWidth('80%'),
-        height: screenHeight('10%'),
+        width: screenWidth('100%'),
+        height: screenHeight('16%'),
         padding: 15,
         marginTop:30,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        position: 'absolute',
-    },
-
-    optionsContainer: {
-        flexDirection: 'row',
-        gap: 10,
-        position: 'relative',
-        right: -35
-    },
-
-    guideContainer: {
-        width: screenWidth('90%'),
-        height: screenHeight('54.2%'),
         alignItems: 'center',
     },
 
     bottomContainer: {
         width: screenWidth('100%'),
-        height: screenHeight('10%'),
+        height: screenHeight('20%'),
         alignItems: 'center',
         justifyContent: 'center',
         paddingVertical: 15,
-        backgroundColor: '#FFFFFF',
-        shadowColor: 'rgba(35, 35, 35, 0.5)',
-        shadowOpacity: 3,
-        shadowRadius: 4,
-        shadowOffset: { width: 0, height: -3 },
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        borderWidth:0.5,
+        borderTopColor:'#b0b0b0',
+        zIndex: 1,
+    },
+
+    optionsContainer: {
+        flexDirection: 'row',
+        gap: 30,
+        flex:1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        // position: 'relative',
+        // right: -35
+        margin:0
+    },
+
+    bodyContainer: {
+        width: screenWidth('100%'),
+        height: screenHeight('65%'),
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    img: {
+        borderRadius: 30,
+        resizeMode: 'cover',
+        width: screenWidth('90%'), 
+        height: screenHeight('40%')
+    },
+
+    guideBg:{
+        backgroundColor: 'rgba(0, 0, 0, 0.6)',
+        alignItems: 'center',
+        width: screenWidth('100%'),
+        height: screenHeight('100%'),
+    },
+
+    guideContainer: {
+        alignItems: 'center',
+        height: screenHeight('90%'),
+        width: screenWidth('100%'),
+        position:'absolute',
+        bottom:0,
+        backgroundColor:'#e8e8e8',
+        borderRadius:20
     },
 
     timerContainer: {
         justifyContent: 'center',
         alignItems: 'center',
         width: screenWidth('25%'),
-        height: screenHeight('3%'),
-        borderRadius: 20,
-        borderColor: '#2EC4B6',
-        borderWidth: 2,
-        backgroundColor: '#FFFFFF',
-
+        height: screenHeight('4%'),
     },
 
     btnMedia: {
+        width: 150,
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 50,
+        borderWidth: 2,
+        borderColor: '#2EC4B6',
+        elevation: 20
+    },
+
+    btnHeader: {
+        fontSize:20, 
+        color:'#2EC4B6'
+    },
+
+    btn: {
         width: 50,
         height: 50,
         justifyContent: 'center',
@@ -604,26 +721,36 @@ const inStyles = StyleSheet.create({
         borderRadius: 50,
         borderWidth: 2,
         borderColor: '#2EC4B6',
-        backgroundColor: '#FFFFFF',
+    },
+
+    btnBig: {
+        width: 70,
+        height: 70,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 50,
+        borderWidth: 2,
+        borderColor: '#2EC4B6',
     },
 
     btnEnd: {
         justifyContent: 'center',
         alignItems: 'center',
         width: screenWidth('90%'),
-        height: screenHeight('7%'),
+        height: screenHeight('6%'),
         borderRadius: 30,
         padding: 10,
     },
 
     duration: {
         width: screenWidth('24%'),
+        elevation: 5
     },
 
     durationText: {
         justifyContent:'center',
-        color: '#2EC4B6',
-        fontSize: RFPercentage(1.5),
+        color: '#dedede',
+        fontSize: RFPercentage(2.5),
         fontWeight: 'bold',
         textAlign: 'center',
     },
@@ -633,6 +760,7 @@ const inStyles = StyleSheet.create({
         justifyContent: 'flex-end',
         alignItems: 'center',
         flex: 1,
+        backgroundColor: 'rgba(0, 0, 0, 0.6)',
     },
 
     bgmContent: {
@@ -640,8 +768,8 @@ const inStyles = StyleSheet.create({
         width: screenWidth('100%'),
         height: screenHeight('45%'),
         padding: 15,
-        backgroundColor: '#FFFFFF',
-        borderRadius: 10,
+        backgroundColor:'#e8e8e8',
+        borderRadius: 20,
         justifyContent: 'center',
         alignItems: 'center',
         shadowColor: '#000000',
@@ -655,16 +783,13 @@ const inStyles = StyleSheet.create({
 
     bgmListContainer: {
         width: screenWidth('90%'),
-        height: screenHeight('5%'),
         padding: 15,
-        borderWidth: 2,
         borderRadius: 20,
-        borderColor: '#2EC4B6',
+        backgroundColor:'white'
     },
 
     itemText: {
         fontSize: RFPercentage(2.2),
-        // justifyContent:'center',
         paddingVertical: 10,
         margin: 5,
         flex: 1,
@@ -685,7 +810,6 @@ const inStyles = StyleSheet.create({
         width: 150,
         height: 50,
         right: 10,
-        // position: 'absolute',
         alignSelf:'center',
     },
 
