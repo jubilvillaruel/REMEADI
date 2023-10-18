@@ -222,7 +222,13 @@ export default function Session({ navigation, route }) {
         const stepsToRender = selectedSteps || guide;
         
         for (const property in stepsToRender) {
-            count = ('Step ' + stepCount);
+            if (practiceTitle == 'Hatha Yoga') {
+                count = ('Pose ' + stepCount);
+            }
+            else {
+                count = ('Step ' + stepCount);
+            }
+
             steps.push(
                 <StepCard key={property} count={count} desc={property} detailedDesc={stepsToRender[property]}></StepCard>
             );
