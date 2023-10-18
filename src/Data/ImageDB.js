@@ -27,6 +27,16 @@ import judaism_1 from '../../assets/images/judaism/judaism_1.png';
 import judaism_2 from '../../assets/images/judaism/judaism_2.png';
 import judaism_3 from '../../assets/images/judaism/judaism_3.png';
 
+// Meditation Types
+import type_1 from '../../assets/images/medtypes/mindfulness.jpeg';
+import type_2 from '../../assets/images/medtypes/spiritual.jpeg';
+import type_3 from '../../assets/images/medtypes/focused.jpeg';
+import type_4 from '../../assets/images/medtypes/mantra.jpeg';
+import type_5 from '../../assets/images/medtypes/visualization.jpeg';
+import type_6 from '../../assets/images/medtypes/movement.jpeg';
+import type_7 from '../../assets/images/medtypes/loving-kindness.jpeg';
+import type_8 from '../../assets/images/medtypes/progressive-relaxation.jpeg';
+
 const meditationImgDB = {
     'Lectio Divina' : christianity_1,
     'Christian Meditation': christianity_2,
@@ -50,14 +60,14 @@ const meditationImgDB = {
 }
 
 const meditationTypeDB = {
-    'Mindfulness' : christianity_1,
-    'Spiritual': christianity_2,
-    'Focused' : christianity_3,
-    'Mantra' : christianity_4,
-    'Visualization' : islam_1,
-    'Movement' : islam_2,
-    'Loving-Kindness' : islam_3,
-    'Progressive Relaxation' : islam_4,
+    'Mindfulness' : type_1,
+    'Spiritual': type_2,
+    'Focused' : type_3,
+    'Mantra' : type_4,
+    'Visualization' : type_5,
+    'Movement' : type_6,
+    'Loving-Kindness' : type_7,
+    'Progressive Relaxation' : type_8,
 }
 
 export { meditationImgDB, meditationTypeDB }
