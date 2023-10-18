@@ -28,14 +28,14 @@ import judaism_2 from '../../assets/images/judaism/judaism_2.png';
 import judaism_3 from '../../assets/images/judaism/judaism_3.png';
 
 // Meditation Types
-import type_1 from '../../assets/images/medtypes/mindfulness.jpeg';
-import type_2 from '../../assets/images/medtypes/spiritual.jpeg';
-import type_3 from '../../assets/images/medtypes/focused.jpeg';
+import type_1 from '../../assets/images/medtypes/mindfulness.jpg';
+import type_2 from '../../assets/images/medtypes/spiritual.jpg';
+import type_3 from '../../assets/images/medtypes/focused.jpg';
 import type_4 from '../../assets/images/medtypes/mantra.jpeg';
 import type_5 from '../../assets/images/medtypes/visualization.jpeg';
-import type_6 from '../../assets/images/medtypes/movement.jpeg';
-import type_7 from '../../assets/images/medtypes/loving-kindness.jpeg';
-import type_8 from '../../assets/images/medtypes/progressive-relaxation.jpeg';
+import type_6 from '../../assets/images/medtypes/movement.jpg';
+import type_7 from '../../assets/images/medtypes/loving-kindness.jpg';
+import type_8 from '../../assets/images/medtypes/progressive-relaxation.jpg';
 
 const meditationImgDB = {
     'Lectio Divina' : christianity_1,
