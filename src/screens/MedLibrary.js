@@ -337,7 +337,7 @@ export default function MedLibrary({ navigation }) {
 const inStyles = StyleSheet.create({
   religionContainer: {
     paddingVertical: 10,
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'center',
     width: screenWidth('90%'),
   },
