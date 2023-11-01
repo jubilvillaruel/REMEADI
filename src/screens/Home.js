@@ -116,7 +116,7 @@ export default function Home({ navigation }) {
     };
 
     const goToExpertSystem = () => {
-        navigation.navigate('SelectExpertPath');
+        navigation.navigate('SelectExpertPathOpening');
     };
 
     const remindVerification = async () => {

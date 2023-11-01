@@ -29,6 +29,7 @@ import Account from './src/screens/Account';
 // Other Screens
 import EditAccount from './src/screens/EditAccount';
 import MedLibrary from './src/screens/MedLibrary';
+import SelectExpertPathOpening from './src/screens/SelectExpertPathOpening';
 import SelectExpertPath from './src/screens/SelectExpertPath';
 import SelectExpertPath2 from './src/screens/SelectExpertPath2';
 import SelectRelBranch from './src/screens/SelectRelBranch';
@@ -228,12 +229,13 @@ export default function App() {
             {/* Other Screens */}
             <Stack.Screen name='EditAccount' component={EditAccount} options={{title: 'Edit Account Details'}}/>
             <Stack.Screen name='MedLibrary' component={MedLibrary} options={{title: 'Library'}}/>
-            <Stack.Screen name='SelectExpertPath' component={SelectExpertPath} options={{title: 'Meditation'}}/>
-            <Stack.Screen name='SelectExpertPath2' component={SelectExpertPath2} options={{title: 'Meditation'}}/>
-            <Stack.Screen name='SelectRelBranch' component={SelectRelBranch} options={{title: 'Meditation'}}/>
-            <Stack.Screen name='SelectMedType' component={SelectMedType} options={{title: 'Meditation'}}/>
-            <Stack.Screen name='SelectMethod' component={SelectMethod} options={{title: 'Meditation'}}/>
-            <Stack.Screen name='Questions' component={Questions} options={{title: 'Meditation'}}/>
+            <Stack.Screen name='SelectExpertPathOpening' component={SelectExpertPathOpening} options={{title: '', headerShown: false}}/>
+            <Stack.Screen name='SelectExpertPath' component={SelectExpertPath} options={{title: ''}}/>
+            <Stack.Screen name='SelectExpertPath2' component={SelectExpertPath2} options={{title: ''}}/>
+            <Stack.Screen name='SelectRelBranch' component={SelectRelBranch} options={{title: ''}}/>
+            <Stack.Screen name='SelectMedType' component={SelectMedType} options={{title: ''}}/>
+            <Stack.Screen name='SelectMethod' component={SelectMethod} options={{title: ''}}/>
+            <Stack.Screen name='Questions' component={Questions} options={{title: ''}}/>
             <Stack.Screen name='ExpertResult' component={ExpertResult} options={{title: 'Recommended'}}/>
             <Stack.Screen name='ExpertReligion' component={ExpertReligion} options={{title: 'More Practices'}}/>
             <Stack.Screen name='ExpertType' component={ExpertType} options={{title: 'More Practices'}}/>
