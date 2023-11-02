@@ -1,9 +1,10 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { styles } from '../../assets/css/Style';
 
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { screenWidth, screenHeight } from '../components/Dimensions';
+import { FeatureCardWide } from '../components/Cards';
 
 export default function SelectMethod ({ navigation, route }) {
     const { religion } = route.params;
@@ -15,27 +16,56 @@ export default function SelectMethod ({ navigation, route }) {
     return (
         <View style={styles.screenCenter}>
             <View style={inStyles.typeContainer}>
-                <View style={{ padding: 15, marginBottom: 10 }}>
-                    <Text style={[styles.bold, styles.colorPrimary, { fontSize: RFPercentage(3.2), textAlign: 'center' }]}>Please choose from the options below.</Text>
-                </View>
+                <ScrollView  style={{ marginBottom: 10, gap: 10, width:screenWidth('85%') }}>
+                    <View style={{ padding: 15, marginBottom: 10 }}>
+                        <Text style={[styles.bold, { color:'black', fontSize: RFPercentage(4), textAlign: 'center', fontWeight:'300', marginBottom:10, textAlign:'center'}]}>Choose your Meditation Focus</Text>
+                    </View>
 
-                <View style={{ marginBottom: 10, gap: 10 }}>
-                    <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary, { marginTop: -10, justifyContent: 'center' }]} onPress={() => goToQuestions('Stress Reduction')}>
+                    <FeatureCardWide
+                        title = "Stress Reduction"
+                        desc = "Discover inner calm and serenity with practices that alleviate stress and bring balance to your life. Let go of worries, find relaxation, and nurture your mental well-being."
+                        onPress={() => {
+                            goToQuestions('Stress Reduction');
+                        }}
+                    />
+                    <FeatureCardWide
+                        title = "Spiritual Growth"
+                        desc = "Embark on a profound journey of self-discovery and spiritual awakening. Explore the depths of your soul, expand your spiritual horizons, and find profound meaning and connection"
+                        onPress={() => {
+                            goToQuestions('Spiritual Growth');
+                        }}
+                    />
+                    <FeatureCardWide
+                        title = "Physical Health"
+                        desc = "Unlock the path to physical well-being and vitality. Embrace fitness, nutrition, and self-care to optimize your physical health, leading to a healthier, more energized you"
+                        onPress={() => {
+                            goToQuestions('Physical Health');
+                        }}
+                    />
+                    <FeatureCardWide
+                        title = "Mental Health"
+                        desc = "Prioritize your mental health and emotional wellness. Cultivate mental strength, balance, and resilience. Learn to navigate life's challenges with a resilient and healthy mindset"
+                        onPress={() => {
+                            goToQuestions('Mental Health');
+                        }}
+                    />
+
+                    {/* <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary, { marginTop: -10, justifyContent: 'center' }]} onPress={() => goToQuestions('Stress Reduction')}>
                         <Text style={[styles.bold, styles.colorWhite, { fontSize: RFPercentage(2.5) }]}>Stress Reduction</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
 
-                    <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary, { justifyContent: 'center' }]} onPress={() => goToQuestions('Spiritual Growth')}>
+                    {/* <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary, { justifyContent: 'center' }]} onPress={() => goToQuestions('Spiritual Growth')}>
                         <Text style={[styles.bold, styles.colorWhite, { fontSize: RFPercentage(2.5) }]}>Spiritual Growth</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
 
-                    <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary, { justifyContent: 'center' }]} onPress={() => goToQuestions('Physical Health')}>
+                    {/* <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary, { justifyContent: 'center' }]} onPress={() => goToQuestions('Physical Health')}>
                         <Text style={[styles.bold, styles.colorWhite, { fontSize: RFPercentage(2.5) }]}>Physical Health</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary, { justifyContent: 'center' }]} onPress={() => goToQuestions('Mental Health')}>
                         <Text style={[styles.bold, styles.colorWhite, { fontSize: RFPercentage(2.5) }]}>Mental Health</Text>
-                    </TouchableOpacity>
-                </View>
+                    </TouchableOpacity> */}
+                </ScrollView >
             </View>
         </View>
     );

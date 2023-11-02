@@ -28,7 +28,7 @@ export default function SelectExpertPathOpening ({ navigation }) {
         style={inStyles.backgroundImage}
         blurRadius={5} 
       >
-        <View style={{backgroundColor:'white', height: screenHeight('105%'), opacity:0.9, justifyContent:'center',alignItems:'center', borderWidth:1, borderColor:'red'}}>
+        <View style={{backgroundColor:'white', height: screenHeight('105%'), opacity:0.9, justifyContent:'center',alignItems:'center'}}>
 
           <View style={ inStyles.textContainer }>
             <Text style={[styles.colorPrimary,{ fontSize: RFPercentage(3), textAlign: 'center', fontWeight:'300' }]}>

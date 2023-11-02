@@ -32,7 +32,7 @@ export const MedTypes = ({ meditationTypes, religion, navigation }) => {
     <View style={styles.screenCenter}>
       <View style={inStyles.typeContainer}>
         <View style={{ padding: 15, marginBottom: 10 }}>
-          <Text style={[styles.bold, styles.colorPrimary, { fontSize: RFPercentage(3.2), textAlign: 'center' }]}>Please choose from the meditation types.</Text>
+        <Text style={[styles.bold, { color:'black', fontSize: RFPercentage(4), textAlign: 'center', fontWeight:'300', marginBottom:10, textAlign:'center'}]}>Choose a Meditation Type.</Text>
         </View>
         <ScrollView showsVerticalScrollIndicator={false}>
           {createRows()}

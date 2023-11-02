@@ -64,9 +64,9 @@ export const FeatureCard = ({ title, desc, image, onPress }) => {
 
 export const FeatureCardWide = ({ title, desc, image, onPress }) => {
   return (
-    <TouchableOpacity style={[styles.bgColorPrimary, {backgroundColor:'#e3fffc', borderRadius: 40, marginVertical: 5, padding: 20, alignItems:'center' }]} onPress={onPress}>
-      <Image style={[{ width: 80, height: 80, borderRadius:50 }]} source={image}/>
-      <Text style={[styles.bold, { fontSize: RFPercentage(3), marginBottom:10, color:'#5c5c5c', fontWeight:'400', marginTop:15 }]}>{title}</Text>
+    <TouchableOpacity style={[styles.bgColorPrimary, {width:screenWidth('85%'), backgroundColor:'#e3fffc', borderRadius: 40, marginVertical: 5, padding: 20, alignItems:'center' }]} onPress={onPress}>
+      {image && <Image style={{ width: 80, height: 80, borderRadius: 50 }} source={image} />}
+      <Text style={[styles.bold, {textAlign:'center', fontSize: RFPercentage(3), marginBottom:10, color:'#5c5c5c', fontWeight:'400', marginTop:15 }]}>{title}</Text>
       <Text style={[ {textAlign:'center', fontSize: RFPercentage(2), color:'#5c5c5c', fontWeight:'300'}]}>{desc}</Text>
       {/* <Text style={[ {paddingVertical:20, fontSize: RFPercentage(2.5), color:'#5c5c5c', fontWeight:'500'}]}>Next→</Text> */}
       <Image style={[{marginVertical:20, width: 25, height: 25 }]} source={next}/>
