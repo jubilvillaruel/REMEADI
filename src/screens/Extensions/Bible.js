@@ -27,29 +27,48 @@ const Bible = () => {
 
   const getResults = async () => {
     if (!search) {
-      callToast('error','Invalid Input',`no results`)
-      return
+      callToast('error', 'Invalid Input', 'No results');
+      return;
     }
-    setResults([])
+    setResults([]);
     console.log('fetching data...');
-    setShowLoad(true)
-    const response = await fetch(
-      `https://api.scripture.api.bible/v1/bibles/${bibleVersionID}/search?query=${search}`,
-      {
-        headers: {
-          'api-key': API_KEY,
-        },
+    setShowLoad(true);
+  
+    const words = search.split(' '); // Split the search query into words
+  
+    // Create an array to store promises for fetching results for each word
+    const fetchPromises = words.map(async (word) => {
+      const response = await fetch(
+        `https://api.scripture.api.bible/v1/bibles/${bibleVersionID}/search?query=${word}`,
+        {
+          headers: {
+            'api-key': API_KEY,
+          },
+        }
+      );
+  
+      if (response.status === 200) {
+        const data = await response.json();
+        return data.data.verses;
+      } else {
+        return [];
       }
-    );
-
-  if (response.status === 200) {
-    setShowLoad(false)
-    const data = await response.json();
-    const verses = data.data.verses;
-    console.log(verses);
-    setResults(verses);
-  }
-};
+    });
+  
+    // Wait for all promises to resolve and flatten the results
+    const resultsForAllWords = await Promise.all(fetchPromises);
+    const flattenedResults = resultsForAllWords.flat();
+  
+    const exactMatchResults = flattenedResults.filter((verse) => {
+      // Resulting verses contains the exact word included in search bar (case-insensitive)
+      return new RegExp('\\b' + search.toLowerCase() + '\\b', 'i').test(verse.text);
+    });
+    
+    setShowLoad(false);
+    console.log(exactMatchResults);
+    setResults(exactMatchResults);
+  };
+  
 
 
   const renderedItems = results.map((verse) => (
@@ -146,9 +165,7 @@ const inStyles = StyleSheet.create({
     width: screenWidth('90%'),
     alignItems: 'center',
     borderRadius: 20,
-    marginTop: 0,
-    // paddingVertical: 10,
-    height: screenHeight('80%'),
+    height: screenHeight('70%'),
   },
 
   verseItem: {
