@@ -247,10 +247,10 @@ export default function Session({ navigation, route }) {
     };
 
     const soundFiles = [
-        require('./../../assets/sounds/campfire.wav'),
-        require('./../../assets/sounds/night.wav'),
-        require('./../../assets/sounds/rain.wav'),
-        require('./../../assets/sounds/waves.wav')
+        require('./../../assets/sounds/campfire.mp3'),
+        require('./../../assets/sounds/night.mp3'),
+        require('./../../assets/sounds/rain.mp3'),
+        require('./../../assets/sounds/waves.mp3')
     ];
 
     const soundFilesName = [
@@ -558,6 +558,11 @@ export default function Session({ navigation, route }) {
                             <View style={[inStyles.bgmContent, { gap: 15 }]}>
                                 <Text style={[styles.bold, {marginBottom:10, marginTop:5, fontSize: RFPercentage(3) }]}>Ambient Sound</Text>
                                 <ScrollView style={inStyles.bgmListContainer} showsVerticalScrollIndicator={false}>
+                                    <View style={inStyles.soundLabelContainer}>
+                                    <Text style={inStyles.soundLabel}>Sound</Text>
+                                    <Text style={inStyles.soundLabel}>Volume</Text>
+                                    </View>
+                                    
                                     {sounds.map((sound, index) => (
                                         <View key={index}>
                                             <TouchableOpacity style={inStyles.soundContainer} onPress={() => {
@@ -824,6 +829,15 @@ const inStyles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent:'center',
         alignItems: 'center'
+    },
+
+    soundLabelContainer: {
+        flexDirection:'row',
+        justifyContent:'space-around'
+    },
+
+    soundLabel: {
+        color:'#FFBF69'
     }
 
 });

@@ -9,8 +9,6 @@ import appLogo from '../../assets/images/app_logo.png';
 import appIcon from '../../assets/icon.png';
 import showPass from '../../assets/images/closed_eye.png';
 import hidePass from '../../assets/images/open_eye.png';
-import googleLogo from './../../assets/images/google_logo.png';
-import facebookLogo from './../../assets/images/facebook_logo.png';
 import { auth } from '../../firebase';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
