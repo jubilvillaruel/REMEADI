@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, SafeAreaView } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
 import { screenWidth, screenHeight } from '../components/Dimensions';
 import { styles } from '../../assets/css/Style';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { meditationImgDB } from '../Data/ImageDB';
 import { FeatureCardWide } from '../components/Cards';
+
 import * as Speech from 'expo-speech';
+import yes from '../../assets/images/expert_system/yes.png'
+import no from '../../assets/images/expert_system/no.png'
+
 
 const followUpQuestions1 = {
     'Stillness-based': {
@@ -987,189 +991,179 @@ export default function Questions({ navigation, route }) {
 
     return (
         <SafeAreaView style={styles.screenCenter}>
-            <View style={[styles.containerCentered, inStyles.questionContainer]}>
-                {additionalQuestion ? (
-                <Text style={[{color: 'black', fontWeight:'300', marginBottom:30 , fontSize: RFPercentage(4), textAlign: 'center' }]}>
-                    {additionalQuestion}
-                </Text>
-                ) : (
-                <>
-                    <Text style={[{color: 'black', fontWeight:'300', marginBottom:30 ,fontSize: RFPercentage(4), textAlign: 'center' }]}>
-                        {questionData.question}
+            <ScrollView style={{}}>
+                <View style={[styles.containerCentered, inStyles.questionContainer]}>
+                    {additionalQuestion ? (
+                    <Text style={[{color: 'black', fontWeight:'300', marginBottom:15 , fontSize: RFPercentage(4), textAlign: 'center' }]}>
+                        {additionalQuestion}
                     </Text>
-    
-                    {questionData.options && (
+                    ) : (
+                    <>
+                        <Text style={[{color: 'black', fontWeight:'300', marginBottom:10 ,fontSize: RFPercentage(4), textAlign: 'center'}]}>
+                            {questionData.question}
+                        </Text>
+        
+                        {questionData.options && (
+                            <View style={[inStyles.optionsContainer,{}]}>
+                                {questionData.options.map((option) => (
+                                    <FeatureCardWide
+                                        title = {option.label}
+                                        desc = {option.description}
+                                        image = {(option.label == 'Yes' ? yes:(option.label == 'No') ? no: (null))}
+                                        onPress={() => {
+                                          Speech.stop();
+                                          handleOptionSelect(option)
+                                        }}
+                                    />
+                                ))}
+                            </View>
+                        )}
+                    </>
+                    )}
+        
+                    {secondOptions && (
+                    <>
+                    <View style={inStyles.optionsContainer}>
+                        {secondOptions.map((option) => (
+                            <FeatureCardWide
+                            title = {option.label}
+                            desc = {option.description}
+                            onPress={() => {
+                              Speech.stop();
+                              handleOptionSelect(option)
+                            }}}
+                        />
+                        ))}
+                    </View>
+                    </>
+                    )}
+        
+                    {thirdOptions && (
+                    <>
                         <View style={inStyles.optionsContainer}>
-                            {questionData.options.map((option) => (
-                                <FeatureCardWide
-                                    title = {option.label}
-                                    desc = {option.description}
+                            {thirdOptions.map((option) => (
+                                <TouchableOpacity
+                                    key={option.label}
+                                    style={[inStyles.optionButton, styles.bgColorPrimary]}
                                     onPress={() => {
-                                        Speech.stop();
-                                        handleOptionSelect(option);
-                                    }}
-                                />
+                                      Speech.stop();
+                                      handleOptionSelect(option)
+                                    }}>
+                                    <Text style={[
+                                        styles.colorWhite,
+                                        inStyles.optionText,
+                                        styles.bold,
+                                        {
+                                            fontSize: option.label.length > 10 ? RFPercentage(1.8) : RFPercentage(2.5)
+                                        }
+                                    ]}>{option.label}</Text>
+                                </TouchableOpacity>
                             ))}
                         </View>
+                    </>
                     )}
-                </>
-                )}
-    
-                {secondOptions && (
-                <>
-                <View style={inStyles.optionsContainer}>
-                    {secondOptions.map((option) => (
-                        <FeatureCardWide
-                        title = {option.label}
-                        desc = {option.description}
-                        onPress={() => {
-                            Speech.stop();
-                            handleOptionSelect(option);
-                        }}
-                    />
-                    //     <TouchableOpacity
-                    //         key={option.label}
-                    //         style={[inStyles.optionButton, styles.bgColorPrimary]}
-                    //         onPress={() => handleOptionSelect(option)}>
-                    //         <Text style={[
-                    //             styles.colorWhite,
-                    //             inStyles.optionText,
-                    //             styles.bold,
-                    //             {
-                    //                 fontSize: option.label.length > 10 ? RFPercentage(1.8) : RFPercentage(2.5)
-                    //             }
-                    //         ]}>{option.label}</Text>
-                    //     </TouchableOpacity>
-                    ))}
+                    
+                    {fourthOptions && (
+                    <>
+                        <View style={inStyles.optionsContainer}>
+                            {fourthOptions.map((option) => (
+                                <TouchableOpacity
+                                    key={option.label}
+                                    style={[inStyles.optionButton, styles.bgColorPrimary]}
+                                    onPress={() => {
+                                      Speech.stop();
+                                      handleOptionSelect(option)
+                                    }}>
+                                    <Text style={[
+                                        styles.colorWhite,
+                                        inStyles.optionText,
+                                        styles.bold,
+                                        {
+                                            fontSize: option.label.length > 10 ? RFPercentage(1.8) : RFPercentage(2.5)
+                                        }
+                                    ]}>{option.label}</Text>
+                                </TouchableOpacity>
+                            ))}
+                        </View>
+                    </>
+                    )}
+
+                    {fifthOptions && (
+                    <>
+                        <View style={inStyles.optionsContainer}>
+                            {fifthOptions.map((option) => (
+                                <TouchableOpacity
+                                    key={option.label}
+                                    style={[inStyles.optionButton, styles.bgColorPrimary]}
+                                    onPress={() => {
+                                      Speech.stop();
+                                      handleOptionSelect(option)
+                                    }}>
+                                    <Text style={[
+                                        styles.colorWhite,
+                                        inStyles.optionText,
+                                        styles.bold,
+                                        {
+                                            fontSize: option.label.length > 10 ? RFPercentage(1.8) : RFPercentage(2.5)
+                                        }
+                                    ]}>{option.label}</Text>
+                                </TouchableOpacity>
+                            ))}
+                        </View>
+                    </>
+                    )}
+
+                    {sixthOptions && (
+                    <>
+                        <View style={inStyles.optionsContainer}>
+                            {sixthOptions.map((option) => (
+                                <TouchableOpacity
+                                    key={option.label}
+                                    style={[inStyles.optionButton, styles.bgColorPrimary]}
+                                    onPress={() => {
+                                      Speech.stop();
+                                      handleOptionSelect(option)
+                                    }}>
+                                    <Text style={[
+                                        styles.colorWhite,
+                                        inStyles.optionText,
+                                        styles.bold,
+                                        {
+                                            fontSize: option.label.length > 10 ? RFPercentage(1.8) : RFPercentage(2.5)
+                                        }
+                                    ]}>{option.label}</Text>
+                                </TouchableOpacity>
+                            ))}
+                        </View>
+                    </>
+                    )}
+
+                    {seventhOptions && (
+                    <>
+                        <View style={inStyles.optionsContainer}>
+                            {seventhOptions.map((option) => (
+                                <TouchableOpacity
+                                    key={option.label}
+                                    style={[inStyles.optionButton, styles.bgColorPrimary]}
+                                    onPress={() => {
+                                      Speech.stop();
+                                      handleOptionSelect(option)
+                                    }}>
+                                    <Text style={[
+                                        styles.colorWhite,
+                                        inStyles.optionText,
+                                        styles.bold,
+                                        {
+                                            fontSize: option.label.length > 10 ? RFPercentage(1.8) : RFPercentage(2.5)
+                                        }
+                                    ]}>{option.label}</Text>
+                                </TouchableOpacity>
+                            ))}
+                        </View>
+                    </>
+                    )}
                 </View>
-                </>
-                )}
-    
-                {thirdOptions && (
-                <>
-                    <View style={inStyles.optionsContainer}>
-                        {thirdOptions.map((option) => (
-                            <TouchableOpacity
-                                key={option.label}
-                                style={[inStyles.optionButton, styles.bgColorPrimary]}
-                                onPress={() => {
-                                    Speech.stop();
-                                    handleOptionSelect(option);
-                                }}>
-                                <Text style={[
-                                    styles.colorWhite,
-                                    inStyles.optionText,
-                                    styles.bold,
-                                    {
-                                        fontSize: option.label.length > 10 ? RFPercentage(1.8) : RFPercentage(2.5)
-                                    }
-                                ]}>{option.label}</Text>
-                            </TouchableOpacity>
-                        ))}
-                    </View>
-                </>
-                )}
-
-                {fourthOptions && (
-                <>
-                    <View style={inStyles.optionsContainer}>
-                        {fourthOptions.map((option) => (
-                            <TouchableOpacity
-                                key={option.label}
-                                style={[inStyles.optionButton, styles.bgColorPrimary]}
-                                onPress={() => {
-                                    Speech.stop();
-                                    handleOptionSelect(option);
-                                }}>
-                                <Text style={[
-                                    styles.colorWhite,
-                                    inStyles.optionText,
-                                    styles.bold,
-                                    {
-                                        fontSize: option.label.length > 10 ? RFPercentage(1.8) : RFPercentage(2.5)
-                                    }
-                                ]}>{option.label}</Text>
-                            </TouchableOpacity>
-                        ))}
-                    </View>
-                </>
-                )}
-
-                {fifthOptions && (
-                <>
-                    <View style={inStyles.optionsContainer}>
-                        {fifthOptions.map((option) => (
-                            <TouchableOpacity
-                                key={option.label}
-                                style={[inStyles.optionButton, styles.bgColorPrimary]}
-                                onPress={() => {
-                                    Speech.stop();
-                                    handleOptionSelect(option);
-                                }}>
-                                <Text style={[
-                                    styles.colorWhite,
-                                    inStyles.optionText,
-                                    styles.bold,
-                                    {
-                                        fontSize: option.label.length > 10 ? RFPercentage(1.8) : RFPercentage(2.5)
-                                    }
-                                ]}>{option.label}</Text>
-                            </TouchableOpacity>
-                        ))}
-                    </View>
-                </>
-                )}
-
-                {sixthOptions && (
-                <>
-                    <View style={inStyles.optionsContainer}>
-                        {sixthOptions.map((option) => (
-                            <TouchableOpacity
-                                key={option.label}
-                                style={[inStyles.optionButton, styles.bgColorPrimary]}
-                                onPress={() => {
-                                    Speech.stop();
-                                    handleOptionSelect(option);
-                                }}>
-                                <Text style={[
-                                    styles.colorWhite,
-                                    inStyles.optionText,
-                                    styles.bold,
-                                    {
-                                        fontSize: option.label.length > 10 ? RFPercentage(1.8) : RFPercentage(2.5)
-                                    }
-                                ]}>{option.label}</Text>
-                            </TouchableOpacity>
-                        ))}
-                    </View>
-                </>
-                )}
-
-                {seventhOptions && (
-                <>
-                    <View style={inStyles.optionsContainer}>
-                        {seventhOptions.map((option) => (
-                            <TouchableOpacity
-                                key={option.label}
-                                style={[inStyles.optionButton, styles.bgColorPrimary]}
-                                onPress={() => {
-                                    Speech.stop();
-                                    handleOptionSelect(option);
-                                }}>
-                                <Text style={[
-                                    styles.colorWhite,
-                                    inStyles.optionText,
-                                    styles.bold,
-                                    {
-                                        fontSize: option.label.length > 10 ? RFPercentage(1.8) : RFPercentage(2.5)
-                                    }
-                                ]}>{option.label}</Text>
-                            </TouchableOpacity>
-                        ))}
-                    </View>
-                </>
-                )}
-            </View>
+            </ScrollView>
         </SafeAreaView>
     );
 }
@@ -1178,7 +1172,7 @@ const inStyles = StyleSheet.create({
     questionContainer: {
         padding: 15,
         width: screenWidth('90%'),
-        height: screenHeight('50%'),
+        // height: screenHeight('50%'),
     },
 
     optionsContainer: {

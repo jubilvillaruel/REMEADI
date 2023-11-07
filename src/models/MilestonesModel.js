@@ -349,7 +349,7 @@ const milestoneChecker = (milestones, historiesObject, religion) => {
       islamMilestoneChecker(milestones, historiesObject)
       break;
 
-    case 'Hindusim':
+    case 'Hinduism':
       hindusimMilestoneChecker(milestones, historiesObject)
       break;
 
@@ -519,56 +519,56 @@ const hindusimMilestoneChecker = (milestones, historiesObject) => {
     console.log('var milestone: '+milestone)
 
     switch (milestone) {
-      case Object.keys(hinduismMDB)[0]: // Islamic Knowledge
+      case Object.keys(hinduismMDB)[0]: // Enlightened Explorer
         console.log(Object.keys(hinduismMDB)[0])
         break;
   
-      case Object.keys(hinduismMDB)[1]: // Dhikr Devotee
+      case Object.keys(hinduismMDB)[1]: // Hindu Hobbyist
         console.log(Object.keys(islamMDB)[1])
         break;
   
-      case Object.keys(hinduismMDB)[2]: // Muraqaba  
+      case Object.keys(hinduismMDB)[2]: // Asana Apprentice  
         console.log(Object.keys(hinduismMDB)[2])
         break;
 
-      case Object.keys(hinduismMDB)[2]: // Muraqaba 
-        console.log(Object.keys(hinduismMDB)[2])
+      case Object.keys(hinduismMDB)[3]: // Pose Prodigy 
+        console.log(Object.keys(hinduismMDB)[3])
         break;
 
-      case Object.keys(hinduismMDB)[2]: // Muraqaba 
-        console.log(Object.keys(hinduismMDB)[2])
+      case Object.keys(hinduismMDB)[4]: // Supreme Serenity 
+        console.log(Object.keys(hinduismMDB)[4])
         break;
 
-      case Object.keys(hinduismMDB)[2]: // Muraqaba 
-        console.log(Object.keys(hinduismMDB)[2])
+      case Object.keys(hinduismMDB)[5]: // Hathathon 
+        console.log(Object.keys(hinduismMDB)[5])
         break;
 
-      case Object.keys(hinduismMDB)[2]: // Muraqaba 
-        console.log(Object.keys(hinduismMDB)[2])
+      case Object.keys(hinduismMDB)[6]: // Prana Pinnacle 
+        console.log(Object.keys(hinduismMDB)[6])
         break;
 
-      case Object.keys(hinduismMDB)[2]: // Muraqaba 
-        console.log(Object.keys(hinduismMDB)[2])
+      case Object.keys(hinduismMDB)[7]: // Chakra Champion 
+        console.log(Object.keys(hinduismMDB)[7])
         break;
 
-      case Object.keys(hinduismMDB)[2]: // Muraqaba 
-        console.log(Object.keys(hinduismMDB)[2])
+      case Object.keys(hinduismMDB)[8]: // Heart Harmony 
+        console.log(Object.keys(hinduismMDB)[8])
         break;
 
-      case Object.keys(hinduismMDB)[2]: // Muraqaba 
-        console.log(Object.keys(hinduismMDB)[2])
+      case Object.keys(hinduismMDB)[9]: // Muladhara Marvel 
+        console.log(Object.keys(hinduismMDB)[9])
         break;
 
-      case Object.keys(hinduismMDB)[2]: // Muraqaba 
-        console.log(Object.keys(hinduismMDB)[2])
+      case Object.keys(hinduismMDB)[10]: // Transcendental Transcender 
+        console.log(Object.keys(hinduismMDB)[10])
         break;
 
-      case Object.keys(hinduismMDB)[2]: // Muraqaba 
-        console.log(Object.keys(hinduismMDB)[2])
+      case Object.keys(hinduismMDB)[11]: // Samadhi Seeker 
+        console.log(Object.keys(hinduismMDB)[11])
         break;
 
-      case Object.keys(hinduismMDB)[2]: // Muraqaba 
-        console.log(Object.keys(hinduismMDB)[2])
+      case Object.keys(hinduismMDB)[12]: // Synchronized Serenity 
+        console.log(Object.keys(hinduismMDB)[12])
         break;
 
       default:
