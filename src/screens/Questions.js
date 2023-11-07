@@ -5,6 +5,7 @@ import { styles } from '../../assets/css/Style';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { meditationImgDB } from '../Data/ImageDB';
 import { FeatureCardWide } from '../components/Cards';
+import * as Speech from 'expo-speech';
 
 const followUpQuestions1 = {
     'Stillness-based': {
@@ -388,6 +389,60 @@ const followUpQuestions2 = {
     },
 
     C2: {
+        Mindfulness: {
+            question: 'Do you want to follow specific steps during your meditation session?',
+            options: [
+                {
+                    label: 'Yes',
+                    description: '"Guided steps and structure help me stay focused and find tranquility in my meditation practice."',
+                    title: 'Lectio Divina',
+                    guideImg: meditationImgDB['Lectio Divina'],
+                    bia: '',
+                },
+                {
+                    label: 'No',
+                    description:'"I prefer a more open and unstructured meditation, allowing my thoughts to flow naturally during the session."',
+                    title: 'Christian Meditation',
+                    guideImg: meditationImgDB['Christian Meditation'],
+                    bia: '',
+                },
+            ],
+        },
+
+        Spiritual: {
+            question: 'Do you want to follow specific steps during your meditation session?',
+            options: [
+                {
+                    label: 'Yes',
+                    description: '"Guided steps and structure help me stay focused and find tranquility in my meditation practice."',
+                    title: 'Lectio Divina',
+                    guideImg: meditationImgDB['Lectio Divina'],
+                    bia: '',
+                },
+                {
+                    label: 'No',
+                    description:'"I prefer a more open and unstructured meditation, allowing my thoughts to flow naturally during the session."',
+                    title: 'Christian Meditation',
+                    guideImg: meditationImgDB['Christian Meditation'],
+                    bia: '',
+                },
+            ],
+        },
+
+        'Focused': {
+            title: 'Lectio Divina',
+            guideImg: meditationImgDB['Lectio Divina'],
+            bia: '',
+        },
+
+        'Mantra': {
+            title: 'Christian Meditation',
+            guideImg: meditationImgDB['Christian Meditation'],
+            bia: '',
+        },
+    },
+
+    C5: {
         Mindfulness: {
             question: 'Do you want to follow specific steps during your meditation session?',
             options: [
@@ -949,7 +1004,10 @@ export default function Questions({ navigation, route }) {
                                 <FeatureCardWide
                                     title = {option.label}
                                     desc = {option.description}
-                                    onPress={() => {handleOptionSelect(option)}}
+                                    onPress={() => {
+                                        Speech.stop();
+                                        handleOptionSelect(option);
+                                    }}
                                 />
                             ))}
                         </View>
@@ -964,7 +1022,10 @@ export default function Questions({ navigation, route }) {
                         <FeatureCardWide
                         title = {option.label}
                         desc = {option.description}
-                        onPress={() => {handleOptionSelect(option)}}
+                        onPress={() => {
+                            Speech.stop();
+                            handleOptionSelect(option);
+                        }}
                     />
                     //     <TouchableOpacity
                     //         key={option.label}
@@ -991,7 +1052,10 @@ export default function Questions({ navigation, route }) {
                             <TouchableOpacity
                                 key={option.label}
                                 style={[inStyles.optionButton, styles.bgColorPrimary]}
-                                onPress={() => handleOptionSelect(option)}>
+                                onPress={() => {
+                                    Speech.stop();
+                                    handleOptionSelect(option);
+                                }}>
                                 <Text style={[
                                     styles.colorWhite,
                                     inStyles.optionText,
@@ -1013,7 +1077,10 @@ export default function Questions({ navigation, route }) {
                             <TouchableOpacity
                                 key={option.label}
                                 style={[inStyles.optionButton, styles.bgColorPrimary]}
-                                onPress={() => handleOptionSelect(option)}>
+                                onPress={() => {
+                                    Speech.stop();
+                                    handleOptionSelect(option);
+                                }}>
                                 <Text style={[
                                     styles.colorWhite,
                                     inStyles.optionText,
@@ -1035,7 +1102,10 @@ export default function Questions({ navigation, route }) {
                             <TouchableOpacity
                                 key={option.label}
                                 style={[inStyles.optionButton, styles.bgColorPrimary]}
-                                onPress={() => handleOptionSelect(option)}>
+                                onPress={() => {
+                                    Speech.stop();
+                                    handleOptionSelect(option);
+                                }}>
                                 <Text style={[
                                     styles.colorWhite,
                                     inStyles.optionText,
@@ -1057,7 +1127,10 @@ export default function Questions({ navigation, route }) {
                             <TouchableOpacity
                                 key={option.label}
                                 style={[inStyles.optionButton, styles.bgColorPrimary]}
-                                onPress={() => handleOptionSelect(option)}>
+                                onPress={() => {
+                                    Speech.stop();
+                                    handleOptionSelect(option);
+                                }}>
                                 <Text style={[
                                     styles.colorWhite,
                                     inStyles.optionText,
@@ -1079,7 +1152,10 @@ export default function Questions({ navigation, route }) {
                             <TouchableOpacity
                                 key={option.label}
                                 style={[inStyles.optionButton, styles.bgColorPrimary]}
-                                onPress={() => handleOptionSelect(option)}>
+                                onPress={() => {
+                                    Speech.stop();
+                                    handleOptionSelect(option);
+                                }}>
                                 <Text style={[
                                     styles.colorWhite,
                                     inStyles.optionText,

@@ -70,6 +70,16 @@ export default function SelectMedType({ navigation, route }) {
         { id: 4, name: 'Mantra' },
       ],
     ],
+    C5: [
+      [
+        { id: 1, name: 'Mindfulness' },
+        { id: 2, name: 'Spiritual' },
+      ],
+      [
+        { id: 3, name: 'Focused' },
+        { id: 4, name: 'Mantra' },
+      ],
+    ],
     Islam: [
       [
         { id: 1, name: 'Mindfulness' },

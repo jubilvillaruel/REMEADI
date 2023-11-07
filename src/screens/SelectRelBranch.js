@@ -7,6 +7,7 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
 import christianity_1 from '../../assets/images/christianity/christianity_1.png';
 import christianity_2 from '../../assets/images/christianity/christianity_2.png';
 import { ReligionButton } from '../components/Buttons';
+import { meditationImgDB } from '../Data/ImageDB';
 
 export default function SelectRelBranch({ navigation }) {
 
@@ -14,14 +15,14 @@ export default function SelectRelBranch({ navigation }) {
         navigation.navigate('SelectMedType', { religion });
     };
 
-    const goToResult= (title, guideImg, bia) => {
+    const goToGuide = (title, guideImg, bia) => {
         const data = {
-            title: title, 
-            guideImg: guideImg,
-            bia: bia
+          title: title, 
+          guideImg: guideImg,
+          bia: bia
         };
-        navigation.navigate('ExpertResult', {data});
-    };
+        navigation.navigate('Guide', {data});
+      };
 
     return (
         <View style={styles.screenCenter}>
@@ -42,12 +43,12 @@ export default function SelectRelBranch({ navigation }) {
 
                 <ReligionButton
                     text='Iglesia ni Cristo'
-                    onPress={() => goToSelectMedType('C3')}
+                    onPress={() => goToGuide('Christian Meditation',meditationImgDB['Christian Meditation'])}
                 />
 
                 <ReligionButton
                     text='Baptist'
-                    onPress={() => goToSelectMedType('C4')}
+                    onPress={() => goToGuide('Christian Meditation',meditationImgDB['Christian Meditation'])}
                 />
 
                 <ReligionButton
@@ -57,7 +58,7 @@ export default function SelectRelBranch({ navigation }) {
 
                 <ReligionButton
                     text='Evangelical'
-                    onPress={() => goToSelectMedType('C6')}
+                    onPress={() => goToGuide('Lectio Divina', meditationImgDB['Lectio Divina'])}
                 />
 
                 {/* <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary]} onPress={() => goToSelectMedType('C1')}>
