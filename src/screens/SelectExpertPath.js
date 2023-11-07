@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { styles } from '../../assets/css/Style';
+import * as Speech from 'expo-speech';
 
 import { PrimaryButton } from '../components/Buttons';
 import { RFPercentage } from 'react-native-responsive-fontsize';
@@ -22,6 +23,7 @@ export default function SelectExpertPath ({ navigation }) {
             desc = "We'll consider your faith's teachings and practices to create a meditation experience that aligns with your beliefs and values."
             image = {faith}
             onPress={() => {
+              Speech.stop();
               navigation.navigate('SelectExpertPath2', { base: 'Faith-based' });
             }}
           />
@@ -31,6 +33,7 @@ export default function SelectExpertPath ({ navigation }) {
             desc = "we won't focus on your religion but instead dive into the methods of meditation. We'll ask about your preferences for stillness, movement, and other meditation techniques."
             image = {method}
             onPress={() => {
+              Speech.stop();
               navigation.navigate('SelectExpertPath2', { base: 'Method-based' });
             }}
           />

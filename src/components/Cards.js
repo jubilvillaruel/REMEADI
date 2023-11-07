@@ -4,6 +4,7 @@ import { screenWidth, screenHeight } from './Dimensions';
 import * as Speech from 'expo-speech';
 
 import text from '../../assets/images/text.png';
+import speak from '../../assets/images/speak.png';
 import stop from '../../assets/images/stop.png';
 import unlocked from '../../assets/images/unlocked.png';
 import { styles } from '../../assets/css/Style';
@@ -63,9 +64,53 @@ export const FeatureCard = ({ title, desc, image, onPress }) => {
 };
 
 export const FeatureCardWide = ({ title, desc, image, onPress, width }) => {
+  const [textFlipped, setTextFlipped] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(true);
+
+  useEffect(() => {
+    if (!isSpeaking) {
+      flipText();
+    }
+  }, [isSpeaking]);
+
+  const speakStep = () => {
+    flipText();
+    const options = {
+      voice: 'Microsoft Zira - English (United States)',
+      rate: 0.9,
+      onStart: () => setIsSpeaking(true),
+      onDone: () => setIsSpeaking(false),
+    };
+    Speech.speak(desc, options);
+  };
+
+
+  const stopSpeech = () => {
+    Speech.stop();
+    flipText();
+  };
+
+  const flipText = () => {
+    setTextFlipped(!textFlipped);
+  };
+
   return (
     <TouchableOpacity style={[styles.bgColorPrimary, {width:screenWidth((width)?width+'%':'85%'), backgroundColor:'#e3fffc', borderRadius: 40, marginVertical: 5, padding: 10, alignItems:'center', borderWidth:1 }]} onPress={onPress}>
       {image && <Image style={{ width: 80, height: 80, borderRadius: 50 }} source={image} />}
+      <FlipCard
+          flipHorizontal={true}
+          flipVertical={false}
+          flip={textFlipped}
+          clickable={false}
+          style={{ width: 20, height: 20, right: 45, top: 15, position: 'absolute' }}>
+          <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia2]} onPress={speakStep}>
+            <Image style={[{ width: 30, height: 30 }]} source={speak}/>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia2]} onPress={stopSpeech}>
+            <Image style={[{ width: 20, height: 20 }]} source={stop}/>
+          </TouchableOpacity>
+      </FlipCard>
+      
       <Text style={[styles.bold, {textAlign:'center', fontSize: RFPercentage(3), marginBottom:10, color:'#5c5c5c', fontWeight:'400', marginTop:15 }]}>{title}</Text>
       <Text style={[ {textAlign:'center', fontSize: RFPercentage(2), color:'#5c5c5c', fontWeight:'300'}]}>{desc}</Text>
       {/* <Text style={[ {paddingVertical:20, fontSize: RFPercentage(2.5), color:'#5c5c5c', fontWeight:'500'}]}>Next→</Text> */}
@@ -257,6 +302,17 @@ const inStyles = StyleSheet.create({
     btnMedia: {
       width: 30,
       height: 30,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 50,
+      borderWidth: 2,
+      borderColor: '#2EC4B6',
+      backgroundColor: '#FFFFFF',
+    },
+
+    btnMedia2: {
+      width: 50,
+      height: 50,
       justifyContent: 'center',
       alignItems: 'center',
       borderRadius: 50,

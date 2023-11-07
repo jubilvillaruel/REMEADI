@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { styles } from '../../assets/css/Style';
+import * as Speech from 'expo-speech';
 
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { screenWidth, screenHeight } from '../components/Dimensions';
@@ -25,6 +26,7 @@ export default function SelectMethod ({ navigation, route }) {
                         title = "Stress Reduction"
                         desc = "Discover inner calm and serenity with practices that alleviate stress and bring balance to your life. Let go of worries, find relaxation, and nurture your mental well-being."
                         onPress={() => {
+                            Speech.stop();
                             goToQuestions('Stress Reduction');
                         }}
                     />
@@ -32,6 +34,7 @@ export default function SelectMethod ({ navigation, route }) {
                         title = "Spiritual Growth"
                         desc = "Embark on a profound journey of self-discovery and spiritual awakening. Explore the depths of your soul, expand your spiritual horizons, and find profound meaning and connection"
                         onPress={() => {
+                            Speech.stop();
                             goToQuestions('Spiritual Growth');
                         }}
                     />
@@ -39,6 +42,7 @@ export default function SelectMethod ({ navigation, route }) {
                         title = "Physical Health"
                         desc = "Unlock the path to physical well-being and vitality. Embrace fitness, nutrition, and self-care to optimize your physical health, leading to a healthier, more energized you"
                         onPress={() => {
+                            Speech.stop();
                             goToQuestions('Physical Health');
                         }}
                     />
@@ -46,25 +50,10 @@ export default function SelectMethod ({ navigation, route }) {
                         title = "Mental Health"
                         desc = "Prioritize your mental health and emotional wellness. Cultivate mental strength, balance, and resilience. Learn to navigate life's challenges with a resilient and healthy mindset"
                         onPress={() => {
+                            Speech.stop();
                             goToQuestions('Mental Health');
                         }}
                     />
-
-                    {/* <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary, { marginTop: -10, justifyContent: 'center' }]} onPress={() => goToQuestions('Stress Reduction')}>
-                        <Text style={[styles.bold, styles.colorWhite, { fontSize: RFPercentage(2.5) }]}>Stress Reduction</Text>
-                    </TouchableOpacity> */}
-
-                    {/* <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary, { justifyContent: 'center' }]} onPress={() => goToQuestions('Spiritual Growth')}>
-                        <Text style={[styles.bold, styles.colorWhite, { fontSize: RFPercentage(2.5) }]}>Spiritual Growth</Text>
-                    </TouchableOpacity> */}
-
-                    {/* <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary, { justifyContent: 'center' }]} onPress={() => goToQuestions('Physical Health')}>
-                        <Text style={[styles.bold, styles.colorWhite, { fontSize: RFPercentage(2.5) }]}>Physical Health</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={[inStyles.religionCard, styles.bgColorPrimary, { justifyContent: 'center' }]} onPress={() => goToQuestions('Mental Health')}>
-                        <Text style={[styles.bold, styles.colorWhite, { fontSize: RFPercentage(2.5) }]}>Mental Health</Text>
-                    </TouchableOpacity> */}
                 </ScrollView >
             </View>
         </View>

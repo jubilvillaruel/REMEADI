@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, TouchableOpacity, Image, ImageBackground } from
 import { screenWidth, screenHeight } from '../components/Dimensions';
 import { styles } from '../../assets/css/Style';
 import { RFPercentage } from 'react-native-responsive-fontsize';
+import * as Speech from 'expo-speech';
 
 // Religion logos
 import christianity_logo_w from '../../assets/images/religion/christianity_logo.png';
@@ -127,6 +128,7 @@ export default function SelectReligion({ navigation, route }) {
                                     desc = "Calm your mind through mindful breathing and quiet contemplation."
                                     // image = {stillness}
                                     onPress={() => {
+                                        Speech.stop();
                                         goToSelectMedType('Stillness-based');
                                     }}
                                 />
@@ -135,6 +137,7 @@ export default function SelectReligion({ navigation, route }) {
                                     desc = "Attain mindfulness while moving your body with purpose and flow."
                                     // image = {faith}
                                     onPress={() => {
+                                        Speech.stop();
                                         goToSelectMedType('Movement-based');
                                     }}
                                 />
