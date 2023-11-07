@@ -97,24 +97,30 @@ export const FeatureCardWide = ({ title, desc, image, onPress, width }) => {
   return (
     <TouchableOpacity style={[styles.bgColorPrimary, {width:screenWidth((width)?width+'%':'85%'), backgroundColor:'#e3fffc', borderRadius: 40, marginVertical: 5, padding: 10, alignItems:'center', borderWidth:1 }]} onPress={onPress}>
       {image && <Image style={{ width: 80, height: 80, borderRadius: 50 }} source={image} />}
-      <FlipCard
-          flipHorizontal={true}
-          flipVertical={false}
-          flip={textFlipped}
-          clickable={false}
-          style={{ width: 20, height: 20, right: 45, top: 15, position: 'absolute' }}>
-          <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia2]} onPress={speakStep}>
-            <Image style={[{ width: 30, height: 30 }]} source={speak}/>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia2]} onPress={stopSpeech}>
-            <Image style={[{ width: 20, height: 20 }]} source={stop}/>
-          </TouchableOpacity>
-      </FlipCard>
+      
       
       <Text style={[styles.bold, {textAlign:'center', fontSize: RFPercentage(3), marginBottom:10, color:'#5c5c5c', fontWeight:'400', marginTop:15 }]}>{title}</Text>
       <Text style={[ {textAlign:'center', fontSize: RFPercentage(2), color:'#5c5c5c', fontWeight:'300'}]}>{desc}</Text>
       {/* <Text style={[ {paddingVertical:20, fontSize: RFPercentage(2.5), color:'#5c5c5c', fontWeight:'500'}]}>Next→</Text> */}
-      <Image style={[{marginVertical:10, width: 25, height: 25 }]} source={next}/>
+      <View style={{flexDirection:'row', paddingTop:10}}>
+        <FlipCard
+            flipHorizontal={true}
+            flipVertical={false}
+            flip={textFlipped}
+            clickable={false}
+            style={{ flex:1, justifyContent:'center' }}>
+            <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia2]} onPress={speakStep}>
+              <Image style={[{ width: 30, height: 30 }]} source={speak}/>
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia2]} onPress={stopSpeech}>
+              <Image style={[{ width: 20, height: 20 }]} source={stop}/>
+            </TouchableOpacity>
+        </FlipCard>
+        <View style={[inStyles.btn]}>
+            <Image style={[{ width: 25, height: 25 }]} source={next}/>
+        </View>
+        {/* <Image style={[{ width: 50, height: 50, borderRadius:50, backgroundColor:'#FFFFFF' }]} source={next}/> */}
+      </View>
     </TouchableOpacity>
   );
 };
@@ -316,8 +322,20 @@ const inStyles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       borderRadius: 50,
-      borderWidth: 2,
-      borderColor: '#2EC4B6',
+      // borderWidth: 2,
+      // borderColor: '#2EC4B6',
       backgroundColor: '#FFFFFF',
+    },
+
+    btn: {
+      width: 50,
+      height: 50,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 50,
+      backgroundColor:'#FFFFFF'
+      // borderWidth: 2,
+      // borderColor: '#2EC4B6',
+
     },
 });
