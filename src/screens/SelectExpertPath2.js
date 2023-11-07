@@ -12,6 +12,7 @@ import buddhism_logo_w from '../../assets/images/religion/buddhism_logo.png';
 import judaism_logo_w from '../../assets/images/religion/judaism_logo.png';
 import faith_bg from '../../assets/images/expert_system/faith_option.jpg'
 import method_bg from '../../assets/images/expert_system/method_option.jpg'
+import stillness from '../../assets/images/expert_system/method_option.jpg'
 import { ReligionButton } from '../components/Buttons';
 import { FeatureCardWide } from '../components/Cards';
 
@@ -124,7 +125,7 @@ export default function SelectReligion({ navigation, route }) {
                                 <FeatureCardWide
                                     title = "Stillness-based"
                                     desc = "Calm your mind through mindful breathing and quiet contemplation."
-                                    // image = {faith}
+                                    // image = {stillness}
                                     onPress={() => {
                                         goToSelectMedType('Stillness-based');
                                     }}

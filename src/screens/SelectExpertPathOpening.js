@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ImageBackground } from 'react-native';
 import { styles } from '../../assets/css/Style';
 
-import { PrimaryButton } from '../components/Buttons';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { screenWidth, screenHeight } from '../components/Dimensions';
 import next from '../../assets/images/right.png'
@@ -11,16 +10,6 @@ import med_bg from '../../assets/images/expert_system/meditate_group.jpg'
 // import * as Font from 'expo-font';
 
 export default function SelectExpertPathOpening ({ navigation }) {
-  // useEffect(() => {
-  //   async function loadCustomFont() {
-  //     await Font.loadAsync({
-  //       'Poppins Regular': require('../../assets/fonts/Poppins Regular.ttf'), // Adjust the path as needed
-  //     });
-  //   }
-  //   loadCustomFont();
-  // }, []);
-
-  
   return (
     <View style={styles.screenCenter}>
       <ImageBackground
@@ -62,7 +51,6 @@ const inStyles = StyleSheet.create({
   textContainer: {
     padding: 5,
     width: screenWidth('85%'),
-    // height: screenHeight('20%'),
     alignItems: 'center',
     paddingBottom:30
   },
@@ -70,7 +58,6 @@ const inStyles = StyleSheet.create({
   buttonContainer: {
     padding: 15,
     width: screenWidth('100%'),
-    // height: screenHeight('20%'),
     flexDirection: 'column',
     alignItems: 'center',
   },

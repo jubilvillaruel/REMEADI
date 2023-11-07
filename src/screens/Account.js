@@ -101,12 +101,12 @@ export default function Account({ navigation, route }) {
                 </TouchableOpacity>
             </View>
 
-            <View style={[ styles.dropShadow, { padding: 20, width: '100%' }]}>
+            {/* <View style={[ styles.dropShadow, { padding: 20, width: '100%' }]}>
                 <Text style={[ inStyles.title, styles.colorPrimary]}>Notification</Text>
                 <TouchableOpacity style={inStyles.optionContainer} onPress={goToEditNotify}>
                     <Text style={{ fontWeight: '500' }}>Set up Notification</Text>
                 </TouchableOpacity>
-            </View>
+            </View> */}
         </SafeAreaView>
     );
 }
