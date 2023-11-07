@@ -1031,7 +1031,7 @@ export default function Questions({ navigation, route }) {
                             onPress={() => {
                               Speech.stop();
                               handleOptionSelect(option)
-                            }}}
+                            }}
                         />
                         ))}
                     </View>
