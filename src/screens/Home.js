@@ -140,7 +140,7 @@ export default function Home({ navigation }) {
     return (
         <SafeAreaView style={[styles.screen, { paddingTop: 35,  backgroundColor: '#F3F3F3'}]}>
             <ScrollView showsVerticalScrollIndicator={false} style={{ paddingHorizontal: 15 }}>
-                <View style={[inStyles.sec1Container, styles.dropShadow]}>
+                <View style={[inStyles.sec1Container]}>
                     <TouchableOpacity style={[inStyles.btnAvatar]} onPress={() =>callToast('info','Hi, '+firstName,'I\'m ready to meditate with you!')}>
                         <ImageBackground style={[{ width: 200, height: 200 }]} imageStyle={{ borderRadius: 15 }} source={avatar}></ImageBackground>
                     </TouchableOpacity>
@@ -156,7 +156,7 @@ export default function Home({ navigation }) {
                     <View style={[styles.dividerLine, { width: screenWidth('20%'), height: 1, backgroundColor: 'lightgray' }]}/>
                 </View>
 
-                <View style={[inStyles.modalContent, styles.dropShadow]}>
+                <View style={[inStyles.modalContent]}>
                     <Text style={{ textAlign:'center', fontStyle: 'italic', fontSize: RFPercentage(1.8), fontWeight: 'bold', color:'#6F6F6F'}}>"{quote}" {"\n\n"} {source}</Text>
                 </View>
 

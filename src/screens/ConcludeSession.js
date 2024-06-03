@@ -122,7 +122,7 @@ export default function ConcludeSession({ navigation, route }) {
 
     return (
         <View style={styles.screenCenter}>
-            <View style={[inStyles.summaryContainer, styles.dropShadow, { gap: 15, marginTop: 35 }]}>
+            <View style={[inStyles.summaryContainer, , { gap: 15, marginTop: 35 }]}>
                 <View style={inStyles.headerContainer}>
                     <Image style={{ margin: 15, height: screenHeight('22%'), width: screenWidth('60%') }} source={appLogo} />
                     <Text style={[styles.bold, styles.colorPrimary, { fontSize: RFPercentage(3.5) }]}>{practiceTitle}</Text>
@@ -132,7 +132,7 @@ export default function ConcludeSession({ navigation, route }) {
                 <View style={inStyles.summaryContent}>
                     <View style={inStyles.infoContainer}>
                         <Text style={[ styles.bold, { fontSize: RFPercentage(2) }]}>Meditation Type</Text>
-                        <Text style={[ styles.bold, styles.colorPrimary, { fontSize: RFPercentage(2) }]}>{medType}</Text>
+                        <Text style={[ styles.bold, styles.colorPrimary, { fontSize: RFPercentage(2), textAlign: 'center' }]}>{medType}</Text>
                     </View>
                     <View style={inStyles.infoContainer}>
                         <Text style={[ styles.bold, { fontSize: RFPercentage(2) }]}>Meditation Duration</Text>

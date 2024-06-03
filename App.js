@@ -48,15 +48,6 @@ import ForgotPassword from './src/screens/ForgotPassword';
 import ConcludeSession from './src/screens/ConcludeSession';
 import Notify from './src/screens/Notify';
 
-// Google Sign in
-// import {
-  // GoogleSignin,
-// } from '@react-native-google-signin/google-signin';
-
-// GoogleSignin.configure({
-//   webClientId: '282078135356-unkclsh6fudgjo3cci3acfb3g2d4hska.apps.googleusercontent.com',
-// });
-
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 

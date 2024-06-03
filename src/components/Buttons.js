@@ -17,7 +17,7 @@ export const PrimaryButton = ({ text, textColor, textSize, width, height, border
     };
 
     return (
-      <TouchableOpacity style={[styles.bgColorPrimary, inStyles.btnContainer, styles.dropShadow, buttonStyle]} onPress={onPress}>
+      <TouchableOpacity style={[styles.bgColorPrimary, inStyles.btnContainer, buttonStyle]} onPress={onPress}>
         <Text style={[{ color: textColor, fontSize: textSize }, styles.bold]}>{text}</Text>
       </TouchableOpacity>
     );
@@ -33,7 +33,7 @@ export const SecondaryButton = ({ text, textColor, textSize, width, height, bord
     };
 
     return (
-      <TouchableOpacity style={[styles.bgColorSecondary, inStyles.btnContainer, styles.dropShadow, buttonStyle]} onPress={onPress}>
+      <TouchableOpacity style={[styles.bgColorSecondary, inStyles.btnContainer, buttonStyle]} onPress={onPress}>
         <Text style={[{ color: textColor, fontSize: textSize }, styles.bold]}>{text}</Text>
       </TouchableOpacity>
     );
@@ -78,8 +78,7 @@ export const IconButton = ({ text, textColor, textSize, icon, width, height, bgC
     };
 
     return (
-        <TouchableOpacity style={[inStyles.btnContainer, styles.dropShadow, buttonStyle]} onPress={onPress}>
-            {/* <Image source={icon} style={{ width: 30, height: 30, marginRight: 8 }} /> */}
+        <TouchableOpacity style={[inStyles.btnContainer, buttonStyle]} onPress={onPress}>
             <Text style={[{ color: textColor, fontSize: textSize }, styles.bold]}>{text}</Text>
         </TouchableOpacity>
     );

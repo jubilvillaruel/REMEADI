@@ -672,7 +672,7 @@ const inStyles = StyleSheet.create({
 
     bodyContainer: {
         width: screenWidth('100%'),
-        height: screenHeight('65%'),
+        height: screenHeight('60%'),
         justifyContent: 'center',
         alignItems: 'center',
     },

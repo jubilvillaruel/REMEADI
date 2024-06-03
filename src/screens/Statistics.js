@@ -181,27 +181,15 @@ export default function Statistics() {
                 <Text style={[styles.colorPrimary, inStyles.title]}>Statistics</Text>
             </View>
 
-            {/* <View style={{ width: screenWidth('90%'), flexDirection: 'row', height: screenHeight('15%') }}>
-                <View style={[styles.sectionContainer, styles.dropShadow]}>
-                    <Text style={[styles.colorPrimary, inStyles.header, styles.bold]}>Total Sessions</Text>
-                    <Text style={styles.bold}>{totalMeditationSession}</Text>
-                </View>
-                <View style={[styles.sectionContainer, styles.dropShadow]}>
-                    <Text style={[styles.colorPrimary, inStyles.header, styles.bold]}>Meditation Duration</Text>
-                    <Text style={styles.bold}>{(totalMeditationDuration)}</Text>
-                </View>
-            </View> */}
-
             <View style={{ width: screenWidth('90%'), flexDirection: 'row', height: screenHeight('15%') }}>
                 <StatisticsHeader int={totalMeditationSession} label="" descs="Total Sessions" />
                 <StatisticsHeader int={totalMeditationDuration} label="mins" descs="Total Duration" />
-                {/* <StatisticsHeader int={streak} label="mins" descs="Total Duration" /> */}
             </View>
 
             <View style={{ width: screenWidth('90%'), height: screenHeight('40%'), }}>
                 <View style={{ width: screenWidth('90%'), height: screenHeight('40%') }}>
                     {dataLoaded && !totalMeditationSessionPerReligionBoolean ? (
-                        <View style={[styles.sectionContainer, styles.dropShadow, { gap: 25 }]}>
+                        <View style={[styles.sectionContainer, { gap: 25 }]}>
                             <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                                 <Text style={[styles.colorPrimary, styles.bold, { fontSize: RFPercentage(1.8) }]}>
                                     No meditation data available
@@ -209,7 +197,7 @@ export default function Statistics() {
                             </View>
                         </View>
                     ) : (
-                        <View style={[styles.sectionContainer, styles.dropShadow, { gap: 25 }]}>
+                        <View style={[styles.sectionContainer, { gap: 25 }]}>
                             <Text style={[styles.colorPrimary, inStyles.header, styles.bold, { fontSize: RFPercentage(2.2) }]}>Sessions per Religion</Text>
                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 35 }}>
                                 <PieChart
@@ -241,7 +229,7 @@ export default function Statistics() {
                     <TouchableOpacity onPress={closeSelectedReligion}>
                         {selectedLegend && (
                             <View style={{ width: screenWidth('90%'), height: screenHeight('40%'), alignSelf: 'center', marginVertical: screenHeight('21.7%'), backgroundColor: 'white' }}>
-                                <View style={[styles.sectionContainer, styles.dropShadow, { gap: 15 }]}>
+                                <View style={[styles.sectionContainer, { gap: 15 }]}>
                                     <Text style={[styles.bold, { fontSize: RFPercentage(2.2), color: colorMapping[selectedLegend] }]}>{selectedLegend}</Text>
                                     <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                                         {religionDB[selectedLegend] && religionDB[selectedLegend].map((practice, index) => (
@@ -263,7 +251,7 @@ export default function Statistics() {
             </View>
 
             <View style={{ width: screenWidth('90%'), height: screenHeight('28.5%') }}>
-                <View style={[styles.sectionContainer, styles.dropShadow]}>
+                <View style={[styles.sectionContainer]}>
                     <Text style={[styles.colorPrimary, styles.bold, { top: 20, marginBottom: 25, marginTop: -10, fontSize: RFPercentage(2.2) }]}>Top 3 Religions</Text>
                     {totalMeditationSessionPerReligionBoolean ? (
                         topThreeReligions.map((religion, index) => {

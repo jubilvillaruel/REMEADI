@@ -102,24 +102,23 @@ export const FeatureCardWide = ({ title, desc, image, onPress, width }) => {
       <Text style={[styles.bold, {textAlign:'center', fontSize: RFPercentage(3), marginBottom:10, color:'#5c5c5c', fontWeight:'400', marginTop:15 }]}>{title}</Text>
       <Text style={[ {textAlign:'center', fontSize: RFPercentage(2), color:'#5c5c5c', fontWeight:'300'}]}>{desc}</Text>
       {/* <Text style={[ {paddingVertical:20, fontSize: RFPercentage(2.5), color:'#5c5c5c', fontWeight:'500'}]}>Next→</Text> */}
-      <View style={{flexDirection:'row', paddingTop:10}}>
+      <View style={{flexDirection:'row', paddingTop:10, justifyContent: 'space-between'}}>
         <FlipCard
             flipHorizontal={true}
             flipVertical={false}
             flip={textFlipped}
             clickable={false}
             style={{ flex:1, justifyContent:'center' }}>
-            <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia2]} onPress={speakStep}>
+            <TouchableOpacity style={[inStyles.btnMedia2]} onPress={speakStep}>
               <Image style={[{ width: 30, height: 30 }]} source={speak}/>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia2]} onPress={stopSpeech}>
+            <TouchableOpacity style={[inStyles.btnMedia2]} onPress={stopSpeech}>
               <Image style={[{ width: 20, height: 20 }]} source={stop}/>
             </TouchableOpacity>
         </FlipCard>
-        <View style={[inStyles.btn]}>
+        {/* <View style={[inStyles.btn]}>
             <Image style={[{ width: 25, height: 25 }]} source={next}/>
-        </View>
-        {/* <Image style={[{ width: 50, height: 50, borderRadius:50, backgroundColor:'#FFFFFF' }]} source={next}/> */}
+        </View> */}
       </View>
     </TouchableOpacity>
   );
@@ -159,7 +158,7 @@ export const IconCard = ({ title, desc, icon, onPress }) => {
   },[milestones])
 
   return (
-    <TouchableOpacity style={[inStyles.milestoneLockedItem, styles.dropShadow, (milestoneStatus) && inStyles.milestoneUnlockedItem]} onPress={onPress}>
+    <TouchableOpacity style={[inStyles.milestoneLockedItem, (milestoneStatus) && inStyles.milestoneUnlockedItem]} onPress={onPress}>
       <View style={inStyles.milestoneContent}>
         <Text style={[styles.colorWhite, styles.bold, { fontSize: RFPercentage(2.3) }]}>{title}</Text>
         <Text style={[styles.colorWhite]}>{desc}</Text>
@@ -210,7 +209,7 @@ export const StepCard = ({ count, desc, detailedDesc }) => {
   };
   
   return (
-    <TouchableOpacity style={[inStyles.stepsItemContainer, styles.dropShadow]} onPress={replaceText}>
+    <TouchableOpacity style={[inStyles.stepsItemContainer]} onPress={replaceText}>
       <View style={inStyles.stepHeader}>
         <View style={[inStyles.stepTitle, styles.bgColorPrimary]}>
           <Text style={styles.colorWhite}>{count}</Text>
@@ -222,10 +221,10 @@ export const StepCard = ({ count, desc, detailedDesc }) => {
           flip={textFlipped}
           clickable={false}
           style={{ width: 20, height: 20, right: 15, position: 'absolute' }}>
-          <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia]} onPress={speakStep}>
+          <TouchableOpacity style={[inStyles.btnMedia]} onPress={speakStep}>
             <Image style={[{ width: 20, height: 20 }]} source={text}/>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.dropShadow, inStyles.btnMedia]} onPress={stopSpeech}>
+          <TouchableOpacity style={[inStyles.btnMedia]} onPress={stopSpeech}>
             <Image style={[{ width: 20, height: 20 }]} source={stop}/>
           </TouchableOpacity>
         </FlipCard>

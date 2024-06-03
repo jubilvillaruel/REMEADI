@@ -50,7 +50,7 @@ export default function Account({ navigation, route }) {
 
     return (
         <SafeAreaView style={{ top: 0, backgroundColor: '#FFFFFF', paddingTop: 40 }}>
-            <View style={[ styles.dropShadow, { padding: 20, width: '100%' }]}>
+            <View style={[{ padding: 20, width: '100%' }]}>
                 <Text style={[ inStyles.title, styles.colorPrimary]}>System</Text>
                 <View style={inStyles.optionContainer}>
                     <Text style={{ fontWeight: '500' }}>Notifications</Text>
@@ -74,7 +74,7 @@ export default function Account({ navigation, route }) {
                 </View>
             </View>
 
-            <View style={[ styles.dropShadow, { padding: 20, width: '100%' }]}>
+            <View style={[{ padding: 20, width: '100%' }]}>
                 <Text style={[ inStyles.title, styles.colorPrimary]}>Daily Motivation</Text>
                 <View style={inStyles.optionContainer}>
                     <Text style={{ fontWeight: '500' }}>Faith-Focused</Text>
@@ -88,25 +88,15 @@ export default function Account({ navigation, route }) {
                 </View>
             </View>
 
-            <View style={[ styles.dropShadow, { padding: 20, width: '100%' }]}>
+            <View style={[{ padding: 20, width: '100%' }]}>
                 <Text style={[ inStyles.title, styles.colorPrimary]}>Profile</Text>
                 <TouchableOpacity style={inStyles.optionContainer} onPress={goToEditAccount}>
                     <Text style={{ fontWeight: '500' }}>Edit Account Details</Text>
                 </TouchableOpacity>
-                {/* <TouchableOpacity style={inStyles.optionContainer}>
-                    <Text style={{ fontWeight: '500' }}>Switch Account</Text>
-                </TouchableOpacity> */}
                 <TouchableOpacity style={inStyles.optionContainer} onPress={handleLogout}>
                     <Text style={{ color: 'red', fontWeight: '500' }}>Sign Out</Text>
                 </TouchableOpacity>
             </View>
-
-            {/* <View style={[ styles.dropShadow, { padding: 20, width: '100%' }]}>
-                <Text style={[ inStyles.title, styles.colorPrimary]}>Notification</Text>
-                <TouchableOpacity style={inStyles.optionContainer} onPress={goToEditNotify}>
-                    <Text style={{ fontWeight: '500' }}>Set up Notification</Text>
-                </TouchableOpacity>
-            </View> */}
         </SafeAreaView>
     );
 }

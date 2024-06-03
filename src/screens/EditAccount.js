@@ -160,14 +160,14 @@ export default function EditAccount({ navigation }) {
             </View>
           </View>
 
-          <TouchableOpacity style={[styles.bgColorPrimary, inStyles.btnSave, styles.dropShadow]} onPress={hanldeChangePassword}>
+          <TouchableOpacity style={[styles.bgColorPrimary, inStyles.btnSave]} onPress={hanldeChangePassword}>
             <Text style={[styles.colorWhite, { fontWeight: 'bold' }]}>Save Changes</Text>
           </TouchableOpacity>
         </View>
 
         <Modal visible={msgVisible} animationType='slide' transparent={true}>
           <View style={inStyles.modalContainer}>
-              <View style={[inStyles.modalContent, styles.dropShadow]}>
+              <View style={[inStyles.modalContent]}>
                   <Text style={{ textAlign: 'center' }}>Account details changed successfully!</Text>
                   <PrimaryButton
                     text='Continue'
